@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Message.belongsTo(models.Group, {
-          foreignKey: 'messageId',
+          foreignKey: 'groupId',
           onDelete: 'CASCADE',
         });
       },

@@ -1,5 +1,6 @@
 const Group = require('../data/models').Group;
 
+
 module.exports = {
 	create(req, res) {
 		return Group
