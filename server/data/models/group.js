@@ -4,17 +4,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    users: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
-    },
   }, {
     classMethods: {
       associate: (models) => {
         Group.hasMany(models.Message, {
-          foreignKey: 'messageId',
+          foreignKey: 'groupId',
           as: 'messages',
-        });        
+        });               
+      },
+      associate: (models) => {
+        Group.hasMany(models.Users, {
+          foreignKey: 'groupId',
+          as: 'users',
+        });               
       },
     },
   });

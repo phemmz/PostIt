@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    messageId: {
+    groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

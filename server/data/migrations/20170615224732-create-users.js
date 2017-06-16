@@ -1,27 +1,22 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => 
-    queryInterface.createTable('Messages', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      content: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      readcheck: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      username: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       groupId: {
         type: Sequelize.INTEGER,
@@ -34,5 +29,5 @@ module.exports = {
       },
     }),
   down: (queryInterface/*, Sequelize*/) =>
-    queryInterface.dropTable('Messages'),
+    queryInterface.dropTable('Users'),
 };
