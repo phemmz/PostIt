@@ -11,10 +11,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      users: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

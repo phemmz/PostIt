@@ -14,7 +14,7 @@ module.exports = {
 		return Message
 		  .findAll({ where: {groupId: req.params.groupId }  })
 		  .then(msg => {
-		  	if (!msg) {
+		  	if (msg===null) {
 		  		return res.status(400).send({
 		  			message: 'Message Not Found',
 		  		});
