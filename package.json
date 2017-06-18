@@ -5,6 +5,8 @@
   "main": "./server/bin/www",
   "scripts": {
     "start:dev": "SET NODE_ENV=development&& nodemon ./server/bin/www",
+    "lint": "eslint . --ext .json --ext .md",
+    "pretest": "npm run lint",
     "test": "mocha --timeout 10000"
   },
   "repository": {
@@ -32,8 +34,12 @@
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "eslint": "^4.0.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
   }
