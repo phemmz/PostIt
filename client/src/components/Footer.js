@@ -6,7 +6,7 @@ class Footer extends Component {
 			<footer>
 				<div className="footer-copyright">
 					<div classNme="container">					
-						<p>
+						<p style={{textAlign: "center"}}>
 							&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Andela, Inc
 						</p>					
 					</div>

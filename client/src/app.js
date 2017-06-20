@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Groups from './components/Groups';
 import Header from './components/Header';
 import style from '../main.scss';
-//import Footer from './components/Footer';
+import Footer from './components/Footer';
 
 class App extends Component {
 	render() {
@@ -11,7 +11,8 @@ class App extends Component {
 			<div>
 				<Header />
 				Hello React!
-				<Groups />				
+				<Groups />	
+				<Footer />			
 			</div>
 		)
 	}

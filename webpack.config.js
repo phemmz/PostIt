@@ -8,8 +8,9 @@ module.exports = {
 		app: './client/src/app.js'
 	},
 	output: {
-		filename: 'client/public/build/bundle.js',
-		sourceMapFilename: 'client/public/build/bundle.map'
+		path: `${__dirname}/client/public/`,
+		filename: 'bundle.js',
+		sourceMapFilename: 'bundle.map'
 	},
 	devtool: '#source-map',
 	module: {
@@ -41,6 +42,6 @@ module.exports = {
 
 	},
 	plugins: [
-	    new ExtractTextPlugin({filename: '/client/styles.css', allChunks: true})
+	    new ExtractTextPlugin({filename: './styles.css', allChunks: true})
 	],
 }

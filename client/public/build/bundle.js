@@ -9781,10 +9781,6 @@ var _main = __webpack_require__(186);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _Footer = __webpack_require__(187);
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9792,6 +9788,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//import Footer from './components/Footer';
 
 var App = function (_Component) {
 	_inherits(App, _Component);
@@ -9810,8 +9808,7 @@ var App = function (_Component) {
 				null,
 				_react2.default.createElement(_Header2.default, null),
 				'Hello React!',
-				_react2.default.createElement(_Groups2.default, null),
-				_react2.default.createElement(_Footer2.default, null)
+				_react2.default.createElement(_Groups2.default, null)
 			);
 		}
 	}]);
@@ -22566,80 +22563,12 @@ exports.default = Header;
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1497953474599
+      // 1497952966135
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")({"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
     }
   
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(32);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Footer = function (_Component) {
-	_inherits(Footer, _Component);
-
-	function Footer() {
-		_classCallCheck(this, Footer);
-
-		return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
-	}
-
-	_createClass(Footer, [{
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"footer",
-				null,
-				_react2.default.createElement(
-					"div",
-					{ className: "footer-copyright" },
-					_react2.default.createElement(
-						"div",
-						{ classNme: "container" },
-						_react2.default.createElement(
-							"p",
-							{ style: { textAlign: "center" } },
-							"\xA9 ",
-							_react2.default.createElement(
-								"script",
-								{ type: "text/javascript" },
-								"document.write(new Date().getFullYear());"
-							),
-							" Andela, Inc"
-						)
-					)
-				)
-			);
-		}
-	}]);
-
-	return Footer;
-}(_react.Component);
-
-exports.default = Footer;
 
 /***/ })
 /******/ ]);
