@@ -9,7 +9,7 @@ class Groups extends Component {
 				nogroup: "You currently dont belong to any group",
 				create: "Create a group to send broadcast messages"
 			},
-			groups: {},						
+			groups: {},
 
 			list: [
 				{groupname: "JULY-FELLOWS-GENERAL", id: 1},
@@ -25,7 +25,7 @@ class Groups extends Component {
 			)
 		});		
 		return (
-			<div>
+			<div className="welc box">
 				<div className="welc grouplist">
 					<h4 className="green-text text-darken-4">Your Group List</h4>					
 					<ol>

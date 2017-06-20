@@ -4,13 +4,15 @@ import Groups from './components/containers/Groups';
 import Header from './components/containers/Header';
 import style from '../main.scss';
 import Footer from './components/containers/Footer';
+import Messages from './components/containers/Messages';
 
 class App extends Component {
 	render() {
 		return (
 			<div>
 				<Header />				
-				<Groups />	
+				<Groups />
+				<Messages />	
 				<Footer />			
 			</div>
 		)
