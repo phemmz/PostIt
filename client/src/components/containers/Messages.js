@@ -12,12 +12,33 @@ class Messages extends Component {
 				priority: ''
 			},
 
-			list: [
-				{content: "Yu should do this today", groupId: 1, priority: 2},
-				{content: "Am going out", groupId: 1, priority: 1},
-				{content: "When is your birthday", groupId: 3, priority: 0}
-			]
+			list: []
 		}
+	}
+
+	updateId(event) {
+		let updatedId = Object.assign({}, this.state.messages);
+		updatedId['groupId'] = event.target.value;
+		this.setState({
+			messages: updatedId
+		})
+	}
+
+	updateMessage(event) {
+		let updatedMessage = Object.assign({}, this.state.messages);
+		updatedMessage[event.target.id] = event.target.value;
+		this.setState({
+			messages: updatedMessage
+		})
+	}
+
+	sendMessage() {
+		let updatedList = Object.assign([], this.state.list);
+		updatedList.push(this.state.messages);
+		this.setState({
+			list: updatedList
+		})
+		console.log(JSON.stringify(this.state.list));
 	}
 
 	render() {
@@ -30,7 +51,7 @@ class Messages extends Component {
 			<div className="welc msgbox">
 				<div className="welc msglist">
 					<h4 className="green-text text-darken-4">Message Board Room</h4>					
-					<ol>
+					<ol style={{listStyle: "none"}}>
 						{messageList}
 					</ol>							
 				</div>
@@ -39,13 +60,17 @@ class Messages extends Component {
 					<div className="container">
 						<div className="row">							
 							<div className="input-field col s12">
-								<input id="groupId" type="text" className="form-control" />
-								<label htmlFor="groupId">Group Id</label>
+								<input onChange={this.updateId.bind(this)} id="groupIds" type="text" className="form-control" />
+								<label htmlFor="groupIds">Group Id</label>
 							</div>
 							<div className="input-field col s12">
-								<input id="content" type="text" className="form-control" />
+								<input onChange={this.updateMessage.bind(this)} id="priority" type="text" className="form-control" />
+								<label htmlFor="priority">Priority</label>																
+							</div>
+							<div className="input-field col s12">
+								<input onChange={this.updateMessage.bind(this)} id="content" type="text" className="form-control" />
 								<label htmlFor="content">Message</label>
-								<button className="waves-effect waves-light btn">Send</button>								
+								<button onClick={this.sendMessage.bind(this)} className="waves-effect waves-light btn">Send</button>								
 							</div>
 						</div>										
 					</div>

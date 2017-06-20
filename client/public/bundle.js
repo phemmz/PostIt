@@ -22489,18 +22489,60 @@ var Groups = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Groups.__proto__ || Object.getPrototypeOf(Groups)).call(this));
 
 		_this.state = {
-			initialmsg: {
-				nogroup: "You currently dont belong to any group",
-				create: "Create a group to send broadcast messages"
-			},
+			users: {},
+
 			groups: {},
 
-			list: [{ groupname: "JULY-FELLOWS-GENERAL", id: 1 }, { groupname: "JULY-FELLOWS-RANDOM", id: 2 }, { groupname: "JULY-FELLOWS-STANDUPS", id: 3 }]
+			list: [],
+
+			userList: []
 		};
+
 		return _this;
 	}
 
 	_createClass(Groups, [{
+		key: 'updateGroup',
+		value: function updateGroup(event) {
+
+			console.log('Groupname: ' + event.target.value);
+			var updatedGroup = Object.assign({}, this.state.groups);
+			updatedGroup['groupname'] = event.target.value;
+			this.setState({
+				groups: updatedGroup
+			});
+		}
+	}, {
+		key: 'updateUser',
+		value: function updateUser(event) {
+			console.log('Username: ' + event.target.id + ' == ' + event.target.value);
+			var updatedUser = Object.assign({}, this.state.users);
+			updatedUser[event.target.id] = event.target.value;
+			this.setState({
+				users: updatedUser
+			});
+			console.log(JSON.stringify(this.state.user));
+		}
+	}, {
+		key: 'createGroup',
+		value: function createGroup() {
+			var updatedList = Object.assign([], this.state.list);
+			updatedList.push(this.state.groups);
+			this.setState({
+				list: updatedList
+			});
+		}
+	}, {
+		key: 'addUser',
+		value: function addUser() {
+			var updatedUserLists = Object.assign([], this.state.userList);
+			updatedUserLists.push(this.state.users);
+			this.setState({
+				userList: updatedUserLists
+			});
+			console.log(JSON.stringify(this.state.userList));
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var listItems = this.state.list.map(function (group, i) {
@@ -22544,7 +22586,8 @@ var Groups = function (_Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-field col s12' },
-								_react2.default.createElement('input', { id: 'groupname', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('input', { onChange: this.updateGroup.bind(this), id: 'groupname', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('script', null),
 								_react2.default.createElement(
 									'label',
 									{ htmlFor: 'groupname' },
@@ -22552,7 +22595,7 @@ var Groups = function (_Component) {
 								),
 								_react2.default.createElement(
 									'button',
-									{ className: 'waves-effect waves-light btn' },
+									{ onClick: this.createGroup.bind(this), className: 'waves-effect waves-light btn' },
 									'Create Group'
 								)
 							)
@@ -22563,7 +22606,7 @@ var Groups = function (_Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-field col s12' },
-								_react2.default.createElement('input', { id: 'username', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('input', { onChange: this.updateUser.bind(this), id: 'username', type: 'text', className: 'form-control' }),
 								_react2.default.createElement(
 									'label',
 									{ htmlFor: 'username' },
@@ -22573,15 +22616,15 @@ var Groups = function (_Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-field col s12' },
-								_react2.default.createElement('input', { id: 'groupid', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('input', { onChange: this.updateUser.bind(this), id: 'groupId', type: 'text', className: 'form-control' }),
 								_react2.default.createElement(
 									'label',
-									{ htmlFor: 'groupid' },
+									{ htmlFor: 'groupId' },
 									'Group Id'
 								),
 								_react2.default.createElement(
 									'button',
-									{ className: 'waves-effect waves-light btn' },
+									{ onClick: this.addUser.bind(this), className: 'waves-effect waves-light btn' },
 									'ADD USER'
 								)
 							)
@@ -22729,7 +22772,7 @@ exports.default = Header;
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1497974080553
+      // 1497991990241
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")({"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -22849,12 +22892,40 @@ var Messages = function (_Component) {
 				priority: ''
 			},
 
-			list: [{ content: "Yu should do this today", groupId: 1, priority: 2 }, { content: "Am going out", groupId: 1, priority: 1 }, { content: "When is your birthday", groupId: 3, priority: 0 }]
+			list: []
 		};
 		return _this;
 	}
 
 	_createClass(Messages, [{
+		key: 'updateId',
+		value: function updateId(event) {
+			var updatedId = Object.assign({}, this.state.messages);
+			updatedId['groupId'] = event.target.value;
+			this.setState({
+				messages: updatedId
+			});
+		}
+	}, {
+		key: 'updateMessage',
+		value: function updateMessage(event) {
+			var updatedMessage = Object.assign({}, this.state.messages);
+			updatedMessage[event.target.id] = event.target.value;
+			this.setState({
+				messages: updatedMessage
+			});
+		}
+	}, {
+		key: 'sendMessage',
+		value: function sendMessage() {
+			var updatedList = Object.assign([], this.state.list);
+			updatedList.push(this.state.messages);
+			this.setState({
+				list: updatedList
+			});
+			console.log(JSON.stringify(this.state.list));
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var messageList = this.state.list.map(function (message, i) {
@@ -22877,7 +22948,7 @@ var Messages = function (_Component) {
 					),
 					_react2.default.createElement(
 						'ol',
-						null,
+						{ style: { listStyle: "none" } },
 						messageList
 					)
 				),
@@ -22898,17 +22969,27 @@ var Messages = function (_Component) {
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-field col s12' },
-								_react2.default.createElement('input', { id: 'groupId', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('input', { onChange: this.updateId.bind(this), id: 'groupIds', type: 'text', className: 'form-control' }),
 								_react2.default.createElement(
 									'label',
-									{ htmlFor: 'groupId' },
+									{ htmlFor: 'groupIds' },
 									'Group Id'
 								)
 							),
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-field col s12' },
-								_react2.default.createElement('input', { id: 'content', type: 'text', className: 'form-control' }),
+								_react2.default.createElement('input', { onChange: this.updateMessage.bind(this), id: 'priority', type: 'text', className: 'form-control' }),
+								_react2.default.createElement(
+									'label',
+									{ htmlFor: 'priority' },
+									'Priority'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'input-field col s12' },
+								_react2.default.createElement('input', { onChange: this.updateMessage.bind(this), id: 'content', type: 'text', className: 'form-control' }),
 								_react2.default.createElement(
 									'label',
 									{ htmlFor: 'content' },
@@ -22916,7 +22997,7 @@ var Messages = function (_Component) {
 								),
 								_react2.default.createElement(
 									'button',
-									{ className: 'waves-effect waves-light btn' },
+									{ onClick: this.sendMessage.bind(this), className: 'waves-effect waves-light btn' },
 									'Send'
 								)
 							)
@@ -22980,8 +23061,14 @@ var Message = function (_Component) {
 				_react2.default.createElement(
 					"span",
 					{ className: "z-depth-1 glist", style: { marginRight: 10 } },
-					this.props.currentMessage.priority,
-					">"
+					"GroupId: ",
+					this.props.currentMessage.groupId
+				),
+				_react2.default.createElement(
+					"span",
+					{ className: "z-depth-1 glist", style: { marginRight: 10 } },
+					"Priority: ",
+					this.props.currentMessage.priority
 				)
 			);
 		}
