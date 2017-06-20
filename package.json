@@ -5,8 +5,7 @@
   "main": "./server/bin/www",
   "scripts": {
     "start:dev": "SET NODE_ENV=development&& nodemon ./server/bin/www",
-    "lint": "eslint . --ext .md",
-    "pretest": "npm run lint",
+    "eslint": "./node_modules/.bin/eslint app.js",
     "test": "mocha --timeout 10000"
   },
   "repository": {

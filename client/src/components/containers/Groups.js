@@ -11,6 +11,8 @@ class Groups extends Component {
 			},
 			groups: {},
 
+									
+
 			list: [
 				{groupname: "JULY-FELLOWS-GENERAL", id: 1},
 				{groupname: "JULY-FELLOWS-RANDOM", id: 2},
