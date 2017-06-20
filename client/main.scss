@@ -28,20 +28,24 @@
 .grouplist{
   margin: 3rem 0 2rem 2rem;
   padding-right: 0;  
-  height: 170px;
+  
   width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 .msgglist {
   height: 250px;
 }
 
 .glist {
-  width: 400px;
+  width: 500px;
+  margin-top: 20px;
 }
 
 .groupform{
-  margin: -13rem 0 2rem 50rem;
-  height: 360px;
+  margin: 2rem 5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
   width: 500px;
 }
 
@@ -74,9 +78,6 @@
 
 }
 
-.glist {
-  margin-top: 0;
-}
 
 .text-darken-4 {
 	font-weight: bold;

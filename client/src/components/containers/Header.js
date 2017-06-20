@@ -7,7 +7,7 @@ class Header extends Component {
 				<div className="reg">
 					<em className="post">POSTIT</em>
 			
-					<a href="./homepage" className="waves-effect waves-light btn lgout" style={{marginLeft: "60em"}}>Logout</a>
+					<a href="./homepage" className="waves-effect waves-light btn lgout" style={{marginLeft: 70}}>Logout</a>
 				</div>
 			</div>
 		)

@@ -5,8 +5,8 @@ class Footer extends Component {
 		return (
 			<footer>
 				<div className="footer-copyright">
-					<div classNme="container">					
-						<p style={{textAlign: "center"}}>
+					<div className="container">					
+						<p style={{marginLeft: 50}}>
 							&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Andela, Inc
 						</p>					
 					</div>

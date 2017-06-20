@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Groups from './components/Groups';
-import Header from './components/Header';
+import Groups from './components/containers/Groups';
+import Header from './components/containers/Header';
 import style from '../main.scss';
-import Footer from './components/Footer';
+import Footer from './components/containers/Footer';
 
 class App extends Component {
 	render() {
 		return (
 			<div>
-				<Header />
-				Hello React!
+				<Header />				
 				<Groups />	
 				<Footer />			
 			</div>
