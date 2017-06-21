@@ -11,6 +11,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      priority: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      }
       readcheck: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

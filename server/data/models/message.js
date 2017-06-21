@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    priority: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
