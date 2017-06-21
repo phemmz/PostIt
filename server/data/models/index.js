@@ -1,14 +1,19 @@
 const fs        = require('fs');
 const path      = require('path');
 const Sequelize = require('sequelize');
-const basename  = path.basename(module.filename);
+const dotenv = require('dotenv');
 const env       = process.env.NODE_ENV || 'development';
-const config    = require(`${__dirname}/../config/config.json`)[env];
+const config    = require('../config/config.json')[env];
+
+const basename  = path.basename(module.filename);
+
 const db        = {};
 
+dotenv.config();
+
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+if (config.url) { 
+  sequelize = new Sequelize(config.url);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
