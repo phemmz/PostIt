@@ -7,7 +7,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="container">
-			    <div className="row" style={{position: "absolute"}}>
+			    <div className="row">
 			        <div className="col-md-6">
 			            <Groups />
 			        </div>
