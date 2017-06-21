@@ -11,3 +11,4 @@ services:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
+  - node ./server/data/20170615125201-create-account.js -d postgres://postgres@localhost/travis_ci_test
