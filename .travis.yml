@@ -1,5 +1,8 @@
 language: node_js
 
+env:
+  - DB=postgres://postgres@localhost/travis_ci_test
+
 node_js:
   - "stable"
 
