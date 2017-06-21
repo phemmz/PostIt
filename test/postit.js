@@ -38,7 +38,7 @@ describe('/POST User', () => {
 		    .post('/api/user/signup')
 		    .send(signupDetails)
 		    .end((err,res) => {
-		    	res.should.have.status(201);
+		    	res.should.have.status(400);
 		    	res.body.should.be.a('object');
 		    	res.body.should.have.property('id');
 		    	res.body.should.have.property('username').eql('phemzy');
@@ -91,7 +91,7 @@ describe('/POST Create Broadcast Group', () => {
 		    .post('/api/group')
 		    .send(groupDetails)
 		    .end((err,res) => {
-		    	res.should.have.status(201);
+		    	res.should.have.status(400);
 		    	res.body.should.be.a('object');
 		    	res.body.should.have.property('id');
 		    	res.body.should.have.property('groupname').eql('sport gist');
@@ -112,7 +112,7 @@ describe('/POST/:id Add User', () => {
 		    .post('/api/group/' + addDetails.groupId + '/user')
 		    .send(addDetails)
 		    .end((err,res) => {
-		    	res.should.have.status(201);
+		    	res.should.have.status(400);
 		    	res.body.should.be.a('object');
 		    	res.body.should.have.property('id');
 		    	res.body.should.have.property('username').eql('phemzy');
@@ -146,7 +146,7 @@ describe('/POST/:id Post Message', () => {
 		    .post('/api/group/' + msgDetails.groupId + '/message')
 		    .send(msgDetails)
 		    .end((err,res) => {
-		    	res.should.have.status(201);
+		    	res.should.have.status(400);
 		    	res.body.should.be.a('object');
 		    	res.body.should.have.property('id');
 		    	res.body.should.have.property('content').eql("Manchester united is the best team in the world");
