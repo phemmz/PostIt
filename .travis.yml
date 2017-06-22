@@ -1,7 +1,8 @@
 language: node_js
 
 env:
-  - DATABASE_URL=postgres://postgres@localhost/travis_ci_test
+  - NODE_ENV="development"
+  - NODE_ENV="production";SESSION_SECRET="hello"
 
 node_js:
   - "stable"
@@ -11,4 +12,3 @@ services:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - node ./server/data/migrations/20170615125201-create-account.js -d postgres://postgres@localhost/travis_ci_test
