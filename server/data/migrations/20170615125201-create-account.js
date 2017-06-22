@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) =>
     queryInterface.createTable('Accounts', {
       id: {
@@ -9,14 +9,17 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       email: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
+        isEmail: true,
         allowNull: false,
       },
       password: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
+        len: [5,30],
         allowNull: false,
       },
       createdAt: {

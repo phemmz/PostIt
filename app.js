@@ -1,7 +1,15 @@
-const express = require('express');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const path = require('path');
+import express from 'express';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import path from 'path';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import apiRoutes from './server/routes/apiRoutes.js';
+import index from './server/routes/index.js';
+
+
+
+dotenv.config();
 
 
 //Express app setup
@@ -17,14 +25,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, './client/public')));
 
-//Require our routes into the application
-require('./server/routes/apiRoutes')(app);
-require('./server/routes/index.js')(app);
+app.use(session({
+	secret: "hello",
+	resave: false,
+	saveUninitialized: true
+}));
 
+//Require our routes into the application
+
+apiRoutes(app);
+index(app);
 
 //Setup a default catch-all route that sends back a welcome message in JSON format
 app.get('*', (req, res) => res.status(200).send({
 	message: 'Welcome!!!'
 }));
 
-module.exports = app;
+const port = 8000;
+app.listen(port, () => {
+	console.log('Listening on port 8000...')
+})
+
+export default app;

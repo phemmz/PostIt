@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   up: (queryInterface, Sequelize) => 
     queryInterface.createTable('Messages', {
       id: {
@@ -13,11 +13,10 @@ module.exports = {
       },
       priority: {
         type: Sequelize.INTEGER,
-        defaultValue: 0,
-      }
+        allowNull: false
+      },
       readcheck: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        type: Sequelize.BOOLEAN        
       },
       createdAt: {
         allowNull: false,

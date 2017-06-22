@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
 //Import the model
-const Message = require('../server/data/models').Message;
+import Message from '../server/data/models/message.js'
 
 //Import the dev-dependencies
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../server/bin/www');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../app.js';
 
 let should = chai.should();
 

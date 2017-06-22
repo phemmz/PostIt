@@ -4,9 +4,12 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
-    "start:dev": "SET NODE_ENV=development&& nodemon ./server/bin/www",
+    "build": "babel app.js -d dist --presets es2015",
+    "start": "babel-node app.js --presets es2015",
+    "serve": "node dist/app.js",
+    "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha dist/test --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -22,11 +25,20 @@
   },
   "homepage": "https://github.com/phemmz/PostIt#readme",
   "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "hjs": "0.0.6",
     "morgan": "^1.8.2",
+    "multer": "^1.3.0",
     "pg": "^6.2.4",
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",

@@ -1,9 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-module.exports = (app) => {
+export default (app) => {
 	app.get('/', (req, res, next) => {
 		res.render('index', { title: 'PostIt' });
 	});
-}
-
+};
