@@ -4,8 +4,8 @@ var Group = require('../data/models').Group;
 
 exports.create = function (req, res) {
 	console.log(req.body);
-	console.log(req.session.name);
-	if (req.session.name) {
+	console.log(req.session.user);
+	if (req.session.user) {
 		return Group.create({
 			groupname: req.body.groupname
 		}).catch(function (error) {
