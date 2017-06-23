@@ -33,11 +33,9 @@ exports.retrieve = function (req, res) {
 		if (bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
 			req.session.user = req.body.userdetails;
 			//req.session.id = userdetails[0].id;
-			// res.json({
-			// 	message: "Login successful"
-			// });
-			res.end();
-			res.render('group');
+			res.json({
+				message: "Login successful"
+			});
 		} else {
 			res.json({
 				message: "Check your login details"

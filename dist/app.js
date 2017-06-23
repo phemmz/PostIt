@@ -72,8 +72,10 @@ app.get('*', function (req, res) {
 });
 
 var port = 8000;
-app.listen(port, function () {
-	console.log('Listening on port 8000...');
-});
+if (!module.parent) {
+	app.listen(port, function () {
+		console.log('Listening on port 8000...');
+	});
+}
 
 exports.default = app;

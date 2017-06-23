@@ -42,8 +42,11 @@ app.get('*', (req, res) => res.status(200).send({
 }));
 
 const port = 8000;
-app.listen(port, () => {
-	console.log('Listening on port 8000...')
-})
+if(!module.parent) {
+	app.listen(port, () => {
+		console.log('Listening on port 8000...')
+	});
+}
+
 
 export default app;

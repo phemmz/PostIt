@@ -4,10 +4,12 @@ exports.create = function(req, res) {
 	
 	console.log(req.body);
 	console.log(req.params.groupId);
-	if(req.session.name) {
+	//if(req.session.name) {
 		return Message
 	    .create({
 	  	    content: req.body.content,
+	  	    readcheck: req.body.readcheck,
+	  	    priority: req.body.priority,
 	  	    groupId: req.params.groupId,
 	    })		
 	    .catch((error) => {
@@ -15,21 +17,25 @@ exports.create = function(req, res) {
 	    	res.json({
 	    		message: "Error sending message"
 	    	});
+	    })
+	    .then((message) => {
+	    	res.json({
+				message: "Message sent",
+				result: message
+			});
 	    });
-		res.json({
-			message: "Message sent"
-		});
-	}
-	else {
-		res.json({
-			message: "Login to send message"
-		});
-	}
+		
+	// }
+	// else {
+	// 	res.json({
+	// 		message: "Login to send message"
+	// 	});
+	// }
 };
 
 exports.retrieve = function(req, res) {
 	
-	if(req.session.name) {
+	// if(req.session.name) {
 		return Message.findAll({ 
 		  	where: {groupId: req.params.groupId }
 		})
@@ -44,10 +50,11 @@ exports.retrieve = function(req, res) {
 	    		message: "Error getting message"
 	    	});
 		});
-	}	
-	else {
-		res.json({
-			message: "Login to get messages"
-		});
-	}
+		
+	// }	
+	// else {
+	// 	res.json({
+	// 		message: "Login to get messages"
+	// 	});
+	// }
 };

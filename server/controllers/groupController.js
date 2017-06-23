@@ -3,7 +3,7 @@ const Group = require('../data/models').Group;
 exports.create = function(req, res) {		
 	console.log(req.body);
 	console.log(req.session.user);
-	if (req.session.user) {
+	//if (req.session.user) {
 		return Group
 		    .create({
 		  	    groupname: req.body.groupname,		  	
@@ -13,15 +13,19 @@ exports.create = function(req, res) {
 		    	res.json({
 		    		message: "Cant save to database"
 		    	});
+		    })
+		    .then((group) => {
+		    	res.json({
+					message: "Group successfully created",
+					result: group
+				});
 		    });		    		
-			res.json({
-				message: "Group successfully created"
-			});
 			
-	}
-	else {
-		res.json({
-			message: "You need to login to create a group"
-		});
-	}
+
+	// }
+	// else {
+	// 	res.json({
+	// 		message: "You need to login to create a group"
+	// 	});
+	// }
 };

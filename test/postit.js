@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 //Import the model
-import Message from '../server/data/models/message.js'
+const Message = require('../server/data/models').Message
 
 //Import the dev-dependencies
 import chai from 'chai';
@@ -28,27 +28,27 @@ describe('/POST User', () => {
 		      done();		    	
 		    });
 	});
-// 	it('it should POST signup details ', (done) => {
-// 		let signupDetails = {
-// 			username: "phemzy",
-// 			email: "phemzy@gmail.com",
-// 			password: "phemzy"
-// 		}
-// 		chai.request(server)
-// 		    .post('/api/user/signup')
-// 		    .send(signupDetails)
-// 		    .end((err,res) => {
-// 		    	res.should.have.status(201);
-// 		    	res.body.should.be.a('object');
-// 		    	res.body.should.have.property('id');
-// 		    	res.body.should.have.property('username').eql('phemzy');
-// 		    	res.body.should.have.property('email').eql('phemzy@gmail.com');
-// 		    	res.body.should.have.property('password').eql('phemzy');
-// 		    	res.body.should.have.property('createdAt');
-// 		      done();
-// 		    });
-// 	});
-// });
+	// it('it should POST signup details ', (done) => {
+	// 	let signupDetails = {
+	// 		username: "phemzy",
+	// 		email: "phemzy@gmail.com",
+	// 		password: "phemzy"
+	// 	}
+	// 	chai.request(server)
+	// 	    .post('/api/user/signup')
+	// 	    .send(signupDetails)
+	// 	    .end((err,res) => {
+	// 	    	res.should.have.status(201);
+	// 	    	res.body.should.be.a('object');
+	// 	    	res.body.should.have.property('id');
+	// 	    	res.body.should.have.property('username').eql('phemzy');
+	// 	    	res.body.should.have.property('email').eql('phemzy@gmail.com');
+	// 	    	res.body.should.have.property('password').eql('phemzy');
+	// 	    	res.body.should.have.property('createdAt');
+	// 	      done();
+	// 	    });
+	// });
+});
 
 // //Test the POST: /api/user/signin route
 // describe('/POST User', () => {
@@ -175,4 +175,4 @@ describe('/POST User', () => {
 // 			});
 // 		});
 // 	});
-});
+// });
