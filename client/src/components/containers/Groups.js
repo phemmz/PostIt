@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Group from '../presentation/Group';
+import superagent from 'superagent';
 
 class Groups extends Component {
 	constructor() {
@@ -14,6 +15,25 @@ class Groups extends Component {
 			userList: []
 		}
 
+	}
+
+	componentDidMount() {
+		console.log("Hello from comp");
+		superagent
+		.get('/api/group')
+		.query(null)
+		.set('Accept', 'application/json')
+		.end((err, response) => {
+			if(err) {
+				alert('Error: ' +err);
+				return
+			}
+			console.log(JSON.stringify(response.body));
+			let results = response.body.results;
+			this.setState({
+				list: results 
+			});
+		})
 	}
 
 	updateGroup(event) {		

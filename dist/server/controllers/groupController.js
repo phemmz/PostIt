@@ -19,11 +19,26 @@ exports.create = function (req, res) {
 			result: group
 		});
 	});
-
-	// }
-	// else {
-	// 	res.json({
-	// 		message: "You need to login to create a group"
-	// 	});
-	// }
 };
+exports.retrieve = function (req, res) {
+
+	// req.session.username = req.body.username;
+	return Group.findAll({}).then(function (group) {
+		res.json({
+			confirmation: "success",
+			results: group
+		});
+	}).catch(function (error) {
+		console.log(error);
+		res.json({
+			confirmation: "fail",
+			message: error
+		});
+	});
+};
+// }
+// else {
+// 	res.json({
+// 		message: "You need to login to create a group"
+// 	});
+// }
