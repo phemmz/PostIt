@@ -22879,16 +22879,6 @@ exports.default = {
 		});
 	},
 
-<<<<<<< HEAD
-// removed by extract-text-webpack-plugin
-    if(false) {
-      // 1498303689669
-      const cssReload = require("../../node_modules/css-hot-loader/hotModuleReplacement.js")({"fileMap":"{fileName}"});
-      module.hot.dispose(cssReload);
-      module.hot.accept(undefined, cssReload);
-    }
-  
-=======
 	post: function post(url, body, callback) {
 		_superagent2.default.post(url).send(body).set('Accept', 'application/json').end(function (err, response) {
 			if (err) {
@@ -22906,7 +22896,6 @@ exports.default = {
 	}
 
 };
->>>>>>> frontendapi
 
 /***/ }),
 /* 190 */
@@ -25244,7 +25233,7 @@ exports.default = Header;
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1498318746635
+      // 1498332129687
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")({"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
