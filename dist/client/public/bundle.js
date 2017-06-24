@@ -9792,6 +9792,10 @@ var _Home = __webpack_require__(185);
 
 var _Home2 = _interopRequireDefault(_Home);
 
+var _main = __webpack_require__(201);
+
+var _main2 = _interopRequireDefault(_main);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22472,15 +22476,15 @@ var _Groups = __webpack_require__(186);
 
 var _Groups2 = _interopRequireDefault(_Groups);
 
-var _Messages = __webpack_require__(195);
+var _Messages = __webpack_require__(197);
 
 var _Messages2 = _interopRequireDefault(_Messages);
 
-var _Footer = __webpack_require__(197);
+var _Footer = __webpack_require__(199);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Header = __webpack_require__(198);
+var _Header = __webpack_require__(200);
 
 var _Header2 = _interopRequireDefault(_Header);
 
@@ -22506,11 +22510,23 @@ var Home = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'container', style: { marginRight: 0, marginLeft: 0, width: "100em" } },
 				_react2.default.createElement(_Header2.default, null),
-				_react2.default.createElement(_Groups2.default, null),
-				_react2.default.createElement(_Messages2.default, null),
-				_react2.default.createElement(_Footer2.default, null)
+				_react2.default.createElement(
+					'div',
+					{ className: 'row', style: { marginTop: 0 } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-6' },
+						_react2.default.createElement(_Groups2.default, null)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-6', style: { marginTop: "-64rem", position: "absolute", marginLeft: "45rem" } },
+						_react2.default.createElement(_Messages2.default, null)
+					),
+					_react2.default.createElement(_Footer2.default, null)
+				)
 			);
 		}
 	}]);
@@ -22541,9 +22557,7 @@ var _Group = __webpack_require__(187);
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _superagent = __webpack_require__(188);
-
-var _superagent2 = _interopRequireDefault(_superagent);
+var _utils = __webpack_require__(188);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22579,16 +22593,13 @@ var Groups = function (_Component) {
 		value: function componentDidMount() {
 			var _this2 = this;
 
-			console.log("Hello from comp");
-			_superagent2.default.get('/api/group').query(null).set('Accept', 'application/json').end(function (err, response) {
+			_utils.APIManager.get('api/group', null, function (err, response) {
 				if (err) {
-					alert('Error: ' + err);
+					alert('ERROR: ' + err.message);
 					return;
 				}
-				console.log(JSON.stringify(response.body));
-				var results = response.body.results;
 				_this2.setState({
-					list: results
+					list: response.results
 				});
 			});
 		}
@@ -22617,10 +22628,20 @@ var Groups = function (_Component) {
 	}, {
 		key: 'createGroup',
 		value: function createGroup() {
-			var updatedList = Object.assign([], this.state.list);
-			updatedList.push(this.state.groups);
-			this.setState({
-				list: updatedList
+			var _this3 = this;
+
+			var updatedGroup = Object.assign({}, this.state.groups);
+			_utils.APIManager.post('/api/group', updatedGroup, function (err, response) {
+				if (err) {
+					alert('ERROR: ' + err.message);
+					return;
+				}
+				console.log('Group CREATED: ' + JSON.stringify(response));
+				var updatedList = Object.assign([], _this3.state.list);
+				updatedList.push(response.result);
+				_this3.setState({
+					list: updatedList
+				});
 			});
 		}
 	}, {
@@ -22645,7 +22666,7 @@ var Groups = function (_Component) {
 			});
 			return _react2.default.createElement(
 				'div',
-				{ className: 'welc box' },
+				{ className: 'welc box', style: { marginRight: 0, paddingRight: 0 } },
 				_react2.default.createElement(
 					'div',
 					{ className: 'welc grouplist' },
@@ -22808,6 +22829,78 @@ exports.default = Group;
 /* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.APIManager = undefined;
+
+var _APIManager = __webpack_require__(189);
+
+var _APIManager2 = _interopRequireDefault(_APIManager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.APIManager = _APIManager2.default;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _superagent = __webpack_require__(190);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+	get: function get(url, params, callback) {
+		_superagent2.default.get(url).query(params).set('Accept', 'application/json').end(function (err, response) {
+			if (err) {
+				callback(err, null);
+				return;
+			}
+			var confirmation = response.body.confirmation;
+			if (confirmation != 'success') {
+				callback({ message: response.body.message }, null);
+				return;
+			}
+			callback(null, response.body);
+		});
+	},
+
+	post: function post(url, body, callback) {
+		_superagent2.default.post(url).send(body).set('Accept', 'application/json').end(function (err, response) {
+			if (err) {
+				callback(err, null);
+				return;
+			}
+
+			var confirmation = response.body.confirmation;
+			if (confirmation != 'success') {
+				callback({ message: response.body.message }, null);
+				return;
+			}
+			callback(null, response.body);
+		});
+	}
+
+};
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /**
  * Root reference for iframes.
  */
@@ -22822,12 +22915,12 @@ if (typeof window !== 'undefined') { // Browser window
   root = this;
 }
 
-var Emitter = __webpack_require__(189);
-var RequestBase = __webpack_require__(190);
+var Emitter = __webpack_require__(191);
+var RequestBase = __webpack_require__(192);
 var isObject = __webpack_require__(50);
-var isFunction = __webpack_require__(191);
-var ResponseBase = __webpack_require__(192);
-var shouldRetry = __webpack_require__(194);
+var isFunction = __webpack_require__(193);
+var ResponseBase = __webpack_require__(194);
+var shouldRetry = __webpack_require__(196);
 
 /**
  * Noop.
@@ -23744,7 +23837,7 @@ request.put = function(url, data, fn){
 
 
 /***/ }),
-/* 189 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -23913,7 +24006,7 @@ Emitter.prototype.hasListeners = function(event){
 
 
 /***/ }),
-/* 190 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24510,7 +24603,7 @@ RequestBase.prototype._setTimeouts = function() {
 
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24531,7 +24624,7 @@ module.exports = isFunction;
 
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -24539,7 +24632,7 @@ module.exports = isFunction;
  * Module dependencies.
  */
 
-var utils = __webpack_require__(193);
+var utils = __webpack_require__(195);
 
 /**
  * Expose `ResponseBase`.
@@ -24670,7 +24763,7 @@ ResponseBase.prototype._setStatusProperties = function(status){
 
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, exports) {
 
 
@@ -24743,7 +24836,7 @@ exports.cleanHeader = function(header, shouldStripCookie){
 };
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, exports) {
 
 var ERROR_CODES = [
@@ -24772,7 +24865,7 @@ module.exports = function shouldRetry(err, res) {
 
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24788,7 +24881,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Message = __webpack_require__(196);
+var _Message = __webpack_require__(198);
 
 var _Message2 = _interopRequireDefault(_Message);
 
@@ -24861,14 +24954,14 @@ var Messages = function (_Component) {
 			});
 			return _react2.default.createElement(
 				'div',
-				{ className: 'welc msgbox' },
+				{ className: 'welc box', style: { marginLeft: "2rem", marginTop: 0 } },
 				_react2.default.createElement(
 					'div',
 					{ className: 'welc msglist' },
 					_react2.default.createElement(
 						'h4',
 						{ className: 'green-text text-darken-4' },
-						'Message Boarded Room'
+						'Message Board Room'
 					),
 					_react2.default.createElement(
 						'ol',
@@ -24938,7 +25031,7 @@ var Messages = function (_Component) {
 exports.default = Messages;
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25004,7 +25097,7 @@ var Message = function (_Component) {
 exports.default = Message;
 
 /***/ }),
-/* 197 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25072,7 +25165,7 @@ var Footer = function (_Component) {
 exports.default = Footer;
 
 /***/ }),
-/* 198 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25110,7 +25203,7 @@ var Header = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				"div",
-				{ className: "card-panel teal lighten-2" },
+				{ className: "card-panel teal lighten-2", style: { width: "87em", marginRight: 0 } },
 				_react2.default.createElement(
 					"div",
 					{ className: "reg" },
@@ -25133,6 +25226,19 @@ var Header = function (_Component) {
 }(_react.Component);
 
 exports.default = Header;
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// removed by extract-text-webpack-plugin
+    if(false) {
+      // 1498318746635
+      const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")({"fileMap":"{fileName}"});
+      module.hot.dispose(cssReload);
+      module.hot.accept(undefined, cssReload);
+    }
+  
 
 /***/ })
 /******/ ]);

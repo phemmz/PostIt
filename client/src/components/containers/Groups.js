@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Group from '../presentation/Group';
-import superagent from 'superagent';
+import {APIManager} from '../../utils';
 
 class Groups extends Component {
 	constructor() {
@@ -18,22 +18,15 @@ class Groups extends Component {
 	}
 
 	componentDidMount() {
-		console.log("Hello from comp");
-		superagent
-		.get('/api/group')
-		.query(null)
-		.set('Accept', 'application/json')
-		.end((err, response) => {
+		APIManager.get('api/group', null, (err, response) => {
 			if(err) {
-				alert('Error: ' +err);
+				alert('ERROR: ' + err.message)
 				return
 			}
-			console.log(JSON.stringify(response.body));
-			let results = response.body.results;
 			this.setState({
-				list: results 
+				list: response.results
 			});
-		})
+		});
 	}
 
 	updateGroup(event) {		
@@ -58,11 +51,19 @@ class Groups extends Component {
 	}
 
 	createGroup() {
-		let updatedList = Object.assign([], this.state.list);
-		updatedList.push(this.state.groups);
-		this.setState({
-			list: updatedList
-		})
+		let updatedGroup = Object.assign({}, this.state.groups);
+		APIManager.post('/api/group', updatedGroup, (err,response) => {
+			if (err) {
+				alert('ERROR: ' + err.message)
+				return
+			}
+			console.log('Group CREATED: '+JSON.stringify(response));
+			let updatedList = Object.assign([], this.state.list);
+			updatedList.push(response.result);
+			this.setState({
+				list: updatedList
+			});
+		})		
 	}
 
 	addUser() {
@@ -81,7 +82,7 @@ class Groups extends Component {
 			)
 		});		
 		return (
-			<div className="welc box">
+			<div className="welc box" style={{marginRight: 0, paddingRight: 0}}>
 				<div className="welc grouplist">
 					<h4 className="green-text text-darken-4">Your Group List</h4>					
 					<ol>

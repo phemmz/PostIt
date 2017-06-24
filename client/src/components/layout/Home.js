@@ -9,11 +9,18 @@ class Home extends Component {
 
 	render() {
 		return (
-			<div>					
-		    	<Header />			        
-		        <Groups />
-	            <Messages />
-     	        <Footer />
+			<div className="container" style={{marginRight: 0, marginLeft: 0, width: "100em"}}>
+				<Header />	
+			    <div className="row" style={{marginTop: 0}}>
+			        <div className="col-md-6">
+			            <Groups />
+			        </div>
+			        <div className="col-md-6" style={{marginTop: "-64rem", position: "absolute", marginLeft: "45rem"}}>
+			            <Messages />
+			        </div>        
+	                <Footer />
+			    </div>					
+		    	
 			</div>
 		)
 	}

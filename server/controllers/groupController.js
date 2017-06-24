@@ -11,12 +11,13 @@ exports.create = function(req, res) {
 		    .catch((error) => {
 		    	console.log(error);
 		    	res.json({
-		    		message: "Cant save to database"
+		    		confirmation: 'fail',
+		    		message: error
 		    	});
 		    })
 		    .then((group) => {
 		    	res.json({
-					message: "Group successfully created",
+					confirmation: "success",
 					result: group
 				});
 		    });	 
