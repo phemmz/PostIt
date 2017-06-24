@@ -15,12 +15,13 @@ exports.create = function(req, res) {
 	    .catch((error) => {
 	    	console.log(err);
 	    	res.json({
-	    		message: "Error sending message"
+	    		confirmation: "fail",
+	    		message: error
 	    	});
 	    })
 	    .then((message) => {
 	    	res.json({
-				message: "Message sent",
+				confirmation: "success",
 				result: message
 			});
 	    });
@@ -45,9 +46,10 @@ exports.retrieve = function(req, res) {
 			res.json(msg);
 		})
 		.catch((error) => {
-	    	console.log(err);
+	    	console.log(error);
 	    	res.json({
-	    		message: "Error getting message"
+	    		confirmation: "fail",
+	    		message: error
 	    	});
 		});
 		

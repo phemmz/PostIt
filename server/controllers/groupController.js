@@ -11,21 +11,39 @@ exports.create = function(req, res) {
 		    .catch((error) => {
 		    	console.log(error);
 		    	res.json({
-		    		message: "Cant save to database"
+		    		confirmation: 'fail',
+		    		message: error
 		    	});
 		    })
 		    .then((group) => {
 		    	res.json({
-					message: "Group successfully created",
+					confirmation: "success",
 					result: group
 				});
-		    });		    		
-			
-
+		    });	 
+};
+exports.retrieve = function(req, res) {
+	
+		// req.session.username = req.body.username;
+		return Group.findAll({})
+		.then((group) => {			
+				res.json({
+					confirmation: "success",
+					results: group
+				});
+		})
+		.catch((error) => {
+			console.log(error);
+			res.json({
+				confirmation: "fail",
+				message: error
+			});
+		});
+	
+};
 	// }
 	// else {
 	// 	res.json({
 	// 		message: "You need to login to create a group"
 	// 	});
 	// }
-};

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var Group = require('../data/models').Group;
 
@@ -11,19 +11,35 @@ exports.create = function (req, res) {
 	}).catch(function (error) {
 		console.log(error);
 		res.json({
-			message: "Cant save to database"
+			confirmation: 'fail',
+			message: error
 		});
 	}).then(function (group) {
 		res.json({
-			message: "Group successfully created",
+			confirmation: "success",
 			result: group
 		});
 	});
-
-	// }
-	// else {
-	// 	res.json({
-	// 		message: "You need to login to create a group"
-	// 	});
-	// }
 };
+exports.retrieve = function (req, res) {
+
+	// req.session.username = req.body.username;
+	return Group.findAll({}).then(function (group) {
+		res.json({
+			confirmation: "success",
+			results: group
+		});
+	}).catch(function (error) {
+		console.log(error);
+		res.json({
+			confirmation: "fail",
+			message: error
+		});
+	});
+};
+// }
+// else {
+// 	res.json({
+// 		message: "You need to login to create a group"
+// 	});
+// }

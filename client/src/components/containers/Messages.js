@@ -48,7 +48,7 @@ class Messages extends Component {
 			)
 		});
 		return(
-			<div className="welc msgbox">
+			<div className="welc box" style={{marginLeft: "2rem", marginTop: 0}}>
 				<div className="welc msglist">
 					<h4 className="green-text text-darken-4">Message Board Room</h4>					
 					<ol style={{listStyle: "none"}}>

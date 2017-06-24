@@ -17,6 +17,7 @@ module.exports = (app) => {
 	app.post('/api/user/signup', accountController.create);
 	app.post('/api/user/signin', accountController.retrieve);
 	app.post('/api/group', groupController.create);
+	app.get('/api/group', groupController.retrieve);
 	app.post('/api/group/:groupId/message', messageController.create);
 	app.post('/api/group/:groupId/user', userController.create);
 	app.get('/api/group/:groupId/messages', messageController.retrieve);
