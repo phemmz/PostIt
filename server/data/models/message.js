@@ -1,11 +1,11 @@
 export default (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
-    content:{ 
+    content: {
       type: DataTypes.TEXT,
       allowNull: false
     },
     readcheck: {
-      type: DataTypes.BOOLEAN      
+      type: DataTypes.BOOLEAN
     },
     priority: {
       type: DataTypes.INTEGER,

@@ -5,9 +5,9 @@ const messageController = require('./messageController');
 const signinController = require('./messageController');
 
 module.exports = {
-	accountController,
-	groupController,
-	userController,
-	messageController,
-	signinController
+  accountController,
+  groupController,
+  userController,
+  messageController,
+  signinController
 };

@@ -6,9 +6,7 @@ import style from '../main.scss';
 class App extends Component {
 	render() {
 		return (
-			<div>	
-				<Home />	
-			</div>
+			<div><Home /></div>
 		)
 	}
 }

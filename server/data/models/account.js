@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt-nodejs';
 
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define('Account', {
-    username: { 
+    username: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      len: [5,30],
+      len: [5, 30],
       allowNull: false,
     }
   });
@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     Account.password = bcrypt.hashSync(Account.password);
   });
 
-  Account.afterCreate((Account,options) => {
-    console.log("Account created");
+  Account.afterCreate((Account, options) => {
+    // console.log('Account created');
   });
   return Account;
 };
