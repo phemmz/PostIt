@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PostIt</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />		
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
+         <link rel="stylesheet" type="text/css" href="./css/materialize.css" />
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+	</head>
+	<body>
+		<div class="card-panel teal lighten-2">
+			<div class="reg">
+				<em class="post">POSTIT</em>
+			
+				<a href="./homepage.html" class="waves-effect waves-light btn">Home</a>
+				<a href="./signup.html" class="waves-effect waves-light btn">Sign Up</a>
+			</div>
+		</div>
+		<!-- <div class="welc">
+			<h4 class="green-text text-darken-4">Welcome,</h4>
+			<p class="green-text text-darken-2">POSTIT allows you,your friends and colleagues to create groups for notifications.</p>
+		</div> -->
+		<div class="welc">
+			<div class="container">
+				<div class="row">
+					<form class="col s12" action="api/user/signin" method="post">
+						<div class= "row">
+							<h3 class="userlogin">LOGIN</h3>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="username" type="text" class="validate">
+								<label for="username">Username</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="password" type="password" class="validate">
+								<label for="password">Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<a class="waves-effect waves-light btn" href="./dashboard.html">Login</a>
+						</div>
+						<div class="row">
+							<p class="green-text text-darken-2">Don't have an account? <a href="./signup.html">Create one.</a></p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="footer-copyright">
+				<div class="container">					
+					<p style="text-align: center">
+						&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Andela, Inc
+					</p>					
+				</div>
+
+			</div>
+		</footer>
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    	<!--<script type="text/javascript" src="./js/materialize.min.js"></script>-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+	</body>
+
+</html>

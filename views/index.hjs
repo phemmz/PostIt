@@ -1,0 +1,18 @@
+<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  	<title>PostIt</title>
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+	  	<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+	<body>
+	  	<div id="root"></div>
+
+	  	<script type="text/javascript" src="bundle.js"></script>
+	  	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+	</body>
+
+</html>

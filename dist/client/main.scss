@@ -1,0 +1,132 @@
+.post {
+	font-weight: bold;
+	font-size: 40px;
+	text-align: left;
+	margin-right: 22em;
+	margin-left: 0.2em;
+	border-bottom: 1px;
+	color: #FFF;
+  font-color: #FFF
+}
+.userlogin {	
+	color: #4db6ac;
+}
+
+.waves-effect {
+	text-align: right;
+}
+
+.welc {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  padding: 24px 0;
+  margin: 10rem 0 2rem 20.5rem;
+  border-radius: 2px;
+  background-color: #fff;
+  width: 800px;
+}
+
+.box {
+  margin: 0 0 7rem 2rem;
+  padding-right: 0;    
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: #e8f5e9;  
+}
+
+.msgbox {
+  margin: -60rem 15rem 10rem 46rem;
+  padding-right: 0;  
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: #e8f5e9;  
+  
+}
+.grouplist{
+  margin: 3rem 0 2rem 2rem;
+  padding-right: 0;  
+  
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.msglist {
+  margin: 3rem 0 2rem 2rem;
+  padding-right: 0;   
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.msgglist {
+  height: 250px;
+}
+
+.glist {
+  width: 500px;
+  margin-top: 20px;
+}
+
+.groupform{
+  margin: 2rem 5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.msgroom {
+  margin: 5rem 0 2rem 20rem;
+  height: 700px;
+  width: 700px;
+}
+
+.msgs {
+  text-align: center;
+  margin-left: 100px;
+}
+.bm {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+}
+
+.msgform {
+  margin: -19rem 0 2rem 50rem;
+  height: 500px;
+  width: 550px;
+}
+
+.cbg {
+  margin-left: 5rem;
+  margin-top: 5rem;
+
+
+}
+
+
+.text-darken-4 {
+	font-weight: bold;
+	text-align: center;
+}
+.text-darken-2 {	
+	text-align: center;
+}
+
+.footer-copyright {
+  overflow: hidden;
+  min-height: 50px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px 0px;
+  margin-top: 500px;
+  color: #FFF;
+  background-color: #4db6ac;
+
+}

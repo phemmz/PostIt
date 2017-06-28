@@ -1,12 +1,15 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
-    content:{ 
+    content: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
     readcheck: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      type: DataTypes.BOOLEAN
+    },
+    priority: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     priority: {
       type: DataTypes.INTEGER,

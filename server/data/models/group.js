@@ -1,6 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Group = sequelize.define('Group', {
-    groupname: { 
+    groupname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
         Group.hasMany(models.Message, {
           foreignKey: 'groupId',
           as: 'messages',
-        });               
+        });
       },
       associate: (models) => {
         Group.hasMany(models.Users, {
           foreignKey: 'groupId',
           as: 'users',
-        });               
+        });
       },
     },
   });

@@ -1,3 +1,9 @@
 # Dependency directories
 node_modules
+<<<<<<< HEAD
 .env
+=======
+.env
+npm-debug.log
+server/data/config/
+>>>>>>> challenge_2
