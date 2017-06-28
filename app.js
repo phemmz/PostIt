@@ -40,7 +40,8 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome!!!'
 }));
 
-const port = 8000;
+const port = parseInt(process.env.PORT, 10) || 8000;
+
 if (!module.parent) {
   app.listen(port, () => {
     // console.log('Listening on port 8000...');
