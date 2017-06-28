@@ -13,7 +13,7 @@ export default {
           return;
         }
         const confirmation = response.body.confirmation;
-        if (confirmation !== 'success') {
+        if (confirmation != 'success') {
           callback({ message: response.body.message }, null);
           return;
         }
@@ -33,7 +33,7 @@ export default {
         }
 
         const confirmation = response.body.confirmation;
-        if (confirmation !== 'success') {
+        if (confirmation != 'success') {
           callback({ message: response.body.message }, null);
           return;
         }
