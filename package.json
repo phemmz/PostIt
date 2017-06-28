@@ -4,7 +4,7 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
-    "build": "babel server/controllers/messageController.js -d dist --presets es2015",
+    "build": "babel app.js -d dist --presets es2015",
     "start": "node dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
