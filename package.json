@@ -4,6 +4,7 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
+    "watch": "webpack -d --watch",
     "build": "babel app.js -d dist --presets es2015",
     "start": "node dist/app.js",
     "serve": "node dist/app.js",
@@ -43,6 +44,10 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^2.6.1",
+    "redux": "^3.7.1",
+    "redux-thunk": "^2.2.0",
     "sequelize": "^4.1.0",
     "superagent": "^3.5.2"
   },

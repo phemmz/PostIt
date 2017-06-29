@@ -1,19 +1,15 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
-var _express = require('express');
+// import express from 'express';
 
-var _express2 = _interopRequireDefault(_express);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router();
+// const router = express.Router();
 
 exports.default = function (app) {
-	app.get('/', function (req, res, next) {
-		res.render('index', { title: 'PostIt' });
-	});
+  app.get('*', function (req, res) {
+    res.render('index', { title: 'PostIt' });
+  });
 };

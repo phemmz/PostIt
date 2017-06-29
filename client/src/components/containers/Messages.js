@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Message from '../presentation/Message';
+import { browserHistory } from 'react-router';
 
 class Messages extends Component {
 	constructor() {
@@ -15,6 +16,10 @@ class Messages extends Component {
 			list: []
 		}
 	}
+
+    handleRedirect() {
+    	browserHistory.push('/dashboard');
+    }
 
 	updateId(event) {
 		let updatedId = Object.assign({}, this.state.messages);
@@ -48,7 +53,9 @@ class Messages extends Component {
 			)
 		});
 		return(
-			<div className="welc box" style={{marginLeft: "2rem", marginTop: 0}}>
+			<div className="welc box">
+		        <a onClick={this.handleRedirect.bind(this)} className="waves-effect waves-light btn" style={{marginLeft: 0}}>Go to dashboard</a>
+
 				<div className="welc msglist">
 					<h4 className="green-text text-darken-4">Message Board Room</h4>					
 					<ol style={{listStyle: "none"}}>

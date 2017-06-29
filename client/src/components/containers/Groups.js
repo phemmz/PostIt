@@ -82,7 +82,8 @@ class Groups extends Component {
 			)
 		});		
 		return (
-			<div className="welc box" style={{marginRight: 0, paddingRight: 0}}>
+			
+			<div className="welc box">
 				<div className="welc grouplist">
 					<h4 className="green-text text-darken-4">Your Group List</h4>					
 					<ol>
@@ -114,6 +115,7 @@ class Groups extends Component {
 					</div>
 				</div>
 			</div>
+		
 		)
 	}
 }
