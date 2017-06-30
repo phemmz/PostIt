@@ -1,8 +1,42 @@
+import Validator from 'validator';
+import isEmpty from 'lodash/isEmpty';
 const Account = require('../data/models').Account;
 // const hashPassword = require('../data/models').hashPassword;
 const bcrypt = require('bcrypt-nodejs');
 
+function validateInput(data) {
+  let errors = {};
+
+  if (Validator.isEmpty(data.username)) {
+    errors.username = 'This field is required';
+  }
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'This field is required';
+  }
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is invalid';
+  }
+  if (Validator.isEmpty(data.password)) {
+    errors.password = 'This is field is required';
+  }
+  if (Validator.isEmpty(data.passwordConfirmation)) {
+    errors.passwordConfirmation = 'This is field is required';
+  }
+  if (!Validator.equals(data.password, data.passwordConfirmation)) {
+    errors.passwordConfirmation = 'Passwords must match';
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  }
+}
+
 exports.create = function (req, res) {
+  const {errors, isValid} = validateInput(req.body);
+  if (!isValid) {
+    res.status(400).json(errors);
+  } 
   return Account
     .create({
       username: req.body.username,
@@ -10,7 +44,7 @@ exports.create = function (req, res) {
       password: req.body.password,
     })
     .then(account => res.status(201).send(account))
-    .catch(error => res.status(400).send(error));
+    .catch(error => res.status(400).send(error));  
 };
 
 exports.retrieve = function (req, res) {

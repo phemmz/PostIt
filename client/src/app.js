@@ -1,14 +1,34 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Home from './components/layout/Home';
+import { render } from 'react-dom';
+import { Router, Route, browserHistory} from 'react-router';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import Home from './components/layout/Home.js';
+import SignupPage from './components/layout/SignupPage.js';
+import LoginPage from './components/layout/LoginPage';
+import Main from './components/layout/Main.js';
+import Welcome from './components/layout/Welcome.jsx'
+import MessageBoard from './components/layout/MessageBoard.js';
 import style from '../main.scss';
 
-class App extends Component {
-	render() {
-		return (
-			<div><Home /></div>
-		)
-	}
-}
+const store = createStore(
+	(state = {}) => state,
+	applyMiddleware(thunk)
+);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+render(
+	<Provider store={store}>
+		<Router history={browserHistory}>		
+		    <Route component={Main}>
+		        <Route path="/" component={Welcome} />
+		        <Route path="/signup" component={SignupPage} />
+			    <Route path="/login" component={LoginPage} />
+	   		    <Route path="/dashboard" component={Home} />
+	   		    <Route path="/messageboard/:id" component={MessageBoard} />
+			   
+			</Route>	
+		</Router>
+	</Provider>,
+	 document.getElementById('root')
+);

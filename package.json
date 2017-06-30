@@ -4,7 +4,8 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
-    "build": "babel app.js -d dist --presets es2015",
+    "watch": "webpack -d --watch",
+    "build": "babel server/controllers/accountController.js -d dist --presets es2015",
     "start": "node dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
@@ -37,14 +38,20 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "hjs": "0.0.6",
+    "lodash": "^4.17.4",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
     "pg": "^6.2.4",
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^2.6.1",
+    "redux": "^3.7.1",
+    "redux-thunk": "^2.2.0",
     "sequelize": "^4.1.0",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "validator": "^7.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
