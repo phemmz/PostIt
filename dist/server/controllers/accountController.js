@@ -1,55 +1,44 @@
 'use strict';
 
-var _validator = require('validator');
-
-var _validator2 = _interopRequireDefault(_validator);
-
-var _isEmpty = require('lodash/isEmpty');
-
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+// import Validator from 'validator';
+// import isEmpty from 'lodash/isEmpty';
 var Account = require('../data/models').Account;
 // const hashPassword = require('../data/models').hashPassword;
 var bcrypt = require('bcrypt-nodejs');
 
-function validateInput(data) {
-  var errors = {};
+// function validateInput(data) {
+//   let errors = {};
 
-  if (_validator2.default.isEmpty(data.username)) {
-    errors.username = 'This field is required';
-  }
-  if (_validator2.default.isEmpty(data.email)) {
-    errors.email = 'This field is required';
-  }
-  if (!_validator2.default.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
-  }
-  if (_validator2.default.isEmpty(data.password)) {
-    errors.password = 'This is field is required';
-  }
-  if (_validator2.default.isEmpty(data.passwordConfirmation)) {
-    errors.passwordConfirmation = 'This is field is required';
-  }
-  if (!_validator2.default.equals(data.password, data.passwordConfirmation)) {
-    errors.passwordConfirmation = 'Passwords must match';
-  }
+//   if (Validator.isEmpty(data.username)) {
+//     errors.username = 'This field is required';
+//   }
+//   if (Validator.isEmpty(data.email)) {
+//     errors.email = 'This field is required';
+//   }
+//   if (!Validator.isEmail(data.email)) {
+//     errors.email = 'Email is invalid';
+//   }
+//   if (Validator.isEmpty(data.password)) {
+//     errors.password = 'This is field is required';
+//   }
+//   if (Validator.isEmpty(data.passwordConfirmation)) {
+//     errors.passwordConfirmation = 'This is field is required';
+//   }
+//   if (!Validator.equals(data.password, data.passwordConfirmation)) {
+//     errors.passwordConfirmation = 'Passwords must match';
+//   }
 
-  return {
-    errors: errors,
-    isValid: (0, _isEmpty2.default)(errors)
-  };
-}
+//   return {
+//     errors,
+//     isValid: isEmpty(errors)
+//   }
+// }
 
 exports.create = function (req, res) {
-  var _validateInput = validateInput(req.body),
-      errors = _validateInput.errors,
-      isValid = _validateInput.isValid;
-
-  if (!isValid) {
-    res.status(400).json(errors);
-  }
+  // const {errors, isValid} = validateInput(req.body);
+  // if (!isValid) {
+  //   res.status(400).json(errors);
+  // } 
   return Account.create({
     username: req.body.username,
     email: req.body.email,
