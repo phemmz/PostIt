@@ -8,7 +8,7 @@ import Home from './components/layout/Home.js';
 import SignupPage from './components/layout/SignupPage.js';
 import LoginPage from './components/layout/LoginPage';
 import Main from './components/layout/Main.js';
-import Welcome from './components/layout/Welcome.jsx'
+import Welcome from './components/layout/Welcome.js';
 import MessageBoard from './components/layout/MessageBoard.js';
 import style from '../main.scss';
 
