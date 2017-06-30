@@ -7,7 +7,8 @@ class SignupForm extends Component {
 			username: '',
 			email: '',
 			password: '',
-			passwordConfirmation: ''
+			passwordConfirmation: '',
+			errors: {}
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -22,10 +23,15 @@ class SignupForm extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		this.props.userSignupRequest(this.state);
+		this.setState({ errors: {} });
+		this.props.userSignupRequest(this.state).then(
+			() => {},
+			(err) => this.setState({ errors: err.response.data})
+		)
 	}
 
     render() {
+    	const { errors } = this.state;
     	return (
 		    <div className="welc groupform" style={{height: "600px"}}>
 		        <form onSubmit={this.onSubmit}>
@@ -35,6 +41,7 @@ class SignupForm extends Component {
 							<div className="input-field col s12">
 								<input id="username" onChange={this.onChange} value={this.state.username} name="username" type="text" className="form-control" />
 								<label htmlFor="username">Username</label>
+     							{errors.username && <span className="help-block">{errors.username}</span>}
 							</div>
 						</div>							
 						<div className="row">
