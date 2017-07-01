@@ -5,12 +5,12 @@
   "main": "./server/bin/www",
   "scripts": {
     "watch": "webpack -d --watch",
-    "build": "babel server/controllers/accountController.js -d dist --presets es2015",
+    "build": "babel test/postit.js -d dist --presets es2015",
     "start": "node dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "mocha dist/test --timeout 10000"
+    "test": "mocha dist/test --timeout 20000"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.1.0",
     "superagent": "^3.5.2",
+    "supertest": "^3.0.0",
     "validator": "^7.2.0"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "sass-loader": "^6.0.6",
+    "should": "^11.2.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.0.0"
   }
