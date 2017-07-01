@@ -1,8 +1,7 @@
 language: node_js
 
 env:
-  - NODE_ENV="development"
-  - DATABASE_URL=$(curl http://api.postgression.com)  
+  - NODE_ENV="development"    
 
 node_js:
   - "stable"
