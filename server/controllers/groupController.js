@@ -10,8 +10,7 @@ exports.create = function (req, res) {
     })
     .catch((error) => {
       // console.log(error);
-      res.json({
-        confirmation: 'fail',
+      res.json({        
         message: error
       });
     })
