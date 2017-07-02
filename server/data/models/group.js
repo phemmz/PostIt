@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Group = sequelize.define('Group', {
+  const Group = sequelize.define('Groups', {
     groupname: {
       type: DataTypes.STRING,
       allowNull: false,

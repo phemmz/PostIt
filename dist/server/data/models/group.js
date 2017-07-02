@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 exports.default = function (sequelize, DataTypes) {
-  var Group = sequelize.define('Group', {
+  var Group = sequelize.define('Groups', {
     groupname: {
       type: DataTypes.STRING,
       allowNull: false

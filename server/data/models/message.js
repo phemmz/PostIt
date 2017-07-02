@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Message = sequelize.define('Message', {
+  const Message = sequelize.define('Messages', {
     content: {
       type: DataTypes.TEXT,
       allowNull: false

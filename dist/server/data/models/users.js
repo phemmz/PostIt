@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  var User = sequelize.define('Users', {
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false
