@@ -10,12 +10,12 @@ exports.create = function (req, res) {
     })
     .catch((error) => {
       // console.log(error);
-      res.json({        
+      return res.json({        
         message: error
       });
     })
     .then((group) => {
-      res.json({
+      return res.json({
         confirmation: 'success',
         result: group
       });
@@ -25,14 +25,14 @@ exports.retrieve = function (req, res) {
   // req.session.username = req.body.username;
   return Group.findAll({})
     .then((group) => {
-      res.json({
+      return res.json({
         confirmation: 'success',
         results: group
       });
     })
     .catch((error) => {
       console.log(error);
-      res.json({
+      return res.json({
         confirmation: 'fail',
         message: error
       });
