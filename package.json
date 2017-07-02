@@ -5,7 +5,7 @@
   "main": "./server/bin/www",
   "scripts": {
     "watch": "webpack -d --watch",
-    "build": "babel server/controllers/groupController.js -d dist --presets es2015",
+    "build": "babel server/data/models/group.js -d dist --presets es2015",
     "start": "node dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
