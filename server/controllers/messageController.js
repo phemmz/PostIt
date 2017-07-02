@@ -12,7 +12,7 @@ exports.create = function (req, res) {
       groupId: req.params.groupId,
     })
     .catch((error) => {      
-      return res.json({
+     res.json({
         confirmation: 'fail',
         message: error
       });

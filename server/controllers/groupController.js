@@ -10,7 +10,7 @@ exports.create = function (req, res) {
     })
     .catch((error) => {
       // console.log(error);
-      return res.json({        
+      res.json({        
         message: error
       });
     })
@@ -32,7 +32,7 @@ exports.retrieve = function (req, res) {
     })
     .catch((error) => {
       console.log(error);
-      return res.json({
+      res.json({
         confirmation: 'fail',
         message: error
       });

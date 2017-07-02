@@ -10,7 +10,7 @@ exports.create = function (req, res) {
     groupname: req.body.groupname
   }).catch(function (error) {
     // console.log(error);
-    return res.json({
+    res.json({
       message: error
     });
   }).then(function (group) {
@@ -23,7 +23,7 @@ exports.create = function (req, res) {
 exports.retrieve = function (req, res) {
   // req.session.username = req.body.username;
   return Group.findAll({}).then(function (group) {
-    return res.json({
+    res.json({
       confirmation: 'success',
       results: group
     });

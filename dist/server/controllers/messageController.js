@@ -12,7 +12,7 @@ exports.create = function (req, res) {
     priority: req.body.priority,
     groupId: req.params.groupId
   }).catch(function (error) {
-    return res.json({
+    res.json({
       confirmation: 'fail',
       message: error
     });
@@ -41,7 +41,7 @@ exports.retrieve = function (req, res) {
     return res.json(msg);
   }).catch(function (error) {
     console.log(error);
-    return res.json({
+    res.json({
       confirmation: 'fail',
       message: error
     });

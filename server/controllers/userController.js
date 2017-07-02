@@ -11,7 +11,7 @@ exports.create = function (req, res) {
     })
     .catch((error) => {
       console.log(error);
-      return res.json({ message: 'Cant add user to group' });
+      res.json({ message: 'Cant add user to group' });
     })
     .then((user) => {
       return res.json({

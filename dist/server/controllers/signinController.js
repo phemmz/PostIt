@@ -25,7 +25,7 @@ exports.retrieve = function (req, res) {
 		}
 	}).catch(function (error) {
 		// console.log(error);
-		return res.json({
+		res.json({
 			message: "Invalid signin details"
 		});
 	});
