@@ -1,11 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (sequelize, DataTypes) {
-  var User = sequelize.define('Users', {
+module.exports = function (sequelize, DataTypes) {
+  var User = sequelize.define('User', {
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -17,7 +13,7 @@ exports.default = function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function associate(models) {
-        Users.belongsTo(models.Group, {
+        User.belongsTo(models.Group, {
           foreignKey: 'groupId',
           onDelete: 'CASCADE'
         });

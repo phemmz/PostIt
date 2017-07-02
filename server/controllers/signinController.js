@@ -17,7 +17,7 @@ exports.retrieve = function(req, res) {
 			if(bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
 				req.session.name = req.body.username;
 				req.session.id = userdetails[0].id;
-				res.json({
+				return res.json({
 					message: "Login successful"
 				});
 			}
@@ -26,8 +26,8 @@ exports.retrieve = function(req, res) {
 			}
 		})
 		.catch((error) => {
-			console.log(error);
-			res.json({
+			// console.log(error);
+			return res.json({
 				message: "Invalid signin details"
 			});
 		});

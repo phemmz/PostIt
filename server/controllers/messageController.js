@@ -11,15 +11,14 @@ exports.create = function (req, res) {
       priority: req.body.priority,
       groupId: req.params.groupId,
     })
-    .catch((error) => {
-      console.log(error);
-      res.json({
+    .catch((error) => {      
+      return res.json({
         confirmation: 'fail',
         message: error
       });
     })
     .then((message) => {
-      res.json({
+      return res.json({
         confirmation: 'success',
         result: message
       });
@@ -41,11 +40,11 @@ exports.retrieve = function (req, res) {
     .then((messages) => {
       let msg = JSON.stringify(messages);
       msg = JSON.parse(msg);
-      res.json(msg);
+      return res.json(msg);
     })
     .catch((error) => {
       console.log(error);
-      res.json({
+      return res.json({
         confirmation: 'fail',
         message: error
       });

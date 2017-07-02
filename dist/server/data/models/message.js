@@ -1,11 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (sequelize, DataTypes) {
-  var Message = sequelize.define('Messages', {
+module.exports = function (sequelize, DataTypes) {
+  var Message = sequelize.define('Message', {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
