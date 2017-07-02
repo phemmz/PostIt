@@ -11,18 +11,19 @@ exports.create = function (req, res) {
       priority: req.body.priority,
       groupId: req.params.groupId,
     })
+    .then((message) => {
+      return res.json({
+        confirmation: 'success',
+        result: message
+      });
+    })
     .catch((error) => {      
      res.json({
         confirmation: 'fail',
         message: error
       });
     })
-    .then((message) => {
-      return res.json({
-        confirmation: 'success',
-        result: message
-      });
-    });
+    
 
   // }
   // else {

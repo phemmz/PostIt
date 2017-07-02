@@ -8,28 +8,28 @@ exports.create = function (req, res) {
   // if (req.session.user) {
   return Group.create({
     groupname: req.body.groupname
-  }).catch(function (error) {
-    // console.log(error);
-    res.json({
-      message: error
-    });
   }).then(function (group) {
     return res.json({
       confirmation: 'success',
       result: group
+    });
+  }).catch(function (error) {
+    // console.log(error);
+    res.json({
+      message: error
     });
   });
 };
 exports.retrieve = function (req, res) {
   // req.session.username = req.body.username;
   return Group.findAll({}).then(function (group) {
-    res.json({
+    return res.json({
       confirmation: 'success',
       results: group
     });
   }).catch(function (error) {
     console.log(error);
-    return res.json({
+    res.json({
       confirmation: 'fail',
       message: error
     });

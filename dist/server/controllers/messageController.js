@@ -11,15 +11,15 @@ exports.create = function (req, res) {
     readcheck: req.body.readcheck,
     priority: req.body.priority,
     groupId: req.params.groupId
-  }).catch(function (error) {
-    res.json({
-      confirmation: 'fail',
-      message: error
-    });
   }).then(function (message) {
     return res.json({
       confirmation: 'success',
       result: message
+    });
+  }).catch(function (error) {
+    res.json({
+      confirmation: 'fail',
+      message: error
     });
   });
 
@@ -41,7 +41,7 @@ exports.retrieve = function (req, res) {
     return res.json(msg);
   }).catch(function (error) {
     console.log(error);
-    res.json({
+    return res.json({
       confirmation: 'fail',
       message: error
     });

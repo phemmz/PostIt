@@ -8,18 +8,19 @@ exports.create = function (req, res) {
     .create({
       groupname: req.body.groupname,
     })
+    .then((group) => {
+      return res.json({
+        confirmation: 'success',
+        result: group
+      });
+    })
     .catch((error) => {
       // console.log(error);
       res.json({        
         message: error
       });
     })
-    .then((group) => {
-      return res.json({
-        confirmation: 'success',
-        result: group
-      });
-    });
+    
 };
 exports.retrieve = function (req, res) {
   // req.session.username = req.body.username;

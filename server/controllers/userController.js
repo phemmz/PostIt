@@ -9,16 +9,17 @@ exports.create = function (req, res) {
       username: req.body.username,
       groupId: req.params.groupId
     })
-    .catch((error) => {
-      console.log(error);
-      res.json({ message: 'Cant add user to group' });
-    })
     .then((user) => {
       return res.json({
         message: 'User added successfully',
         result: user
       });
-    });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json({ message: 'Cant add user to group' });
+    })
+    
 
   // }
   //  else {
