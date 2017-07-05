@@ -7,9 +7,7 @@ import dotenv from 'dotenv';
 import apiRoutes from './server/routes/apiRoutes';
 import index from './server/routes/index';
 
-
 dotenv.config();
-
 
 // Express app setup
 const app = express();
@@ -47,6 +45,5 @@ if (!module.parent) {
     console.log('Listening on port 8000...');
   });
 }
-
 
 export default app;
