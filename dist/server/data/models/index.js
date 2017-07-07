@@ -6,7 +6,7 @@ var Sequelize = require('sequelize');
 var dotenv = require('dotenv');
 
 var env = process.env.NODE_ENV;
-var config = require('../config/config')[env];
+var config = require('../config/config.json')[env];
 
 var basename = path.basename(module.filename);
 
@@ -14,12 +14,12 @@ var db = {};
 
 dotenv.config();
 
-var sequelize = void 0;
-if (config.url) {
-  sequelize = new Sequelize(config.url);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// let sequelize;
+// if (config.url) {
+//   sequelize = new Sequelize(config.url);
+// } else {
+var sequelize = new Sequelize(config.database, config.username, config.password, config);
+// }
 
 fs.readdirSync(__dirname).filter(function (file) {
   return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js';

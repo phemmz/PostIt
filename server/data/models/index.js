@@ -12,12 +12,12 @@ const db = {};
 
 dotenv.config();
 
-let sequelize;
-if (config.url) {
-  sequelize = new Sequelize(config.url);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// let sequelize;
+// if (config.url) {
+//   sequelize = new Sequelize(config.url);
+// } else {
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+// }
 
 fs
   .readdirSync(__dirname)
