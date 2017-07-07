@@ -1,31 +1,5 @@
 const Message = require('../data/models').Message;
 
-<<<<<<< HEAD
-exports.create = function (req, res) {
-  // console.log(req.body);
-  // console.log(req.params.groupId);
-  // if(req.session.name) {
-  return Message
-    .create({
-      content: req.body.content,
-      readcheck: req.body.readcheck,
-      priority: req.body.priority,
-      groupId: req.params.groupId,
-    })
-    .then((message) => {
-      return res.json({
-        confirmation: 'success',
-        result: message
-      });
-    })
-    .catch((error) => {      
-     res.json({
-        confirmation: 'fail',
-        message: error
-      });
-    })
-    
-=======
 
 export default class MessageCtrl {
   /**
@@ -102,7 +76,6 @@ export default class MessageCtrl {
   //       result: message
   //     });
   //   });
->>>>>>> macsetup
 
   // }
   // else {
@@ -120,11 +93,11 @@ exports.retrieve = function (req, res) {
     .then((messages) => {
       let msg = JSON.stringify(messages);
       msg = JSON.parse(msg);
-      return res.json(msg);
+      res.json(msg);
     })
     .catch((error) => {
       console.log(error);
-      return res.json({
+      res.json({
         confirmation: 'fail',
         message: error
       });

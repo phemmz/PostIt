@@ -13,19 +13,6 @@ export default class UserCtrl {
       username: req.body.username,
       groupId: req.params.groupId
     })
-<<<<<<< HEAD
-    .then((user) => {
-      return res.json({
-        message: 'User added successfully',
-        result: user
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.json({ message: 'Cant add user to group' });
-    })
-    
-=======
       .then((user) => {
         res.json({
           message: 'User added successfully',
@@ -60,7 +47,6 @@ export default class UserCtrl {
 //         result: user
 //       });
 //     });
->>>>>>> macsetup
 
 // }
 //  else {

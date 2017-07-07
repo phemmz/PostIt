@@ -5,7 +5,7 @@ var path = require('path');
 var Sequelize = require('sequelize');
 var dotenv = require('dotenv');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV;
 var config = require('../config/config')[env];
 
 var basename = path.basename(module.filename);

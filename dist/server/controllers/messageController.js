@@ -1,37 +1,4 @@
 'use strict';
-<<<<<<< HEAD
-
-var Message = require('../data/models').Message;
-
-exports.create = function (req, res) {
-  // console.log(req.body);
-  // console.log(req.params.groupId);
-  // if(req.session.name) {
-  return Message.create({
-    content: req.body.content,
-    readcheck: req.body.readcheck,
-    priority: req.body.priority,
-    groupId: req.params.groupId
-  }).then(function (message) {
-    return res.json({
-      confirmation: 'success',
-      result: message
-    });
-  }).catch(function (error) {
-    res.json({
-      confirmation: 'fail',
-      message: error
-    });
-  });
-
-  // }
-  // else {
-  //  res.json({
-  //   message: "Login to send message"
-  //  });
-  // }
-};
-=======
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -134,7 +101,6 @@ var MessageCtrl = function () {
 //  });
 // }
 // };
->>>>>>> macsetup
 
 exports.default = MessageCtrl;
 exports.retrieve = function (req, res) {
@@ -144,17 +110,10 @@ exports.retrieve = function (req, res) {
   }).then(function (messages) {
     var msg = JSON.stringify(messages);
     msg = JSON.parse(msg);
-<<<<<<< HEAD
-    return res.json(msg);
-  }).catch(function (error) {
-    console.log(error);
-    return res.json({
-=======
     res.json(msg);
   }).catch(function (error) {
     console.log(error);
     res.json({
->>>>>>> macsetup
       confirmation: 'fail',
       message: error
     });

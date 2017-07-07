@@ -1,6 +1,4 @@
 'use strict';
-<<<<<<< HEAD
-=======
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -9,7 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
->>>>>>> macsetup
 
 var User = require('../data/models').User;
 /**
@@ -79,31 +76,4 @@ var UserCtrl = function () {
 // };
 
 
-<<<<<<< HEAD
-exports.create = function (req, res) {
-  // if(req.session.name) {
-  // console.log(req.body);
-  // console.log(req.params.groupId);
-  return User.create({
-    username: req.body.username,
-    groupId: req.params.groupId
-  }).then(function (user) {
-    return res.json({
-      message: 'User added successfully',
-      result: user
-    });
-  }).catch(function (error) {
-    console.log(error);
-    res.json({ message: 'Cant add user to group' });
-  });
-
-  // }
-  //  else {
-  //    res.json({
-  //      message: "You need to login to add user"
-  //    });
-  //  }
-};
-=======
 exports.default = UserCtrl;
->>>>>>> macsetup
