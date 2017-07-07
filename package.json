@@ -4,9 +4,15 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
+    "db:migrate": "sequelize db:migrate",
     "watch": "webpack -d --watch",
+<<<<<<< HEAD
     "build": "babel server/data/models/users.js -d dist --presets es2015",
     "start": "node dist/app.js",
+=======
+    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ --presets es2015",
+    "start": "npm run db:migrate && nodemon --exec babel-node dist/app.js",
+>>>>>>> macsetup
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
@@ -41,7 +47,7 @@
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
-    "pg": "^6.2.4",
+    "pg": "^6.4.0",
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

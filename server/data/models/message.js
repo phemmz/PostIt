@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     priority: {
       type: DataTypes.INTEGER,
       allowNull: false,
+<<<<<<< HEAD
     },    
+=======
+    },
+>>>>>>> macsetup
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,

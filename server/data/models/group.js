@@ -11,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'groupId',
           as: 'messages',
         });
-      },
-      associate: (models) => {
         Group.hasMany(models.Users, {
           foreignKey: 'groupId',
           as: 'users',

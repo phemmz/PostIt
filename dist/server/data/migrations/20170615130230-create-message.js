@@ -1,11 +1,12 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+module.exports = {
   up: function up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Messages', {
+    var _queryInterface$creat;
+
+    return queryInterface.createTable('Messages', (_queryInterface$creat = {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,25 +23,25 @@ exports.default = {
       },
       readcheck: {
         type: Sequelize.BOOLEAN
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      groupId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Groups',
-          key: 'id',
-          as: 'groupId'
-        }
       }
-    });
+    }, _defineProperty(_queryInterface$creat, 'priority', {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    }), _defineProperty(_queryInterface$creat, 'createdAt', {
+      allowNull: false,
+      type: Sequelize.DATE
+    }), _defineProperty(_queryInterface$creat, 'updatedAt', {
+      allowNull: false,
+      type: Sequelize.DATE
+    }), _defineProperty(_queryInterface$creat, 'groupId', {
+      type: Sequelize.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Groups',
+        key: 'id',
+        as: 'groupId'
+      }
+    }), _queryInterface$creat));
   },
   down: function down(queryInterface /*, Sequelize*/) {
     return queryInterface.dropTable('Messages');

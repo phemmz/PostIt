@@ -7,9 +7,9 @@ var messageController = require('./messageController');
 var signinController = require('./messageController');
 
 module.exports = {
-	accountController: accountController,
-	groupController: groupController,
-	userController: userController,
-	messageController: messageController,
-	signinController: signinController
+  accountController: accountController,
+  groupController: groupController,
+  userController: userController,
+  messageController: messageController,
+  signinController: signinController
 };

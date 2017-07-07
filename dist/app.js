@@ -49,8 +49,8 @@ app.set('view engine', 'hjs');
 app.use((0, _morgan2.default)('dev'));
 
 // Parse incoming requests data
+app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
-app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_express2.default.static(_path2.default.join(__dirname, './client/public')));
 
 app.use((0, _expressSession2.default)({
@@ -61,13 +61,15 @@ app.use((0, _expressSession2.default)({
 
 // Require our routes into the application
 
-(0, _apiRoutes2.default)(app);
+app.use(_apiRoutes2.default);
 (0, _index2.default)(app);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format
-// app.get('*', (req, res) => res.status(200).send({
-//   message: 'Welcome!!!'
-// }));
+app.get('*', function (req, res) {
+  return res.status(200).send({
+    message: 'Welcome!!!'
+  });
+});
 
 var port = parseInt(process.env.PORT, 10) || 8000;
 
