@@ -10,6 +10,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Message = require('../data/models').Message;
 
+/**
+ * 
+ */
+
 var MessageCtrl = function () {
   function MessageCtrl() {
     _classCallCheck(this, MessageCtrl);
@@ -102,27 +106,31 @@ var MessageCtrl = function () {
 // }
 // };
 
-exports.default = MessageCtrl;
-exports.retrieve = function (req, res) {
-  // if(req.session.name) {
-  return Message.findAll({
-    where: { groupId: req.params.groupId }
-  }).then(function (messages) {
-    var msg = JSON.stringify(messages);
-    msg = JSON.parse(msg);
-    res.json(msg);
-  }).catch(function (error) {
-    console.log(error);
-    res.json({
-      confirmation: 'fail',
-      message: error
-    });
-  });
+// exports.retrieve = function (req, res) {
+//   // if(req.session.name) {
+//   return Message.findAll({
+//     where: { groupId: req.params.groupId }
+//   })
+//     .then((messages) => {
+//       let msg = JSON.stringify(messages);
+//       msg = JSON.parse(msg);
+//       res.json(msg);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       res.json({
+//         confirmation: 'fail',
+//         message: error
+//       });
+//     });
 
-  // }
-  // else {
-  //  res.json({
-  //    message: "Login to get messages"
-  //  });
-  // }
-};
+// }
+// else {
+//  res.json({
+//    message: "Login to get messages"
+//  });
+// }
+// };
+
+
+exports.default = MessageCtrl;
