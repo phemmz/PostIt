@@ -17,6 +17,9 @@
     },
     "production": {
         "use_env_variable": "PRODUCTION_URL",
+        "dialectOptions": {
+            "ssl": true
+        },
         "dialect": "postgres"
     }
 }
