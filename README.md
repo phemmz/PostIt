@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/phemmz/PostIt.svg?branch=develop)](https://travis-ci.org/phemmz/PostIt)
+[![Build Status](https://travis-ci.org/phemmz/PostIt.svg?branch=develop)](https://travis-ci.org/phemmz/PostIt) [![Code Climate](https://codeclimate.com/github/phemmz/PostIt/badges/gpa.svg)](https://codeclimate.com/github/phemmz/PostIt)
 
 # PostIt
 PostIt is a simple web application that allows friends and colleagues create groups for notifications.
