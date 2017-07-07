@@ -3,7 +3,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
 const basename = path.basename(module.filename);
@@ -12,12 +12,12 @@ const db = {};
 
 dotenv.config();
 
-// let sequelize;
-// if (config.url) {
-//   sequelize = new Sequelize(config.url);
-// } else {
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
-// }
+let sequelize;
+if (config.url) {
+  sequelize = new Sequelize(config.url);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
 fs
   .readdirSync(__dirname)
