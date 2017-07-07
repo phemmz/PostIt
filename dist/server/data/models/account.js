@@ -1,12 +1,16 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _bcryptNodejs = require('bcrypt-nodejs');
 
 var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = function (sequelize, DataTypes) {
+exports.default = function (sequelize, DataTypes) {
   var Account = sequelize.define('Account', {
     username: {
       type: DataTypes.STRING,
@@ -30,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Account.afterCreate(function (Account, options) {
-    console.log("Account created");
+    // console.log('Account created');
   });
   return Account;
 };

@@ -2,6 +2,7 @@
 
 # PostIt
 PostIt is a simple web application that allows friends and colleagues create groups for notifications.
+You can use the application by going to https://phemmz-post-it.herokuapp.com/
 
 ## Development
 
@@ -22,4 +23,3 @@ DATABASE_URL='postgres://jean:buck@localhost:5432/databaseName'
 
 ### API Documentation
 
-You can use the application by going to https://phemmz-post-it.herokuapp.com/

@@ -17,7 +17,7 @@ exports.default = function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function associate(models) {
-        Users.belongsTo(models.Group, {
+        User.belongsTo(models.Group, {
           foreignKey: 'groupId',
           onDelete: 'CASCADE'
         });

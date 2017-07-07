@@ -1,24 +1,21 @@
-const accountController = require('../controllers').accountController;
-const groupController = require('../controllers').groupController;
-const messageController = require('../controllers').messageController;
-const userController = require('../controllers').userController;
+import express from 'express';
+import AccountCtrl from './../controllers/accountController';
+import GroupCtrl from './../controllers/groupController';
+import MessageCtrl from './../controllers/messageController';
+import UserCtrl from './../controllers/userController';
 
+// const express = require('express');
+// const Account = require('../data/models').Account;
+// const Group = require('../data/models').Group;
+const router = express.Router();
 
-// const signinController = require('../controllers').signinController;
-// import {groupController} from '../controllers/groupController.js';
-// import {messageController} from '../controllers/messageController.js';
-// import {userController} from '../controllers/userController.js';
+router.post('/api/user/signup', AccountCtrl.signup);
+router.post('/api/user/signin', AccountCtrl.signin);
+router.post('/api/group', GroupCtrl.createGroup);
+router.get('/api/group', GroupCtrl.getGroup);
+router.post('/api/group/:groupId/message', MessageCtrl.sendMessage);
+router.get('/api/group/:groupId/messages', MessageCtrl.getMessages);
+router.post('/api/group/:groupId/user', UserCtrl.addUser);
+// GroupCtrl.createGroup);
 
-module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the PostIt API!!',
-  }));
-
-  app.post('/api/user/signup', accountController.create);
-  app.post('/api/user/signin', accountController.retrieve);
-  app.post('/api/group', groupController.create);
-  app.get('/api/group', groupController.retrieve);
-  app.post('/api/group/:groupId/message', messageController.create);
-  app.post('/api/group/:groupId/user', userController.create);
-  app.get('/api/group/:groupId/messages', messageController.retrieve);
-};
+export default router;
