@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const User = require('../data/models/users');
-=======
 const User = require('../data/models').Users;
->>>>>>> develop
 /**
  * This class CRUD functions for adding users to a group
  */
@@ -13,11 +9,7 @@ export default class UserCtrl {
    * @param {object} res 
    */
   static addUser(req, res) {
-<<<<<<< HEAD
-    console.log("this one na test",req.body);
-=======
     // console.log("this one na test",req.body);
->>>>>>> develop
     User.create({
       username: req.body.username,
       groupId: req.params.groupId

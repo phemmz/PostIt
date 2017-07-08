@@ -19,11 +19,7 @@ process.env.NODE_ENV = 'test';
 // Import the model
 var Account = require('../server/data/models').Account;
 var Group = require('../server/data/models').Group;
-<<<<<<< HEAD
-var Message = require('../server/data/models').Message;
-=======
 var Message = require('../server/data/models').Messages;
->>>>>>> develop
 
 var should = _chai2.default.should();
 
@@ -37,11 +33,7 @@ describe('/POST User', function () {
     });
   });
 
-<<<<<<< HEAD
-  it.skip('it should not POST signup details without email', function (done) {
-=======
   it('it should not POST signup details without password', function (done) {
->>>>>>> develop
     var signupDetails = {
       username: 'phemzy',
       password: 'phemzy'
@@ -52,7 +44,7 @@ describe('/POST User', function () {
     });
   });
 
-  it.skip('it should POST signup details ', function (done) {
+  it('it should POST signup details ', function (done) {
     var signupDetails = {
       username: 'douch2',
       email: 'douch2@gmail.com',
@@ -75,14 +67,11 @@ describe('/POST User', function () {
   it.skip('it should signin a user', function (done) {
     var account = new Account({
       username: 'phemz',
-<<<<<<< HEAD
-=======
       email: 'phemz@gmail.com',
->>>>>>> develop
       password: 'phemzy'
     });
-    account.save(function (err, accountIn) {
-      _chai2.default.request(_app2.default).post('/api/user/signin').send(accountIn).end(function (err, res) {
+    account.save(function (err, account) {
+      _chai2.default.request(_app2.default).post('/api/user/signin').send(account).end(function (err, res) {
         res.body.should.be.a('object');
         res.body.should.have.property('message');
         done();
@@ -93,7 +82,7 @@ describe('/POST User', function () {
 
 // Test the POST: /api/group route
 describe('/POST Create Broadcast Group', function () {
-  it.skip('it should allow users create broadcast groups by providing groupname', function (done) {
+  it('it should allow users create broadcast groups by providing groupname', function (done) {
     var groupDetails = {
       groupname: 'sport gist'
     };
@@ -111,11 +100,7 @@ describe('/POST/:id Add User', function () {
   it('it should Add(POST) users to a group by the given group id', function (done) {
     var addDetails = {
       username: 'phemzy',
-<<<<<<< HEAD
-      groupId: '1'
-=======
       groupId: '2'
->>>>>>> develop
     };
     _chai2.default.request(_app2.default).post('/api/group/' + addDetails.groupId + '/user').send(addDetails).end(function (err, res) {
       res.should.have.status(200);
@@ -128,12 +113,7 @@ describe('/POST/:id Add User', function () {
 
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', function () {
-<<<<<<< HEAD
-
-  it.skip('it should not POST messages to a group without a message', function (done) {
-=======
   it('it should not POST messages to a group without a message', function (done) {
->>>>>>> develop
     var msgDetails = {
       groupId: 2,
       priority: 3,
@@ -145,7 +125,7 @@ describe('/POST/:id Post Message', function () {
     });
   });
 
-  it.skip('it should  POST messages to a group', function (done) {
+  it('it should  POST messages to a group', function (done) {
     var msgDetails = {
       content: 'Manchester united is the best team in the world',
       readcheck: true,
@@ -163,7 +143,7 @@ describe('/POST/:id Post Message', function () {
 
 // Test the /GET: /api/group/:id/messages route
 describe('/GET/:id Messages', function () {
-  it.skip('it should GET all messages that have been posted to the group he/she belongs', function () {
+  it('it should GET all messages that have been posted to the group he/she belongs', function () {
     var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
     message.save(function (err, message) {
       _chai2.default.request(_app2.default).get('/api/group/' + message.groupId + 'messages').send(message).end(function (err, res) {

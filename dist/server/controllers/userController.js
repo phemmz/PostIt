@@ -8,11 +8,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-<<<<<<< HEAD
-var User = require('../data/models/users.js');
-=======
 var User = require('../data/models').Users;
->>>>>>> develop
 /**
  * This class CRUD functions for adding users to a group
  */
@@ -31,11 +27,7 @@ var UserCtrl = function () {
      * @param {object} res 
      */
     value: function addUser(req, res) {
-<<<<<<< HEAD
-      console.log("this one na test", req.body);
-=======
       // console.log("this one na test",req.body);
->>>>>>> develop
       User.create({
         username: req.body.username,
         groupId: req.params.groupId
