@@ -8,23 +8,18 @@ var _chaiHttp = require('chai-http');
 
 var _chaiHttp2 = _interopRequireDefault(_chaiHttp);
 
-var _app = require('../app.js');
+var _app = require('../app');
 
 var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 process.env.NODE_ENV = 'test';
-// Import the dev-dependencies
-
 
 // Import the model
 var Account = require('../server/data/models').Account;
 var Group = require('../server/data/models').Group;
-var Message = require('../server/data/models').Message;
-
-// Import the model
-
+var Message = require('../server/data/models').Messages;
 
 var should = _chai2.default.should();
 
@@ -38,24 +33,22 @@ describe('/POST User', function () {
     });
   });
 
-  it('it should not POST signup details without email', function (done) {
+  it('it should not POST signup details without password', function (done) {
     var signupDetails = {
       username: 'phemzy',
       password: 'phemzy'
     };
     _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-      res.should.have.status(400);
       res.body.should.be.a('object');
-      res.body.should.have.property('errors');
       done();
     });
   });
 
   it('it should POST signup details ', function (done) {
     var signupDetails = {
-      username: "douch2",
-      email: "douch2@gmail.com",
-      password: "douchee"
+      username: 'douch2',
+      email: 'douch2@gmail.com',
+      password: 'douchee'
     };
     _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
       res.should.have.status(201);
@@ -71,11 +64,11 @@ describe('/POST User', function () {
 
 // Test the POST: /api/user/signin route
 describe('/POST User', function () {
-
   it.skip('it should signin a user', function (done) {
     var account = new Account({
-      username: "phemz",
-      password: "phemzy"
+      username: 'phemz',
+      email: 'phemz@gmail.com',
+      password: 'phemzy'
     });
     account.save(function (err, account) {
       _chai2.default.request(_app2.default).post('/api/user/signin').send(account).end(function (err, res) {
@@ -91,7 +84,7 @@ describe('/POST User', function () {
 describe('/POST Create Broadcast Group', function () {
   it('it should allow users create broadcast groups by providing groupname', function (done) {
     var groupDetails = {
-      groupname: "sport gist"
+      groupname: 'sport gist'
     };
     _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
       res.should.have.status(200);
@@ -106,8 +99,8 @@ describe('/POST Create Broadcast Group', function () {
 describe('/POST/:id Add User', function () {
   it('it should Add(POST) users to a group by the given group id', function (done) {
     var addDetails = {
-      username: "phemzy",
-      groupId: "2"
+      username: 'phemzy',
+      groupId: '2'
     };
     _chai2.default.request(_app2.default).post('/api/group/' + addDetails.groupId + '/user').send(addDetails).end(function (err, res) {
       res.should.have.status(200);
@@ -120,7 +113,6 @@ describe('/POST/:id Add User', function () {
 
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', function () {
-
   it('it should not POST messages to a group without a message', function (done) {
     var msgDetails = {
       groupId: 2,
@@ -135,12 +127,11 @@ describe('/POST/:id Post Message', function () {
 
   it('it should  POST messages to a group', function (done) {
     var msgDetails = {
-      content: "Manchester united is the best team in the world",
+      content: 'Manchester united is the best team in the world',
       readcheck: true,
       priority: 3,
-      groupId: "2"
+      groupId: '2'
     };
-
     _chai2.default.request(_app2.default).post('/api/group/' + msgDetails.groupId + '/message').send(msgDetails).end(function (err, res) {
       res.body.should.be.a('object');
       res.body.should.have.property('confirmation').eql('success');

@@ -23,8 +23,7 @@ export default class AccountCtrl {
         password: req.body.password,
       })
       .then(account => res.status(201).send(account))
-      .catch(error => 
-      console.log(error));//res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   }
 
   /**

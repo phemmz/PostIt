@@ -41,8 +41,8 @@ var AccountCtrl = function () {
       }).then(function (account) {
         return res.status(201).send(account);
       }).catch(function (error) {
-        return console.log(error);
-      }); //res.status(400).send(error));
+        return res.status(400).send(error);
+      });
     }
 
     /**
