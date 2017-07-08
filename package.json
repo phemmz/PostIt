@@ -6,13 +6,8 @@
   "scripts": {
     "db:migrate": "sequelize db:migrate",
     "watch": "webpack -d --watch",
-<<<<<<< HEAD
-    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel test/postit.js -d dist/ --presets es2015",
-    "start": "npm run db:migrate && nodemon --exec babel-node dist/app.js",
-=======
     "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel test/postit.js -d dist/ --presets es2015",
     "start": "nodemon --exec babel-node dist/app.js",
->>>>>>> develop
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
