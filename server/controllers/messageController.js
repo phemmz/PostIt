@@ -1,4 +1,4 @@
-const Message = require('../data/models').Message;
+const Message = require('../data/models').Messages;
 
 /**
  * 

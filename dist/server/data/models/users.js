@@ -1,6 +1,10 @@
 'use strict';
 
-module.exports = function (sequelize, DataTypes) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (sequelize, DataTypes) {
   var User = sequelize.define('Users', {
     groupId: {
       type: DataTypes.INTEGER,

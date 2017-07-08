@@ -1,4 +1,4 @@
-const User = require('../data/models/users');
+const User = require('../data/models').Users;
 /**
  * This class CRUD functions for adding users to a group
  */
