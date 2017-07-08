@@ -6,7 +6,10 @@ var Sequelize = require('sequelize');
 var dotenv = require('dotenv');
 
 var env = process.env.NODE_ENV || 'development';
-var config = require('../config/config')[env];
+var confi = require('../config/config');
+
+JSON.stringify(confi);
+var config = confi[env];
 
 var basename = path.basename(module.filename);
 
@@ -15,8 +18,8 @@ var db = {};
 dotenv.config();
 
 var sequelize = void 0;
-if (config.url) {
-  sequelize = new Sequelize(config.url);
+if (config.use_env_variable) {
+  sequelize = new Sequelize(config.use_env_variable);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
