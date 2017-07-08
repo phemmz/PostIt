@@ -11,7 +11,9 @@
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "mocha dist/test --timeout 10000"
+    "test": "mocha dist/test --timeout 10000",
+    "cover": "istanbul cover _mocha dist/test --timeout 10000",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -61,6 +63,7 @@
     "babel-preset-react": "^6.24.1",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
+    "coveralls": "^2.13.1",
     "css-hot-loader": "^1.1.1",
     "css-loader": "^0.28.4",
     "eslint": "^4.0.0",
@@ -71,7 +74,9 @@
     "eslint-plugin-markdown": "^1.0.0-beta.6",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^2.1.2",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
+    "mocha-lcov-reporter": "^1.3.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "sass-loader": "^6.0.6",
