@@ -4,9 +4,7 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 
 const env = process.env.NODE_ENV || 'development';
-const confi = require('../config/config');
-
-const config = confi[env];
+const config = require('../config/config')[env];
 
 const basename = path.basename(module.filename);
 
