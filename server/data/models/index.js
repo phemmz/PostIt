@@ -6,7 +6,6 @@ const dotenv = require('dotenv');
 const env = process.env.NODE_ENV || 'development';
 const confi = require('../config/config');
 
-JSON.stringify(confi);
 const config = confi[env];
 
 const basename = path.basename(module.filename);
@@ -19,7 +18,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(config.use_env_variable);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.url);
 }
 
 fs

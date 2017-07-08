@@ -4,19 +4,11 @@ require('dotenv').config();
 
 module.exports = {
   development: {
-    username: 'fckkvrqx',
-    password: 'FZc_QCJLZxz1-usz0L-gDb5U_ipzPThj',
-    database: 'fckkvrqx',
-    host: 'pellefant.db.elephantsql.com',
-    port: 5432,
+    url: process.env.DATABASEE_URL,
     dialect: 'postgres'
   },
   test: {
-    username: 'fckkvrqx',
-    password: 'FZc_QCJLZxz1-usz0L-gDb5U_ipzPThj',
-    database: 'fckkvrqx',
-    host: 'pellefant.db.elephantsql.com',
-    port: 5432,
+    url: process.env.TESTDB_URL,
     dialect: 'postgres'
   },
   production: {

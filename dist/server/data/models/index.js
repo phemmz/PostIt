@@ -8,7 +8,6 @@ var dotenv = require('dotenv');
 var env = process.env.NODE_ENV || 'development';
 var confi = require('../config/config');
 
-JSON.stringify(confi);
 var config = confi[env];
 
 var basename = path.basename(module.filename);
@@ -21,7 +20,7 @@ var sequelize = void 0;
 if (config.use_env_variable) {
   sequelize = new Sequelize(config.use_env_variable);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.url);
 }
 
 fs.readdirSync(__dirname).filter(function (file) {
