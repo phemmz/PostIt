@@ -19,7 +19,11 @@ process.env.NODE_ENV = 'test';
 // Import the model
 var Account = require('../server/data/models').Account;
 var Group = require('../server/data/models').Group;
+<<<<<<< HEAD
 var Message = require('../server/data/models').Message;
+=======
+var Message = require('../server/data/models').Messages;
+>>>>>>> develop
 
 var should = _chai2.default.should();
 
@@ -33,15 +37,17 @@ describe('/POST User', function () {
     });
   });
 
+<<<<<<< HEAD
   it.skip('it should not POST signup details without email', function (done) {
+=======
+  it('it should not POST signup details without password', function (done) {
+>>>>>>> develop
     var signupDetails = {
       username: 'phemzy',
       password: 'phemzy'
     };
     _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-      res.should.have.status(400);
       res.body.should.be.a('object');
-      res.body.should.have.property('errors');
       done();
     });
   });
@@ -69,6 +75,10 @@ describe('/POST User', function () {
   it.skip('it should signin a user', function (done) {
     var account = new Account({
       username: 'phemz',
+<<<<<<< HEAD
+=======
+      email: 'phemz@gmail.com',
+>>>>>>> develop
       password: 'phemzy'
     });
     account.save(function (err, accountIn) {
@@ -101,7 +111,11 @@ describe('/POST/:id Add User', function () {
   it('it should Add(POST) users to a group by the given group id', function (done) {
     var addDetails = {
       username: 'phemzy',
+<<<<<<< HEAD
       groupId: '1'
+=======
+      groupId: '2'
+>>>>>>> develop
     };
     _chai2.default.request(_app2.default).post('/api/group/' + addDetails.groupId + '/user').send(addDetails).end(function (err, res) {
       res.should.have.status(200);
@@ -114,8 +128,12 @@ describe('/POST/:id Add User', function () {
 
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', function () {
+<<<<<<< HEAD
 
   it.skip('it should not POST messages to a group without a message', function (done) {
+=======
+  it('it should not POST messages to a group without a message', function (done) {
+>>>>>>> develop
     var msgDetails = {
       groupId: 2,
       priority: 3,
@@ -129,12 +147,11 @@ describe('/POST/:id Post Message', function () {
 
   it.skip('it should  POST messages to a group', function (done) {
     var msgDetails = {
-      content: "Manchester united is the best team in the world",
+      content: 'Manchester united is the best team in the world',
       readcheck: true,
       priority: 3,
-      groupId: "2"
+      groupId: '2'
     };
-
     _chai2.default.request(_app2.default).post('/api/group/' + msgDetails.groupId + '/message').send(msgDetails).end(function (err, res) {
       res.body.should.be.a('object');
       res.body.should.have.property('confirmation').eql('success');
