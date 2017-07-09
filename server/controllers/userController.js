@@ -100,7 +100,6 @@ export default class UserCtrl {
  */
   static getGroup(req, res) {
     const user = req.session.username;
-    console.log(user);
     if (req.session.username) {
       User.findAll({
         where: {
