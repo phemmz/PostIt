@@ -5,44 +5,79 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+//import Acc from '../data/models';
+
+
+var _bcryptNodejs = require('bcrypt-nodejs');
+
+var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
+
+var _middleware = require('./middlewares/middleware');
+
+var _middleware2 = _interopRequireDefault(_middleware);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// import Validator from 'validator';
-// import isEmpty from 'lodash/isEmpty';
-
-
 var Account = require('../data/models').Account;
-// const hashPassword = require('../data/models').hashPassword;
-var bcrypt = require('bcrypt-nodejs');
+// const Account = Acc.Account;
+var validate = new _middleware2.default();
 
 /**
  * 
  */
 
 var AccountCtrl = function () {
+  /**
+   * 
+   */
   function AccountCtrl() {
     _classCallCheck(this, AccountCtrl);
+
+    this.isOnline = false;
+    this.userValid = true;
   }
+  /**
+   * This class 
+   * @param {object} req 
+   * @param {object} res 
+   */
+
 
   _createClass(AccountCtrl, null, [{
     key: 'signup',
-
-    /**
-     * This class 
-     * @param {object} req 
-     * @param {object} res 
-     */
     value: function signup(req, res) {
-      Account.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
-      }).then(function (account) {
-        return res.status(201).send(account);
-      }).catch(function (error) {
-        return res.status(400).send(error);
-      });
+      var _validate$validateInp = validate.validateInput(req.body),
+          errors = _validate$validateInp.errors,
+          isValid = _validate$validateInp.isValid;
+
+      req.session.status = false;
+      req.session.username = req.body.username;
+      if (!isValid) {
+        res.status(400).json(errors);
+      } else if (req.session.status === true) {
+        res.status(500).json({
+          error: 'You already have an account'
+        });
+      } else {
+        Account.create({
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password
+        }).then(function (account) {
+          return res.status(201).json({
+            confirmation: 'success',
+            message: req.body.username + ' successfully added',
+            result: account
+          });
+        }).catch(function () {
+          return res.json({
+            confirmation: 'fail',
+            message: 'Check input details'
+          });
+        });
+      }
     }
 
     /**
@@ -54,7 +89,6 @@ var AccountCtrl = function () {
   }, {
     key: 'signin',
     value: function signin(req, res) {
-      console.log(req.body);
       req.session.username = req.body.username;
       Account.findAll({
         where: {
@@ -62,25 +96,45 @@ var AccountCtrl = function () {
         }
       }).then(function (account) {
         var userdetails = JSON.stringify(account);
-        // console.log(userdetails);
         userdetails = JSON.parse(userdetails);
-        // console.log(userdetails);
-        // console.log(userdetails[0].password);
-        if (bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
-          req.session.user = req.body.userdetails;
-          // req.session.id = userdetails[0].id;
+        if (req.body.username && req.body.password && _bcryptNodejs2.default.compareSync(req.body.password, userdetails[0].password) === true) {
+          req.session.user = req.body.username;
+          req.session.userId = userdetails[0].id;
           res.json({
-            message: 'Login successful'
+            confirmation: 'success',
+            message: req.body.username + ' logged in'
           });
         } else {
-          res.json({
+          res.status(401).json({
+            confirmation: 'fail',
             message: 'Check your login details'
           });
         }
       }).catch(function (error) {
-        console.log(error);
         res.json({
-          message: 'Invalid signin details'
+          confirmation: 'fail',
+          message: error
+        });
+      });
+    }
+    /**
+     * 
+     * @param {object} req 
+     * @param {object} res 
+     */
+
+  }, {
+    key: 'getAll',
+    value: function getAll(req, res) {
+      Account.findAll({}).then(function (data) {
+        res.json({
+          confirmation: 'success',
+          result: data
+        });
+      }).catch(function (error) {
+        res.json({
+          confirmation: 'fail',
+          result: error
         });
       });
     }
@@ -88,83 +142,5 @@ var AccountCtrl = function () {
 
   return AccountCtrl;
 }();
-
-// function validateInput(data) {
-//   let errors = {};
-
-//   if (Validator.isEmpty(data.username)) {
-//     errors.username = 'This field is required';
-//   }
-//   if (Validator.isEmpty(data.email)) {
-//     errors.email = 'This field is required';
-//   }
-//   if (!Validator.isEmail(data.email)) {
-//     errors.email = 'Email is invalid';
-//   }
-//   if (Validator.isEmpty(data.password)) {
-//     errors.password = 'This is field is required';
-//   }
-//   if (Validator.isEmpty(data.passwordConfirmation)) {
-//     errors.passwordConfirmation = 'This is field is required';
-//   }
-//   if (!Validator.equals(data.password, data.passwordConfirmation)) {
-//     errors.passwordConfirmation = 'Passwords must match';
-//   }
-
-//   return {
-//     errors,
-//     isValid: isEmpty(errors)
-//   }
-// }
-// exports.create = function (req, res) {
-//   // const {errors, isValid} = validateInput(req.body);
-//   // if (!isValid) {
-//   //   res.status(400).json(errors);
-//   // } 
-//   console.log(req.body)
-//   return Account
-//     .create({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password,
-//     })
-//     .then(account => res.status(201).send(account))
-//     .catch(error => res.status(400).send(error));  
-// };
-
-// exports.retrieve = function (req, res) {
-//   // console.log(req.body);
-//   // req.session.username = req.body.username;
-//   return Account.findAll({
-//     where: {
-//       username: req.body.username
-//     }
-//   })
-//     .then((account) => {
-//       let userdetails = JSON.stringify(account);
-//       // console.log(userdetails);
-//       userdetails = JSON.parse(userdetails);
-//       // console.log(userdetails);
-//       // console.log(userdetails[0].password);
-//       if (bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
-//         req.session.user = req.body.userdetails;
-//         // req.session.id = userdetails[0].id;
-//         res.json({
-//           message: 'Login successful'
-//         });
-//       } else {
-//         res.json({
-//           message: 'Check your login details'
-//         });
-//       }
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.json({
-//         message: 'Invalid signin details'
-//       });
-//     });
-// };
-
 
 exports.default = AccountCtrl;

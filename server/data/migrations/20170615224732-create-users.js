@@ -10,6 +10,9 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
+      groupname: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -28,6 +31,6 @@ module.exports = {
         },
       },
     }),
-  down: (queryInterface/*, Sequelize*/) =>
+  down: (queryInterface /*, Sequelize*/) =>
     queryInterface.dropTable('Users'),
 };

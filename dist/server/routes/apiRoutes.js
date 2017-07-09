@@ -31,10 +31,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // const Group = require('../data/models').Group;
 var router = _express2.default.Router();
 
+router.get('/api/user', _accountController2.default.getAll);
 router.post('/api/user/signup', _accountController2.default.signup);
 router.post('/api/user/signin', _accountController2.default.signin);
 router.post('/api/group', _groupController2.default.createGroup);
-router.get('/api/group', _groupController2.default.getGroup);
+router.get('/api/group', _userController2.default.getGroup);
 router.post('/api/group/:groupId/message', _messageController2.default.sendMessage);
 router.get('/api/group/:groupId/messages', _messageController2.default.getMessages);
 router.post('/api/group/:groupId/user', _userController2.default.addUser);

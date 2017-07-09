@@ -13,6 +13,10 @@ exports.default = function (sequelize, DataTypes) {
     username: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    groupname: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     classMethods: {

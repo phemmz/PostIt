@@ -28,23 +28,30 @@ var MessageCtrl = function () {
      * @param {object} res 
      */
     value: function sendMessage(req, res) {
-      Message.create({
-        content: req.body.content,
-        readcheck: req.body.readcheck,
-        priority: req.body.priority,
-        groupId: req.params.groupId
-      }).then(function (message) {
-        res.json({
-          confirmation: 'success',
-          result: message
+      if (req.session.username) {
+        Message.create({
+          content: req.body.content,
+          readcheck: req.body.readcheck,
+          priority: req.body.priority,
+          groupId: req.params.groupId
+        }).then(function (message) {
+          res.json({
+            confirmation: 'success',
+            result: message
+          });
+        }).catch(function (error) {
+          // console.log(error);
+          res.json({
+            confirmation: 'fail',
+            message: error
+          });
         });
-      }).catch(function (error) {
-        // console.log(error);
-        res.json({
+      } else {
+        res.status(401).json({
           confirmation: 'fail',
-          message: error
+          message: 'Please log in to send a message'
         });
-      });
+      }
     }
     /**
      * 
@@ -55,19 +62,25 @@ var MessageCtrl = function () {
   }, {
     key: 'getMessages',
     value: function getMessages(req, res) {
-      return Message.findAll({
-        where: { groupId: req.params.groupId }
-      }).then(function (messages) {
-        var msg = JSON.stringify(messages);
-        msg = JSON.parse(msg);
-        res.json(msg);
-      }).catch(function (error) {
-        console.log(error);
-        res.json({
-          confirmation: 'fail',
-          message: error
+      if (req.session.username) {
+        return Message.findAll({
+          where: { groupId: req.params.groupId }
+        }).then(function (messages) {
+          var msg = JSON.stringify(messages);
+          msg = JSON.parse(msg);
+          res.json(msg);
+        }).catch(function (error) {
+          res.json({
+            confirmation: 'fail',
+            message: error
+          });
         });
-      });
+      } else {
+        res.status(401).json({
+          confirmation: 'fail',
+          message: 'You are not logged in'
+        });
+      }
     }
   }]);
 

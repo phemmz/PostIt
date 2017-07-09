@@ -54,7 +54,7 @@ app.use(_bodyParser2.default.json());
 app.use(_express2.default.static(_path2.default.join(__dirname, './client/public')));
 
 app.use((0, _expressSession2.default)({
-  secret: 'hello',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
 }));
@@ -75,7 +75,7 @@ var port = parseInt(process.env.PORT, 10) || 8000;
 
 if (!module.parent) {
   app.listen(port, function () {
-    console.log('Listening on port 8000...');
+    // console.log('Listening on port 8000...');
   });
 }
 

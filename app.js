@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client/public')));
 
 app.use(session({
-  secret: 'hello',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
 }));
@@ -42,7 +42,7 @@ const port = parseInt(process.env.PORT, 10) || 8000;
 
 if (!module.parent) {
   app.listen(port, () => {
-    console.log('Listening on port 8000...');
+    // console.log('Listening on port 8000...');
   });
 }
 

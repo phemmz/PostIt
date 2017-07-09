@@ -8,6 +8,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    groupname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     classMethods: {
       associate: (models) => {
