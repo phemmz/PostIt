@@ -25,15 +25,15 @@ DATABASE_URL='postgres://jean:buck@localhost:5432/databaseName'
 
 Name   |     url       |     HTTP verb      |     description
 ------ | ------------- | -------------- | -------------------
-### AUTHENTICATION |
+AUTHENTICATION |
 SIGNUP     |  /api/user/signup     |     POST     |     Allows users to signup a new account on the PostIt app
 SIGNIN     |    /api/user/signin   |    POST      |    Allows a registered user to signin to the PostIt app
-### GROUP |
+GROUP |
 GETGROUP     |    /api/group   |    GET      |    Gets all the groups a user belongs to.
 CREATEGROUP     |  /api/group/     |     POST     |     Allows a registered user to create a new group
-### USERS |
+USERS |
 ADDUSER     |  /api/group/:id/user     |     POST     |     Allows group owner to add registered users to his group
-### MESSAGES |
+MESSAGES |
 GETMESSAGES    |    /api/group/:id/messages   |    GET      |    Retrieves all the messages in a particular group
 SENDMESSAGE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages to groups they belong to
 
