@@ -23,17 +23,17 @@ DATABASE_URL='postgres://jean:buck@localhost:5432/databaseName'
 
 ### API Documentation
 
-Name   |     url       |     HTTP verb      |     description
------- | ------------- | -------------- | -------------------
-##AUTHENTICATION |
-SIGNUP     |  /api/user/signup     |     POST     |     Allows users to signup a new account on the PostIt app
-SIGNIN     |    /api/user/signin   |    POST      |    Allows a registered user to signin to the PostIt app
-##GROUP |
-GETGROUP     |    /api/group   |    GET      |    Gets all the groups a user belongs to.
-CREATEGROUP     |  /api/group/     |     POST     |     Allows a registered user to create a new group
-##USERS |
-ADDUSER     |  /api/group/:id/user     |     POST     |     Allows group owner to add registered users to his group
-##MESSAGES |
-GETMESSAGES    |    /api/group/:id/messages   |    GET      |    Retrieves all the messages in a particular group
-SENDMESSAGE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages to groups they belong to
+Name   |     url       |     HTTP verb  |  Payloads   |     description
+------ | ------------- | -------------- | ------------  -----------------
+AUTHENTICATION |
+SIGNUP     |  /api/user/signup     |     POST     | username, email and password |    Allows users to signup a new account on the PostIt app
+SIGNIN     |    /api/user/signin   |    POST      | username and password |   Allows a registered user to signin to the PostIt app
+GROUP |
+GETGROUP     |    /api/group   |    GET      |  None  |  Gets all the groups a user belongs to.
+CREATEGROUP     |  /api/group/     |     POST     | groupname  |    Allows a registered user to create a new group
+USERS |
+ADDUSER     |  /api/group/:id/user     |     POST     |  groupname, username, groupId  |     Allows group owner to add registered users to his group
+MESSAGES |
+GETMESSAGES    |    /api/group/:id/messages   |    GET      |  None  |  Retrieves all the messages in a particular group
+SENDMESSAGE     |  /api/group/:id/message     |     POST     |  content, readcheck, priority  |  Allows group members to post messages to groups they belong to
 
