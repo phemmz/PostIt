@@ -55,7 +55,7 @@ var AccountCtrl = function () {
       req.session.status = false;
       req.session.username = req.body.username;
       if (!isValid) {
-        res.status(400).json(errors);
+        return res.status(400).json(errors);
       } else if (req.session.status === true) {
         res.status(500).json({
           error: 'You already have an account'
@@ -72,7 +72,7 @@ var AccountCtrl = function () {
             result: account
           });
         }).catch(function () {
-          return res.json({
+          return res.status(400).json({
             confirmation: 'fail',
             message: 'Check input details'
           });

@@ -27,7 +27,7 @@ export default class AccountCtrl {
     req.session.status = false;
     req.session.username = req.body.username;
     if (!isValid) {
-      res.status(400).json(errors);
+      return res.status(400).json(errors);
     } else if (req.session.status === true) {
       res.status(500).json({
         error: 'You already have an account'
@@ -44,7 +44,7 @@ export default class AccountCtrl {
           message: `${req.body.username} successfully added`,
           result: account
         }))
-        .catch(() => res.json({
+        .catch(() => res.status(400).json({
           confirmation: 'fail',
           message: 'Check input details'
         }));

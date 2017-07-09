@@ -128,7 +128,6 @@ var UserCtrl = function () {
     key: 'getGroup',
     value: function getGroup(req, res) {
       var user = req.session.username;
-      console.log(user);
       if (req.session.username) {
         User.findAll({
           where: {

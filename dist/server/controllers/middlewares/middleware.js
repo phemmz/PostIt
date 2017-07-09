@@ -22,47 +22,51 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * 
  */
 var Validations = function () {
+  /**
+   * 
+   */
   function Validations() {
     _classCallCheck(this, Validations);
+
+    this.errors = {};
   }
+  /**
+   * 
+   * @param {object} data 
+   */
+
 
   _createClass(Validations, [{
     key: 'validateInput',
-
-    /**
-     * 
-     * @param {object} data 
-     */
     value: function validateInput(data) {
-      var errors = {};
-      if (!data.username || !data.password || !data.username) {
+      if (!data.username || !data.email || !data.password || !data.passwordConfirmation) {
         this.errors.invalid = 'Invalid input details';
       }
-      if (_validator2.default.isEmpty(data.username) || data.username === '' || data.username === null) {
+      if (data.username === null || data.username === ' ') {
         this.errors.username = 'Please fill in your username';
       }
-      if (_validator2.default.isEmpty(data.email) || data.email === null || data.email === '') {
+      if (data.email === null || data.email === ' ') {
         this.errors.email = 'Please fill in your email';
       }
-      if (!_validator2.default.isEmail(data.email)) {
+      if (data.email && !_validator2.default.isEmail(data.email)) {
         this.errors.email = 'Email is invalid';
       }
       if (data.password === null || data.password === '') {
         this.errors.password = 'Please fill in your password';
       }
-      if (data.password.length <= 5) {
+      if (data.password && data.password.length <= 5) {
         this.errors.password = 'Password length must not be less than 6';
       }
       if (data.password === '' || data.password === null) {
         this.errors.passwordConfirmation = 'This field is required';
       }
       if (data.password !== data.passwordConfirmation) {
-        this.errors.passwordConfirmation = 'Passwords must match';
+        this.errors.passwordConfirmation = 'Passwords must match!!';
       }
 
       return {
-        errors: errors,
-        isValid: (0, _isEmpty2.default)(errors)
+        errors: this.errors,
+        isValid: (0, _isEmpty2.default)(this.errors)
       };
     }
   }]);
