@@ -5,7 +5,7 @@ const Group = Grp.Group;
 /**
  * 
  */
-export default class GroupCtrl {
+export default class GroupController {
   /**
    * 
    * @param {object} req 

@@ -1,15 +1,12 @@
 import bcrypt from 'bcrypt-nodejs';
-//import Acc from '../data/models';
-// import Validations from './middlewares/middleware';
+import Acct from '../data/models';
 
-const Account = require('../data/models').Account;
-// const Account = Acc.Account;
-// const validate = new Validations();
+const Account = Acct.Account;
 
 /**
  * 
  */
-export default class AccountCtrl {
+export default class AccountController {
   /**
    * 
    */
@@ -23,14 +20,8 @@ export default class AccountCtrl {
    * @param {object} res 
    */
   static signup(req, res) {
-    console.log("Reached here AccountCtrl#signup");
-    // const { errors, isValid } = validate.validateInput(req.body);
     req.session.status = false;
-    req.session.username = req.body.username;
-    // if (!isValid) {
-    //   res.status(400).json(errors);
-    // } else if (req.session.status === true) {
-      if (req.session.status === true) {
+    if (req.session.status === true) {
       res.status(500).json({
         error: 'You already have an account'
       });
@@ -41,11 +32,14 @@ export default class AccountCtrl {
           email: req.body.email,
           password: req.body.password,
         })
-        .then(account => res.status(201).json({
-          confirmation: 'success',
-          message: `${req.body.username} successfully added`,
-          result: account
-        }))
+        .then((account) => {
+          req.session.username = req.body.username;
+          res.status(201).json({
+            confirmation: 'success',
+            message: `${req.body.username} successfully added`,
+            result: account
+          });
+        })
         .catch(() => res.status(400).json({
           confirmation: 'fail',
           message: 'Check input details'
@@ -83,10 +77,10 @@ export default class AccountCtrl {
           });
         }
       })
-      .catch((error) => {
-        res.json({
+      .catch(() => {
+        res.status(401).json({
           confirmation: 'fail',
-          message: error
+          message: 'Login failed!'
         });
       });
   }
