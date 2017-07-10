@@ -55,7 +55,7 @@ var AccountCtrl = function () {
       req.session.status = false;
       req.session.username = req.body.username;
       if (!isValid) {
-        return res.status(400).json(errors);
+        res.status(400).json(errors);
       } else if (req.session.status === true) {
         res.status(500).json({
           error: 'You already have an account'
