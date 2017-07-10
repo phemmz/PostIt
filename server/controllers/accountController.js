@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt-nodejs';
 //import Acc from '../data/models';
-import Validations from './middlewares/middleware';
+// import Validations from './middlewares/middleware';
 
 const Account = require('../data/models').Account;
 // const Account = Acc.Account;
-const validate = new Validations();
+// const validate = new Validations();
 
 /**
  * 
@@ -23,12 +23,14 @@ export default class AccountCtrl {
    * @param {object} res 
    */
   static signup(req, res) {
-    const { errors, isValid } = validate.validateInput(req.body);
+    console.log("Reached here AccountCtrl#signup");
+    // const { errors, isValid } = validate.validateInput(req.body);
     req.session.status = false;
     req.session.username = req.body.username;
-    if (!isValid) {
-      res.status(400).json(errors);
-    } else if (req.session.status === true) {
+    // if (!isValid) {
+    //   res.status(400).json(errors);
+    // } else if (req.session.status === true) {
+      if (req.session.status === true) {
       res.status(500).json({
         error: 'You already have an account'
       });

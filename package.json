@@ -7,7 +7,7 @@
     "db:migrate": "sequelize db:migrate",
     "watch": "webpack -d --watch",
     "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel test/postit.js -d dist/ --presets es2015",
-    "start": "nodemon --exec babel-node dist/app.js",
+    "start": "nodemon --exec babel-node ./app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
