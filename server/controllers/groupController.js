@@ -18,8 +18,9 @@ export default class GroupController {
           groupname: req.body.groupname,
         })
         .then((group) => {
-          res.json({
-            confirmation: `${req.body.groupname} successfully created`,
+          res.status(200).json({
+            confirmation: 'success',
+            message: `${req.body.groupname} successfully created`,
             result: group
           });
         })

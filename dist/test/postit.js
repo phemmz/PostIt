@@ -36,10 +36,10 @@ describe('/POST User', function () {
         email: 'phemzy@gmail.com'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Invalid input details');
+        res.body.should.have.property('invalid').eql('Please fill in your details');
         done();
       });
     });
@@ -53,7 +53,7 @@ describe('/POST User', function () {
         passwordConfirmation: 'abcdesa'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('passwordConfirmation');
         res.body.should.have.property('passwordConfirmation').eql('Passwords must match!!');
@@ -70,10 +70,10 @@ describe('/POST User', function () {
         passwordConfirmation: '1234'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('password');
-        res.body.should.have.property('password').eql('Password length must not be less than 6');
+        res.body.should.have.property('password').eql('Password length must not be less than 6 characters');
         done();
       });
     });
@@ -86,10 +86,10 @@ describe('/POST User', function () {
         passwordConfirmation: '123456'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Invalid input details');
+        res.body.should.have.property('invalid').eql('Please fill in your details');
         done();
       });
     });
@@ -103,7 +103,7 @@ describe('/POST User', function () {
         passwordConfirmation: '123456'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('username');
         res.body.should.have.property('username').eql('Please fill in your username');
@@ -120,7 +120,7 @@ describe('/POST User', function () {
         passwordConfirmation: '123456'
       };
       _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
-        res.should.have.status(400);
+        res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('email');
         res.body.should.have.property('email').eql('Email is invalid');
@@ -128,8 +128,62 @@ describe('/POST User', function () {
       });
     });
   });
+  // Test the POST: /api/group route
+  describe('/POST Create Broadcast Group', function () {
+    it('it should not allow users that are not logged in to create broadcast group', function (done) {
+      var groupDetails = {
+        groupname: 'sport gist'
+      };
+      _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Please sign in to create a group');
+        done();
+      });
+    });
+    it('it should not allow users that are not logged in to add new User to a group', function (done) {
+      var addDetails = {
+        username: 'phemzy',
+        groupname: 'Random'
+      };
+      _chai2.default.request(_app2.default).post('/api/group/2/user').send(addDetails).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Please log in to add a user to a group');
+        done();
+      });
+    });
+    it('it should not allow a user that is not logged in to POST messages to a group', function (done) {
+      var msgDetails = {
+        content: 'happy day',
+        priority: 3,
+        readcheck: true,
+        groupId: 2
+      };
+      _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Please log in to send a message');
+        done();
+      });
+    });
+    it('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', function (done) {
+      var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
+      message.save(function (err, message) {
+        _chai2.default.request(_app2.default).get('/api/group/2/messages').send(message).end(function (err, res) {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('You are not logged in');
+          done();
+        });
+      });
+    });
+  });
   describe('Signup', function () {
-    it.skip('it should POST signup details ', function (done) {
+    it('it should POST signup details ', function (done) {
       var signupDetails = {
         email: 'hello9@gmail.com',
         username: 'hello9',
@@ -147,16 +201,31 @@ describe('/POST User', function () {
         done();
       });
     });
+    it('it should allow logged in users to create broadcast group', function (done) {
+      var groupDetails = {
+        groupname: 'sport gist'
+      };
+      _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('success');
+        res.body.should.have.property('message');
+        res.body.should.have.property('result');
+        done();
+      });
+    });
   });
   describe('/POST User', function () {
-    it.skip('it should signin a user', function (done) {
+    it('it should signin a user', function (done) {
       var account = new Account({
-        username: 'douch2',
+        username: 'hello9',
         password: 'douchee'
       });
       account.save(function (err, account) {
         _chai2.default.request(_app2.default).post('/api/user/signin').send(account).end(function (err, res) {
+          res.should.have.status(200);
           res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
           res.body.should.have.property('message');
           done();
         });
@@ -164,21 +233,21 @@ describe('/POST User', function () {
     });
   });
 });
-// Test the POST: /api/group route
+
 describe('/POST Create Broadcast Group', function () {
-  it('it should not allow users that are not logged in to create broadcast group', function (done) {
+  it('it should not allow logged in users to create broadcast group with an empty string as group name', function (done) {
     var groupDetails = {
-      groupname: 'sport gist'
+      groupname: ' '
     };
     _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
-      res.should.have.status(401);
+      res.should.have.status(422);
       res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('fail');
-      res.body.should.have.property('message').eql('Please sign in to create a group');
+      res.body.should.have.property('username').eql('Please fill in your groupname');
       done();
     });
   });
 });
+describe('/POST Create Broadcast Group', function () {});
 
 // Test the /POST api/group/:id/user
 describe('/POST/:id Add User', function () {
@@ -223,21 +292,6 @@ describe('/POST/:id Add User', function () {
 });
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', function () {
-  it('it should not allow a user that is not logged in to POST messages to a group', function (done) {
-    var msgDetails = {
-      content: 'happy day',
-      priority: 3,
-      readcheck: true,
-      groupId: 2
-    };
-    _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
-      res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('fail');
-      res.body.should.have.property('message').eql('Please log in to send a message');
-      done();
-    });
-  });
-
   it.skip('it should not allow a logged in user to POST messages to a group without content', function (done) {
     var msgDetails = {
       readcheck: true,
@@ -246,6 +300,7 @@ describe('/POST/:id Post Message', function () {
     _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
       res.body.should.be.a('object');
       res.body.should.have.property('confirmation').eql('fail');
+      res.body.should.have.property('invalid').eql('Please fill the required parameters');
       done();
     });
   });
@@ -269,19 +324,7 @@ describe('/POST/:id Post Message', function () {
 
 // Test the /GET: /api/group/:id/messages route
 describe('/GET/:id Messages', function () {
-  it.skip('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', function (done) {
-    var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
-    message.save(function (err, message) {
-      _chai2.default.request(_app2.default).get('/api/group/2/messages').send(message).end(function (err, res) {
-        res.should.have.status(401);
-        res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('You are not logged in');
-        done();
-      });
-    });
-  });
-  it.skip('it should GET all messages that have been posted to the group they belong to', function (done) {
+  it('it should GET all messages that have been posted to the group they belong to', function (done) {
     var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
     message.save(function (err, message) {
       _chai2.default.request(_app2.default).get('/api/group/2/messages').send(message).end(function (err, res) {

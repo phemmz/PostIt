@@ -20,12 +20,12 @@ var Group = _models2.default.Group;
  * 
  */
 
-var GroupCtrl = function () {
-  function GroupCtrl() {
-    _classCallCheck(this, GroupCtrl);
+var GroupController = function () {
+  function GroupController() {
+    _classCallCheck(this, GroupController);
   }
 
-  _createClass(GroupCtrl, null, [{
+  _createClass(GroupController, null, [{
     key: 'createGroup',
 
     /**
@@ -38,8 +38,9 @@ var GroupCtrl = function () {
         Group.create({
           groupname: req.body.groupname
         }).then(function (group) {
-          res.json({
-            confirmation: req.body.groupname + ' successfully created',
+          res.status(200).json({
+            confirmation: 'success',
+            message: req.body.groupname + ' successfully created',
             result: group
           });
         }).catch(function (error) {
@@ -57,7 +58,7 @@ var GroupCtrl = function () {
     }
   }]);
 
-  return GroupCtrl;
+  return GroupController;
 }();
 
-exports.default = GroupCtrl;
+exports.default = GroupController;

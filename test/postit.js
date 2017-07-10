@@ -25,10 +25,10 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('invalid');
-          res.body.should.have.property('invalid').eql('Invalid input details');
+          res.body.should.have.property('invalid').eql('Please fill in your details');
           done();
         });
     });
@@ -45,7 +45,7 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('passwordConfirmation');
           res.body.should.have.property('passwordConfirmation').eql('Passwords must match!!');
@@ -65,10 +65,10 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('password');
-          res.body.should.have.property('password').eql('Password length must not be less than 6');
+          res.body.should.have.property('password').eql('Password length must not be less than 6 characters');
           done();
         });
     });
@@ -84,10 +84,10 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('invalid');
-          res.body.should.have.property('invalid').eql('Invalid input details');
+          res.body.should.have.property('invalid').eql('Please fill in your details');
           done();
         });
     });
@@ -104,7 +104,7 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('username');
           res.body.should.have.property('username').eql('Please fill in your username');
@@ -124,7 +124,7 @@ describe('/POST User', () => {
         .post('/api/user/signup')
         .send(signupDetails)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('email');
           res.body.should.have.property('email').eql('Email is invalid');
@@ -132,8 +132,74 @@ describe('/POST User', () => {
         });
     });
   });
+  // Test the POST: /api/group route
+  describe('/POST Create Broadcast Group', () => {
+    it('it should not allow users that are not logged in to create broadcast group', (done) => {
+      const groupDetails = {
+        groupname: 'sport gist',
+      };
+      chai.request(app)
+        .post('/api/group')
+        .send(groupDetails)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Please sign in to create a group');
+          done();
+        });
+    });
+    it('it should not allow users that are not logged in to add new User to a group', (done) => {
+      const addDetails = {
+        username: 'phemzy',
+        groupname: 'Random'
+      };
+      chai.request(app)
+        .post('/api/group/2/user')
+        .send(addDetails)
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Please log in to add a user to a group');
+          done();
+        });
+    });
+    it('it should not allow a user that is not logged in to POST messages to a group', (done) => {
+      const msgDetails = {
+        content: 'happy day',
+        priority: 3,
+        readcheck: true,
+        groupId: 2
+      };
+      chai.request(app)
+        .post('/api/group/2/message')
+        .send(msgDetails)
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Please log in to send a message');
+          done();
+        });
+    });
+    it('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', (done) => {
+      const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
+      message.save((err, message) => {
+        chai.request(app)
+          .get('/api/group/2/messages')
+          .send(message)
+          .end((err, res) => {
+            res.should.have.status(401);
+            res.body.should.be.a('object');
+            res.body.should.have.property('confirmation').eql('fail');
+            res.body.should.have.property('message').eql('You are not logged in');
+            done();
+          });
+      });
+    });
+  });
   describe('Signup', () => {
-    it.skip('it should POST signup details ', (done) => {
+    it('it should POST signup details ', (done) => {
       const signupDetails = {
         email: 'hello9@gmail.com',
         username: 'hello9',
@@ -154,11 +220,27 @@ describe('/POST User', () => {
           done();
         });
     });
+    it('it should allow logged in users to create broadcast group', (done) => {
+      const groupDetails = {
+        groupname: 'sport gist',
+      };
+      chai.request(app)
+        .post('/api/group')
+        .send(groupDetails)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('message');
+          res.body.should.have.property('result');
+          done();
+        });
+    });
   });
   describe('/POST User', () => {
-    it.skip('it should signin a user', (done) => {
+    it('it should signin a user', (done) => {
       const account = new Account({
-        username: 'douch2',
+        username: 'hello9',
         password: 'douchee'
       });
       account.save((err, account) => {
@@ -166,7 +248,9 @@ describe('/POST User', () => {
           .post('/api/user/signin')
           .send(account)
           .end((err, res) => {
+            res.should.have.status(200);
             res.body.should.be.a('object');
+            res.body.should.have.property('confirmation').eql('success');
             res.body.should.have.property('message');
             done();
           });
@@ -174,23 +258,25 @@ describe('/POST User', () => {
     });
   });
 });
-// Test the POST: /api/group route
+
 describe('/POST Create Broadcast Group', () => {
-  it('it should not allow users that are not logged in to create broadcast group', (done) => {
+  it('it should not allow logged in users to create broadcast group with an empty string as group name', (done) => {
     const groupDetails = {
-      groupname: 'sport gist',
+      groupname: ' ',
     };
     chai.request(app)
       .post('/api/group')
       .send(groupDetails)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please sign in to create a group');
+        res.body.should.have.property('username').eql('Please fill in your groupname');
         done();
       });
   });
+});
+describe('/POST Create Broadcast Group', () => {
+  
 });
 
 // Test the /POST api/group/:id/user
@@ -245,24 +331,6 @@ describe('/POST/:id Add User', () => {
 });
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', () => {
-  it('it should not allow a user that is not logged in to POST messages to a group', (done) => {
-    const msgDetails = {
-      content: 'happy day',
-      priority: 3,
-      readcheck: true,
-      groupId: 2
-    };
-    chai.request(app)
-      .post('/api/group/2/message')
-      .send(msgDetails)
-      .end((err, res) => {
-        res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please log in to send a message');
-        done();
-      });
-  });
-
   it.skip('it should not allow a logged in user to POST messages to a group without content', (done) => {
     const msgDetails = {
       readcheck: true,
@@ -274,6 +342,7 @@ describe('/POST/:id Post Message', () => {
       .end((err, res) => {
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('invalid').eql('Please fill the required parameters');
         done();
       });
   });
@@ -300,22 +369,7 @@ describe('/POST/:id Post Message', () => {
 
 // Test the /GET: /api/group/:id/messages route
 describe('/GET/:id Messages', () => {
-  it.skip('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', (done) => {
-    const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
-    message.save((err, message) => {
-      chai.request(app)
-        .get('/api/group/2/messages')
-        .send(message)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('fail');
-          res.body.should.have.property('message').eql('You are not logged in');
-          done();
-        });
-    });
-  });
-  it.skip('it should GET all messages that have been posted to the group they belong to', (done) => {
+  it('it should GET all messages that have been posted to the group they belong to', (done) => {
     const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
     message.save((err, message) => {
       chai.request(app)

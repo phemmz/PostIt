@@ -5,35 +5,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-//import Acc from '../data/models';
-
 
 var _bcryptNodejs = require('bcrypt-nodejs');
 
 var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
-var _middleware = require('./middlewares/middleware');
+var _models = require('../data/models');
 
-var _middleware2 = _interopRequireDefault(_middleware);
+var _models2 = _interopRequireDefault(_models);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Account = require('../data/models').Account;
-// const Account = Acc.Account;
-var validate = new _middleware2.default();
+var Account = _models2.default.Account;
 
 /**
  * 
  */
 
-var AccountCtrl = function () {
+var AccountController = function () {
   /**
    * 
    */
-  function AccountCtrl() {
-    _classCallCheck(this, AccountCtrl);
+  function AccountController() {
+    _classCallCheck(this, AccountController);
 
     this.isOnline = false;
     this.userValid = true;
@@ -45,18 +41,11 @@ var AccountCtrl = function () {
    */
 
 
-  _createClass(AccountCtrl, null, [{
+  _createClass(AccountController, null, [{
     key: 'signup',
     value: function signup(req, res) {
-      var _validate$validateInp = validate.validateInput(req.body),
-          errors = _validate$validateInp.errors,
-          isValid = _validate$validateInp.isValid;
-
       req.session.status = false;
-      req.session.username = req.body.username;
-      if (!isValid) {
-        res.status(400).json(errors);
-      } else if (req.session.status === true) {
+      if (req.session.status === true) {
         res.status(500).json({
           error: 'You already have an account'
         });
@@ -66,7 +55,8 @@ var AccountCtrl = function () {
           email: req.body.email,
           password: req.body.password
         }).then(function (account) {
-          return res.status(201).json({
+          req.session.username = req.body.username;
+          res.status(201).json({
             confirmation: 'success',
             message: req.body.username + ' successfully added',
             result: account
@@ -110,10 +100,10 @@ var AccountCtrl = function () {
             message: 'Check your login details'
           });
         }
-      }).catch(function (error) {
-        res.json({
+      }).catch(function () {
+        res.status(401).json({
           confirmation: 'fail',
-          message: error
+          message: 'Login failed!'
         });
       });
     }
@@ -140,7 +130,7 @@ var AccountCtrl = function () {
     }
   }]);
 
-  return AccountCtrl;
+  return AccountController;
 }();
 
-exports.default = AccountCtrl;
+exports.default = AccountController;

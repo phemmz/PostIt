@@ -6,20 +6,26 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _models = require('../data/models');
+
+var _models2 = _interopRequireDefault(_models);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Message = require('../data/models').Messages;
+var Message = _models2.default.Messages;
 
 /**
  * 
  */
 
-var MessageCtrl = function () {
-  function MessageCtrl() {
-    _classCallCheck(this, MessageCtrl);
+var MessageController = function () {
+  function MessageController() {
+    _classCallCheck(this, MessageController);
   }
 
-  _createClass(MessageCtrl, null, [{
+  _createClass(MessageController, null, [{
     key: 'sendMessage',
 
     /**
@@ -40,7 +46,6 @@ var MessageCtrl = function () {
             result: message
           });
         }).catch(function (error) {
-          // console.log(error);
           res.json({
             confirmation: 'fail',
             message: error
@@ -84,66 +89,7 @@ var MessageCtrl = function () {
     }
   }]);
 
-  return MessageCtrl;
+  return MessageController;
 }();
-// exports.create = function (req, res) {
-// console.log(req.body);
-// console.log(req.params.groupId);
-// if(req.session.name) {
-// return Message
-//   .create({
-//     content: req.body.content,
-//     readcheck: req.body.readcheck,
-//     priority: req.body.priority,
-//     groupId: req.params.groupId,
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//     res.json({
-//       confirmation: 'fail',
-//       message: error
-//     });
-//   })
-//   .then((message) => {
-//     res.json({
-//       confirmation: 'success',
-//       result: message
-//     });
-//   });
 
-// }
-// else {
-//  res.json({
-//   message: "Login to send message"
-//  });
-// }
-// };
-
-// exports.retrieve = function (req, res) {
-//   // if(req.session.name) {
-//   return Message.findAll({
-//     where: { groupId: req.params.groupId }
-//   })
-//     .then((messages) => {
-//       let msg = JSON.stringify(messages);
-//       msg = JSON.parse(msg);
-//       res.json(msg);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       res.json({
-//         confirmation: 'fail',
-//         message: error
-//       });
-//     });
-
-// }
-// else {
-//  res.json({
-//    message: "Login to get messages"
-//  });
-// }
-// };
-
-
-exports.default = MessageCtrl;
+exports.default = MessageController;
