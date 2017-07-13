@@ -1,7 +1,32 @@
 body {
+     font-family: 'Open Sans', sans-serif;
      display: flex;
      min-height: 100vh;
      flex-direction: column;
+ }
+
+ .welc {
+   background-color: white;
+ }
+
+ footer {
+   background-color: #333;
+   height: 70px;
+   color: #ddd;
+   padding: 20px;
+   text-align: center;
+ }
+
+ .image {
+   position: relative;
+   width: 100%;
+ }
+
+ .postlogo {
+   padding-top: 10px;
+   padding-left: 10px;
+   width: 50%;
+   height: 30%;
  }
  main {
      flex: 1 0 auto;
@@ -15,7 +40,6 @@ body {
 	margin-left: 0.2em;
 	border-bottom: 1px;
 	color: #FFF;
-  font-color: #FFF
 }
 .userlogin {	
 	color: #4db6ac;
@@ -25,19 +49,18 @@ body {
 	text-align: right;
 }
 
-.welc {
+.welcmsg {
   transition: box-shadow .25s;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
-  background-color: #fff;
-  width: 800px;
+  background-color: silver;
   margin: 100px 0 0 0;
 }
 .grouplist{
-  margin: 3rem 0 2rem 2rem;
-  padding-right: 0;  
-  height: 170px;
-  width: 500px;
+  margin: 10px 0 2rem 2rem;
+  padding-right: 0; 
+  background-color: silver;
+
 }
 .msgglist {
   height: 250px;
@@ -69,6 +92,40 @@ body {
   text-align: center;
 }
 
+.groupname {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: silver;
+  margin: 0 0 0 0;
+  padding: 20px;
+}
+
+.messages {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: silver;
+  margin: 20px 0 0 0;
+  height: 700px;
+}
+
+.msgtxtbox {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: white;
+  margin: 50px 0 0 0;
+  height: 100px;
+}
+
+.group {
+ background-color: silver;
+;
+ margin: 0px;
+ height: 1000px;
+}
+
 .msgform {
   margin: -19rem 0 2rem 50rem;
   height: 500px;
@@ -78,8 +135,6 @@ body {
 .cbg {
   margin-left: 5rem;
   margin-top: 5rem;
-
-
 }
 
 .glist {
@@ -94,18 +149,3 @@ body {
 	text-align: center;
 }
 
-.footer-copyright {
-  overflow: hidden;
-  min-height: 50px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0px 0px;
-  margin-top: 300px;
-  color: #FFF;
-  background-color: #4db6ac;
-
-}

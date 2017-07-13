@@ -4,59 +4,56 @@
 		<title>PostIt</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />		
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
+		 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
          <link rel="stylesheet" type="text/css" href="./css/materialize.css" />
+		 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./css/style.css">
-	</head>
-	<body>
-		<div class="card-panel teal lighten-2">
-			<div class="reg">
-				<em class="post">POSTIT</em>
-			
-				<a href="./homepage.html" class="waves-effect waves-light btn">Logout</a>
-			</div>
-		</div>
-		<div class="welc grouplist">
-			<h4 class="green-text text-darken-4 glist">Your Group List</h4>
-			<hr />
-			<p class="green-text text-darken-2">You currently dont belong to any group</p>
-			<p class="green-text text-darken-2">Create a group to send broadcast messages</p>			
-		</div>
-		<div class="welc groupform">
-			<h4 class="green-text text-darken-4 glist">Create Broadcast Group</h4>
-			<hr />
-			<div class="container">
-				<div class="row">
-					<form class="col s12" action="api/group" method="post">
-						<div class="row">
-							<div class="input-field col s6">
-								<input id="groupname" type="text" class="validate">
-								<label for="groupname">Group Name</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s6">
-								<a href="#" class="dropdown-button btn" data-activates='dropdown1' style="margin-left: 200px">Add Users</a>
-						    	<ul id="dropdown1" class="dropdown-content">
-						    		<li><a href="#">Adetunji</a></li>
-						    		<li><a href="#!">Temi</a></li>
-						    		<li><a href="#">Victori</a></li>
-						    		<li class="divider"></li>
-						    		<li><a href="#!">Arkmed</a></li>
-						    		<li><a href="#!">Ayo</a></li>
-						    		<li><a href="#!">Lanre</a></li>
 
-						    	</ul>								
+	</head>
+	<body style="background-color: #f7f7f7">
+		<div class="container-fluid">
+			<div class="row" style="margin-bottom: 0">
+				<div class="col s4" style="padding-left: 0px; margin-top: 0px; height: 100%">
+					<div class="group">
+						<!--<span><h4 style="margin-top: 0px; text-align: center"><em>Groups</em></h4></span>-->
+						<div class="welc grouplist" style="margin-top: 0px; margin-left: 0px">
+							<h4 class="green-text text-darken-4" style="margin-top: 0px; padding-top: 10px">Your Group List</h4>
+							<hr />
+							<a href="#modal1"><i title="Add Group" class="green small material-icons modal-trigger" data-target="modal1">playlist_add</i>Add Group</a>
+							<div id="modal1" class="modal">
+								<div class="modal-content">
+									<h4>Modal Header</h4>
+									<p>A bunch of text</p>
+								</div>
+								<div class="modal-footer">
+									<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+								</div>
 							</div>
+							<p class="green-text text-darken-2">You currently dont belong to any group</p>
+							<p class="green-text text-darken-2">Create a group to send broadcast messages</p>			
 						</div>
-						<div class="row cbg">
-							<a class="waves-effect waves-light btn"   href="./sendmessage.html">Create Broadcast Group</a>
-						</div>
-					</form>
+					</div>
 				</div>
-			</div>			
-		</div>			
+				<div class="col s8">
+					<div class="groupname">
+						fam
+					</div>
+					<div class="messages">
+					    Messages
+					</div>
+					<div class="msgtxtbox">
+						<div class="input-field col s12">
+							<input id="sndmsg" type="text" class="validate">
+							<label class="active" for="sndmsg">Send Message</label>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
 		</div>
+		
 		<footer>
 			<div class="footer-copyright">
 				<div class="container">					
@@ -66,6 +63,18 @@
 				</div>
 			</div>
 		</footer>
+		<script>
+			$(document).ready(function(){
+			// the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+				$('.modal-trigger').leanmodal();
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+				Materialize.updateTextFields();
+			});
+		</script>
+		
 
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     	<!--<script type="text/javascript" src="./js/materialize.min.js"></script>-->
