@@ -1,6 +1,7 @@
 import Models from '../data/models';
 
 const Group = Models.Group;
+const User = Models.User;
 
 /**
  * 
@@ -38,27 +39,100 @@ export default class GroupController {
     }
   }
   /**
+   * This method add a user to a particular group
+   * @param {object} req 
+   * @param {object} res 
+   */
+  static addUserToGroup(req, res) {
+    if (req.session.username) {
+      console.log(req.params.groupId);
+      Group.findOne({ where: { id: req.params.groupId } })
+        .then((group) => {
+          if (group === null) {
+            res.status(404).json({
+              confirmation: 'fail',
+              message: 'Group does not exist',
+            });
+          } else {
+            User.findOne({
+              where: { username: req.body.username }
+            })
+              .then((user) => {
+                if (user === null) {
+                  res.status(404).json({
+                    confirmation: 'fail',
+                    message: 'User does not exist',
+                  });
+                } else {
+                  group.addUser(user)
+                    .then((added) => {
+                      if (added.length === 0) {
+                        res.status(400).json({
+                          confirmation: 'fail',
+                          message: 'User already exists'
+                        });
+                      } else {
+                        res.status(201).json({
+                          message: 'User added successfully',
+                          result: added
+                        });
+                      }
+                    })
+                    .catch((error) => {
+                      res.status(404).send(error);
+                    });
+                }
+              })
+              .catch((err) => {
+                res.json({
+                  confirmation: 'fail',
+                  error: err
+                });
+              });
+          }
+        })
+        .catch((err) => {
+          res.json({
+            confirmation: 'fail',
+            error: err
+          });
+        });
+    } else {
+      res.status(401).json({
+        confirmation: 'fail',
+        message: 'Please log in to add a user to a group'
+      });
+    }
+  }
+  /**
  * 
  * @param {object} req 
  * @param {object} res 
  */
   static getGroup(req, res) {
-    const user = req.session.username;
     if (req.session.username) {
-      Group.findAll({
-        where: {
-          username: user
-        }
+      User.findOne({
+        where: { username: req.session.username }
       })
-        .then((group) => {
-          console.log(group);
-          res.json({
-            confirmation: 'success',
-            results: group
-          });
+        .then((user) => {
+          user.getGroups({
+            where: {}
+          })
+            .then((groups) => {
+              res.status(200).json({
+                confirmation: 'success',
+                results: groups
+              });
+            })
+            .catch((error) => {
+              res.status(404).json({
+                confirmation: 'fail',
+                message: error
+              });
+            });
         })
         .catch((error) => {
-          res.json({
+          res.status(404).json({
             confirmation: 'fail',
             message: error
           });

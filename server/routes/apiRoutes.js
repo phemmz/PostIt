@@ -11,13 +11,13 @@ import SendMessageValidations from '../controllers/middlewares/sendMessageMiddle
 
 const router = express.Router();
 
-router.get('/api/user', UserController.getAll);
+router.get('/api/user', UserController.getAllUsers);
 router.post('/api/user/signup', SignupValidations.validateUserInput, UserController.signup);
 router.post('/api/user/signin', SigninValidations.validateUserInput, UserController.signin);
 router.post('/api/group', CreateGroupValidations.validateUserInput, GroupController.createGroup);
 router.get('/api/group', GroupController.getGroup);
 router.post('/api/group/:groupId/message', SendMessageValidations.validateUserInput, MessageController.sendMessage);
 router.get('/api/group/:groupId/messages', MessageController.getMessages);
-router.post('/api/group/:groupId/user', AddUserValidations.validateUserInput, UserController.addUserToGroup);
+router.post('/api/group/:groupId/user', AddUserValidations.validateUserInput, GroupController.addUserToGroup);
 
 export default router;
