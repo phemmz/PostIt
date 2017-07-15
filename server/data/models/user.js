@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt-nodejs';
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     }
   });
-
+  
   User.beforeCreate((User, options) => {
     User.password = bcrypt.hashSync(User.password);
   });
@@ -26,10 +26,11 @@ export default (sequelize, DataTypes) => {
   User.afterCreate((User, options) => {
     // console.log('Account created');
   });
+
   User.associate = (models) => {
     User.belongsToMany(models.Group, {
-      through: 'userGroups',
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      through: 'UserGroups',
     });
   };
   return User;

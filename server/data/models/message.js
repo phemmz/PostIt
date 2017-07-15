@@ -15,12 +15,15 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+  }, {
+    classMethods: {
+      associate: (models) => {
+        Message.belongsTo(models.Group, {
+          foreignKey: 'groupId',
+          onDelete: 'CASCADE',
+        });
+      },
+    },
   });
-  Message.associate = (models) => {
-    Message.belongsTo(models.Group, {
-      foreignKey: 'groupId',
-      onDelete: 'CASCADE',
-    });
-  };
   return Message;
 };

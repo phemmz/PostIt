@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import Models from '../data/models';
 
-const User = Models.Users;
+const User = Models.User;
 const Group = Models.Group;
 
 /**
@@ -39,13 +39,13 @@ export default class UserController {
    * @param {*} uname 
    */
   static checkRegisteredUser(uname) {
-    Account.findOne({
+    User.findOne({
       where: {
         username: uname
       }
     })
       .then(() => {
-        UserCtrl.userValid = true;
+        UserController.userValid = true;
       });
   }
   /**
@@ -167,7 +167,7 @@ export default class UserController {
             where: { username: req.body.username }
           })
             .then((user) => {
-              console.log(user);
+              console.log(user, 'nidnsindiusndiunsuidnusndunsuidnusndunsudnusnduns');
               group.addUser(user)
                 .then((added) => {
                   res.status(201).json({

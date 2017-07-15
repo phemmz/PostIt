@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-  const userGroup = sequelize.define('userGroup', {
+  const UserGroup = sequelize.define('UserGroup', {
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER
   });
-  return userGroup;
+  return UserGroup;
 };

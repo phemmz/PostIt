@@ -5,10 +5,11 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       groupname: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       createdAt: {
@@ -19,7 +20,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    }), 
-  down: (queryInterface/*, Sequelize*/) => 
+    }),
+  down: queryInterface /* , Sequelize)*/ =>
     queryInterface.dropTable('Groups'),
 };
