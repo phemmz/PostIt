@@ -1,6 +1,6 @@
-import Grp from '../data/models';
+import Models from '../data/models';
 
-const Group = Grp.Group;
+const Group = Models.Group;
 
 /**
  * 
@@ -34,6 +34,39 @@ export default class GroupController {
       res.status(401).json({
         confirmation: 'fail',
         message: 'Please sign in to create a group'
+      });
+    }
+  }
+  /**
+ * 
+ * @param {object} req 
+ * @param {object} res 
+ */
+  static getGroup(req, res) {
+    const user = req.session.username;
+    if (req.session.username) {
+      Group.findAll({
+        where: {
+          username: user
+        }
+      })
+        .then((group) => {
+          console.log(group);
+          res.json({
+            confirmation: 'success',
+            results: group
+          });
+        })
+        .catch((error) => {
+          res.json({
+            confirmation: 'fail',
+            message: error
+          });
+        });
+    } else {
+      res.status(401).json({
+        confirmation: 'fail',
+        message: 'Please log in'
       });
     }
   }

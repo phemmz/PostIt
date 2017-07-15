@@ -16,12 +16,7 @@ export default class AddUserValidations {
         errors.username = 'Username is required';
       }
     }
-    if (data.groupname) {
-      if (Validator.isEmpty(data.groupname.trim())) {
-        errors.username = 'Groupname is required';
-      }
-    }
-    if (!data.username || !data.groupname) {
+    if (!data.username) {
       errors.invalid = 'Please fill in your details';
     }
     return {

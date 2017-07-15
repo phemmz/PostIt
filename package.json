@@ -11,7 +11,7 @@
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "mocha dist/test --timeout 20000",
+    "test": "mocha dist/test --timeout 50000",
     "cover": "istanbul cover _mocha dist/test --timeout 10000",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -66,7 +66,7 @@
     "coveralls": "^2.13.1",
     "css-hot-loader": "^1.1.1",
     "css-loader": "^0.28.4",
-    "eslint": "^4.0.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-json": "^1.2.0",

@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Message = sequelize.define('Messages', {
+  const Message = sequelize.define('Message', {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -15,15 +15,12 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Message.belongsTo(models.Group, {
-          foreignKey: 'groupId',
-          onDelete: 'CASCADE',
-        });
-      },
-    },
   });
+  Message.associate = (models) => {
+    Message.belongsTo(models.Group, {
+      foreignKey: 'groupId',
+      onDelete: 'CASCADE',
+    });
+  };
   return Message;
 };

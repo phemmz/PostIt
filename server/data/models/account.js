@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 
 export default (sequelize, DataTypes) => {
-  const Account = sequelize.define('Account', {
+  const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       unique: true,
@@ -19,12 +19,18 @@ export default (sequelize, DataTypes) => {
     }
   });
 
-  Account.beforeCreate((Account, options) => {
-    Account.password = bcrypt.hashSync(Account.password);
+  User.beforeCreate((User, options) => {
+    User.password = bcrypt.hashSync(User.password);
   });
 
-  Account.afterCreate((Account, options) => {
+  User.afterCreate((User, options) => {
     // console.log('Account created');
   });
-  return Account;
+  User.associate = (models) => {
+    User.belongsToMany(models.Group, {
+      through: 'userGroups',
+      foreignKey: 'userId'
+    });
+  };
+  return User;
 };

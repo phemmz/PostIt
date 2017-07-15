@@ -184,10 +184,10 @@ describe('/POST User', () => {
     });
     it('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', (done) => {
       const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
-      message.save((err, message) => {
+      message.save((err, msg) => {
         chai.request(app)
           .get('/api/group/2/messages')
-          .send(message)
+          .send(msg)
           .end((err, res) => {
             res.should.have.status(401);
             res.body.should.be.a('object');
@@ -201,8 +201,8 @@ describe('/POST User', () => {
   describe('Signup', () => {
     it('it should POST signup details ', (done) => {
       const signupDetails = {
-        email: 'hello9@gmail.com',
-        username: 'hello9',
+        email: 'hello00@gmail.com',
+        username: 'hello00',
         password: 'douchee',
         passwordConfirmation: 'douchee'
       };
@@ -219,6 +219,24 @@ describe('/POST User', () => {
           res.body.result.should.have.property('createdAt');
           done();
         });
+    });
+    it('it should signin a user', (done) => {
+      const account = new Account({
+        username: 'hello9',
+        password: 'douchee'
+      });
+      account.save((err, acc) => {
+        chai.request(app)
+          .post('/api/user/signin')
+          .send(acc)
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('confirmation').eql('success');
+            res.body.should.have.property('message');
+            done();
+          });
+      });
     });
     it('it should allow logged in users to create broadcast group', (done) => {
       const groupDetails = {
@@ -237,29 +255,6 @@ describe('/POST User', () => {
         });
     });
   });
-  describe('/POST User', () => {
-    it('it should signin a user', (done) => {
-      const account = new Account({
-        username: 'hello9',
-        password: 'douchee'
-      });
-      account.save((err, account) => {
-        chai.request(app)
-          .post('/api/user/signin')
-          .send(account)
-          .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.a('object');
-            res.body.should.have.property('confirmation').eql('success');
-            res.body.should.have.property('message');
-            done();
-          });
-      });
-    });
-  });
-});
-
-describe('/POST Create Broadcast Group', () => {
   it('it should not allow logged in users to create broadcast group with an empty string as group name', (done) => {
     const groupDetails = {
       groupname: ' ',
@@ -274,6 +269,40 @@ describe('/POST Create Broadcast Group', () => {
         done();
       });
   });
+  it('it should allow logged in users to add new User to a group', (done) => {
+    const addDetails = {
+      username: 'phemzy',
+    };
+    chai.request(app)
+      .post('/api/group/1/user')
+      .send(addDetails)
+      .end((err, res) => {
+        res.body.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('User added successfully');
+        res.body.should.have.property('result');
+        res.body.result.should.have.property('username');
+        res.body.result.should.have.property('createdAt');
+        done();
+      });
+  });
+  it('it should not allow logged in users to add new User to a group without providing username', (done) => {
+    const addDetails = {
+      groupname: 'Random'
+    };
+    chai.request(app)
+      .post('/api/group/1/user')
+      .send(addDetails)
+      .end((err, res) => {
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Cant add user to group');
+        done();
+      });
+  });
+});
+
+describe('/POST Create Broadcast Group', () => {
+  
 });
 describe('/POST Create Broadcast Group', () => {
   
@@ -287,7 +316,7 @@ describe('/POST/:id Add User', () => {
       groupname: 'Random'
     };
     chai.request(app)
-      .post('/api/group/2/user')
+      .post('/api/group/1/user')
       .send(addDetails)
       .end((err, res) => {
         res.should.have.status(401);
@@ -297,37 +326,8 @@ describe('/POST/:id Add User', () => {
         done();
       });
   });
-  it.skip('it should not allow logged in users to add new User to a group without providing username', (done) => {
-    const addDetails = {
-      groupname: 'Random'
-    };
-    chai.request(app)
-      .post('/api/group/2/user')
-      .send(addDetails)
-      .end((err, res) => {
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Cant add user to group');
-        done();
-      });
-  });
-  it.skip('it should allow logged in users to add new User to a group', (done) => {
-    const addDetails = {
-      username: 'phemzy',
-      groupname: 'Random'
-    };
-    chai.request(app)
-      .post('/api/group/2/user')
-      .send(addDetails)
-      .end((err, res) => {
-        res.body.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('User added successfully');
-        res.body.should.have.property('result');
-        res.body.result.should.have.property('username');
-        res.body.result.should.have.property('createdAt');
-        done();
-      });
-  });
+  
+  
 });
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', () => {
@@ -370,11 +370,11 @@ describe('/POST/:id Post Message', () => {
 // Test the /GET: /api/group/:id/messages route
 describe('/GET/:id Messages', () => {
   it('it should GET all messages that have been posted to the group they belong to', (done) => {
-    const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
-    message.save((err, message) => {
+    const message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 1 });
+    message.save((err, msg) => {
       chai.request(app)
-        .get('/api/group/2/messages')
-        .send(message)
+        .get('/api/group/1/messages')
+        .send(msg)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');

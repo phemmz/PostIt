@@ -1,18 +1,52 @@
 import bcrypt from 'bcrypt-nodejs';
-import Acct from '../data/models';
+import Models from '../data/models';
 
-const Account = Acct.Account;
+const User = Models.Users;
+const Group = Models.Group;
 
 /**
  * 
  */
-export default class AccountController {
+export default class UserController {
   /**
    * 
    */
   constructor() {
     this.isOnline = false;
     this.userValid = true;
+    this.userInGroup = false;
+
+  }
+  /**
+   * 
+   * @param {*} username 
+   * @param {*} groupId 
+   */
+  static checkUserInGroup(uname, gId) {
+    User.findOne({
+      where: {
+        username: uname,
+        groupId: gId
+      }
+    })
+      .then((user) => {
+        this.userInGroup = true;
+        JSON.stringify(user);
+      });
+  }
+  /**
+   * 
+   * @param {*} uname 
+   */
+  static checkRegisteredUser(uname) {
+    Account.findOne({
+      where: {
+        username: uname
+      }
+    })
+      .then(() => {
+        UserCtrl.userValid = true;
+      });
   }
   /**
    * This class 
@@ -26,7 +60,7 @@ export default class AccountController {
         error: 'You already have an account'
       });
     } else {
-      Account
+      User
         .create({
           username: req.body.username,
           email: req.body.email,
@@ -54,7 +88,7 @@ export default class AccountController {
    */
   static signin(req, res) {
     req.session.username = req.body.username;
-    Account.findAll({
+    User.findAll({
       where: {
         username: req.body.username
       }
@@ -90,7 +124,7 @@ export default class AccountController {
    * @param {object} res 
    */
   static getAll(req, res) {
-    Account.findAll({})
+    User.findAll({})
       .then((data) => {
         res.json({
           confirmation: 'success',
@@ -103,5 +137,67 @@ export default class AccountController {
           result: error
         });
       });
+  }
+  /**
+   * This method add a user to a particular group
+   * @param {object} req 
+   * @param {object} res 
+   */
+  static addUserToGroup(req, res) {
+    if (req.session.username) {
+      // UserCtrl.checkUserInGroup(req.body.username, req.params.groupId);
+      // UserCtrl.checkRegisteredUser(req.body.username);
+      // if (UserCtrl.userValid === false) {
+      // res.status(400).json({
+      //   confirmation: 'fail',
+      //   message: 'User does not exist'
+      // });
+      // this.userValid = true;
+    // } else if (UserCtrl.userInGroup === true) {
+      // this.userInGroup = false;
+      // res.json({
+      //   confirmation: 'fail',
+      //   message: 'User has already been added to the group'
+      // });
+      // } else {
+      console.log(req.params.groupId);
+      Group.findOne({ where: { id: req.params.groupId } })
+        .then((group) => {
+          User.findOne({
+            where: { username: req.body.username }
+          })
+            .then((user) => {
+              console.log(user);
+              group.addUser(user)
+                .then((added) => {
+                  res.status(201).json({
+                    message: 'User added successfully',
+                    result: added
+                  });
+                })
+                .catch((error) => {
+                  console.log(error);
+                  res.status(404).send(error);
+                });
+            })
+            .catch((err) => {
+              res.json({
+                message: 'User does not exist',
+                error: err
+              });
+            });
+        })
+        .catch((err) => {
+          res.json({
+            message: 'Group does not exist',
+            error: err
+          });
+        });
+    } else {
+      res.status(401).json({
+        confirmation: 'fail',
+        message: 'Please log in to add a user to a group'
+      });
+    }
   }
 }
