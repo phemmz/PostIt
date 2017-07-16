@@ -18,30 +18,52 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Account = _models2.default.Account;
+var User = _models2.default.User;
+// const Group = Models.Group;
 
 /**
  * 
  */
 
-var AccountController = function () {
+var UserController = function () {
   /**
    * 
    */
-  function AccountController() {
-    _classCallCheck(this, AccountController);
+  function UserController() {
+    _classCallCheck(this, UserController);
 
     this.isOnline = false;
     this.userValid = true;
+    this.userInGroup = false;
   }
   /**
-   * This class 
-   * @param {object} req 
-   * @param {object} res 
+   * 
+   * @param {*} username 
+   * @param {*} groupId 
    */
 
 
-  _createClass(AccountController, null, [{
+  _createClass(UserController, null, [{
+    key: 'checkUserInGroup',
+    value: function checkUserInGroup(uname, gId) {
+      var _this = this;
+
+      User.findOne({
+        where: {
+          username: uname,
+          groupId: gId
+        }
+      }).then(function () {
+        _this.userInGroup = true;
+      });
+    }
+    /**
+     * This class 
+     * @param {object} req 
+     * @param {object} res 
+     */
+
+  }, {
     key: 'signup',
     value: function signup(req, res) {
       req.session.status = false;
@@ -50,12 +72,13 @@ var AccountController = function () {
           error: 'You already have an account'
         });
       } else {
-        Account.create({
+        User.create({
           username: req.body.username,
           email: req.body.email,
           password: req.body.password
         }).then(function (account) {
-          req.session.username = req.body.username;
+          req.session.user = req.body.username;
+          // req.session.userId = account[0].id;
           res.status(201).json({
             confirmation: 'success',
             message: req.body.username + ' successfully added',
@@ -80,7 +103,7 @@ var AccountController = function () {
     key: 'signin',
     value: function signin(req, res) {
       req.session.username = req.body.username;
-      Account.findAll({
+      User.findAll({
         where: {
           username: req.body.username
         }
@@ -114,9 +137,9 @@ var AccountController = function () {
      */
 
   }, {
-    key: 'getAll',
-    value: function getAll(req, res) {
-      Account.findAll({}).then(function (data) {
+    key: 'getAllUsers',
+    value: function getAllUsers(req, res) {
+      User.findAll({}).then(function (data) {
         res.json({
           confirmation: 'success',
           result: data
@@ -130,7 +153,7 @@ var AccountController = function () {
     }
   }]);
 
-  return AccountController;
+  return UserController;
 }();
 
-exports.default = AccountController;
+exports.default = UserController;

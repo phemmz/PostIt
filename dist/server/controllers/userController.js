@@ -44,7 +44,6 @@ var UserCtrl = function () {
     value: function checkUserInGroup(uname, gId) {
       var _this = this;
 
-      this.username = uname;
       User.findOne({
         where: {
           username: uname,
@@ -61,8 +60,8 @@ var UserCtrl = function () {
      */
 
   }, {
-    key: 'checkUserValidity',
-    value: function checkUserValidity(uname) {
+    key: 'checkRegisteredUser',
+    value: function checkRegisteredUser(uname) {
       Account.findOne({
         where: {
           username: uname
@@ -81,35 +80,48 @@ var UserCtrl = function () {
     key: 'addUser',
     value: function addUser(req, res) {
       if (req.session.username) {
-        UserCtrl.checkUserInGroup(req.body.uname);
-        UserCtrl.checkUserValidity(req.body.uname);
-        if (UserCtrl.userValid === false) {
-          res.status(400).json({
-            confirmation: 'fail',
-            message: 'User does not exist'
-          });
-        } else if (UserCtrl.userInGroup === true) {
-          res.json({
-            confirmation: 'fail',
-            message: 'User has already been added to the group'
-          });
-        } else {
-          User.create({
-            username: req.body.username,
-            groupname: req.body.groupname,
-            groupId: req.params.groupId
+        // UserCtrl.checkUserInGroup(req.body.username, req.params.groupId);
+        // UserCtrl.checkRegisteredUser(req.body.username);
+        // if (UserCtrl.userValid === false) {
+        // res.status(400).json({
+        //   confirmation: 'fail',
+        //   message: 'User does not exist'
+        // });
+        // this.userValid = true;
+        // } else if (UserCtrl.userInGroup === true) {
+        // this.userInGroup = false;
+        // res.json({
+        //   confirmation: 'fail',
+        //   message: 'User has already been added to the group'
+        // });
+        // } else {
+        console.log(req.params.groupId);
+        Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
+          Account.findOne({
+            where: { username: req.body.username }
           }).then(function (user) {
-            res.json({
-              message: 'User added successfully',
-              result: user
+            console.log(user);
+            group.addUser(user).then(function (added) {
+              res.status(201).json({
+                message: 'User added successfully',
+                result: added
+              });
+            }).catch(function (error) {
+              console.log(error);
+              res.status(404).send(error);
             });
           }).catch(function (err) {
             res.json({
-              message: 'Cant add user to group',
+              message: 'User does not exist',
               error: err
             });
           });
-        }
+        }).catch(function (err) {
+          res.json({
+            message: 'Group does not exist',
+            error: err
+          });
+        });
       } else {
         res.status(401).json({
           confirmation: 'fail',
@@ -134,6 +146,7 @@ var UserCtrl = function () {
             username: user
           }
         }).then(function (group) {
+          console.log(group);
           res.json({
             confirmation: 'success',
             results: group

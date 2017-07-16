@@ -158,7 +158,7 @@ export default class GroupController {
     } else {
       res.status(401).json({
         confirmation: 'fail',
-        message: 'User does not belong to this group'
+        message: 'Please sign in to create a group'
       });
     }
     // } else {

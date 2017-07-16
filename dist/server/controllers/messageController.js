@@ -14,7 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Message = _models2.default.Messages;
+var Message = _models2.default.Message;
+var User = _models2.default.User;
 
 /**
  * 
@@ -35,20 +36,25 @@ var MessageController = function () {
      */
     value: function sendMessage(req, res) {
       if (req.session.username) {
-        Message.create({
-          content: req.body.content,
-          readcheck: req.body.readcheck,
-          priority: req.body.priority,
-          groupId: req.params.groupId
-        }).then(function (message) {
-          res.json({
-            confirmation: 'success',
-            result: message
-          });
-        }).catch(function (error) {
-          res.json({
-            confirmation: 'fail',
-            message: error
+        User.findOne({
+          where: { username: req.session.username }
+        }).then(function (user) {
+          Message.create({
+            content: req.body.content,
+            readcheck: req.body.readcheck,
+            priority: req.body.priority,
+            groupId: req.params.groupId,
+            userId: user.id
+          }).then(function (message) {
+            res.status(201).json({
+              confirmation: 'success',
+              result: message
+            });
+          }).catch(function (error) {
+            res.status(400).json({
+              confirmation: 'fail',
+              message: error
+            });
           });
         });
       } else {

@@ -40,12 +40,7 @@ var AddUserValidations = function () {
           errors.username = 'Username is required';
         }
       }
-      if (data.groupname) {
-        if (_validator2.default.isEmpty(data.groupname.trim())) {
-          errors.username = 'Groupname is required';
-        }
-      }
-      if (!data.username || !data.groupname) {
+      if (!data.username) {
         errors.invalid = 'Please fill in your details';
       }
       return {

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (sequelize, DataTypes) {
-  var Message = sequelize.define('Messages', {
+  var Message = sequelize.define('Message', {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -17,19 +17,18 @@ exports.default = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    groupId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  }, {
-    classMethods: {
-      associate: function associate(models) {
-        Message.belongsTo(models.Group, {
-          foreignKey: 'groupId',
-          onDelete: 'CASCADE'
-        });
-      }
-    }
+    userId: DataTypes.INTEGER,
+    groupId: DataTypes.INTEGER
   });
+  Message.associate = function (models) {
+    Message.belongsTo(models.Group, {
+      foreignKey: 'groupId',
+      onDelete: 'CASCADE'
+    });
+    Message.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+  };
   return Message;
 };
