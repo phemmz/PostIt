@@ -23,24 +23,73 @@ DATABASE_URL='postgres://jean:buck@localhost:5432/databaseName'
 
 ### API Documentation
 
-Name   |     url       |     HTTP verb      |     description
------- | ------------- | -------------- | -------------------
-AUTHENTICATION |
-SIGNUP     |  /api/user/signup     |     POST     |     Allows users to signup a new account on the PostIt app
-SIGNIN     |    /api/user/signin   |    POST      |    Allows a registered user to signin to the PostIt app
-GROUP |
-GETGROUP     |    /api/group   |    GET      |    Gets all the groups a user belongs to.
-CREATEGROUP     |  /api/group/     |     POST     |     Allows a registered user to create a new group
-USERS |
-ADDUSER     |  /api/group/:id/user     |     POST     |     Allows group owner to add registered users to his group
-MESSAGES |
-GETMESSAGES    |    /api/group/:id/messages   |    GET      |    Retrieves all the messages in a particular group
-SENDMESSAGE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages to groups they belong to
+Name   |     url       |   HTTP verb  | Payload  |   description
+------ | ------------- | ------------ | ---------| -------------------
+**AUTHENTICATION** 
+signup     |  /api/user/signup     |     POST     | username, email, password, passwordConfirmation |  Allows users to signup a new account on the PostIt app
+signin     |    /api/user/signin   |    POST      | username, password | Allows a registered user to signin to the PostIt app
+allusers   | /api/user/            |    GET       | none | Gets all registered users for the application
+**GROUP** 
+getGroup     |    /api/group   |    GET      | none  |   Gets all the groups a user belongs to.
+createGroup     |  /api/group/     |     POST     | groupname | Allows a registered user to create a new group
+**USERS** 
+addUserToGroup     |  /api/group/:id/user     |     POST     | username, groupId | Allows group owner to add registered users to his group
+**MESSAGES**
+getMessages    |    /api/group/:id/messages   |    GET      | none |   Retrieves all the messages in a particular group
+sendMessage     |  /api/group/:id/message     |     POST     | content, priority, readcheck, groupId | Allows group members to post messages to groups they belong to
 
-### PAYLOADS
-1. `/api/user/signup - username, email, password and passwordConfirmation`
-2. `/api/user/signin - username and password`
-3. `/api/group - none`
-4. `/api/group/:id/user - groupname, groupId, username`
-5. `/api/group/:id/messages - none`
-6. `/api/group/:id/message - content, readcheck, priority`
+## How to use the Payloads
+
+#### SIGNUP for new user: `api/user/signup`
+To signup a new user, send the parameters as shown below:
+```
+{
+  "username": "tuna",
+  "email": "tuna@gmail.com",
+  "password": "sumo123tu",
+  "passwordConfirmation": "sumo123tu"
+}
+```
+
+#### SIGNIN for registered user: `api/user/signin`
+To signin, send the parameters in the below format:
+```
+{
+  "username": "tuna",
+  "password": "sumo123tu"
+}
+```
+
+#### CREATE a new group: `api/group`
+To create a new group, send the paramters in the below format:
+```
+{
+  "groupname": "Tuna Family"
+}
+```
+#### ADD a user to a group: `api/group/:groupId/user`
+To add a user to a group:
+```
+{
+  "username": "rocky"
+}
+```
+NB: To add a user to a group, the user must be registered on the application
+
+#### POST a message to a group: `api/group/:groupId/message`
+To post a message to a group:
+```
+{
+  "content": "Hello everybody",
+  "readcheck": false,
+  "priority": 1
+}
+```
+
+## Tests
+*  The tests have been written using **[Mocha](https://www.npmjs.com/package/mocha)** and **[Chai](https://www.npmjs.com/package/chai)**.
+*  Issue the following command on terminal.
+  *  `npm run test`
+*  If the tests are successful, they will complete without failures or errors.
+
+#### Author: Adetunji Femi
