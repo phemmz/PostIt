@@ -52,7 +52,8 @@ export default class UserController {
           password: req.body.password,
         })
         .then((account) => {
-          req.session.username = req.body.username;
+          req.session.user = req.body.username;
+          // req.session.userId = account[0].id;
           res.status(201).json({
             confirmation: 'success',
             message: `${req.body.username} successfully added`,

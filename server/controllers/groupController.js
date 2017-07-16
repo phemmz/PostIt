@@ -9,6 +9,41 @@ const User = Models.User;
 export default class GroupController {
   /**
    * 
+   */
+  constructor() {
+    this.userInGroup = false;
+  }
+  /**
+   * Checks if a user belongs to a group
+   * @param {*} req 
+   * @param {*} res 
+   */
+  static checkUserInGroup(uname, gId) {
+    Group.findOne({
+      where: { id: gId }
+    })
+      .then((group) => {
+        group.getUsers({
+          where: { username: uname }
+        })
+          .then((user) => {
+            if (user.length < 1) {
+              this.userInGroup = false;
+            } else {
+              this.userInGroup = true;
+            }
+          })
+          .catch((err) => {
+            res.status(400).json({
+              confirmation: 'fail',
+              message: err
+            });
+          });
+      });
+    return this.userInGroup;
+  }
+  /**
+   * 
    * @param {object} req 
    * @param {object} res 
    */
@@ -28,7 +63,7 @@ export default class GroupController {
         .catch((error) => {
           res.json({
             confirmation: 'fail',
-            message: error
+            message: error.errors
           });
         });
     } else {
@@ -45,62 +80,69 @@ export default class GroupController {
    */
   static addUserToGroup(req, res) {
     if (req.session.username) {
-      console.log(req.params.groupId);
-      Group.findOne({ where: { id: req.params.groupId } })
-        .then((group) => {
-          if (group === null) {
-            res.status(404).json({
-              confirmation: 'fail',
-              message: 'Group does not exist',
-            });
-          } else {
-            User.findOne({
-              where: { username: req.body.username }
-            })
-              .then((user) => {
-                if (user === null) {
-                  res.status(404).json({
-                    confirmation: 'fail',
-                    message: 'User does not exist',
-                  });
-                } else {
-                  group.addUser(user)
-                    .then((added) => {
-                      if (added.length === 0) {
-                        res.status(400).json({
-                          confirmation: 'fail',
-                          message: 'User already exists'
-                        });
-                      } else {
-                        res.status(201).json({
-                          message: 'User added successfully',
-                          result: added
-                        });
-                      }
-                    })
-                    .catch((error) => {
-                      res.status(404).send(error);
-                    });
-                }
-              })
-              .catch((err) => {
-                res.json({
-                  confirmation: 'fail',
-                  error: err
-                });
+      GroupController.checkUserInGroup(req.session.username, req.params.groupId);
+      if (GroupController.userInGroup) {
+        Group.findOne({ where: { id: req.params.groupId } })
+          .then((group) => {
+            if (group === null) {
+              res.status(404).json({
+                confirmation: 'fail',
+                message: 'Group does not exist',
               });
-          }
-        })
-        .catch((err) => {
-          res.json({
-            confirmation: 'fail',
-            error: err
+            } else {
+              User.findOne({
+                where: { username: req.body.username }
+              })
+                .then((user) => {
+                  if (user === null) {
+                    res.status(404).json({
+                      confirmation: 'fail',
+                      message: 'User does not exist',
+                    });
+                  } else {
+                    group.addUser(user)
+                      .then((added) => {
+                        if (added.length === 0) {
+                          res.status(400).json({
+                            confirmation: 'fail',
+                            message: 'User already exists'
+                          });
+                        } else {
+                          res.status(201).json({
+                            message: 'User added successfully',
+                            result: added
+                          });
+                        }
+                      })
+                      .catch((error) => {
+                        res.status(404).send(error);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  res.json({
+                    confirmation: 'fail',
+                    error: err
+                  });
+                });
+            }
+          })
+          .catch((err) => {
+            res.json({
+              confirmation: 'fail',
+              error: err
+            });
           });
+      } else {
+        res.status(401).json({
+          confirmation: 'fail',
+          message: 'User does not belong to this group'
         });
+      }
     } else {
-      res.status(401).json({
+      req.status(400).json({
         confirmation: 'fail',
-        message: 'Please log in to add a user to a group'
+        message: 'User does not belong to this group'
       });
     }
   }

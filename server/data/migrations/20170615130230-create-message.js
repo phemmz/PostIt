@@ -19,6 +19,14 @@ module.exports = {
       readcheck: {
         type: Sequelize.BOOLEAN
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE'
+      },
+      groupId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

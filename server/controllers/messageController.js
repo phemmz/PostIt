@@ -1,6 +1,7 @@
 import Model from '../data/models';
 
-const Message = Model.Messages;
+const Message = Model.Message;
+const User = Model.User;
 
 /**
  * 
@@ -13,30 +14,36 @@ export default class MessageController {
    */
   static sendMessage(req, res) {
     if (req.session.username) {
-      Message
-        .create({
-          content: req.body.content,
-          readcheck: req.body.readcheck,
-          priority: req.body.priority,
-          groupId: req.params.groupId,
-        })
-        .then((message) => {
-          res.json({
-            confirmation: 'success',
-            result: message
-          });
-        })
-        .catch((error) => {
-          res.json({
-            confirmation: 'fail',
-            message: error
-          });
+      User.findOne({
+        where: { username: req.session.username }
+      })
+        .then((user) => {
+          Message
+            .create({
+              content: req.body.content,
+              readcheck: req.body.readcheck,
+              priority: req.body.priority,
+              groupId: req.params.groupId,
+              userId: user.id
+            })
+            .then((message) => {
+              res.status(201).json({
+                confirmation: 'success',
+                result: message
+              });
+            })
+            .catch((error) => {
+              res.status(400).json({
+                confirmation: 'fail',
+                message: error
+              });
+            });
         });
     } else {
       res.status(401).json({
         confirmation: 'fail',
         message: 'Please log in to send a message'
-      })
+      });
     }
   }
 /**
