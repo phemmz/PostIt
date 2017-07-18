@@ -9,43 +9,6 @@ const User = Models.User;
 export default class GroupController {
   /**
    * 
-   */
-  constructor() {
-    this.userInGroup = false;
-    this.errormsg = {};
-  }
-  /**
-   * Checks if a user belongs to a group
-   * @param {*} req 
-   * @param {*} res 
-   */
-  static checkUserInGroup(uname, gId) {
-    Group.findOne({
-      where: { id: gId }
-    })
-      .then((group) => {
-        if (group.length > 0) {
-          group.getUsers({
-            where: { username: uname }
-          })
-            .then((user) => {
-              if (user.length > 1) {
-                this.userInGroup = true;
-              } else {
-                this.userInGroup = false;
-              }
-            })
-            .catch((err) => {
-              this.errormsg = err;
-            });
-        } else {
-          this.errormsg = 'group does not exist';
-        }
-      });
-    return (this.userInGroup, this.errormsg);
-  }
-  /**
-   * 
    * @param {object} req 
    * @param {object} res 
    */

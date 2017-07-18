@@ -34,7 +34,7 @@ export default class UserController {
       });
   }
   /**
-   * This class 
+   * 
    * @param {object} req 
    * @param {object} res 
    */
@@ -97,10 +97,10 @@ export default class UserController {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         res.status(401).json({
           confirmation: 'fail',
-          message: 'Login failed!'
+          message: err
         });
       });
   }
