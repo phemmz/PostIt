@@ -1,12 +1,12 @@
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * 
+ *
  */
 export default class SendMessageValidations {
 /**
- * 
- * @param {object} data 
+ *
+ * @param {object} data
  */
   static validateSendMessage(data) {
     const errors = {};
@@ -22,14 +22,19 @@ export default class SendMessageValidations {
     };
   }
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
   static validateUserInput(req, res, next) {
     const { errors, isValid } = SendMessageValidations.validateSendMessage(req.body);
-    if (!isValid) {
+    if (!req.session.username) {
+      res.status(401).json({
+        confirmation: 'fail',
+        message: 'Please sign in'
+      });
+    } else if (!isValid) {
       res.status(422).json(errors);
     } else {
       next();

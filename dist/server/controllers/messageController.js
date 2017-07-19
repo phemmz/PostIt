@@ -16,6 +16,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Message = _models2.default.Message;
 var User = _models2.default.User;
+var Group = _models2.default.Group;
 
 /**
  * 
@@ -35,34 +36,38 @@ var MessageController = function () {
      * @param {object} res 
      */
     value: function sendMessage(req, res) {
-      if (req.session.username) {
-        User.findOne({
-          where: { username: req.session.username }
-        }).then(function (user) {
-          Message.create({
-            content: req.body.content,
-            readcheck: req.body.readcheck,
-            priority: req.body.priority,
-            groupId: req.params.groupId,
-            userId: user.id
-          }).then(function (message) {
-            res.status(201).json({
-              confirmation: 'success',
-              result: message
-            });
-          }).catch(function (error) {
-            res.status(400).json({
-              confirmation: 'fail',
-              message: error
+      Group.findOne({
+        where: { id: req.params.groupId }
+      }).then(function (group) {
+        if (group === null) {
+          res.status(404).json({
+            confirmation: 'fail',
+            message: 'Group does not exist'
+          });
+        } else {
+          User.findOne({
+            where: { username: req.session.username }
+          }).then(function (user) {
+            Message.create({
+              content: req.body.content,
+              readcheck: req.body.readcheck,
+              priority: req.body.priority,
+              groupId: req.params.groupId,
+              userId: user.id
+            }).then(function () {
+              res.status(201).json({
+                confirmation: 'success',
+                message: 'Message sent'
+              });
+            }).catch(function () {
+              res.status(400).json({
+                confirmation: 'fail',
+                message: 'Message failed'
+              });
             });
           });
-        });
-      } else {
-        res.status(401).json({
-          confirmation: 'fail',
-          message: 'Please log in to send a message'
-        });
-      }
+        }
+      });
     }
     /**
      * 
@@ -74,12 +79,20 @@ var MessageController = function () {
     key: 'getMessages',
     value: function getMessages(req, res) {
       if (req.session.username) {
-        return Message.findAll({
+        Message.findAll({
           where: { groupId: req.params.groupId }
         }).then(function (messages) {
-          var msg = JSON.stringify(messages);
-          msg = JSON.parse(msg);
-          res.json(msg);
+          if (messages.length < 1) {
+            res.status(404).json({
+              confirmation: 'fail',
+              message: 'No message found'
+            });
+          } else {
+            res.status(200).json({
+              confirmation: 'success',
+              results: messages
+            });
+          }
         }).catch(function (error) {
           res.json({
             confirmation: 'fail',

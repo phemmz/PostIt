@@ -2,6 +2,7 @@ import Model from '../data/models';
 
 const Message = Model.Message;
 const User = Model.User;
+const Group = Model.Group;
 
 /**
  * 
@@ -13,38 +14,43 @@ export default class MessageController {
    * @param {object} res 
    */
   static sendMessage(req, res) {
-    if (req.session.username) {
-      User.findOne({
-        where: { username: req.session.username }
-      })
-        .then((user) => {
-          Message
-            .create({
-              content: req.body.content,
-              readcheck: req.body.readcheck,
-              priority: req.body.priority,
-              groupId: req.params.groupId,
-              userId: user.id
-            })
-            .then((message) => {
-              res.status(201).json({
-                confirmation: 'success',
-                result: message
-              });
-            })
-            .catch((error) => {
-              res.status(400).json({
-                confirmation: 'fail',
-                message: error
-              });
+    Group.findOne({
+      where: { id: req.params.groupId }
+    })
+      .then((group) => {
+        if (group === null) {
+          res.status(404).json({
+            confirmation: 'fail',
+            message: 'Group does not exist'
+          });
+        } else {
+          User.findOne({
+            where: { username: req.session.username }
+          })
+            .then((user) => {
+              Message
+                .create({
+                  content: req.body.content,
+                  readcheck: req.body.readcheck,
+                  priority: req.body.priority,
+                  groupId: req.params.groupId,
+                  userId: user.id
+                })
+                  .then(() => {
+                    res.status(201).json({
+                      confirmation: 'success',
+                      message: 'Message sent'
+                    });
+                  })
+                  .catch(() => {
+                    res.status(400).json({
+                      confirmation: 'fail',
+                      message: 'Message failed'
+                    });
+                  });
             });
-        });
-    } else {
-      res.status(401).json({
-        confirmation: 'fail',
-        message: 'Please log in to send a message'
+        }
       });
-    }
   }
 /**
  * 
@@ -53,13 +59,21 @@ export default class MessageController {
  */
   static getMessages(req, res) {
     if (req.session.username) {
-      return Message.findAll({
+      Message.findAll({
         where: { groupId: req.params.groupId }
       })
         .then((messages) => {
-          let msg = JSON.stringify(messages);
-          msg = JSON.parse(msg);
-          res.json(msg);
+          if (messages.length < 1) {
+            res.status(404).json({
+              confirmation: 'fail',
+              message: 'No message found'
+            });
+          } else {
+            res.status(200).json({
+              confirmation: 'success',
+              results: messages
+            });
+          }
         })
         .catch((error) => {
           res.json({

@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * 
+ *
  */
 var SendMessageValidations = function () {
   function SendMessageValidations() {
@@ -26,8 +26,8 @@ var SendMessageValidations = function () {
     key: 'validateSendMessage',
 
     /**
-     * 
-     * @param {object} data 
+     *
+     * @param {object} data
      */
     value: function validateSendMessage(data) {
       var errors = {};
@@ -43,10 +43,10 @@ var SendMessageValidations = function () {
       };
     }
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
+     *
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
      */
 
   }, {
@@ -56,7 +56,12 @@ var SendMessageValidations = function () {
           errors = _SendMessageValidatio.errors,
           isValid = _SendMessageValidatio.isValid;
 
-      if (!isValid) {
+      if (!req.session.username) {
+        res.status(401).json({
+          confirmation: 'fail',
+          message: 'Please sign in'
+        });
+      } else if (!isValid) {
         res.status(422).json(errors);
       } else {
         next();

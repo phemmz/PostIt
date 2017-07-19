@@ -19,90 +19,52 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var User = _models2.default.User;
-// const Group = Models.Group;
 
 /**
- * 
+ * This class is in charge of signup and signin
  */
 
 var UserController = function () {
-  /**
-   * 
-   */
   function UserController() {
     _classCallCheck(this, UserController);
-
-    this.isOnline = false;
-    this.userValid = true;
-    this.userInGroup = false;
   }
-  /**
-   * 
-   * @param {*} username 
-   * @param {*} groupId 
-   */
-
 
   _createClass(UserController, null, [{
-    key: 'checkUserInGroup',
-    value: function checkUserInGroup(uname, gId) {
-      var _this = this;
+    key: 'signup',
 
-      User.findOne({
-        where: {
-          username: uname,
-          groupId: gId
-        }
+    /**
+     * This method creates a new account for a new user
+     * @param {object} req
+     * @param {object} res
+     */
+    value: function signup(req, res) {
+      User.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
       }).then(function () {
-        _this.userInGroup = true;
+        req.session.username = req.body.username;
+        res.status(201).json({
+          confirmation: 'success',
+          message: req.body.username + ' successfully created'
+        });
+      }).catch(function () {
+        return res.status(400).json({
+          confirmation: 'fail',
+          message: 'Check input details'
+        });
       });
     }
-    /**
-     * This class 
-     * @param {object} req 
-     * @param {object} res 
-     */
-
-  }, {
-    key: 'signup',
-    value: function signup(req, res) {
-      req.session.status = false;
-      if (req.session.status === true) {
-        res.status(500).json({
-          error: 'You already have an account'
-        });
-      } else {
-        User.create({
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password
-        }).then(function (account) {
-          req.session.user = req.body.username;
-          // req.session.userId = account[0].id;
-          res.status(201).json({
-            confirmation: 'success',
-            message: req.body.username + ' successfully added',
-            result: account
-          });
-        }).catch(function () {
-          return res.status(400).json({
-            confirmation: 'fail',
-            message: 'Check input details'
-          });
-        });
-      }
-    }
 
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
+     * This method logs in a user
+     * @param {*} req
+     * @param {*} res
      */
 
   }, {
     key: 'signin',
     value: function signin(req, res) {
-      req.session.username = req.body.username;
       User.findAll({
         where: {
           username: req.body.username
@@ -111,7 +73,7 @@ var UserController = function () {
         var userdetails = JSON.stringify(account);
         userdetails = JSON.parse(userdetails);
         if (req.body.username && req.body.password && _bcryptNodejs2.default.compareSync(req.body.password, userdetails[0].password) === true) {
-          req.session.user = req.body.username;
+          req.session.username = req.body.username;
           req.session.userId = userdetails[0].id;
           res.json({
             confirmation: 'success',
@@ -123,15 +85,15 @@ var UserController = function () {
             message: 'Check your login details'
           });
         }
-      }).catch(function () {
+      }).catch(function (err) {
         res.status(401).json({
           confirmation: 'fail',
-          message: 'Login failed!'
+          message: 'Login failed'
         });
       });
     }
     /**
-     * 
+     * This method gets all the registered users in the application
      * @param {object} req 
      * @param {object} res 
      */
@@ -139,17 +101,24 @@ var UserController = function () {
   }, {
     key: 'getAllUsers',
     value: function getAllUsers(req, res) {
-      User.findAll({}).then(function (data) {
-        res.json({
-          confirmation: 'success',
-          result: data
+      if (req.session.username) {
+        User.findAll({}).then(function (data) {
+          res.json({
+            confirmation: 'success',
+            result: data
+          });
+        }).catch(function (error) {
+          res.json({
+            confirmation: 'fail',
+            result: error
+          });
         });
-      }).catch(function (error) {
-        res.json({
+      } else {
+        res.status(401).json({
           confirmation: 'fail',
-          result: error
+          message: 'You are not logged in'
         });
-      });
+      }
     }
   }]);
 

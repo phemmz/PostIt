@@ -1,5 +1,13 @@
 'use strict';
 
+var _supertest = require('supertest');
+
+var _supertest2 = _interopRequireDefault(_supertest);
+
+var _mocha = require('mocha');
+
+var _mocha2 = _interopRequireDefault(_mocha);
+
 var _chai = require('chai');
 
 var _chai2 = _interopRequireDefault(_chai);
@@ -19,23 +27,44 @@ var _models2 = _interopRequireDefault(_models);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 process.env.NODE_ENV = 'test';
-var Account = _models2.default.Account;
+var User = _models2.default.User;
 var Group = _models2.default.Group;
 var Message = _models2.default.Messages;
 
 var should = _chai2.default.should();
+var server = _supertest2.default.agent(_app2.default);
 
 _chai2.default.use(_chaiHttp2.default);
 
 // Test the POST: /api/user/signup route
-describe('/POST User', function () {
-  describe('Signup', function () {
+describe('User', function () {
+  before(function (done) {
+    User.sync({ force: true }).then(function () {
+      done();
+    });
+  });
+  // Test the /POST api/group/:id/user
+  describe('/POST/:id Add User', function () {
+    it('it should not allow users that are not logged in to add new User to a group', function (done) {
+      var addDetails = {
+        username: 'phemzy'
+      };
+      _chai2.default.request(_app2.default).post('/api/group/1/user').send(addDetails).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Please sign in to create a group');
+        done();
+      });
+    });
+  });
+  describe('Authentication', function () {
     it('it should not POST signup details without password', function (done) {
       var signupDetails = {
         username: 'phemzy',
         email: 'phemzy@gmail.com'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).expect(422).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('invalid');
@@ -52,7 +81,7 @@ describe('/POST User', function () {
         password: '123456',
         passwordConfirmation: 'abcdesa'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').expect(422).send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('passwordConfirmation');
@@ -69,7 +98,7 @@ describe('/POST User', function () {
         password: '1234',
         passwordConfirmation: '1234'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('password');
@@ -85,11 +114,23 @@ describe('/POST User', function () {
         password: '123456',
         passwordConfirmation: '123456'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('invalid');
         res.body.should.have.property('invalid').eql('Please fill in your details');
+        done();
+      });
+    });
+    it('it should not allow users that are not logged in to create broadcast group', function (done) {
+      var groupDetails = {
+        groupname: 'sport gist'
+      };
+      server.post('/api/group').send(groupDetails).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Please sign in to create a group');
         done();
       });
     });
@@ -102,7 +143,7 @@ describe('/POST User', function () {
         password: '123456',
         passwordConfirmation: '123456'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('username');
@@ -119,7 +160,7 @@ describe('/POST User', function () {
         password: '123456',
         passwordConfirmation: '123456'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('email');
@@ -128,13 +169,20 @@ describe('/POST User', function () {
       });
     });
   });
-  // Test the POST: /api/group route
-  describe('/POST Create Broadcast Group', function () {
-    it.skip('it should not allow users that are not logged in to create broadcast group', function (done) {
-      var groupDetails = {
-        groupname: 'sport gist'
+});
+// Test the POST: /api/group route
+describe('Group', function () {
+  before(function (done) {
+    Group.sync({ force: true }).then(function () {
+      done();
+    });
+  });
+  describe('Create Broadcast Group', function () {
+    it('it should not allow users that are not logged in to add new User to a group', function (done) {
+      var addDetails = {
+        username: 'femo'
       };
-      _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
+      server.post('/api/group/1/user').send(addDetails).end(function (err, res) {
         res.should.have.status(401);
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('fail');
@@ -142,90 +190,82 @@ describe('/POST User', function () {
         done();
       });
     });
-    it.skip('it should not allow users that are not logged in to add new User to a group', function (done) {
-      var addDetails = {
-        username: 'phemzy',
-        groupname: 'Random'
-      };
-      _chai2.default.request(_app2.default).post('/api/group/2/user').send(addDetails).end(function (err, res) {
-        res.should.have.status(401);
-        res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please log in to add a user to a group');
-        done();
-      });
-    });
     it('it should not allow a user that is not logged in to POST messages to a group', function (done) {
       var msgDetails = {
         content: 'happy day',
-        priority: 3,
-        readcheck: true,
-        groupId: 2
+        priority: 2,
+        readcheck: true
       };
-      _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
+      server.post('/api/group/1/message').send(msgDetails).end(function (err, res) {
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please log in to send a message');
+        res.body.should.have.property('message').eql('Please sign in');
         done();
       });
     });
-    it.skip('it should not allow user that is not logged in to GET all messages that have been posted to the group they belong to', function (done) {
-      var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 2 });
-      message.save(function (err, msg) {
-        _chai2.default.request(_app2.default).get('/api/group/2/messages').send(msg).end(function (err, res) {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('fail');
-          res.body.should.have.property('message').eql('You are not logged in');
-          done();
-        });
+    it('it should not allow user to post message to group that does not exist', function (done) {
+      server.get('/api/group/3/messages').end(function (err, res) {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Group does not exist');
+        done();
       });
     });
   });
-  describe('Signup', function () {
-    it.skip('it should POST signup details ', function (done) {
+  describe('Authentication', function () {
+    it('it should POST signup details ', function (done) {
       var signupDetails = {
-        email: 'hello00@gmail.com',
-        username: 'hello00',
+        email: 'phemz1@gmail.com',
+        username: 'phemz1',
         password: 'douchee',
         passwordConfirmation: 'douchee'
       };
-      _chai2.default.request(_app2.default).post('/api/user/signup').send(signupDetails).end(function (err, res) {
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(201);
         res.body.should.be.a('object');
         res.body.should.have.property('message');
         res.body.should.have.property('confirmation').eql('success');
-        res.body.should.have.property('result');
-        res.body.result.should.have.property('username');
-        res.body.result.should.have.property('createdAt');
         done();
       });
     });
-    it.skip('it should signin a user', function (done) {
-      var account = new Account({
-        username: 'hello9',
-        password: 'douchee'
-      });
-      account.save(function (err, acc) {
-        _chai2.default.request(_app2.default).post('/api/user/signin').send(acc).end(function (err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('success');
-          res.body.should.have.property('message');
-          done();
-        });
+    it('it should POST signup details ', function (done) {
+      var signupDetails = {
+        email: 'hello000@gmail.com',
+        username: 'hello000',
+        password: 'douchee',
+        passwordConfirmation: 'douchee'
+      };
+      server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.should.have.property('confirmation').eql('success');
+        done();
       });
     });
-    it.skip('it should allow logged in users to create broadcast group', function (done) {
-      var groupDetails = {
-        groupname: 'sport gist'
+    it('it should signin a user', function (done) {
+      var account = {
+        username: 'hello000',
+        password: 'douchee'
       };
-      _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
+      server.post('/api/user/signin').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(account).end(function (err, res) {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('success');
         res.body.should.have.property('message');
-        res.body.should.have.property('result');
+        done();
+      });
+    });
+    it('it should allow logged in users to create broadcast group', function (done) {
+      var groupDetails = {
+        groupname: 'june fellows'
+      };
+      server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(groupDetails).end(function (err, res) {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('success');
+        res.body.should.have.property('message');
         done();
       });
     });
@@ -234,24 +274,35 @@ describe('/POST User', function () {
     var groupDetails = {
       groupname: ' '
     };
-    _chai2.default.request(_app2.default).post('/api/group').send(groupDetails).end(function (err, res) {
+    server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(groupDetails).end(function (err, res) {
       res.should.have.status(422);
       res.body.should.be.a('object');
       res.body.should.have.property('username').eql('Please fill in your groupname');
       done();
     });
   });
+  it.skip('it should signin a user', function (done) {
+    var account = {
+      username: 'hello000',
+      password: 'douchee'
+    };
+    server.post('/api/user/signin').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(account).end(function (err, res) {
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+      res.body.should.have.property('confirmation').eql('success');
+      res.body.should.have.property('message');
+      done();
+    });
+  });
   it.skip('it should allow logged in users to add new User to a group', function (done) {
     var addDetails = {
-      username: 'phemzy'
+      username: 'phemz1'
     };
-    _chai2.default.request(_app2.default).post('/api/group/1/user').send(addDetails).end(function (err, res) {
+    server.post('/api/group/1/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(addDetails).end(function (err, res) {
       res.should.have.status(201);
       res.body.should.be.a('object');
       res.body.should.have.property('message').eql('User added successfully');
-      res.body.should.have.property('result');
-      res.body.result.should.have.property('username');
-      res.body.result.should.have.property('createdAt');
+      res.body.should.have.property('confirmation').eql('success');
       done();
     });
   });
@@ -266,49 +317,31 @@ describe('/POST User', function () {
   });
 });
 
-// Test the /POST api/group/:id/user
-describe('/POST/:id Add User', function () {
-  it.skip('it should not allow users that are not logged in to add new User to a group', function (done) {
-    var addDetails = {
-      username: 'phemzy',
-      groupname: 'Random'
-    };
-    _chai2.default.request(_app2.default).post('/api/group/1/user').send(addDetails).end(function (err, res) {
-      res.should.have.status(401);
-      res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('fail');
-      res.body.should.have.property('message').eql('Please sign in to create a group');
-      done();
-    });
-  });
-});
 // Test the /POST api/group/:id/message
 describe('/POST/:id Post Message', function () {
-  it.skip('it should not allow a logged in user to POST messages to a group without content', function (done) {
+  it('it should not allow a logged in user to POST messages to a group without content', function (done) {
     var msgDetails = {
       readcheck: true,
       priority: 3
     };
-    _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
+    server.post('/api/group/2/message').send(msgDetails).end(function (err, res) {
       res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('fail');
-      res.body.should.have.property('invalid').eql('Please fill the required parameters');
+      res.body.should.have.property('invalid');
       done();
     });
   });
 
-  it.skip('it should  POST messages to a group', function (done) {
+  it('it should  POST messages to a group', function (done) {
     var msgDetails = {
       content: 'Manchester united is the best team in the world',
       readcheck: true,
-      priority: 3
+      priority: 1
     };
-    _chai2.default.request(_app2.default).post('/api/group/2/message').send(msgDetails).end(function (err, res) {
-      res.should.have.status(200);
+    server.post('/api/group/1/message').send(msgDetails).end(function (err, res) {
+      res.should.have.status(201);
       res.body.should.be.a('object');
       res.body.should.have.property('confirmation').eql('success');
-      res.body.should.have.property('result');
-      res.body.result.should.have.property('createdAt');
+      res.body.should.have.property('message').eql('Message sent');
       done();
     });
   });
@@ -316,18 +349,10 @@ describe('/POST/:id Post Message', function () {
 
 // Test the /GET: /api/group/:id/messages route
 describe('/GET/:id Messages', function () {
-  it.skip('it should GET all messages that have been posted to the group they belong to', function (done) {
-    var message = new Message({ content: 'We da best', readcheck: true, priority: 2, groupId: 1 });
-    message.save(function (err, msg) {
-      _chai2.default.request(_app2.default).get('/api/group/1/messages').send(msg).end(function (err, res) {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        done();
-      });
-    });
-  });
-  after(function (done) {
-    Account.sync({ force: true }).then(function () {
+  it('it should GET all messages that have been posted to the group they belong to', function (done) {
+    server.get('/api/group/1/messages').end(function (err, res) {
+      res.should.have.status(200);
+      res.body.should.be.a('object');
       done();
     });
   });

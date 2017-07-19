@@ -36,6 +36,10 @@ var _addUserMiddleware = require('../controllers/middlewares/addUserMiddleware')
 
 var _addUserMiddleware2 = _interopRequireDefault(_addUserMiddleware);
 
+var _checkUserInGroup = require('../controllers/middlewares/checkUserInGroup');
+
+var _checkUserInGroup2 = _interopRequireDefault(_checkUserInGroup);
+
 var _sendMessageMiddleware = require('../controllers/middlewares/sendMessageMiddleware');
 
 var _sendMessageMiddleware2 = _interopRequireDefault(_sendMessageMiddleware);
@@ -43,16 +47,14 @@ var _sendMessageMiddleware2 = _interopRequireDefault(_sendMessageMiddleware);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
-// import UserController from './../controllers/userController';
-
 
 router.get('/api/user', _accountController2.default.getAllUsers);
 router.post('/api/user/signup', _signupMiddleware2.default.validateUserInput, _accountController2.default.signup);
 router.post('/api/user/signin', _signinMiddleware2.default.validateUserInput, _accountController2.default.signin);
 router.post('/api/group', _createGroupMiddleware2.default.validateUserInput, _groupController2.default.createGroup);
 router.get('/api/group', _groupController2.default.getGroup);
-router.post('/api/group/:groupId/message', _sendMessageMiddleware2.default.validateUserInput, _messageController2.default.sendMessage);
-router.get('/api/group/:groupId/messages', _messageController2.default.getMessages);
-router.post('/api/group/:groupId/user', _addUserMiddleware2.default.validateUserInput, _groupController2.default.addUserToGroup);
+router.post('/api/group/:groupId/message', _sendMessageMiddleware2.default.validateUserInput, _checkUserInGroup2.default.isGroupMember, _messageController2.default.sendMessage);
+router.get('/api/group/:groupId/messages', _checkUserInGroup2.default.isGroupMember, _messageController2.default.getMessages);
+router.post('/api/group/:groupId/user', _addUserMiddleware2.default.validateUserInput, _checkUserInGroup2.default.isGroupMember, _groupController2.default.addUserToGroup);
 
 exports.default = router;
