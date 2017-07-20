@@ -1,14 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
+import path from 'path';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+export default {
 
-	entry: {
-		app: './client/src/app.js'
-	},
+	entry: path.join(__dirname, '/client/src/app.js'),
 	output: {
-		path: `${__dirname}/dist/client/public/`,
+		path: '/',
 		filename: 'bundle.js',
 		sourceMapFilename: 'bundle.map'
 	},
@@ -16,8 +13,11 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-			    test: /\.jsx?$/,
-			    exclude: /(node_modules)/,
+			    test: /\.js$/,
+			    include: [
+					path.join(__dirname, 'client')
+				],
+				exclude: /(node_modules)/,
 			    loader: 'babel-loader',
 			    query: {
 			    	presets: ['react', 'es2015']

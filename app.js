@@ -3,6 +3,9 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import session from 'express-session';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackConfig from './webpack.config.dev';
 import dotenv from 'dotenv';
 import apiRoutes from './server/routes/apiRoutes';
 import index from './server/routes/index';
@@ -11,9 +14,15 @@ dotenv.config();
 
 // Express app setup
 const app = express();
+
+app.use(webpackMiddleware(webpack(webpackConfig)));
+// Setup a default catch-all route that sends back a welcome message in JSON format
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/index.html'));
+});
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hjs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hjs');
 // Morgan helps log all requests to the console
 app.use(logger('dev'));
 
@@ -33,10 +42,6 @@ app.use(session({
 app.use(apiRoutes);
 index(app);
 
-// Setup a default catch-all route that sends back a welcome message in JSON format
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome!!!'
-}));
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 
