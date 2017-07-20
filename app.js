@@ -5,6 +5,7 @@ import path from 'path';
 import session from 'express-session';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from './webpack.config.dev';
 import dotenv from 'dotenv';
 import apiRoutes from './server/routes/apiRoutes';
@@ -14,8 +15,15 @@ dotenv.config();
 
 // Express app setup
 const app = express();
+const compiler = webpack(webpackConfig);
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+app.use(webpackMiddleware(compiler, {
+  hot: true,
+  publicPath: webpackConfig.output.publicPath,
+  noInfo: true
+}));
+app.use(webpackHotMiddleware(compiler));
+
 // Setup a default catch-all route that sends back a welcome message in JSON format
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'));

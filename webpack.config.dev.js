@@ -1,11 +1,16 @@
 import path from 'path';
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
 
-	entry: path.join(__dirname, '/client/src/app.js'),
+	entry: [
+		'webpack-hot-middleware/client',
+		path.join(__dirname, '/client/src/app.js')
+	],
 	output: {
 		path: '/',
+		publicPath: '/',
 		filename: 'bundle.js',
 		sourceMapFilename: 'bundle.map'
 	},
@@ -17,11 +22,8 @@ export default {
 			    include: [
 					path.join(__dirname, 'client')
 				],
-				exclude: /(node_modules)/,
-			    loader: 'babel-loader',
-			    query: {
-			    	presets: ['react', 'es2015']
-			    },
+				exclude: /node_modules/,
+			    loaders: ['react-hot-loader', 'babel-loader']
 			},
 			{
 				test: /\.scss$/,
@@ -42,6 +44,8 @@ export default {
 
 	},
 	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
 	    new ExtractTextPlugin({filename: './styles.css', allChunks: true})
 	],
 }
