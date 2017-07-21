@@ -1,3 +1,75 @@
+body {
+     font-family: 'Open Sans', sans-serif;
+     display: flex;
+     min-height: 100vh;
+     flex-direction: column;
+     width: 100%;
+ }
+
+.page-heading {
+  position: absolute;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.postit-btn {
+  background-color: black;
+  border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Allerta', sans-serif;
+  color: white;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+h1 {
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Allerta', sans-serif;
+  color: aqua;
+}
+
+h2 {
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Allerta', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: aqua;
+}
+
+ .welc {
+   background-color: white;
+ }
+
+ footer {
+   background-color: #333;
+   height: 70px;
+   color: #ddd;
+   padding: 20px;
+   text-align: center;
+ }
+
+ .image {
+   position: relative;
+   width: 100%;
+ }
+
+ .postlogo {
+   padding-top: 10px;
+   padding-left: 10px;
+   width: 50%;
+   height: 30%;
+ }
+ main {
+     flex: 1 0 auto;
+ }
+
 .post {
 	font-weight: bold;
 	font-size: 40px;
@@ -6,84 +78,40 @@
 	margin-left: 0.2em;
 	border-bottom: 1px;
 	color: #FFF;
-  font-color: #FFF
 }
 .userlogin {	
 	color: #4db6ac;
-}
-
-.gud {
-  color: #FFF;
-  text-align: center;
 }
 
 .waves-effect {
 	text-align: right;
 }
 
-.welc {
+.welcmsg {
   transition: box-shadow .25s;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  padding: 0 0;
-  margin: 0 0 2rem 0;
   border-radius: 2px;
-  background-color: #fff;
-  width: 800px;
-  height: 200px;
-}
-
-.box {
-  margin: 2rem 0 7rem 2rem;
-  padding-right: 0;    
-  width: 600px;
-  height: 1000px;
-  display: flex;
-  flex-direction: column;
-  background-color: #e8f5e9;  
-}
-
-.msgbox {
-  margin: 0 0 0 0;
-  padding-right: 0;  
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  background-color: #e8f5e9;  
-  
+  background-color: silver;
+  margin: 100px 0 0 0;
 }
 .grouplist{
-  margin: 3rem 0 2rem 2rem;
-  padding-right: 0;    
-  width: 500px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-}
+  margin: 10px 0 2rem 2rem;
+  padding-right: 0; 
+  background-color: silver;
 
-.msglist {
-  margin: 3rem 0 2rem 2rem;
-  padding-right: 0;   
-  width: 500px;
-  display: flex;
-  flex-direction: column;
 }
-
 .msgglist {
   height: 250px;
 }
 
 .glist {
-  width: 500px;
-  margin-top: 20px;  
+  width: 400px;
 }
 
 .groupform{
-  margin: 2rem 5rem 2rem 2rem;
+  margin: -13rem 0 2rem 50rem;
+  height: 360px;
   width: 500px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  
 }
 
 .msgroom {
@@ -102,6 +130,40 @@
   text-align: center;
 }
 
+.groupname {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: silver;
+  margin: 0 0 0 0;
+  padding: 20px;
+}
+
+.messages {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: silver;
+  margin: 20px 0 0 0;
+  height: 700px;
+}
+
+.msgtxtbox {
+  transition: box-shadow .25s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background-color: white;
+  margin: 50px 0 0 0;
+  height: 100px;
+}
+
+.group {
+ background-color: #76323F;
+;
+ margin: 0px;
+ height: 1000px;
+}
+
 .msgform {
   margin: -19rem 0 2rem 50rem;
   height: 500px;
@@ -113,6 +175,9 @@
   margin-top: 5rem;
 }
 
+.glist {
+  margin-top: 0;
+}
 
 .text-darken-4 {
 	font-weight: bold;
@@ -120,20 +185,4 @@
 }
 .text-darken-2 {	
 	text-align: center;
-}
-
-.footer-copyright {
-  overflow: hidden;
-  min-height: 50px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0px 0px;
-  margin-top: 500px;
-  color: #FFF;
-  background-color: #4db6ac;
-
 }
