@@ -67,8 +67,8 @@ describe('User', function () {
       server.post('/api/user/signup').send(signupDetails).expect(422).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Please fill in your details');
+        res.body.should.have.property('password');
+        res.body.should.have.property('password').eql('Please fill in your password');
         done();
       });
     });
@@ -117,8 +117,8 @@ describe('User', function () {
       server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Please fill in your details');
+        res.body.should.have.property('username');
+        res.body.should.have.property('username').eql('Please fill in your username');
         done();
       });
     });

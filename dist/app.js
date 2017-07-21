@@ -28,6 +28,22 @@ var _dotenv = require('dotenv');
 
 var _dotenv2 = _interopRequireDefault(_dotenv);
 
+var _webpack = require('webpack');
+
+var _webpack2 = _interopRequireDefault(_webpack);
+
+var _webpackDevMiddleware = require('webpack-dev-middleware');
+
+var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
+
+var _webpackHotMiddleware = require('webpack-hot-middleware');
+
+var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
+
+var _webpackConfig = require('./webpack.config.dev');
+
+var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
+
 var _apiRoutes = require('./server/routes/apiRoutes');
 
 var _apiRoutes2 = _interopRequireDefault(_apiRoutes);
@@ -42,9 +58,22 @@ _dotenv2.default.config();
 
 // Express app setup
 var app = (0, _express2.default)();
+var compiler = (0, _webpack2.default)(_webpackConfig2.default);
+
+app.use((0, _webpackDevMiddleware2.default)(compiler, {
+  hot: true,
+  publicPath: _webpackConfig2.default.output.publicPath,
+  noInfo: true
+}));
+app.use((0, _webpackHotMiddleware2.default)(compiler));
+
+// Setup a default catch-all route that sends back a welcome message in JSON format
+app.get('/*', function (req, res) {
+  res.sendFile(_path2.default.join(__dirname, 'views/index.html'));
+});
 // view engine setup
-app.set('views', _path2.default.join(__dirname, 'views'));
-app.set('view engine', 'hjs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hjs');
 // Morgan helps log all requests to the console
 app.use((0, _morgan2.default)('dev'));
 
@@ -63,13 +92,6 @@ app.use((0, _expressSession2.default)({
 
 app.use(_apiRoutes2.default);
 (0, _index2.default)(app);
-
-// Setup a default catch-all route that sends back a welcome message in JSON format
-app.get('*', function (req, res) {
-  return res.status(200).send({
-    message: 'Welcome!!!'
-  });
-});
 
 var port = parseInt(process.env.PORT, 10) || 8000;
 

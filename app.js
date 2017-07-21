@@ -3,11 +3,11 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import session from 'express-session';
+import dotenv from 'dotenv';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from './webpack.config.dev';
-import dotenv from 'dotenv';
 import apiRoutes from './server/routes/apiRoutes';
 import index from './server/routes/index';
 

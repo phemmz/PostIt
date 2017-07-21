@@ -8,7 +8,8 @@ class SignupForm extends Component {
 			email: '',
 			password: '',
 			passwordConfirmation: '',
-			errors: {}
+			errors: {},
+			isLoading: false
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -23,15 +24,16 @@ class SignupForm extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		this.setState({ errors: {} });
+		this.setState({ errors: {}, isLoading: true });
 		this.props.userSignupRequest(this.state).then(
 			() => {},
-			(err) => this.setState({ errors: err.response.data})
-		)
+			({ data }) => this.setState({ errors: data, isLoading: false })
+		);
 	}
 
     render() {
     	const { errors } = this.state;
+		console.log(errors);
     	return (
 		    <div className="row">
 				<div className="col m8 col m offset4">
@@ -55,12 +57,14 @@ class SignupForm extends Component {
 								<div className="input-field col s12">
 									<input id="email" onChange={this.onChange} name="email" type="text" className="form-control" />
 									<label htmlFor="email">Email</label>
+									{errors.email && <span className="help-block">{errors.email}</span>}
 								</div>
 							</div>
 							<div className="row">
 								<div className="input-field col s12">
 									<input id="password" onChange={this.onChange} name="password" type="password" className="form-control" />
 									<label htmlFor="password">password</label>
+									{errors.password && <span className="help-block">{errors.password}</span>}
 								</div>
 							</div>
 							<div className="row">
@@ -68,9 +72,10 @@ class SignupForm extends Component {
 									<input id="passwordConfirmation" onChange={this.onChange} name="passwordConfirmation" type="password" className="form-control" />
 									<label htmlFor="passwordConfirmation">Password Confirmation</label>
 								</div>
+								{errors.passwordConfirmation && <span className="help-block">{errors.passwordConfirmation}</span>}
 							</div>
 							<div className="row">
-								<button className="waves-effect waves-light btn">Sign Up</button>
+								<button disabled={ this.state.isLoading } className="waves-effect waves-light btn">Sign Up</button>
 							</div>	
 						</div>				
 					</form>	

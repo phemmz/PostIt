@@ -1,9 +1,7 @@
-import APIManager from '../utils/APIManager';
+import axios from 'axios';
 
 export function userSignupRequest(userData) {
   return dispatch => {
-    return APIManager.post('/api/user/signup', userData, (err, res) => {
-      
-    });
+    return axios.post('/api/user/signup', userData);
   }
 }
