@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
 
 class SignupForm extends Component {
 	constructor(props) {
@@ -8,8 +9,7 @@ class SignupForm extends Component {
 			email: '',
 			password: '',
 			passwordConfirmation: '',
-			errors: {},
-			isLoading: false
+			errors: {}
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -21,19 +21,30 @@ class SignupForm extends Component {
 			[e.target.name]: e.target.value
 		});
 	}
+  
+  isValid() {
+    const { errors, isValid } = sharedSignupValidations.validateSignup(this.state);
+
+    if (!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
 
 	onSubmit(e) {
 		e.preventDefault();
-		this.setState({ errors: {}, isLoading: true });
-		this.props.userSignupRequest(this.state).then(
-			() => {},
-			({ data }) => this.setState({ errors: data, isLoading: false })
-		);
+		if (this.isValid()) {
+      this.setState({ errors: {} });
+      this.props.userSignupRequest(this.state).then(
+        () => {},
+        ({ data }) => this.setState({ errors: data })
+      );
+		}
 	}
 
     render() {
     	const { errors } = this.state;
-		console.log(errors);
     	return (
 		    <div className="row">
 				<div className="col m8 col m offset4">
