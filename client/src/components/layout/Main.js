@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router';
+import FlashMessagesList from './flash/FlashMessagesList';
 
 class Main extends Component {
 
@@ -30,7 +31,7 @@ class Main extends Component {
 						</div>
 					</nav>
 				</header>
-				
+				<FlashMessagesList />
 				<div className="container">
 				    {this.props.children}
 				</div>
