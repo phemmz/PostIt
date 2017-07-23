@@ -9,7 +9,7 @@ export default class sharedSignupValidations {
  *
  * @param {object} data
  */
-  static validateSignup(data) {
+  static commonValidations(data) {
     const errors = {};
     if (!data.username) {
       errors.username = 'Please fill in your username';
