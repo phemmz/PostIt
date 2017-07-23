@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Router, Route, browserHistory} from 'react-router';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import Home from './components/layout/Home.js';
 import SignupPage from './components/layout/SignupPage.js';
 import LoginPage from './components/layout/LoginPage';
@@ -11,10 +11,14 @@ import Main from './components/layout/Main.js';
 import Welcome from './components/layout/Welcome.js';
 import MessageBoard from './components/layout/MessageBoard.js';
 import style from '../main.scss';
+import rootReducer from './rootReducer';
 
 const store = createStore(
-	(state = {}) => state,
-	applyMiddleware(thunk)
+	rootReducer,
+	compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+	)
 );
 
 render(
