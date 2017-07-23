@@ -95,4 +95,28 @@ export default class UserController {
       });
     }
   }
+  /**
+   * 
+   * @param {*} req
+   * @param {*} res
+   */
+  static getOne(req, res) {
+    User.findOne({
+      where: {
+        $or: [
+          { username: req.params.identifier },
+          { email: req.params.identifier }
+        ]
+      }
+    })
+      .then((user) => {
+        res.json({ user: {
+          username: user.username,
+          email: user.email }
+        });
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  }
 }

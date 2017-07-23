@@ -24,10 +24,6 @@ app.use(webpackMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
-// Setup a default catch-all route that sends back a welcome message in JSON format
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/index.html'));
-});
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hjs');
@@ -48,8 +44,13 @@ app.use(session({
 // Require our routes into the application
 
 app.use(apiRoutes);
-index(app);
 
+// Setup a default catch-all route that sends back a welcome message in JSON format
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views/index.html'));
+});
+
+index(app);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 

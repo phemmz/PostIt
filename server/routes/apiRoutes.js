@@ -12,6 +12,7 @@ import SendMessageValidations from '../controllers/middlewares/sendMessageMiddle
 const router = express.Router();
 
 router.get('/api/user', UserController.getAllUsers);
+router.get('/api/user/:identifier', UserController.getOne);
 router.post('/api/user/signup', SignupValidations.validateUserInput, UserController.signup);
 router.post('/api/user/signin', SigninValidations.validateUserInput, UserController.signin);
 router.post('/api/group', CreateGroupValidations.validateUserInput, GroupController.createGroup);

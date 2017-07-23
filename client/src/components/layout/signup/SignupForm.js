@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
+import TextFieldGroup from '../../common/TextFieldGroup';
 
 class SignupForm extends Component {
 	constructor(props) {
@@ -10,11 +11,13 @@ class SignupForm extends Component {
 			email: '',
 			password: '',
 			passwordConfirmation: '',
-			errors: {}
+			errors: {},
+      invalid: false
 		}
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+    this.checkUserExists = this.checkUserExists.bind(this);
 	}
 
 	onChange(e) {
@@ -31,6 +34,25 @@ class SignupForm extends Component {
     }
 
     return isValid;
+  }
+
+  checkUserExists(e) {
+    const field = e.target.name;
+    const val = e.target.value;
+    if (val !== '') {
+      this.props.isUserExists(val).then(res => {
+        let errors = this.state.errors;
+        let invalid;
+        if (res.data.user) {
+          errors[field] = 'There is user with such ' + field;
+          invalid = true;
+        } else {
+          errors[field] = '';
+          invalid = false;
+        }
+        this.setState({ errors, invalid });
+      });
+    }
   }
 
 	onSubmit(e) {
@@ -58,42 +80,58 @@ class SignupForm extends Component {
 					<form onSubmit={this.onSubmit}>
 						<h4 className="green-text text-darken-4 glist">Create An Account</h4>	
 						<div className="container">
-							<div className="row">							
-								<div className={classnames("input-field col s12", { 'has-error': errors.username})}>
-									<input
-									id="username"
-									onChange={this.onChange}
-									value={this.state.username} 
-									name="username" 
-									type="text" 
-									className="form-control" />
-									<label htmlFor="username">Username</label>
-									{errors.username && <span className="help-block">{errors.username}</span>}
-								</div>
+							<div className="row">	
+                <TextFieldGroup 
+                  error={errors.username}
+                  id="username"
+                  onChange={this.onChange}
+                  value={this.state.username}
+                  field="username"
+                  htmlFor="username"
+                  label="Username"
+                  checkUserExists={this.checkUserExists}
+                />
 							</div>							
 							<div className="row">
-								<div className={classnames("input-field col s12", { 'has-error': errors.email})}>
-									<input id="email" onChange={this.onChange} name="email" type="text" className="form-control" />
-									<label htmlFor="email">Email</label>
-									{errors.email && <span className="help-block">{errors.email}</span>}
-								</div>
+                <TextFieldGroup 
+                  error={errors.email}
+                  id="email"
+                  onChange={this.onChange}
+                  value={this.state.email}
+                  field="email"
+                  htmlFor="email"
+                  label="Email"
+                  checkUserExists={this.checkUserExists}
+                />
 							</div>
 							<div className="row">
-								<div className={classnames("input-field col s12", { 'has-error': errors.password})}>
-									<input id="password" onChange={this.onChange} name="password" type="password" className="form-control" />
-									<label htmlFor="password">password</label>
-									{errors.password && <span className="help-block">{errors.password}</span>}
-								</div>
+                <TextFieldGroup 
+                  error={errors.password}
+                  id="password"
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  field="password"
+                  htmlFor="password"
+                  label="Password"
+                  type="password"
+                  checkUserExists={this.checkUserExists}
+                />
 							</div>
 							<div className="row">
-								<div className={classnames("input-field col s12", { 'has-error': errors.passwordConfirmation})}>
-									<input id="passwordConfirmation" onChange={this.onChange} name="passwordConfirmation" type="password" className="form-control" />
-									<label htmlFor="passwordConfirmation">Password Confirmation</label>
-                  {errors.passwordConfirmation && <span className="help-block">{errors.passwordConfirmation}</span>}
-								</div>
+                <TextFieldGroup 
+                  error={errors.passwordConfirmation}
+                  id="passwordConfirmation"
+                  onChange={this.onChange}
+                  value={this.state.passwordConfirmation}
+                  field="passwordConfirmation"
+                  htmlFor="passwordConfirmation"
+                  label="PasswordConfirmation"
+                  type="password"
+                  checkUserExists={this.checkUserExists}
+                />
 							</div>
 							<div className="row">
-								<button disabled={ this.state.isLoading } className="waves-effect waves-light btn">Sign Up</button>
+								<button disabled={ this.state.isLoading || this.state.invalid } className="waves-effect waves-light btn">Sign Up</button>
 							</div>	
 						</div>				
 					</form>	
@@ -105,7 +143,8 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
 	userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
+  addFlashMessage: React.PropTypes.func.isRequired,
+  isUserExists: React.PropTypes.func.isRequired 
 }
 
 SignupForm.contextTypes = {
