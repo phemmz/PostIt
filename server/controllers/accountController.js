@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt-nodejs';
+import jwt from 'jsonwebtoken';
 import Models from '../data/models';
 
 const User = Models.User;
@@ -46,25 +47,34 @@ export default class UserController {
       .then((account) => {
         let userdetails = JSON.stringify(account);
         userdetails = JSON.parse(userdetails);
+        console.log(userdetails, ' nainsianisnaisniansinaisniasniansinas')
         if (req.body.username && req.body.password &&
         bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
-          req.session.username = req.body.username;
-          req.session.userId = userdetails[0].id;
+          const token = jwt.sign({
+            userId: userdetails[0].id,
+            username: userdetails[0].username
+          }, process.env.SECRET);
+          // req.session.username = req.body.username;
+          // req.session.userId = userdetails[0].id;
           res.json({
             confirmation: 'success',
-            message: `${req.body.username} logged in`
+            message: `${req.body.username} logged in`,
+            token
           });
         } else {
-          res.status(401).json({
+          res.status(401).json({ errors:
+          {
             confirmation: 'fail',
             message: 'Check your login details'
+          }
           });
         }
       })
-      .catch((err) => {
-        res.status(401).json({
+      .catch(() => {
+        res.status(401).json({ errors: {
           confirmation: 'fail',
           message: 'Login failed'
+        }
         });
       });
   }
