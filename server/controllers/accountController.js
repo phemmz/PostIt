@@ -47,7 +47,6 @@ export default class UserController {
       .then((account) => {
         let userdetails = JSON.stringify(account);
         userdetails = JSON.parse(userdetails);
-        console.log(userdetails, ' nainsianisnaisniansinaisniasniansinas')
         if (req.body.username && req.body.password &&
         bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
           const token = jwt.sign({

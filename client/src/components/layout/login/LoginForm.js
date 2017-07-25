@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import sharedSigninValidations from '../../../../../server/shared/loginValidations';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import { connect } from 'react-redux';
-import { login } from '../../../actions/login';
+import { login } from '../../../actions/authActions';
 
 class LoginForm extends Component {
     constructor(props) {

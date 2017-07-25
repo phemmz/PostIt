@@ -4,6 +4,7 @@ import { Router, Route, browserHistory} from 'react-router';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
+import jwt from 'jsonwebtoken';
 import Home from './components/layout/Home.js';
 import SignupPage from './components/layout/SignupPage.js';
 import LoginPage from './components/layout/LoginPage';
@@ -12,6 +13,8 @@ import Welcome from './components/layout/Welcome.js';
 import MessageBoard from './components/layout/MessageBoard.js';
 import style from '../main.scss';
 import rootReducer from './rootReducer';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import { setCurrentUser } from './actions/authActions';
 
 const store = createStore(
 	rootReducer,
@@ -20,6 +23,11 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+}
 
 render(
 	<Provider store={store}>
