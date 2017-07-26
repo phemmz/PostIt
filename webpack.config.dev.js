@@ -52,9 +52,5 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({ filename: './styles.css', allChunks: true })
-  ],
-  node: {
-    net: 'empty',
-    dns: 'empty'
-  }
+  ]
 };

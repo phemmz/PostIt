@@ -67,7 +67,7 @@ class SignupForm extends Component {
 			});
       this.context.router.push('/');
 		},
-        ({ data }) => this.setState({ errors: data })
+        (err) => this.setState({ errors: err.response.data })
       );
 		}
 	}

@@ -4,7 +4,7 @@ import { Router, Route, browserHistory} from 'react-router';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 import Home from './components/layout/Home.js';
 import SignupPage from './components/layout/SignupPage.js';
 import LoginPage from './components/layout/LoginPage';
@@ -15,6 +15,7 @@ import style from '../main.scss';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/authActions';
+import requireAuth from './utils/requireAuth';
 
 const store = createStore(
 	rootReducer,
@@ -26,7 +27,7 @@ const store = createStore(
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
 }
 
 render(
@@ -36,7 +37,7 @@ render(
 		        <Route path="/" component={Welcome} />
 		        <Route path="/signup" component={SignupPage} />
 			    <Route path="/login" component={LoginPage} />
-	   		    <Route path="/dashboard" component={Home} />
+	   		    <Route path="/dashboard" component={requireAuth(Home)} />
 	   		    <Route path="/messageboard/:id" component={MessageBoard} />
 			   
 			</Route>	
