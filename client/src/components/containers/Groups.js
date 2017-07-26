@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Group from '../presentation/Group';
-import {APIManager} from '../../utils';
+import { APIManager } from '../../utils';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Groups extends Component {
 	constructor() {
@@ -18,7 +20,7 @@ class Groups extends Component {
 	}
 
 	componentDidMount() {
-		APIManager.get('api/group', null, (err, response) => {
+		axios.get('api/group', null, (err, response) => {
 			if(err) {
 				alert('ERROR: ' + err.message)
 				return
@@ -52,7 +54,7 @@ class Groups extends Component {
 
 	createGroup() {
 		let updatedGroup = Object.assign({}, this.state.groups);
-		APIManager.post('/api/group', updatedGroup, (err,response) => {
+		axios.post('/api/group', updatedGroup, (err,response) => {
 			if (err) {
 				alert('ERROR: ' + err.message)
 				return
@@ -83,14 +85,14 @@ class Groups extends Component {
 		});		
 		return (
 			
-			<div className="welc box">
-				<div className="welc grouplist">
+			<div>
+				<div>
 					<h4 className="green-text text-darken-4">Your Group List</h4>					
 					<ol>
 						{listItems}
 					</ol>							
 				</div>
-				<div className="welc groupform">
+				<div>
 					<h4 className="green-text text-darken-4 glist">Create Broadcast Group</h4>					
 					<div className="container">
 						<div className="row">							

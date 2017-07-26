@@ -53,8 +53,8 @@ export default class UserController {
             userId: userdetails[0].id,
             username: userdetails[0].username
           }, process.env.SECRET);
-          // req.session.username = req.body.username;
-          // req.session.userId = userdetails[0].id;
+          req.session.username = req.body.username;
+          req.session.userId = userdetails[0].id;
           res.json({
             confirmation: 'success',
             message: `${req.body.username} logged in`,

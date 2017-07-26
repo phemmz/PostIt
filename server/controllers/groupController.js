@@ -106,45 +106,38 @@ export default class GroupController {
  * @param {object} res 
  */
   static getGroup(req, res) {
-    if (req.session.username) {
-      User.findOne({
-        where: { username: req.session.username }
-      })
-        .then((user) => {
-          user.getGroups({
-            where: {}
-          })
-            .then((groups) => {
-              if (groups.length < 1) {
-                res.status(200).json({
-                  confirmation: 'success',
-                  results: 'You currently dont belong to any group'
-                });
-              } else {
-                res.status(200).json({
-                  confirmation: 'success',
-                  results: groups
-                });
-              }
-            })
-            .catch((error) => {
-              res.status(404).json({
-                confirmation: 'fail',
-                message: error
-              });
-            });
+    User.findOne({
+      where: { username: req.session.username }
+    })
+      .then((user) => {
+        user.getGroups({
+          where: {}
         })
-        .catch((error) => {
-          res.status(404).json({
-            confirmation: 'fail',
-            message: error
+          .then((groups) => {
+            if (groups.length < 1) {
+              res.status(200).json({
+                confirmation: 'success',
+                results: 'You currently dont belong to any group'
+              });
+            } else {
+              res.status(200).json({
+                confirmation: 'success',
+                results: groups
+              });
+            }
+          })
+          .catch((error) => {
+            res.status(404).json({
+              confirmation: 'fail',
+              message: error
+            });
           });
+      })
+      .catch((error) => {
+        res.status(404).json({
+          confirmation: 'fail',
+          message: error
         });
-    } else {
-      res.status(401).json({
-        confirmation: 'fail',
-        message: 'Please log in'
       });
-    }
   }
 }
