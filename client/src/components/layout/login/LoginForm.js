@@ -32,7 +32,7 @@ class LoginForm extends Component {
         if (this.isValid()) {
             this.setState({ errors: {} });
             this.props.login(this.state).then(
-                (res) => this.context.router.push('/'),
+                (res) => this.context.router.push('/dashboard'),
                 (err) => this.setState({ errors: err.response.data.errors})
             );
         }

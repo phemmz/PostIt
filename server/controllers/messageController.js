@@ -36,10 +36,11 @@ export default class MessageController {
                   groupId: req.params.groupId,
                   userId: user.id
                 })
-                  .then(() => {
+                  .then((message) => {
                     res.status(201).json({
                       confirmation: 'success',
-                      message: 'Message sent'
+                      message: 'Message sent',
+                      results: message
                     });
                   })
                   .catch(() => {

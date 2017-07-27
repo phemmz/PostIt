@@ -39,7 +39,6 @@ render(
 			    <Route path="/login" component={LoginPage} />
 	   		    <Route path="/dashboard" component={requireAuth(Home)} />
 	   		    <Route path="/messageboard/:id" component={MessageBoard} />
-			   
 			</Route>	
 		</Router>
 	</Provider>,

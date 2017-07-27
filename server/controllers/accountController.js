@@ -79,8 +79,8 @@ export default class UserController {
   }
   /**
    * This method gets all the registered users in the application
-   * @param {object} req 
-   * @param {object} res 
+   * @param {object} req
+   * @param {object} res
    */
   static getAllUsers(req, res) {
     if (req.session.username) {

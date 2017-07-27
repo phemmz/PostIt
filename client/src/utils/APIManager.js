@@ -1,9 +1,10 @@
 import axios from 'axios';
+import superagent from 'superagent';
 
 export default {
 
   get: (url, params, callback) => {
-    axios
+    superagent
       .get(url)
       .query(params)
       .set('Accept', 'application/json')
