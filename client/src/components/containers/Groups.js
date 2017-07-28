@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Group from '../presentation/Group';
+import { CreateGroup, Group  } from '../presentation';
 import { APIManager } from '../../utils';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -9,12 +9,9 @@ class Groups extends Component {
 		super();
 		this.state = {
 			users: {},
-
-			groups: {},
-
 			list: [],
-
-			userList: []
+			userList: [],
+      selected: 0
 		}
 
 	}
@@ -31,29 +28,9 @@ class Groups extends Component {
     });
 	}
 
-	updateGroup(event) {	
-		console.log('Groupname: '+event.target.value);
-		let updatedGroup = Object.assign({}, this.state.groups);
-		updatedGroup['groupname'] = event.target.value;
-		this.setState({
-			groups: updatedGroup
-		})
-	}
-
-	updateUser(event) {
-		console.log('Username: '+event.target.id + ' == ' + event.target.value);
-		let updatedUser = Object.assign({}, this.state.users);
-		updatedUser[event.target.id] = event.target.value;
-		this.setState({
-			users: updatedUser
-		})
-		console.log(JSON.stringify(this.state.user));
-		
-	}
-
-	createGroup() {
-		let updatedGroup = Object.assign({}, this.state.groups);
-		axios.post('/api/group', updatedGroup)
+	createGroup(group) {
+		// let  updatedGroup = Object.assign({}, this.state.groups);
+		axios.post('/api/group', group)
 		  .then((response) => {
         console.log('Group CREATED: '+JSON.stringify(response.data.result));
         let updatedList = Object.assign([], this.state.list);
@@ -76,10 +53,18 @@ class Groups extends Component {
 		console.log(JSON.stringify(this.state.userList));
 	}
 
+  selectGroup(index) {
+    console.log('hellloaknjasjjdsa: '+index);
+    this.setState({
+      selected: index
+    });
+  }
+
 	render() {
 		const listItems = this.state.list.map((group, i) => {
+      let selected = (i == this.state.selected)
 			return (
-				<li key={i}><Group currentGroup={group}/></li>
+				<li key={i}><Group index={i} select={this.selectGroup.bind(this)} isSelected={selected} currentGroup={group}/></li>
 			)
 		});		
 		return (
@@ -94,24 +79,7 @@ class Groups extends Component {
 						</ol>
 						</div>
 						<div>
-							<h4 className="left green-text text-darken-4">Create Broadcast Group</h4>					
-							<div className="container">
-								<div className="row">							
-									<div className="input-field col s12">
-										<input onChange={this.updateGroup.bind(this)} id="groupname" type="text" className="form-control" />
-										<script></script>
-										<label htmlFor="groupname">Group Name</label>
-										<button onClick={this.createGroup.bind(this)} className="waves-effect waves-light btn">Create Group</button>
-									</div>
-								</div>							
-								<div className="row">
-									<div className="input-field col s12">
-										<input onChange={this.updateUser.bind(this)} id="username" type="text" className="form-control" />
-										<label htmlFor="username">Username</label>
-                    <button onClick={this.addUser.bind(this)} className="waves-effect waves-light btn">ADD USER</button>
-									</div>
-								</div>					
-							</div>
+							<CreateGroup onCreate={this.createGroup.bind(this)}/>
 						</div>
 					</div>
 				</div>
