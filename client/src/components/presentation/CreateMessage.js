@@ -34,11 +34,7 @@ class CreateMessage extends Component {
       <div>
         <h4 className="green-text text-darken-4">Send Message</h4>					
         <div className="container">
-          <div className="row">							
-            <div className="input-field col s8">
-              <input onChange={this.updateMessage.bind(this)} id="groupId" type="text" className="form-control" />
-              <label htmlFor="groupId">Group Id</label>
-            </div>
+          <div className="row">
             <div className="input-field col s8">
               <input onChange={this.updateMessage.bind(this)} id="priority" type="text" className="form-control" />
               <label htmlFor="priority">Priority</label>																
