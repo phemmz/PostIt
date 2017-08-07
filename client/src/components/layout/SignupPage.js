@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userSignupRequest, isUserExists  } from '../../actions/signupActions';
+import PropTypes from 'prop-types';
+import SignupActions from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages';
 import SignupForm from './signup/SignupForm';
-
+/**
+ * SignupPage class
+ */
 class SignupPage extends Component {
 	render() {
 		const { userSignupRequest, addFlashMessage, isUserExists } = this.props;
 		return (
 			<div className="container">
-			    <div className="welc box" style={{height: "700px"}}>
-				    <SignupForm
-					  isUserExists={isUserExists}
-					  userSignupRequest={userSignupRequest}
-					  addFlashMessage={addFlashMessage} />
-			    </div>
+				<SignupForm
+					isUserExists={isUserExists}
+					userSignupRequest={userSignupRequest}
+					addFlashMessage={addFlashMessage} 
+				/>
 			</div>
 		)
 	}
 }
 
-SignupPage.propTypes = {
-	userSignupRequest: React.PropTypes.func.isRequired,
-	addFlashMessage: React.PropTypes.func.isRequired,
-	isUserExists: React.PropTypes.func.isRequired
+const dispatchToProps = (dispatch) => {
+  return {
+    userSignupRequest: (userData) => dispatch(SignupActions.userSignupRequest(userData)),
+    isUserExists: (identifier) => dispatch(SignupActions.isUserExists(identifier)),
+    addFlashMessage: (message) => dispatch(addFlashMessage(message))
+  }
 }
 
-export default connect(null, { userSignupRequest, addFlashMessage, isUserExists })(SignupPage);
+export default connect(null, dispatchToProps )(SignupPage);
