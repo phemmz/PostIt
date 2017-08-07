@@ -3,14 +3,15 @@ import Models from '../../data/models';
 const Group = Models.Group;
 
 /**
- * 
+ * checkUserInGroup class
  */
 export default class checkUserInGroup {
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
-   * @param {*} next 
+   * isGroupMember checks if a user belongs to a group
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns {object} json
    */
   static isGroupMember(req, res, next) {
     Group.findOne({ where: { id: req.params.groupId } })
