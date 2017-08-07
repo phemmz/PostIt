@@ -9,6 +9,7 @@ class Message extends Component {
 				<span className="z-depth-1 glist" style={{marginRight: 10}}>{this.props.currentMessage.content}</span>
 				<span className="z-depth-1 glist" style={{marginRight: 10}}>GroupId: {this.props.currentMessage.groupId}</span>
 				<span className="z-depth-1 glist" style={{marginRight: 10}}>Priority: {this.props.currentMessage.priority}</span>
+				<span className="z-depth-1 glist" style={{marginRight: 10}}>{this.props.currentMessage.messagecreator}</span>
 			</div>
 		)
 	}
