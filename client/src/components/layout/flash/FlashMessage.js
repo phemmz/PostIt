@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
+/**
+ * FlashMessage class
+ */
 class FlashMessage extends Component {
     constructor(props) {
         super(props);
