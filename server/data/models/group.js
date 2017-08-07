@@ -1,4 +1,10 @@
-module.exports = (sequelize, DataTypes) => {
+/**
+ * Group model
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns {*} Group
+ */
+export default (sequelize, DataTypes) => {
   const Group = sequelize.define('Group', {
     groupname: {
       type: DataTypes.STRING,
@@ -9,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   Group.associate = (models) => {
     Group.hasMany(models.Message, {
       foreignKey: 'groupId',
-      // as: 'messages',
     });
     Group.belongsToMany(models.User, {
       foreignKey: 'groupId',
