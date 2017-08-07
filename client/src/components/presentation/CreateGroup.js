@@ -15,7 +15,6 @@ class CreateGroup extends Component {
   }
 
   updateGroupHandler(event) {
-      console.log('Groupname: '+event.target.value);
     let updatedGroup = Object.assign({}, this.state.groups);
     updatedGroup[event.target.id] = event.target.value;
     this.setState({
@@ -25,7 +24,6 @@ class CreateGroup extends Component {
 
   submitHandler(event) {
     event.preventDefault();
-    console.log('creaste group: '+ JSON.stringify(this.state.groups));
     this.props.updateGroupList(this.state.groups);
   }
 
@@ -35,32 +33,37 @@ class CreateGroup extends Component {
     this.setState({
       userList: updatedUserLists
     })
-    console.log(JSON.stringify(this.state.userList));
 	}
 
+  componentDidMount() {
+    window.$('#close-modal').click(() => {
+      window.$('#createGroup').modal('close');
+    });
+  }
+
     render() {
-        return (
-            <div>
-                <h4 className="left green-text text-darken-4">Create Broadcast Group</h4>					
-                <div className="container">
-                    <div className="row">							
-                        <div className="input-field col s12">
-                            <input onChange={this.updateGroupHandler.bind(this)} id="groupname" type="text" className="form-control" />
-                            <script></script>
-                            <label htmlFor="groupname">Group Name</label>
-                            <button onClick={this.submitHandler.bind(this)} className="waves-effect waves-light btn">Create Group</button>
-                        </div>
-                    </div>							
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input onChange={this.updateGroupHandler.bind(this)} id="username" type="text" className="form-control" />
-                            <label htmlFor="username">Username</label>
-                            <button onClick={this.addUser.bind(this)} className="waves-effect waves-light btn">ADD USER</button>
-                        </div>
-                    </div>					
+      return (
+        <div id="createGroup" className="modal">
+          <div className="modal-content">
+            <h4 className="green-text text-darken-4">Create Broadcast Group</h4>
+            <div className="row">
+              <form className="col s12">
+                <div className="row">
+                  <div className="input-field col s12">
+                    <i className="material-icons prefix">group</i>
+                    <input onChange={this.updateGroupHandler.bind(this)} id="groupname" type="text" className="validate" />
+                    <label htmlFor="groupname">Group name</label>
+                  </div>
                 </div>
+              </form>
             </div>
-        )
+          </div>
+          <div className="modal-footer">
+            <a className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a onClick={this.submitHandler.bind(this)} className="modal-action modal-close waves-effect waves-green btn-flat">Create Group</a>
+          </div>
+        </div>
+      )
   }
 
 }
