@@ -5,12 +5,10 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 export default {
 
   entry: [
-    'webpack-hot-middleware/client',
     path.join(__dirname, '/client/src/app.js')
   ],
   output: {
-    path: '/',
-    publicPath: '/',
+    path: `${__dirname}/dist/client/public/`,
     filename: 'bundle.js',
     sourceMapFilename: 'bundle.map'
   },
@@ -49,8 +47,6 @@ export default {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({ filename: './styles.css', allChunks: true })
   ]
 };

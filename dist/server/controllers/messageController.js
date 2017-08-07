@@ -19,7 +19,7 @@ var User = _models2.default.User;
 var Group = _models2.default.Group;
 
 /**
- * 
+ * MessageController class
  */
 
 var MessageController = function () {
@@ -31,20 +31,31 @@ var MessageController = function () {
     key: 'sendMessage',
 
     /**
-     * 
-     * @param {object} req 
-     * @param {object} res 
+     * sendMessage() sends message to a particular group
+     * @param {object} req
+     * @param {object} res
+     * @return {object} json
      */
     value: function sendMessage(req, res) {
+      /**
+       * Find the particular group by its id
+       */
       Group.findOne({
         where: { id: req.params.groupId }
       }).then(function (group) {
+        /**
+         * Checks if the group exist
+         */
         if (group === null) {
           res.status(404).json({
             confirmation: 'fail',
             message: 'Group does not exist'
           });
         } else {
+          /**
+           * If the group exist, 
+           * Find the User
+           */
           User.findOne({
             where: { username: req.session.username }
           }).then(function (user) {
@@ -53,16 +64,18 @@ var MessageController = function () {
               readcheck: req.body.readcheck,
               priority: req.body.priority,
               groupId: req.params.groupId,
+              messagecreator: user.username,
               userId: user.id
-            }).then(function () {
+            }).then(function (message) {
               res.status(201).json({
                 confirmation: 'success',
-                message: 'Message sent'
+                message: 'Message sent',
+                results: message
               });
-            }).catch(function () {
+            }).catch(function (err) {
               res.status(400).json({
                 confirmation: 'fail',
-                message: 'Message failed'
+                message: err
               });
             });
           });
@@ -70,9 +83,10 @@ var MessageController = function () {
       });
     }
     /**
-     * 
-     * @param {object} req 
-     * @param {object} res 
+     * Get all messages in a group
+     * @param {object} req
+     * @param {object} res
+     * @return {object} json
      */
 
   }, {

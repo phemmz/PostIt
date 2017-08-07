@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- *
+ * SendMessageValidations class
  */
 var SendMessageValidations = function () {
   function SendMessageValidations() {
@@ -26,13 +26,14 @@ var SendMessageValidations = function () {
     key: 'validateSendMessage',
 
     /**
-     *
+     * validateSendMessage validates user input fields
      * @param {object} data
+     * @returns {object}
      */
     value: function validateSendMessage(data) {
       var errors = {};
       if (data.content === '' || data.content === null) {
-        errors.username = 'Message content is required';
+        errors.content = 'Message content is required';
       }
       if (!data.content || !data.priority) {
         errors.invalid = 'Please fill the required parameters';
@@ -43,7 +44,7 @@ var SendMessageValidations = function () {
       };
     }
     /**
-     *
+     * validateUserInput
      * @param {*} req
      * @param {*} res
      * @param {*} next

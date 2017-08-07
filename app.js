@@ -7,8 +7,7 @@ import favicon from 'serve-favicon';
 import dotenv from 'dotenv';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from './webpack.config.dev';
+import webpackConfig from './webpack.config';
 import apiRoutes from './server/routes/apiRoutes';
 
 /**
@@ -21,22 +20,10 @@ dotenv.config();
  */
 const app = express();
 
-const compiler = webpack(webpackConfig);
-
 /**
- * webpackdevmiddleware serves the files emitted from webpack from memory
- * noInfo: true eliminates noise from webpack
+ * webpackdevmiddleware serves the files emitted from webpack
  */
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicPath: webpackConfig.output.publicPath,
-  noInfo: true
-}));
-
-/**
- * Use webpack hot reloading with express for automatic reloading of pages to see changes right away
- */
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackMiddleware(webpack(webpackConfig)));
 
 /**
  * Create new middleware to serve a favicon from the given path to a favicon file

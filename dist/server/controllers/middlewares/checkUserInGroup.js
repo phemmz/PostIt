@@ -17,7 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Group = _models2.default.Group;
 
 /**
- * 
+ * checkUserInGroup class
  */
 
 var checkUserInGroup = function () {
@@ -29,10 +29,11 @@ var checkUserInGroup = function () {
     key: 'isGroupMember',
 
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
+     * isGroupMember checks if a user belongs to a group
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @returns {object} json
      */
     value: function isGroupMember(req, res, next) {
       Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
