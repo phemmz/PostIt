@@ -2,12 +2,14 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**
- *
+ * sharedSignupValidations class
  */
 export default class sharedSignupValidations {
 /**
- *
+ * commonValidations() takes in the data from the body for signup and validates them
  * @param {object} data
+ * @return {object} errors
+ * @returns {object} errors,isValid
  */
   static commonValidations(data) {
     const errors = {};
