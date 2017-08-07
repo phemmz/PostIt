@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-
+/**
+ * Group class which extends React.Component
+ */
 class Group extends Component {
+  /**
+   * clickHandler() gets called when the groupname anchor tag is clicked on
+   */
 	clickHandler(event) {
-    event.preventDefault(); 
-		console.log('onselectitle: ' + this.props.index);
+    event.preventDefault();
     this.props.groupClickHandler(event.target.id);
 	}
 
@@ -27,9 +31,9 @@ class Group extends Component {
           );
 		return(
 			<div>	
-				<h3>
+				<p>
           <span className="z-depth-1">{ title }</span>
-        </h3>			
+        </p>			
 			</div>
 		)	
 	}
