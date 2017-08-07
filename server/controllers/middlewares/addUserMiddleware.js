@@ -2,12 +2,13 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**
- *
+ * AddUserValidations class
  */
 export default class AddUserValidations {
 /**
- *
+ * validateAddUser()
  * @param {object} data
+ * @returns {object} errors,isValid
  */
   static validateAddUser(data) {
     const errors = {};
@@ -25,10 +26,11 @@ export default class AddUserValidations {
     };
   }
 /**
- *
+ * validateUserInput
  * @param {*} req
  * @param {*} res
  * @param {*} next
+ * @returns {object} json
  */
   static validateUserInput(req, res, next) {
     const { errors, isValid } = AddUserValidations.validateAddUser(req.body);
