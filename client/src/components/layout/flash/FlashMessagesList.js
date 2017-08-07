@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import FlashMessage from './FlashMessage';
 import { deleteFlashMessage } from '../../../actions/flashMessages';
 
@@ -15,8 +16,8 @@ class FlashMessagesList extends Component {
 }
 
 FlashMessagesList.propTypes = {
-  messages: React.PropTypes.array.isRequired,
-  deleteFlashMessage: React.PropTypes.func.isRequired
+  messages: PropTypes.array.isRequired,
+  deleteFlashMessage: PropTypes.func.isRequired
  }
 
 function mapStateToProps(state) {
