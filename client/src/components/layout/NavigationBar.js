@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/authActions';
+import PropTypes from 'prop-types';
+import AuthenticationActions from '../../actions/authActions';
 
+/**
+ * The Navigation Bar class
+ */
 class NavigationBar extends Component {
+  //logout function that calls the action that removes jwt token from local storage
   logout(e) {
     e.preventDefault();
     this.props.logout();
@@ -13,38 +18,43 @@ class NavigationBar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
-      <ul className="right hide-on-med-and-down">
-        <li><a href="#" onClick={this.logout.bind(this)} className="waves-effect waves-light btn">Logout</a></li>
-      </ul>
+      <div>
+        <ul className="right hide-on-med-and-down lgout">
+          <li><a href="#" onClick={this.logout.bind(this)} className="waves-effect waves-light btn">Logout</a></li>
+        </ul>
+        <ul className="side-nav" id="mobile-demo">
+          <li><a href="./home" className="waves-effect waves-light btn">Home</a></li>
+          <li><a href="./dashboard" className="waves-effect waves-light btn">Dashboard</a></li>
+          <li><a href="./users" className="waves-effect waves-light btn">Users</a></li>
+        </ul>
+      </div>
     );
 
     const guestLinks = (
-      <div>
+      <div className="col s10">
         <ul className="right hide-on-med-and-down">
           <li><Link to="/login" className="waves-effect waves-light btn">Login</Link></li>
           <li><Link to="/signup" className="waves-effect waves-light btn">Sign Up</Link></li>
         </ul>
         <ul className="side-nav" id="mobile-demo">
-          <li><a href="./login.html" className="waves-effect waves-light btn">Login</a></li>
-          <li><a href="./signup.html" className="waves-effect waves-light btn">Sign Up</a></li>
+          <li><a href="./login" className="waves-effect waves-light btn">Login</a></li>
+          <li><a href="./signup" className="waves-effect waves-light btn">Sign Up</a></li>
         </ul>
       </div>
     );
 
     return (
-      <div>
+      <div className="container-fluid">
         <header>
 					<nav className="black navbar navbar-default" role="navigation">
 						<div className="nav-wrapper">
 							<div className="container-fluid">
 								<div className="row">
 									<div className="col s2" >
-										<Link to="/dashboard" className="brand-logo"><img className="postlogo" src="POSTIT.png" alt="postit logo" /></Link>
+										<Link className="postlogo" to="/dashboard" className="brand-logo"><img className="postlogo" src="https://www.freelogoservices.com/api/main/images/1j+ojl1FOMkX9WypfBe43D6kjfaDpR5KmB...JwXs1M3EMoAJtlSAsgfNr...f4+" alt="postit logo" /></Link>
 										<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 									</div>
-									<div className="col s10">
 										{ isAuthenticated ? userLinks : guestLinks }
-									</div>
 								</div>
 							</div>
 						</div>
@@ -55,15 +65,16 @@ class NavigationBar extends Component {
   }
 }
 
-NavigationBar.propTypes = {
-  auth: React.PropTypes.object.isRequired,
-  logout: React.PropTypes.func.isRequired
-}
-
-function mapStateToProps(state) {
+const stateToProps = (state) => {
   return {
     auth: state.auth
-  };
+  }
 }
 
-export default connect(mapStateToProps, { logout })(NavigationBar);
+const dispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(AuthenticationActions.logout())
+  }
+}
+
+export default connect(stateToProps, dispatchToProps)(NavigationBar);
