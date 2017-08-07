@@ -14,7 +14,7 @@ import MessageBoard from './components/layout/MessageBoard.js';
 import style from '../main.scss';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import { setCurrentUser } from './actions/authActions';
+import AuthenticationActions from './actions/authActions';
 import requireAuth from './utils/requireAuth';
 
 const store = createStore(
@@ -27,7 +27,7 @@ const store = createStore(
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+  store.dispatch(AuthenticationActions.setCurrentUser(jwtDecode(localStorage.jwtToken)));
 }
 
 render(
