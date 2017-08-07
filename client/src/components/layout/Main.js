@@ -9,13 +9,13 @@ class Main extends Component {
     		<div>
 				<NavigationBar />
 				<FlashMessagesList />
-				<div className="container">
+				<div className="container-fluid">
 				    {this.props.children}
 				</div>
-				<footer className="footer">			          
-			          <div className="footer-copyright teal lighten-2">
+				<footer className="black footer">			          
+			          <div className="ffooter footer-copyright">
 			            <div className="container">
-							&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Andela, Inc
+							&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Adetunji Femi
 			            </div>
 			          </div>
 		        </footer>
