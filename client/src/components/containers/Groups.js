@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router';
 import { CreateGroup, Group  } from '../presentation';
-import { APIManager } from '../../utils';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { fetchGroups, groupCreate, groupSelected, groupsReceived } from '../../actions/groupActions';
-
+import GroupActions from '../../actions/groupActions';
+/**
+ * Groups class which inherits the React.Component class
+ */
 class Groups extends Component {
 	constructor() {
 		super();
@@ -17,18 +19,18 @@ class Groups extends Component {
 		}
 
 	}
-
+  /**
+	 * componentDidMount() is called at the instance where the Groups component is being created
+	 * and inserted into the DOM
+	 * It fires the action that gets all the groups a user belongs to
+	 */
 	componentDidMount() {
     this.props.fetchGroups(null);
-		// axios.get('api/group')
-    //   .then((response) => {
-		// 	this.setState({
-		// 		list: response.data.results
-		// 	});
-		// })
-    // .catch((err) => {
-    //   alert('ERROR: ' + err.message)
-    // });
+		window.$('.modal-trigger').click((e) => {
+			e.preventDefault();
+			window.$('#createGroup').modal();
+		});
+		window.$('.tooltipped').tooltip({delay: 50});
 	}
 
   updateGroupList(group) {
@@ -41,42 +43,24 @@ class Groups extends Component {
         alert('ERROR: ' + err.message)
 			});
   }
-
+  /**
+	 * groupClickHandler gets called from Group component when a groupname is clicked on
+	 * It fires the groupSelected action
+	 */
   groupClickHandler(groupId) {
+		// calls the groupSelected action and passes the groupId selected to it
     this.props.groupSelected(groupId);
   }
-
-	// createGroup(group) {
-		// let  updatedGroup = Object.assign({}, this.state.groups);
-		// axios.post('/api/group', group)
-		//   .then((response) => {
-    //     console.log('Group CREATED: '+JSON.stringify(response.data.result));
-    //     let updatedList = Object.assign([], this.state.list);
-    //     updatedList.push(response.data.result);
-    //     this.setState({
-    //       list: updatedList
-    //     });
-    //   })
-		// 	.catch(err => {
-    //     alert('ERROR: ' + err.message)
-		// 	});
-	// }
-
+  /**
+	 * 
+	 */
 	addUser() {
 		let updatedUserLists = Object.assign([], this.state.userList);
 		updatedUserLists.push(this.state.users);
 		this.setState({
 			userList: updatedUserLists
 		})
-		console.log(JSON.stringify(this.state.userList));
 	}
-
-  // selectGroup(index) {
-  //   console.log('hellloaknjasjjdsa: '+index);
-  //   this.setState({
-  //     selected: index
-  //   });
-  // }
 
 	render() {
 		const listItems = this.props.groupList.map((group, i) => {
@@ -94,20 +78,82 @@ class Groups extends Component {
 
     let content = null;
     if (this.props.appStatus == 'loading') {
-      content = <h3>LOADING...</h3>
-    } else if (this.props.appStatus == 'ready') {
+      content =
+			<div className="container-fluid">
+				<div className="row" style={{marginBottom: 0}}>
+					<div className="col s12 m12" style={{paddingLeft: 0}}>
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col s12">
+									<h5 className="white-text text-darken-4">Your Group List
+										<a href='#createGroup' className="modal-trigger tooltipped">
+											<i className="small material-icons">add_to_photos</i>
+										</a>	
+									</h5>
+								</div>		
+							</div>
+							<hr />
+							<div className="scrbar center">
+								<h3>LOADING...</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    } else if (this.props.appStatus == 'no groups') {
+      content = 
+			<div className="container-fluid">
+				<div className="row" style={{marginBottom: 0}}>
+					<div className="col s12 m12" style={{paddingLeft: 0}}>
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col s12">
+									<h5 className="white-text text-darken-4">Your Group List
+										<a href='#createGroup' className="modal-trigger tooltipped" data-tooltip="Create Group">
+											<i className="small material-icons add-group">add_to_photos</i>
+										</a>	
+									</h5>
+								</div>		
+							</div>
+							<hr />
+							<div className="scrbar center">
+								<h4>You currently don't belong to any group</h4>
+							</div>
+							<div>
+								<CreateGroup updateGroupList={this.updateGroupList.bind(this)} />
+							</div>
+						</div>
+						<div className="center">
+							<Link to="" className="searchbtn waves-effect waves-light btn center">Search for users</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+		} else if (this.props.appStatus == 'ready') {
       content = 
       <div className="container-fluid">
-				<div className="row" style={{marginBottom: 0}}>
-					<div className="col s2" style={{paddingLeft: 0}}>
-						<h4 className="left green-text text-darken-4">Your Group List</h4>	
-						<div  className="left green-text text-darken-4">
-						<ol>
-							{listItems}
-						</ol>
+				<div className="row">
+					<div className="col s12 m12">
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col s12">
+									<h5 className="white-text text-darken-4">Your Group List
+										<a href="#createGroup" className="modal-trigger tooltipped" data-tooltip="Create Group">
+											<i className="small material-icons add-group">add_to_photos</i>
+										</a>	
+									</h5>
+								</div>		
+							</div>
+							<hr />
+							<div className="scrbar center">
+								<ol>
+									{listItems}
+								</ol>
+							</div>
+								<CreateGroup updateGroupList={this.updateGroupList.bind(this)} />
 						</div>
-						<div>
-							<CreateGroup updateGroupList={this.updateGroupList.bind(this)} />
+						<div className="center">
+							<Link to="" className="searchbtn waves-effect waves-light btn center">Search for users</Link>
 						</div>
 					</div>
 				</div>
@@ -127,9 +173,9 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchGroups: (params) => dispatch(fetchGroups(params)),
-    groupCreate: (group) => dispatch(groupCreate(group)),
-    groupSelected: (groupIndex) => dispatch(groupSelected(groupIndex))
+    fetchGroups: (params) => dispatch(GroupActions.fetchGroups(params)),
+    groupCreate: (group) => dispatch(GroupActions.groupCreate(group)),
+    groupSelected: (groupIndex) => dispatch(GroupActions.groupSelected(groupIndex))
   }
 }
 export default connect(stateToProps, dispatchToProps)(Groups);
