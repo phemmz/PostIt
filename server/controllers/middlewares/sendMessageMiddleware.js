@@ -1,17 +1,18 @@
 import isEmpty from 'lodash/isEmpty';
 
 /**
- *
+ * SendMessageValidations class
  */
 export default class SendMessageValidations {
 /**
- *
+ * validateSendMessage validates user input fields
  * @param {object} data
+ * @returns {object}
  */
   static validateSendMessage(data) {
     const errors = {};
     if (data.content === '' || data.content === null) {
-      errors.username = 'Message content is required';
+      errors.content = 'Message content is required';
     }
     if (!data.content || !data.priority) {
       errors.invalid = 'Please fill the required parameters';
@@ -22,7 +23,7 @@ export default class SendMessageValidations {
     };
   }
 /**
- *
+ * validateUserInput
  * @param {*} req
  * @param {*} res
  * @param {*} next
