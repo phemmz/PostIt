@@ -1,13 +1,25 @@
 import axios from 'axios';
 
-export function userSignupRequest(userData) {
-  return dispatch => {
-    return axios.post('/api/user/signup', userData);
+/**
+ * SignupActions class
+ */
+export default class SignupActions {
+  /**
+   * @param {object} userData
+   * @return {*} axios
+   */
+  static userSignupRequest(userData) {
+    return () => {
+      return axios.post('/api/user/signup', userData);
+    };
   }
-}
-
-export function isUserExists(identifier) {
-  return dispatch => {
-    return axios.get(`/api/user/${identifier}`);
+  /**
+   * @param {string} identifier
+   * @return {*} axios
+   */
+  static isUserExists(identifier) {
+    return () => {
+      return axios.get(`/api/user/${identifier}`);
+    };
   }
 }
