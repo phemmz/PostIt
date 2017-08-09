@@ -37,10 +37,11 @@ class Groups extends Component {
     axios.post('/api/group', group)
 		  .then((response) => {
         const group = response.data.result;
-        this.props.groupCreate(group);
+				this.props.groupCreate(group);
+				Materialize.toast('Group Created!', 4000, 'green')
       })
 			.catch((err) => {
-        alert('ERROR: ' + err.message)
+				Materialize.toast('Group Already Exist!', 4000, 'red')
 			});
   }
   /**
