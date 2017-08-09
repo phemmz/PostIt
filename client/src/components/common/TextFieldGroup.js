@@ -14,7 +14,7 @@ const TextFieldGroup = ({ id, value, field, label, htmlFor, error, type, onChang
             value={value} 
             name={field}
             type={type} 
-            className="form-control" />
+            className="form-control" required/>
             <label htmlFor={htmlFor}>{label}</label>
             {error && <span className="help-block">{error}</span>}
         </div>
