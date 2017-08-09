@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, GET_ALL_USERS } from './types';
 /**
  * AuthenticationActions class
  */
@@ -20,6 +20,7 @@ export default class AuthenticationActions {
   }
   /**
    * logout signs the user out and removes the token from localstorage
+   * @description logout action is a plain javascript object  describing how to change the state
    * @returns {*} dispatch
    */
   static logout() {
@@ -54,6 +55,22 @@ export default class AuthenticationActions {
          */
         dispatch(AuthenticationActions.setCurrentUser(jwtDecode(token)));
       });
+    };
+  }
+  /**
+   * This action gets all the registered users
+   * @returns {object} users
+   */
+  static getUsers() {
+    return (dispatch) => {
+      axios.get('/api/user')
+        .then((response) => {
+          const users = response.data.result;
+          dispatch({
+            type: GET_ALL_USERS,
+            users
+          });
+        });
     };
   }
 }
