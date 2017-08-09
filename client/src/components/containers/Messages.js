@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { CreateMessage, Message } from '../presentation';
 import GroupActions from '../../actions/groupActions';
+import AuthenticationActions from '../../actions/authActions';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 /**
@@ -17,7 +18,7 @@ class Messages extends Component {
 			errors: {},
 			selectedGroupId: this.props.selectedGroup,
 			groupName: 'Welcome',
-			username: []
+			username: ''
 		}
 
 		this.messageList = this.messageList.bind(this);
@@ -30,6 +31,10 @@ class Messages extends Component {
   handleRedirect() {
     browserHistory.push('/dashboard');
   }
+	
+	componentWillMount() {
+    this.props.getUsers();
+	}
 
 	componentWillReceiveProps(nxtProps) {
 		if(nxtProps.selectedGroup !== this.state.selectedGroupId) {
@@ -90,11 +95,8 @@ class Messages extends Component {
 
 	updateUser(e) {
 		let updatedUser = Object.assign([], this.state.userAdded);
-		console.log(e.target.id, 'we re ea na')
 		updatedMessage[e.target.id] = e.target.value;
-		
 		this.state.userAdded = e.target.value;
-		console.log(this.state, 'we re ea')
 	}
 
 	groupMessages(groupId) {
@@ -133,12 +135,19 @@ class Messages extends Component {
 	}
 
 	componentDidMount() {
-		$(".button-collapse").sideNav();
+		
 		$('.tooltipped').tooltip({delay: 50});
 	}
 
 	render() {
 		$('#addUser').modal();
+		$(".button-collapse").sideNav();
+		$('select').material_select();
+		const appUsers = this.props.appUsers.map((users, i) => {
+			return (
+				<option key={i} value={users.username}>{users.username}</option>
+			)
+		});
 		const { errors } = this.state;
 			let content = null;
 			if (this.props.appStatus == 'no groups') {
@@ -168,11 +177,9 @@ class Messages extends Component {
 							<h4 className="green-text text-darken-4">Add User to a Group</h4>
 							<div className="row">
 								<div className="input-field col s12">
-									<select multiple id="username" value={this.state.username} onChange={this.updateUser}>
-										<option value="" disabled>Choose an option</option>
-										<option value="Amb">Amb</option>
-										<option value="Phemmz">Phemmz</option>
-										<option value="Convict">Convict</option>
+									<select id="username" value={this.state.username} onChange={this.updateUser}>
+									   <option value="" disabled>Add User</option>
+									  {appUsers}
 									</select>
 								</div>
 							</div>
@@ -183,13 +190,26 @@ class Messages extends Component {
 						</div>
 					</div>
 					<div className="msgscrbar">
-						<span><h5 className="green-text text-darken-4">
-							<strong>
-								<a id="slide-out-nav" href="#" data-activates="slide-out" className="button-collapse">
-									<i className="small left material-icons group-details tooltipped" data-tooltip="Show Group Details">account_box</i>
-								</a>
-								<em>{this.state.groupName}</em>
-							</strong></h5></span>
+						{
+							(this.props.selectedGroup) ? 
+							(
+								<span><h5 className="green-text text-darken-4">
+									<strong>
+										<a id="slide-out-nav" data-activates="slide-out" className="button-collapse">
+											<i className="small left material-icons group-details tooltipped" data-tooltip="Show Group Details">account_box</i>
+										</a>
+										<em>{this.state.groupName}</em>
+									</strong></h5>
+								</span>
+							) : 
+							(
+								<span><h5 className="green-text text-darken-4">
+									<strong>
+										<em>{this.state.groupName}</em>
+									</strong></h5>
+								</span>
+							)
+						}
 						{ errors.message  && <div className="alert alert-danger">{errors.message}</div> }
 						<ol style={{listStyle: "none"}}>
 							{this.messageList()}
@@ -208,7 +228,8 @@ const stateToProps = (state) => {
 		groupMessages: state.groupReducer.groupMessages,
 		addUser: state.groupReducer.addUser,
     selectedGroup: state.groupReducer.selectedGroup,
-    appStatus: state.groupReducer.appStatus
+		appStatus: state.groupReducer.appStatus,
+		appUsers: state.userReducer.users
 	}
 }
 
@@ -216,7 +237,8 @@ const dispatchToProps = (dispatch) => {
   return {
     groupMessages: (groupId) => dispatch(GroupActions.groupMessages(groupId)),
 		addUser: (groupId, userAdded) => dispatch(GroupActions.addUser(groupId, userAdded)),
-		addFlashMessage: (message) => dispatch(addFlashMessage(message))
+		addFlashMessage: (message) => dispatch(addFlashMessage(message)),
+		getUsers: () => dispatch(AuthenticationActions.getUsers())
   }
 }
 export default connect(stateToProps, dispatchToProps)(Messages);
