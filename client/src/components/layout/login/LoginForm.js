@@ -42,8 +42,10 @@ class LoginForm extends Component {
             this.setState({ errors: {} });
             // the login action is fired here
             this.props.login(this.state).then(
-                (res) => this.context.router.push('/dashboard'),
-                (err) => this.setState({ errors: err.response.data.errors})
+                (res) => [
+                    this.context.router.push('/dashboard'),
+                    Materialize.toast('Login Successful!!', 4000, 'green')],
+                (err) => this.setState({ errors: err.response.data.errors}),
             );
         }
     }
