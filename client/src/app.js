@@ -17,6 +17,12 @@ import setAuthorizationToken from './utils/setAuthorizationToken';
 import AuthenticationActions from './actions/authActions';
 import requireAuth from './utils/requireAuth';
 
+/**
+ * @description The store binds together the 3 principles of redux
+ * It holds the current application state object
+ * It lets you dispatch actions
+ * When you create it, you need to specify reducers 
+ */
 const store = createStore(
 	rootReducer,
 	compose(
