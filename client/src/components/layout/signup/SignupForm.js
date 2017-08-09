@@ -122,6 +122,7 @@ class SignupForm extends Component {
               field="email"
               htmlFor="email"
               label="Email"
+              type="email"
               checkUserExists={this.checkUserExists}
             />
             <TextFieldGroup 
