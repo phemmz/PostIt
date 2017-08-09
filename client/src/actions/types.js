@@ -10,3 +10,4 @@ export const APPLICATION_STATE = 'APPLICATION_STATE';
 export const GROUP_CREATE = 'GROUP_CREATE';
 export const GROUP_MESSAGES = 'GROUP_MESSAGES';
 export const ADD_USER = 'ADD_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
