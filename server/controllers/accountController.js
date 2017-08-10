@@ -80,7 +80,8 @@ export default class UserController {
            */
           const token = jwt.sign({
             userId: userdetails[0].id,
-            username: userdetails[0].username
+            username: userdetails[0].username,
+            email: userdetails[0].email
           }, process.env.SECRET);
           req.session.username = req.body.username;
           req.session.userId = userdetails[0].id;
