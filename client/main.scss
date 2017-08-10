@@ -11,6 +11,10 @@ h1, h2, h3, h4, h5, p {
   padding-top: 10px;
 }
 
+.nav-anchor {
+  font-family: 'Cinzel', serif;
+}
+
 h2 {
   padding-top: 10px;
 }
@@ -205,7 +209,6 @@ body {
 
 .messages {
   background-color: #D7CEC7;
-  opacity: 0.9;
   height: 1000px;
 }
 
@@ -253,8 +256,16 @@ body {
   width: 99%;
 }
 
-.background {
-  background-color: #f77d0e;
+.groupdetails-img {
+  width: 320px;
+  height: 215px;
+}
+
+.groupdetails-nav {
+  background-color: #76323F;
+  width: 320px;
+  height: 550px;
+  top: auto;
 }
 
 #sidenav-overlay {
