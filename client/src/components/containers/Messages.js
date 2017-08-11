@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
-import { CreateMessage, Message } from '../presentation';
+import { CreateMessage, Message, AddUserModal, SideNav } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import AuthenticationActions from '../../actions/authActions';
 import { addFlashMessage } from '../../actions/flashMessages';
@@ -161,39 +161,15 @@ class Messages extends Component {
 			} else {
 				content =
 				<div>
-					<ul id="slide-out" className="side-nav groupdetails-nav" >
-						<li><div className="user-view">
-								<div className="background">
-									<img className="groupdetails-img" src="https://images.unsplash.com/photo-1493219686142-5a8641badc78?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop="/>
-								</div>
-								<div>
-									<a href="#!user"><img className="circle" src=""/></a>
-									<a href="#!name"><span className="white-text name">{this.props.currentUser.username}</span></a>
-									<a href="#!email"><span className="white-text email right">{this.props.currentUser.email}</span></a>
-								</div>
-							</div>
-						</li>
-						<li><a href="#!" className="waves-effect waves-light green nav-anchor"><i className="material-icons">cloud</i>Group Members</a></li>
-						<li><div className="divider"></div></li>
-						<li><a href="#addUser" className="waves-effect waves-light green nav-anchor modal-trigger"><i className="material-icons">people_outline</i>Add User</a></li>
-					</ul>
-					<div id="addUser" className="modal">
-						<div className="modal-content">
-							<h4 className="green-text text-darken-4">Add User to a Group</h4>
-							<div className="row">
-								<div className="input-field col s12">
-									<select id="username" value={this.state.username} onChange={this.updateUser}>
-									   <option value="" disabled>Add User</option>
-									  {appUsers}
-									</select>
-								</div>
-							</div>
-						</div>
-						<div className="modal-footer">
-							<a className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-							<a onClick={this.addUser} className="modal-action modal-close waves-effect waves-green btn-flat">Add User</a>
-						</div>
-					</div>
+					<SideNav
+					 currentUser={this.props.currentUser}
+				  />
+					<AddUserModal
+					 value={ this.state.username }
+					 onChange={ this.updateUser }
+					 appUsers={ appUsers }
+					 onClick={ this.addUser }
+					/>
 					<div className="msgscrbar">
 						{
 							(this.props.selectedGroup) ? 
