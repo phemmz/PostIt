@@ -176,9 +176,6 @@ class Messages extends Component {
 						<li><a href="#!" className="waves-effect waves-light green nav-anchor"><i className="material-icons">cloud</i>Group Members</a></li>
 						<li><div className="divider"></div></li>
 						<li><a href="#addUser" className="waves-effect waves-light green nav-anchor modal-trigger"><i className="material-icons">people_outline</i>Add User</a></li>
-						
-						{/* <li><a href="#!" className="waves-effect waves-light btn">Group Members</a></li> */}
-						{/* <li><a href="#addUser" className="waves-effect waves-light btn modal-trigger">Add User</a></li> */}
 					</ul>
 					<div id="addUser" className="modal">
 						<div className="modal-content">
