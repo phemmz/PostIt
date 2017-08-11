@@ -1,5 +1,7 @@
 import axios from 'axios';
-
+import jwtDecode from 'jwt-decode';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import AuthenticationActions from './authActions';
 /**
  * SignupActions class
  */
@@ -9,8 +11,21 @@ export default class SignupActions {
    * @return {*} axios
    */
   static userSignupRequest(userData) {
-    return () => {
-      return axios.post('/api/user/signup', userData);
+    return (dispatch) => {
+      return axios.post('/api/user/signup', userData)
+        .then((res) => {
+          const token = res.data.token;
+          /**
+           * this saves the token in the localstorage as a key value object
+           */
+          localStorage.setItem('jwtToken', token);
+          setAuthorizationToken(token);
+          /**
+           * the jwtDecode is a small browser library that helps
+           * decoding JWTs token which are Base64Url encoded
+           */
+          dispatch(AuthenticationActions.setCurrentUser(jwtDecode(token)));
+        });
     };
   }
   /**
