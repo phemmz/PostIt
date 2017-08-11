@@ -81,21 +81,14 @@ class SignupForm extends Component {
        * calls the userSignupRequest action that has been passed down to it through props
        * from SignupPage component
        */
-      this.props.userSignupRequest(this.state).then(() => {
-        /**
-         * calls the addFlashMessage action that has been passed down to it through props
-         * from SignupPage component
-         */
-        this.props.addFlashMessage({
-          type: 'success',
-          text: 'You signed up successfully, Welcome!'
-        });
-        this.context.router.push('/login');
-      },
+      this.props.userSignupRequest(this.state).then(
+        (res) => [
+          this.context.router.push('/dashboard'),
+          Materialize.toast('Signup Successful!!, Welcome', 4000, 'green')],
         (err) => this.setState({ errors: err.response.data })
       );
-		}
-	}
+    }
+  }
 
   render() {
     const { errors } = this.state;
