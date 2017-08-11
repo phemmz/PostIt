@@ -17,7 +17,9 @@ class LoginForm extends Component {
             errors: {},
             isLoading: false
         }
-        // binds the onSubmit and onChange functions to this
+        /**
+         * binds the onSubmit and onChange functions to this
+         */
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
