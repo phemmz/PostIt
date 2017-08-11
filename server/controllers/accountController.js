@@ -24,7 +24,25 @@ export default class UserController {
         email: req.body.email,
         password: req.body.password,
       })
-      .then(() => {
+      .then((account) => {
+        /**
+         * if successful JSON.stringify turns account array
+         * into JSON text and stores that JSON text in a string
+         * then JSON.parse turns the string of JSON text into a Javascript object
+         * then you can get the first object in the array by doing userdetails[0]
+         */
+        let userdetails = JSON.stringify(account);
+        userdetails = JSON.parse(userdetails);
+        /**
+         * This generates the token by encoding the userdetails passed into it
+         * It joins the resulting encoded strings together with a period (.) in between them
+         * The token is generated in the format header.payload.signature
+         */
+        const token = jwt.sign({
+          userId: userdetails.id,
+          username: userdetails.username,
+          email: userdetails.email
+        }, process.env.SECRET);
         /**
          * If user is created successfully,
          * set req.session.username to the username entered
@@ -33,17 +51,20 @@ export default class UserController {
         req.session.username = req.body.username;
         res.status(201).json({
           confirmation: 'success',
-          message: `${req.body.username} successfully created`
+          message: `${req.body.username} successfully created`,
+          token
         });
       })
       /**
        * Catch error block returns a json object,
        * with status 400
        */
-      .catch(() => res.status(400).json({
-        confirmation: 'fail',
-        message: 'Check input details'
-      }));
+      .catch(() => {
+        res.status(400).json({
+          confirmation: 'fail',
+          message: 'Check input details'
+        });
+      });
   }
 
   /**
