@@ -3,13 +3,21 @@ import React, { Component } from 'react';
 class Message extends Component {
 	render() {
 		return (
-			<div>
-				<h4 className="green-text text-darken-4"><strong><em>{this.props.groupName}</em></strong></h4>	
-				<h4>{this.props.groupMessages}</h4>
-				<span className="z-depth-1 glist" style={{marginRight: 10}}>{this.props.currentMessage.content}</span>
-				<span className="z-depth-1 glist" style={{marginRight: 10}}>GroupId: {this.props.currentMessage.groupId}</span>
-				<span className="z-depth-1 glist" style={{marginRight: 10}}>Priority: {this.props.currentMessage.priority}</span>
-				<span className="z-depth-1 glist" style={{marginRight: 10}}>{this.props.currentMessage.messagecreator}</span>
+			<div className="email-content-wrap">
+				<div className="row">
+					<div className="col s10 m10 l10">
+						<ul className="collection">
+							<li className="collection-item avatar">
+								<span className="circle green lighten-1 center">{this.props.currentMessage.messagecreator[0]}</span>
+								<span className="email-title">{this.props.currentMessage.messagecreator}</span>
+								<p className="grey-text ultra-small">Priority: {this.props.currentMessage.priority}</p>
+								<p className="grey-text ultra-small">{new Date(this.props.currentMessage.createdAt).toLocaleString()}</p>
+								<span className="email-content">{this.props.currentMessage.content}</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<hr />
 			</div>
 		)
 	}
