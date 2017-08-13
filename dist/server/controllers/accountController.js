@@ -50,7 +50,25 @@ var UserController = function () {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
-      }).then(function () {
+      }).then(function (account) {
+        /**
+         * if successful JSON.stringify turns account array
+         * into JSON text and stores that JSON text in a string
+         * then JSON.parse turns the string of JSON text into a Javascript object
+         * then you can get the first object in the array by doing userdetails[0]
+         */
+        var userdetails = JSON.stringify(account);
+        userdetails = JSON.parse(userdetails);
+        /**
+         * This generates the token by encoding the userdetails passed into it
+         * It joins the resulting encoded strings together with a period (.) in between them
+         * The token is generated in the format header.payload.signature
+         */
+        var token = _jsonwebtoken2.default.sign({
+          userId: userdetails.id,
+          username: userdetails.username,
+          email: userdetails.email
+        }, process.env.SECRET);
         /**
          * If user is created successfully,
          * set req.session.username to the username entered
@@ -59,7 +77,8 @@ var UserController = function () {
         req.session.username = req.body.username;
         res.status(201).json({
           confirmation: 'success',
-          message: req.body.username + ' successfully created'
+          message: req.body.username + ' successfully created',
+          token: token
         });
       })
       /**
@@ -67,7 +86,7 @@ var UserController = function () {
        * with status 400
        */
       .catch(function () {
-        return res.status(400).json({
+        res.status(400).json({
           confirmation: 'fail',
           message: 'Check input details'
         });
@@ -109,7 +128,8 @@ var UserController = function () {
            */
           var token = _jsonwebtoken2.default.sign({
             userId: userdetails[0].id,
-            username: userdetails[0].username
+            username: userdetails[0].username,
+            email: userdetails[0].email
           }, process.env.SECRET);
           req.session.username = req.body.username;
           req.session.userId = userdetails[0].id;

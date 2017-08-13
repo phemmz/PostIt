@@ -18,7 +18,7 @@ class CreateMessage extends Component {
 	}
 
   componentDidMount() {
-    window.$('select').material_select();
+    
   }
 
   updateMessage(e) {
@@ -31,7 +31,8 @@ class CreateMessage extends Component {
 	}
 
   sendMessage(e) {
-		this.props.onCreate(this.state.messages);
+    this.props.onCreate(this.state.messages);
+		this.refs.messages.value = "";
 	}
 
   render() {
@@ -52,7 +53,7 @@ class CreateMessage extends Component {
             </div>
             <div className="row">
               <div className="col s10">
-                <textarea onChange={this.updateMessage} id="content" className="validate" defaultValue={""} />
+                <textarea ref="messages" onChange={this.updateMessage} id="content" className="validate" defaultValue={""} />
               </div>
               <div className="col s2">
                 <a onClick={this.sendMessage.bind(this)} className="btn-floating green"><i className="large material-icons">chat</i></a>

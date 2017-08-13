@@ -18,7 +18,7 @@ export default class AddUserValidations {
       }
     }
     if (!data.username) {
-      errors.invalid = 'Please fill in your details';
+      errors.invalid = 'Please fill in your details oahhjqj';
     }
     return {
       errors,

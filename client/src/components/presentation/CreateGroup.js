@@ -25,6 +25,7 @@ class CreateGroup extends Component {
   submitHandler(event) {
     event.preventDefault();
     this.props.updateGroupList(this.state.groups);
+		this.refs.group.value = "";
   }
 
   addUser() {
@@ -51,7 +52,7 @@ class CreateGroup extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">group</i>
-                    <input onChange={this.updateGroupHandler.bind(this)} id="groupname" type="text" className="validate" />
+                    <input ref="group" onChange={this.updateGroupHandler.bind(this)} id="groupname" type="text" className="validate" />
                     <label htmlFor="groupname">Group name</label>
                   </div>
                 </div>

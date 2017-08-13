@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
@@ -67,12 +68,13 @@ class Messages extends Component {
 			this.setState({
 				list: updatedList
 			});
-    });	
+		});
 	}
 
 	addUser(e) {
 		const groupId = this.props.selectedGroup;
-    this.props.addUser(groupId, this.state.username)
+		const username = { username: this.state.username}
+    this.props.addUser(groupId, username)
 		  .then(() => {
 				this.props.addFlashMessage({
 					type: 'success',
@@ -94,9 +96,9 @@ class Messages extends Component {
 	}
 
 	updateUser(e) {
-		let updatedUser = Object.assign([], this.state.userAdded);
-		updatedMessage[e.target.id] = e.target.value;
-		this.state.userAdded = e.target.value;
+		this.setState({
+			[e.target.id]: e.target.value
+		})
 	}
 
 	groupMessages(groupId) {
@@ -136,12 +138,12 @@ class Messages extends Component {
 
 	componentDidMount() {
 		$('.tooltipped').tooltip({delay: 50});
+		
 	}
 
 	render() {
 		$('#addUser').modal();
 		$(".button-collapse").sideNav();
-		$('select').material_select();
 		const appUsers = this.props.appUsers.map((users, i) => {
 			return (
 				<option key={i} value={users.username}>{users.username}</option>

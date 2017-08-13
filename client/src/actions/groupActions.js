@@ -5,22 +5,12 @@ import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, CUR
  */
 export default class GroupActions {
   /**
-   * groupsRecieved()
-   * @param {object} groups
-   * @returns {object} type, groups
-   */
-  static groupsReceived(groups) {
-    return {
-      type: GROUPS_RECEIVED,
-      groups
-    };
-  }
-  /**
    * groupCreate()
    * @param {object} group
    * @returns {object} type, group
    */
   static groupCreate(group) {
+    console.log(JSON.stringify(group), ' yo group t s')
     return {
       type: GROUP_CREATE,
       group
@@ -105,7 +95,7 @@ export default class GroupActions {
    */
   static addUser(groupId, userAdded) {
     return (dispatch) => {
-      axios.post(`api/group/${groupId}/user`, userAdded)
+      return axios.post(`api/group/${groupId}/user`, userAdded)
         .then((response) => {
           dispatch({
             type: ADD_USER,

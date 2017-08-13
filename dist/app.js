@@ -32,22 +32,6 @@ var _dotenv = require('dotenv');
 
 var _dotenv2 = _interopRequireDefault(_dotenv);
 
-var _webpack = require('webpack');
-
-var _webpack2 = _interopRequireDefault(_webpack);
-
-var _webpackDevMiddleware = require('webpack-dev-middleware');
-
-var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
-
-var _webpackHotMiddleware = require('webpack-hot-middleware');
-
-var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
-
-var _webpackConfig = require('./webpack.config.dev');
-
-var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
-
 var _apiRoutes = require('./server/routes/apiRoutes');
 
 var _apiRoutes2 = _interopRequireDefault(_apiRoutes);
@@ -62,24 +46,16 @@ _dotenv2.default.config();
 /**
  * Create an express application
  */
+
+// import webpack from 'webpack';
+// import webpackMiddleware from 'webpack-dev-middleware';
+// import webpackConfig from './webpack.config';
 var app = (0, _express2.default)();
 
-var compiler = (0, _webpack2.default)(_webpackConfig2.default);
-
 /**
- * webpackdevmiddleware serves the files emitted from webpack from memory
- * noInfo: true eliminates noise from webpack
+ * webpackdevmiddleware serves the files emitted from webpack
  */
-app.use((0, _webpackDevMiddleware2.default)(compiler, {
-  hot: true,
-  publicPath: _webpackConfig2.default.output.publicPath,
-  noInfo: true
-}));
-
-/**
- * Use webpack hot reloading with express for automatic reloading of pages to see changes right away
- */
-app.use((0, _webpackHotMiddleware2.default)(compiler));
+// app.use(webpackMiddleware(webpack(webpackConfig)));
 
 /**
  * Create new middleware to serve a favicon from the given path to a favicon file
@@ -124,7 +100,8 @@ app.use(_apiRoutes2.default);
  * It can be viewed at http://localhost:8000
  */
 app.get('/*', function (req, res) {
-  res.sendFile(_path2.default.join(__dirname, 'views/index.html'));
+  // res.sendFile(path.join(__dirname, '../views/index.html'));
+  res.sendFile(_path2.default.resolve('./views/index.html'));
 });
 
 var port = parseInt(process.env.PORT, 10) || 8000;
