@@ -16,11 +16,11 @@ class CreateMessage extends Component {
 		}
     this.updateMessage = this.updateMessage.bind(this);
 	}
-
-  componentDidMount() {
-    
-  }
-
+  /**
+	 * @description updateMessage is attached to onChange of textarea and select dropdown
+   * It gets there value on change and set it to the state
+	 * @param {*} e 
+	 */
   updateMessage(e) {
 		let updatedMessage = Object.assign({}, this.state.messages);
 		updatedMessage[e.target.id] = e.target.value;
@@ -29,10 +29,23 @@ class CreateMessage extends Component {
 			messages: updatedMessage
 		})
 	}
-
+/**
+ * @description calls the props from the parent component
+ * and pass along this.state.messages
+ * then clears the textfield
+ * @param {*} e 
+ */
   sendMessage(e) {
     this.props.onCreate(this.state.messages);
-		this.refs.messages.value = "";
+    this.refs.messages.value = "";
+    this.setState({
+			messages: {
+				content: '',
+				groupId: '',
+				readCheck: false,
+				priority: '1'
+			}
+		})
 	}
 
   render() {
