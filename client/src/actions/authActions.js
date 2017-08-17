@@ -63,7 +63,7 @@ export default class AuthenticationActions {
    */
   static getUsers() {
     return (dispatch) => {
-      axios.get('/api/user')
+      return axios.get('/api/user')
         .then((response) => {
           const users = response.data.result;
           dispatch({
