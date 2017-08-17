@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router';
-import FlashMessagesList from './flash/FlashMessagesList';
 import NavigationBar from './NavigationBar';
 
 class Main extends Component {
@@ -8,7 +7,6 @@ class Main extends Component {
     	return (
     		<div>
 				<NavigationBar />
-				<FlashMessagesList />
 				<div className="container-fluid">
 				    {this.props.children}
 				</div>
