@@ -6,7 +6,6 @@ import axios from 'axios';
 import { CreateMessage, Message, AddUserModal, SideNav } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import AuthenticationActions from '../../actions/authActions';
-import { addFlashMessage } from '../../actions/flashMessages';
 
 /**
  * Messages class
@@ -32,14 +31,27 @@ class Messages extends Component {
   handleRedirect() {
     browserHistory.push('/dashboard');
   }
-	
+	/**
+	 * Just before the component mounts, getUsers action is fired
+	 * The action makes a call to the api and gets all registered users
+	 */
 	componentWillMount() {
     this.props.getUsers();
 	}
-
+  /**
+	 * @description this is called if there is change in props
+	 * it checks if selectedGroup of next props is different from
+	 * selectedGroupId of the state before calling setState
+	 * and updates the selectedGroupId, groupName and list
+	 * @param {object} nxtProps 
+	 */
 	componentWillReceiveProps(nxtProps) {
 		if(nxtProps.selectedGroup !== this.state.selectedGroupId) {
-			this.groupMessages(nxtProps.selectedGroup).then((results) => {
+			/**
+			 * The groupMessages action gets fired here
+			 * and the groupId of the group selected is passed along
+			 */
+			this.props.groupMessages(nxtProps.selectedGroup).then((results) => {
 				const groupName = this.groupName(nxtProps.selectedGroup);
 				this.setState({
 					errors: {},
@@ -57,57 +69,60 @@ class Messages extends Component {
       });
 		}
 	}
-
+/**
+ * @description Fires the postMessage action.
+ * The action sends the message object to the api
+ * and then updates the state with the response
+ * @param {*} message 
+ */
 	sendMessage(message) {
-		message.group = this.props.selectedGroup;
 		const groupId = this.props.selectedGroup;
-		axios.post(`/api/group/${groupId}/message`, message)
+		this.props.sendMessage(groupId, message)
 		  .then((response) => {
-			let updatedList = Object.assign([], this.state.list);
-			updatedList.push(response.data.results);
-			this.setState({
-				list: updatedList
-			});
-		});
+/**
+ * Makes a copy of the list array in the state
+ * and then push the message response to the copied array
+ * It updates the state with this updated copy
+ */
+				let updatedList = Object.assign([], this.state.list);
+				updatedList.push(response);
+				this.setState({
+					list: updatedList
+				});
+				Materialize.toast('Message Sent', 4000, 'green');
+			})
+			.catch(() => {
+        Materialize.toast('Message Failed', 4000, 'red');
+			})
 	}
-
+/**
+ * @description Fires the addUser action and pass groupId and username to it
+ * on success or error, Materialize toast is called with appropriate message
+ * @param {*} e 
+ */
 	addUser(e) {
 		const groupId = this.props.selectedGroup;
 		const username = { username: this.state.username}
     this.props.addUser(groupId, username)
 		  .then(() => {
-				this.props.addFlashMessage({
-					type: 'success',
-					text: 'User added successfully'
-				})
+				Materialize.toast('User Added Successfully', 4000, 'green');
 			})
-			.catch((err) => this.setState({
-				errors: err.response.data
-			}))
+			.catch((err) => {
+				Materialize.toast(err.response.data.message, 4000, 'red');
+			})
 	}
-  
-	updateMessage(e) {
-		let updatedMessage = Object.assign({}, this.state.messages);
-		updatedMessage[e.target.id] = e.target.value;
-    updatedMessage['groupId'] = this.props.selectedGroup;
-		this.setState({
-			messages: updatedMessage
-		})
-	}
-
+/**
+ * Gets the value from the select dropdown and set it to state
+ * @param {*} e 
+ */
 	updateUser(e) {
 		this.setState({
 			[e.target.id]: e.target.value
 		})
 	}
-
-	groupMessages(groupId) {
-    return axios.get(`api/group/${groupId}/messages`)
-      .then((response) => {
-				return response.data.results;
-      });
-	}
-
+/**
+ * Loops through the list array in the state and displays each message in the list array
+ */
 	messageList() {
 		return this.state.list.map((message) => (
 				<li key={message.id}>
@@ -117,33 +132,28 @@ class Messages extends Component {
 				</li>
 			));
 	}
-
+/**
+ * @description groupPicked returns an array of the group selected
+ * by filtering all the groups based on the selectedGroupId
+ * @param {*} selectedGroupId 
+ */
 	groupPicked(selectedGroupId) {
 		return this.props.groupList.filter(groupObject => (groupObject.id == selectedGroupId))[0];
 	}
-
+/**
+ * @description groupName returns the groupname if a group is selected and returns
+ * just Welcome if no groupname is selected
+ * @param {*} groupId 
+ */
 	groupName(groupId) {
 		const group = groupId ? this.groupPicked(groupId) : null;
 		return (group == null) ? 'Welcome' : group.groupname;
 	}
 
-	listGroupMsgs() {
-		const { selectedGroupId } = this.state;
-		if(selectedGroupId && this.groupPicked(selectedGroupId)) {
-			return this.groupMessages(selectedGroupId);
-		} else {
-			return [];
-		}
-	}
-
-	componentDidMount() {
-		$('.tooltipped').tooltip({delay: 50});
-		
-	}
-
 	render() {
 		$('#addUser').modal();
 		$(".button-collapse").sideNav();
+		$('.tooltipped').tooltip({delay: 50});
 		const appUsers = this.props.appUsers.map((users, i) => {
 			return (
 				<option key={i} value={users.username}>{users.username}</option>
@@ -156,6 +166,7 @@ class Messages extends Component {
 						<div>
 							<div className="msgscrbar">
 								<h4 className="green-text text-darken-4"><strong><em>{this.state.groupName}</em></strong></h4>
+								{/* Replace alert alert-danger with Add materialize toast here  */}
 								{ errors.message  && <div className="alert alert-danger">{errors.message}</div> }			
 								<p>Yo, you can create a new group</p>
 							</div>
@@ -178,17 +189,18 @@ class Messages extends Component {
 							(
 								<span><h5 className="green-text text-darken-4">
 									<strong>
-										<a id="slide-out-nav" data-activates="slide-out" className="button-collapse">
+										{/* Activate sidenav for group details here  */}
+										<a href="" id="slide-out-nav" data-activates="slide-out" className="button-collapse">
 											<i className="small left material-icons group-details tooltipped" data-tooltip="Show Group Details">account_box</i>
 										</a>
-										<em>{this.state.groupName}</em>
+										{this.state.groupName}
 									</strong></h5>
 								</span>
 							) : 
 							(
 								<span><h5 className="green-text text-darken-4">
 									<strong>
-										<em>{this.state.groupName}</em>
+										{this.state.groupName}
 									</strong></h5>
 								</span>
 							)
@@ -221,8 +233,8 @@ const dispatchToProps = (dispatch) => {
   return {
     groupMessages: (groupId) => dispatch(GroupActions.groupMessages(groupId)),
 		addUser: (groupId, userAdded) => dispatch(GroupActions.addUser(groupId, userAdded)),
-		addFlashMessage: (message) => dispatch(addFlashMessage(message)),
-		getUsers: () => dispatch(AuthenticationActions.getUsers())
+		getUsers: () => dispatch(AuthenticationActions.getUsers()),
+    sendMessage: (groupId, message) => dispatch(GroupActions.postMessage(groupId, message))
   }
 }
 export default connect(stateToProps, dispatchToProps)(Messages);
