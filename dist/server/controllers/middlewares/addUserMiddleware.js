@@ -64,12 +64,7 @@ var AddUserValidations = function () {
           errors = _AddUserValidations$v.errors,
           isValid = _AddUserValidations$v.isValid;
 
-      if (!req.session.username) {
-        res.status(401).json({
-          confirmation: 'fail',
-          message: 'Please sign in to create a group'
-        });
-      } else if (!isValid) {
+      if (!isValid) {
         res.status(422).json(errors);
       } else {
         next();

@@ -25,7 +25,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var User = _models2.default.User;
 
 /**
- * This class is in charge of signup, signin and getting all users
+ * @description This class is in charge of signup, signin and getting all users
  */
 
 var UserController = function () {
@@ -37,14 +37,14 @@ var UserController = function () {
     key: 'signup',
 
     /**
-     * This method creates a new account for a new user
+     * @description This method creates a new account for a new user
      * @param {object} req - request
      * @param {object} res - response
      * @returns {object} json
      */
     value: function signup(req, res) {
       /**
-       * Creates a new user with the User model
+       * @description Creates a new user with the User model
        */
       User.create({
         username: req.body.username,
@@ -52,7 +52,7 @@ var UserController = function () {
         password: req.body.password
       }).then(function (account) {
         /**
-         * if successful JSON.stringify turns account array
+         * @description if successful JSON.stringify turns account array
          * into JSON text and stores that JSON text in a string
          * then JSON.parse turns the string of JSON text into a Javascript object
          * then you can get the first object in the array by doing userdetails[0]
@@ -70,11 +70,9 @@ var UserController = function () {
           email: userdetails.email
         }, process.env.SECRET);
         /**
-         * If user is created successfully,
-         * set req.session.username to the username entered
-         * and return a json object with status 201
+         * If user is created successfully
+         * return a json object with status 201
          */
-        req.session.username = req.body.username;
         res.status(201).json({
           confirmation: 'success',
           message: req.body.username + ' successfully created',
@@ -131,8 +129,6 @@ var UserController = function () {
             username: userdetails[0].username,
             email: userdetails[0].email
           }, process.env.SECRET);
-          req.session.username = req.body.username;
-          req.session.userId = userdetails[0].id;
           /**
            * Returns a json object including the token generated
            */
@@ -176,34 +172,27 @@ var UserController = function () {
   }, {
     key: 'getAllUsers',
     value: function getAllUsers(req, res) {
-      if (req.session.username) {
+      /**
+       * Queries the User model for all users
+       */
+      User.findAll({}).then(function (data) {
         /**
-         * Queries the User model for all users
+         * Returns a json object with the data array passed along
          */
-        User.findAll({}).then(function (data) {
-          /**
-           * Returns a json object with the data array passed along
-           */
-          res.json({
-            confirmation: 'success',
-            result: data
-          });
-        })
-        /**
-         * Error block
-         */
-        .catch(function (error) {
-          res.json({
-            confirmation: 'fail',
-            result: error
-          });
+        res.json({
+          confirmation: 'success',
+          result: data
         });
-      } else {
-        res.status(401).json({
+      })
+      /**
+       * Error block
+       */
+      .catch(function (error) {
+        res.json({
           confirmation: 'fail',
-          message: 'You are not logged in'
+          result: error
         });
-      }
+      });
     }
     /**
      * Gets just one user

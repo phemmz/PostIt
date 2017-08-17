@@ -46,16 +46,7 @@ _dotenv2.default.config();
 /**
  * Create an express application
  */
-
-// import webpack from 'webpack';
-// import webpackMiddleware from 'webpack-dev-middleware';
-// import webpackConfig from './webpack.config';
 var app = (0, _express2.default)();
-
-/**
- * webpackdevmiddleware serves the files emitted from webpack
- */
-// app.use(webpackMiddleware(webpack(webpackConfig)));
 
 /**
  * Create new middleware to serve a favicon from the given path to a favicon file

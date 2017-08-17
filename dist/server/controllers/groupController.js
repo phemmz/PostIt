@@ -46,7 +46,7 @@ var GroupController = function () {
          * Query the User model for the current user
          */
         User.findOne({
-          where: { username: req.session.username }
+          where: { username: req.currentUser.username }
         }).then(function (user) {
           /**
            * The user gets added to the group as the group creator
@@ -156,7 +156,7 @@ var GroupController = function () {
     key: 'getGroup',
     value: function getGroup(req, res) {
       User.findOne({
-        where: { username: req.session.username }
+        where: { username: req.currentUser.username }
       }).then(function (user) {
         user.getGroups({
           where: {}

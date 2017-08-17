@@ -53,11 +53,11 @@ var MessageController = function () {
           });
         } else {
           /**
-           * If the group exist, 
+           * If the group exist,
            * Find the User
            */
           User.findOne({
-            where: { username: req.session.username }
+            where: { username: req.currentUser.username }
           }).then(function (user) {
             Message.create({
               content: req.body.content,
@@ -92,33 +92,26 @@ var MessageController = function () {
   }, {
     key: 'getMessages',
     value: function getMessages(req, res) {
-      if (req.session.username) {
-        Message.findAll({
-          where: { groupId: req.params.groupId }
-        }).then(function (messages) {
-          if (messages.length < 1) {
-            res.status(404).json({
-              confirmation: 'fail',
-              message: 'No message found'
-            });
-          } else {
-            res.status(200).json({
-              confirmation: 'success',
-              results: messages
-            });
-          }
-        }).catch(function (error) {
-          res.json({
+      Message.findAll({
+        where: { groupId: req.params.groupId }
+      }).then(function (messages) {
+        if (messages.length < 1) {
+          res.status(404).json({
             confirmation: 'fail',
-            message: error
+            message: 'No message found'
           });
-        });
-      } else {
-        res.status(401).json({
+        } else {
+          res.status(200).json({
+            confirmation: 'success',
+            results: messages
+          });
+        }
+      }).catch(function (error) {
+        res.json({
           confirmation: 'fail',
-          message: 'You are not logged in'
+          message: error
         });
-      }
+      });
     }
   }]);
 
