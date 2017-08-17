@@ -26,7 +26,7 @@ export default class GroupController {
          * Query the User model for the current user
          */
         User.findOne({
-          where: { username: req.session.username }
+          where: { username: req.currentUser.username }
         })
           .then((user) => {
             /**
@@ -137,7 +137,7 @@ export default class GroupController {
  */
   static getGroup(req, res) {
     User.findOne({
-      where: { username: req.session.username }
+      where: { username: req.currentUser.username }
     })
       .then((user) => {
         user.getGroups({
