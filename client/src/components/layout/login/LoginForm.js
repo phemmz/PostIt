@@ -17,15 +17,15 @@ class LoginForm extends Component {
             errors: {},
             isLoading: false
         }
-        /**
-         * binds the onSubmit and onChange functions to this
-         */
+/**
+ * binds the onSubmit and onChange functions to this
+ */
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
-    /**
-     * isValid() gets called on login submit and sets any validation errors to the state
-     */
+/**
+ * isValid() gets called on login submit and sets any validation errors to the state
+ */
     isValid() {
         const { errors, isValid } = sharedSigninValidations.validateSignin(this.state);
         if (!isValid) {
@@ -33,12 +33,14 @@ class LoginForm extends Component {
         }
         return isValid; 
     }
-    /**
-     * onSubmit() gets called when the login button is pressed, it calls isValid() to check
-     * if there are no validation errors and then fires the login action
-     */
+/**
+ * onSubmit() gets called when the login button is pressed, it calls isValid() to check
+ * if there are no validation errors and then fires the login action
+ */
     onSubmit(e) {
-        // prevents the default onSubmit action of a form tag
+/**
+ * prevents the default onSubmit action of a form tag
+ */
         e.preventDefault();
         if (this.isValid()) {
             this.setState({ errors: {} });
@@ -51,15 +53,17 @@ class LoginForm extends Component {
             );
         }
     }
-    /**
-     *onChange() gets called when the input field changes and the change is stored in the state
-     */
+/**
+ * onChange() gets called when the input field changes and the change is stored in the state
+ */
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
 
 	render() {
-        // deconstruct variables from state
+/**
+ * deconstruct variables from state
+ */
     	const { errors, username, password, isLoading } = this.state;
     	return (
             <div className="container">
@@ -68,7 +72,7 @@ class LoginForm extends Component {
                         <form onSubmit={this.onSubmit}>
                             <h4 className="green-text text-darken-4 login-text">Login</h4>	
                             {/* renders error messages if there are error messages */}
-                            { errors.message  && <div className="alert alert-danger">{errors.message}</div> }
+                            { errors.message  && <div id="uname-error" className="error">{errors.message}</div> }
                             <TextFieldGroup 
                                 error={errors.username}
                                 id="username"

@@ -33,12 +33,7 @@ export default class CreateGroupValidations {
  */
   static validateUserInput(req, res, next) {
     const { errors, isValid } = CreateGroupValidations.validateCreateGroup(req.body);
-    if (!req.session.username) {
-      res.status(401).json({
-        confirmation: 'fail',
-        message: 'Please log in'
-      });
-    } else if (!isValid) {
+    if (!isValid) {
       res.status(422).json(errors);
     } else {
       next();

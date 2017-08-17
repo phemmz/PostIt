@@ -6,12 +6,13 @@
   "scripts": {
     "db:migrate": "sequelize db:migrate",
     "watch": "webpack -d --watch",
-    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel test/postit.js -d dist/ && babel webpack.config.dev.js -d dist/ --presets es2015",
-    "start": "nodemon --exec babel-node ./app.js",
+    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel test/postit.js -d dist/ && babel webpack.config.js -d dist/ --presets es2015",
+    "start": "npm run build && nodemon dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
     "test": "mocha dist/test --timeout 50000",
+    "front-test": "jest",
     "cover": "istanbul cover _mocha dist/test --timeout 10000",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -31,6 +32,7 @@
   "dependencies": {
     "axios": "^0.13.1",
     "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.2",
@@ -42,17 +44,21 @@
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
+    "expect": "^1.20.2",
     "express": "^4.15.3",
     "express-favicon": "^2.0.0",
     "express-session": "^1.15.3",
     "file-loader": "^0.11.2",
     "hjs": "0.0.6",
     "image-webpack-loader": "^3.3.1",
+    "jest": "^20.0.4",
+    "jquery": "^3.2.1",
     "jsonwebtoken": "^7.4.1",
-    "jwt-decode": "^2.2`.0",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
+    "nock": "^9.0.14",
     "pg": "^6.4.0",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.10",
@@ -61,6 +67,7 @@
     "react-redux": "^5.0.5",
     "react-router": "^2.5.2",
     "redux": "^3.7.1",
+    "redux-mock-store": "^1.2.3",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.1.0",
     "serve-favicon": "^2.4.3",
@@ -98,5 +105,8 @@
     "react-hot-loader": "^1.3.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2"
+  },
+  "engines": {
+    "node": "6.11.0"
   }
 }

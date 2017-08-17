@@ -22,7 +22,7 @@ export default class checkUserInGroup {
             message: 'Group does not exist'
           });
         }
-        group.getUsers({ where: { username: req.session.username } })
+        group.getUsers({ where: { username: req.currentUser.username } })
           .then((user) => {
             if (user.length < 1) {
               return res.status(400).json({

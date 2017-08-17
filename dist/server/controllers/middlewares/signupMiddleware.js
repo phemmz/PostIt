@@ -68,7 +68,7 @@ var SignupValidations = function () {
         }
       }).then(function (user) {
         if (user) {
-          errors.username = 'There is user with such username';
+          errors.username = 'Another user exist with this username';
         }
       }),
       /**
@@ -80,7 +80,7 @@ var SignupValidations = function () {
         }
       }).then(function (user) {
         if (user) {
-          errors.email = 'There is user with such email';
+          errors.email = 'Another user exist with this email';
         }
       })]).then(function () {
         return {

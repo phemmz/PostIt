@@ -16,11 +16,11 @@ class CreateMessage extends Component {
 		}
     this.updateMessage = this.updateMessage.bind(this);
 	}
-
-  componentDidMount() {
-    window.$('select').material_select();
-  }
-
+  /**
+	 * @description updateMessage is attached to onChange of textarea and select dropdown
+   * It gets there value on change and set it to the state
+	 * @param {*} e 
+	 */
   updateMessage(e) {
 		let updatedMessage = Object.assign({}, this.state.messages);
 		updatedMessage[e.target.id] = e.target.value;
@@ -29,9 +29,23 @@ class CreateMessage extends Component {
 			messages: updatedMessage
 		})
 	}
-
+/**
+ * @description calls the props from the parent component
+ * and pass along this.state.messages
+ * then clears the textfield
+ * @param {*} e 
+ */
   sendMessage(e) {
-		this.props.onCreate(this.state.messages);
+    this.props.onCreate(this.state.messages);
+    this.refs.messages.value = "";
+    this.setState({
+			messages: {
+				content: '',
+				groupId: '',
+				readCheck: false,
+				priority: '1'
+			}
+		})
 	}
 
   render() {
@@ -52,7 +66,7 @@ class CreateMessage extends Component {
             </div>
             <div className="row">
               <div className="col s10">
-                <textarea onChange={this.updateMessage} id="content" className="validate" defaultValue={""} />
+                <textarea ref="messages" onChange={this.updateMessage} id="content" className="validate" defaultValue={""} />
               </div>
               <div className="col s2">
                 <a onClick={this.sendMessage.bind(this)} className="btn-floating green"><i className="large material-icons">chat</i></a>

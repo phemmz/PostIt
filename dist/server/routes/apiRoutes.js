@@ -57,7 +57,7 @@ var router = _express2.default.Router();
 /**
  * Router for getting all the registered users in the application
  */
-router.get('/api/user', _accountController2.default.getAllUsers);
+router.get('/api/user', _authenticate2.default, _accountController2.default.getAllUsers);
 /**
  * Router for identifying a particular user either by username or email
  */

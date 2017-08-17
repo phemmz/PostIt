@@ -25,7 +25,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var User = _models2.default.User;
 
 /**
- * This class is in charge of signup, signin and getting all users
+ * @description This class is in charge of signup, signin and getting all users
  */
 
 var UserController = function () {
@@ -37,29 +37,46 @@ var UserController = function () {
     key: 'signup',
 
     /**
-     * This method creates a new account for a new user
+     * @description This method creates a new account for a new user
      * @param {object} req - request
      * @param {object} res - response
      * @returns {object} json
      */
     value: function signup(req, res) {
       /**
-       * Creates a new user with the User model
+       * @description Creates a new user with the User model
        */
       User.create({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
-      }).then(function () {
+      }).then(function (account) {
         /**
-         * If user is created successfully,
-         * set req.session.username to the username entered
-         * and return a json object with status 201
+         * @description if successful JSON.stringify turns account array
+         * into JSON text and stores that JSON text in a string
+         * then JSON.parse turns the string of JSON text into a Javascript object
+         * then you can get the first object in the array by doing userdetails[0]
          */
-        req.session.username = req.body.username;
+        var userdetails = JSON.stringify(account);
+        userdetails = JSON.parse(userdetails);
+        /**
+         * This generates the token by encoding the userdetails passed into it
+         * It joins the resulting encoded strings together with a period (.) in between them
+         * The token is generated in the format header.payload.signature
+         */
+        var token = _jsonwebtoken2.default.sign({
+          userId: userdetails.id,
+          username: userdetails.username,
+          email: userdetails.email
+        }, process.env.SECRET);
+        /**
+         * If user is created successfully
+         * return a json object with status 201
+         */
         res.status(201).json({
           confirmation: 'success',
-          message: req.body.username + ' successfully created'
+          message: req.body.username + ' successfully created',
+          token: token
         });
       })
       /**
@@ -67,7 +84,7 @@ var UserController = function () {
        * with status 400
        */
       .catch(function () {
-        return res.status(400).json({
+        res.status(400).json({
           confirmation: 'fail',
           message: 'Check input details'
         });
@@ -109,10 +126,9 @@ var UserController = function () {
            */
           var token = _jsonwebtoken2.default.sign({
             userId: userdetails[0].id,
-            username: userdetails[0].username
+            username: userdetails[0].username,
+            email: userdetails[0].email
           }, process.env.SECRET);
-          req.session.username = req.body.username;
-          req.session.userId = userdetails[0].id;
           /**
            * Returns a json object including the token generated
            */
@@ -156,34 +172,27 @@ var UserController = function () {
   }, {
     key: 'getAllUsers',
     value: function getAllUsers(req, res) {
-      if (req.session.username) {
+      /**
+       * Queries the User model for all users
+       */
+      User.findAll({}).then(function (data) {
         /**
-         * Queries the User model for all users
+         * Returns a json object with the data array passed along
          */
-        User.findAll({}).then(function (data) {
-          /**
-           * Returns a json object with the data array passed along
-           */
-          res.json({
-            confirmation: 'success',
-            result: data
-          });
-        })
-        /**
-         * Error block
-         */
-        .catch(function (error) {
-          res.json({
-            confirmation: 'fail',
-            result: error
-          });
+        res.json({
+          confirmation: 'success',
+          result: data
         });
-      } else {
-        res.status(401).json({
+      })
+      /**
+       * Error block
+       */
+      .catch(function (error) {
+        res.json({
           confirmation: 'fail',
-          message: 'You are not logged in'
+          result: error
         });
-      }
+      });
     }
     /**
      * Gets just one user

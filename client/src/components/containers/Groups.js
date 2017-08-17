@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router';
-import { CreateGroup, Group  } from '../presentation';
+import { Group  } from '../presentation';
 import TextFieldGroup from '../common/TextFieldGroup';
 import GroupActions from '../../actions/groupActions';
 /**
@@ -17,59 +17,43 @@ class Groups extends Component {
 			userList: [],
       selected: 0
 		}
-
 	}
-  /**
-	 * componentDidMount() is called at the instance where the Groups component is being created
-	 * and inserted into the DOM
-	 * It fires the action that gets all the groups a user belongs to
-	 */
+/**
+ * componentDidMount() is called at the instance where the Groups component is being created
+ * and inserted into the DOM
+ * It fires the action that gets all the groups a user belongs to
+ */
 	componentDidMount() {
-    this.props.fetchGroups(null);
+/**
+ * Fires the action for fetching all groups
+ * a user belongs to on componentDidMount
+ */
+    this.props.fetchGroups();
 		window.$('.modal-trigger').click((e) => {
 			e.preventDefault();
 			window.$('#createGroup').modal();
 		});
-		window.$('.tooltipped').tooltip({delay: 50});
 	}
-
-  updateGroupList(group) {
-    axios.post('/api/group', group)
-		  .then((response) => {
-        const group = response.data.result;
-				this.props.groupCreate(group);
-				Materialize.toast('Group Created!', 4000, 'green')
-      })
-			.catch((err) => {
-				Materialize.toast('Group Already Exist!', 4000, 'red')
-			});
-  }
-  /**
-	 * groupClickHandler gets called from Group component when a groupname is clicked on
-	 * It fires the groupSelected action
-	 */
+/**
+ * groupClickHandler gets called from Group component when a groupname is clicked on
+ * It fires the groupSelected action
+ */
   groupClickHandler(groupId) {
-		// calls the groupSelected action and passes the groupId selected to it
-    this.props.groupSelected(groupId);
+/**
+ * calls the groupSelected action and passes the groupId of the group selected to it
+ * This action saves the id to the reducer
+ */
+		this.props.groupSelected(groupId);
   }
-  /**
-	 * 
-	 */
-	addUser() {
-		let updatedUserLists = Object.assign([], this.state.userList);
-		updatedUserLists.push(this.state.users);
-		this.setState({
-			userList: updatedUserLists
-		})
-	}
 
 	render() {
+		$('.tooltipped').tooltip({delay: 30});
 		const listItems = this.props.groupList.map((group, i) => {
       let selected = (group.id == this.props.selectedGroup);
 			return (
-				<li key={group.id}>
+				<li key={i}>
           <Group groupPropsObj={ group }
-                 groupClickHandler={this.groupClickHandler.bind(this) } 
+                 groupClickHandler={ this.groupClickHandler.bind(this) } 
                  isSelected={ selected } 
                  groupId={ group.id }
           />
@@ -86,16 +70,27 @@ class Groups extends Component {
 						<div className="container-fluid">
 							<div className="row">
 								<div className="col s12">
-									<h5 className="white-text text-darken-4">Your Group List
-										<a href='#createGroup' className="modal-trigger tooltipped">
-											<i className="small material-icons">add_to_photos</i>
-										</a>	
-									</h5>
+									<h5 className="white-text text-darken-4">Your Group List</h5>
 								</div>		
 							</div>
 							<hr />
-							<div className="scrbar center">
-								<h3>LOADING...</h3>
+							<div className="container">
+								<div className="col s3 offset-s4 my-preloader">
+									<div className="valign-wrapper preloader-wrapper active">
+										<div className="spinner-layer spinner-red-only">
+											<div className="circle-clipper left">
+												<div className="circle"></div>
+											</div>
+											<div className="gap-patch">
+												<div className="circle"></div>
+											</div>
+											<div className="circle-clipper right">
+												<div className="circle"></div>
+											</div>
+										</div>
+										<h5>LOADING...</h5>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -110,9 +105,9 @@ class Groups extends Component {
 							<div className="row">
 								<div className="col s12">
 									<h5 className="white-text text-darken-4">Your Group List
-										<a href='#createGroup' className="modal-trigger tooltipped" data-tooltip="Create Group">
-											<i className="small material-icons add-group">add_to_photos</i>
-										</a>	
+										<Link to='/group'>
+											<i className="small material-icons add-group tooltipped" data-tooltip="Create Group">add_to_photos</i>
+										</Link>	
 									</h5>
 								</div>		
 							</div>
@@ -121,7 +116,6 @@ class Groups extends Component {
 								<h4>You currently don't belong to any group</h4>
 							</div>
 							<div>
-								<CreateGroup updateGroupList={this.updateGroupList.bind(this)} />
 							</div>
 						</div>
 						<div className="center">
@@ -139,9 +133,9 @@ class Groups extends Component {
 							<div className="row">
 								<div className="col s12">
 									<h5 className="white-text text-darken-4">Your Group List
-										<a href="#createGroup" className="modal-trigger tooltipped" data-tooltip="Create Group">
-											<i className="small material-icons add-group">add_to_photos</i>
-										</a>	
+										<Link to='/group'>
+											<i className="small material-icons add-group tooltipped" data-tooltip="Create Group">add_to_photos</i>
+										</Link>	
 									</h5>
 								</div>		
 							</div>
@@ -151,7 +145,6 @@ class Groups extends Component {
 									{listItems}
 								</ol>
 							</div>
-								<CreateGroup updateGroupList={this.updateGroupList.bind(this)} />
 						</div>
 						<div className="center">
 							<Link to="" className="searchbtn waves-effect waves-light btn center">Search for users</Link>
@@ -174,7 +167,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchGroups: (params) => dispatch(GroupActions.fetchGroups(params)),
+    fetchGroups: () => dispatch(GroupActions.fetchGroups()),
     groupCreate: (group) => dispatch(GroupActions.groupCreate(group)),
     groupSelected: (groupIndex) => dispatch(GroupActions.groupSelected(groupIndex))
   }

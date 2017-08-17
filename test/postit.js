@@ -15,9 +15,10 @@ const should = chai.should();
 const server = supertest.agent(app);
 
 chai.use(chaiHttp);
+let token = '';
 
 // Test the POST: /api/user/signup route
-describe('User', () => {
+describe('POSTIT', () => {
   before((done) => {
     User.sync({ force: true })
       .then(() => {
@@ -36,7 +37,7 @@ describe('User', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('No token provided');
+          res.body.should.have.property('error').eql('Please signin/signup');
           done();
         });
     });
@@ -129,7 +130,7 @@ describe('User', () => {
         .end((err, res) => {
           res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('No token provided');
+          res.body.should.have.property('error').eql('Please signin/signup');
           done();
         });
     });
@@ -184,7 +185,7 @@ describe('Group', () => {
       });
   });
   describe('Create Broadcast Group', () => {
-    it.skip('it should not allow users that are not logged in to add new User to a group', (done) => {
+    it('it should not allow user that is not logged in to add new User to a group', (done) => {
       const addDetails = {
         username: 'femo'
       };
@@ -192,14 +193,14 @@ describe('Group', () => {
         .post('/api/group/1/user')
         .send(addDetails)
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(403);
           res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('fail');
-          res.body.should.have.property('message').eql('Please sign in to create a group');
+          res.body.should.have.property('error');
+          res.body.should.have.property('error').eql('Please signin/signup');
           done();
         });
     });
-    it.skip('it should not allow a user that is not logged in to POST messages to a group', (done) => {
+    it('it should not allow a user that is not logged in to POST messages to a group', (done) => {
       const msgDetails = {
         content: 'happy day',
         priority: 2,
@@ -210,19 +211,7 @@ describe('Group', () => {
         .send(msgDetails)
         .end((err, res) => {
           res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('fail');
-          res.body.should.have.property('message').eql('Please sign in');
-          done();
-        });
-    });
-    it.skip('it should not allow user to post message to group that does not exist', (done) => {
-      server
-        .get('/api/group/3/messages')
-        .end((err, res) => {
-          res.should.have.status(400);
-          res.body.should.be.a('object');
-          res.body.should.have.property('confirmation').eql('fail');
-          res.body.should.have.property('message').eql('Group does not exist');
+          res.body.should.have.property('error').eql('Please signin/signup');
           done();
         });
     });
@@ -276,6 +265,7 @@ describe('Group', () => {
         .type('form')
         .send(account)
         .end((err, res) => {
+          token = res.body.token;
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('confirmation').eql('success');
@@ -283,7 +273,26 @@ describe('Group', () => {
           done();
         });
     });
-    it.skip('it should allow logged in users to create broadcast group', (done) => {
+    it('it should not allow logged in users to create broadcast group with an empty string as group name', (done) => {
+      const groupDetails = {
+        groupname: ' '
+      };
+      server
+        .post('/api/group')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .type('form')
+        .send(groupDetails)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('username').eql('Please fill in your groupname');
+          done();
+        });
+    });
+    
+    it('it should allow logged in users to create broadcast group', (done) => {
       const groupDetails = {
         groupname: 'june fellows',
       };
@@ -291,6 +300,7 @@ describe('Group', () => {
         .post('/api/group')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
         .type('form')
         .send(groupDetails)
         .end((err, res) => {
@@ -301,100 +311,72 @@ describe('Group', () => {
           done();
         });
     });
-  });
-  it.skip('it should not allow logged in users to create broadcast group with an empty string as group name', (done) => {
-    const groupDetails = {
-      groupname: ' ',
-    };
-    server
-      .post('/api/group')
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send(groupDetails)
-      .end((err, res) => {
-        res.should.have.status(422);
-        res.body.should.be.a('object');
-        res.body.should.have.property('username').eql('Please fill in your groupname');
-        done();
-      });
-  });
-  it.skip('it should signin a user', (done) => {
-    const account = {
-      username: 'hello000',
-      password: 'douchee'
-    };
-    server
-      .post('/api/user/signin')
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send(account)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('success');
-        res.body.should.have.property('message');
-        done();
-      });
-  });
-  it.skip('it should allow logged in users to add new User to a group', (done) => {
-    const addDetails = {
-      username: 'phemz1',
-    };
-    server
+    it('it should not allow logged in users to add a user that already belongs to a group', (done) => {
+      const addDetails = {
+        username: 'phemz1',
+      };
+      server
       .post('/api/group/1/user')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${token}`)
       .type('form')
       .send(addDetails)
       .end((err, res) => {
-        res.should.have.status(201);
+        res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('User added successfully');
-        res.body.should.have.property('confirmation').eql('success');
+        res.body.should.have.property('message').eql('User already exists');
+        res.body.should.have.property('confirmation').eql('fail');
         done();
       });
-  });
-  it.skip('it should not allow logged in users to add new User to a group without providing username', (done) => {
-    const addDetails = {
-      username: ''
-    };
-    chai.request(app)
+    });
+    it('it should not allow logged in users to add new User to a group without providing username', (done) => {
+      const addDetails = {
+        username: ''
+      };
+      server
       .post('/api/group/1/user')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${token}`)
       .send(addDetails)
       .end((err, res) => {
         res.body.should.be.a('object');
         done();
       });
+    });
   });
-});
-
-// Test the /POST api/group/:id/message
-describe('/POST/:id Post Message', () => {
-  it.skip('it should not allow a logged in user to POST messages to a group without content', (done) => {
-    const msgDetails = {
-      readcheck: true,
-      priority: 3
-    };
-    server
+  // Test the /POST api/group/:id/message
+  describe('/POST/:id Post Message', () => {
+    it('it should not allow a logged in user to POST messages to a group without content', (done) => {
+      const msgDetails = {
+        readcheck: true,
+        priority: 3
+      };
+      server
       .post('/api/group/2/message')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${token}`)
       .send(msgDetails)
       .end((err, res) => {
         res.body.should.be.a('object');
         res.body.should.have.property('invalid');
         done();
       });
-  });
+    });
 
-  it.skip('it should  POST messages to a group', (done) => {
-    const msgDetails = {
-      content: 'Manchester united is the best team in the world',
-      readcheck: true,
-      priority: 1
-    };
-    server
+    it('it should  POST messages to a group', (done) => {
+      const msgDetails = {
+        content: 'Manchester united is the best team in the world',
+        readcheck: true,
+        priority: 1
+      };
+      server
       .post('/api/group/1/message')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${token}`)
       .send(msgDetails)
       .end((err, res) => {
         res.should.have.status(201);
@@ -403,18 +385,35 @@ describe('/POST/:id Post Message', () => {
         res.body.should.have.property('message').eql('Message sent');
         done();
       });
+    });
   });
-});
-
-// Test the /GET: /api/group/:id/messages route
-describe('/GET/:id Messages', () => {
-  it.skip('it should GET all messages that have been posted to the group they belong to', (done) => {
-    server
-      .get('/api/group/1/messages')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        done();
-      });
+  // Test the /GET: /api/group/:id/messages route
+  describe('/GET/:id Messages', () => {
+    it('it should GET all messages that have been posted to the group they belong to', (done) => {
+      server
+        .get('/api/group/1/messages')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should not allow user to post message to group that does not exist', (done) => {
+      server
+        .get('/api/group/3/messages')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Group does not exist');
+          done();
+        });
+    });
   });
 });

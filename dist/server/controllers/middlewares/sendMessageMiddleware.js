@@ -57,12 +57,7 @@ var SendMessageValidations = function () {
           errors = _SendMessageValidatio.errors,
           isValid = _SendMessageValidatio.isValid;
 
-      if (!req.session.username) {
-        res.status(401).json({
-          confirmation: 'fail',
-          message: 'Please sign in'
-        });
-      } else if (!isValid) {
+      if (!isValid) {
         res.status(422).json(errors);
       } else {
         next();

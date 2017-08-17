@@ -32,11 +32,11 @@ export default class MessageController {
           });
         } else {
           /**
-           * If the group exist, 
+           * If the group exist,
            * Find the User
            */
           User.findOne({
-            where: { username: req.session.username }
+            where: { username: req.currentUser.username }
           })
             .then((user) => {
               Message
@@ -72,34 +72,27 @@ export default class MessageController {
  * @return {object} json
  */
   static getMessages(req, res) {
-    if (req.session.username) {
-      Message.findAll({
-        where: { groupId: req.params.groupId }
-      })
-        .then((messages) => {
-          if (messages.length < 1) {
-            res.status(404).json({
-              confirmation: 'fail',
-              message: 'No message found'
-            });
-          } else {
-            res.status(200).json({
-              confirmation: 'success',
-              results: messages
-            });
-          }
-        })
-        .catch((error) => {
-          res.json({
+    Message.findAll({
+      where: { groupId: req.params.groupId }
+    })
+      .then((messages) => {
+        if (messages.length < 1) {
+          res.status(404).json({
             confirmation: 'fail',
-            message: error
+            message: 'No message found'
           });
+        } else {
+          res.status(200).json({
+            confirmation: 'success',
+            results: messages
+          });
+        }
+      })
+      .catch((error) => {
+        res.json({
+          confirmation: 'fail',
+          message: error
         });
-    } else {
-      res.status(401).json({
-        confirmation: 'fail',
-        message: 'You are not logged in'
       });
-    }
   }
 }

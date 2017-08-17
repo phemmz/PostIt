@@ -57,7 +57,7 @@ class SignupForm extends Component {
          * checks if isUserExists returns an object containing that user
          */
         if (res.data.user) {
-          errors[field] = 'There is user with such ' + field;
+          errors[field] = 'Another user exist with this ' + field;
           invalid = true;
         } else {
           errors[field] = '';
@@ -152,7 +152,6 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
 	userSignupRequest: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
   isUserExists: PropTypes.func.isRequired 
 }
 

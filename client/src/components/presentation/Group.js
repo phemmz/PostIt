@@ -5,17 +5,24 @@ import { Link } from 'react-router';
  */
 class Group extends Component {
   /**
-   * clickHandler() gets called when the groupname anchor tag is clicked on
+   * clickHandler() gets called when the groupname is clicked on
    */
 	clickHandler(event) {
     event.preventDefault();
+    /**
+     * Calls the groupClickHandler props and pass the groupId along
+     */
     this.props.groupClickHandler(event.target.id);
 	}
 
 	render() {
+    /**
+     * Checks if the group is selected or not
+     * and changes its color accordingly
+     */
 		const title = (this.props.isSelected)
        ?  (
-            <a style={{color: 'red'}}
+            <a href="" style={{color: 'red'}}
               id={ this.props.groupId }
               onClick={ this.clickHandler.bind(this) }
             >
@@ -23,7 +30,7 @@ class Group extends Component {
             </a>
           ) :
           (
-            <a onClick={ this.clickHandler.bind(this) }
+            <a href="" onClick={ this.clickHandler.bind(this) }
                id = { this.props.groupId }
             >
                {this.props.groupPropsObj.groupname}

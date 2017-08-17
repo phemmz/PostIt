@@ -43,7 +43,7 @@ var checkUserInGroup = function () {
             message: 'Group does not exist'
           });
         }
-        group.getUsers({ where: { username: req.session.username } }).then(function (user) {
+        group.getUsers({ where: { username: req.currentUser.username } }).then(function (user) {
           if (user.length < 1) {
             return res.status(400).json({
               confirmation: 'fail',

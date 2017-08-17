@@ -1,8 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-export default {
+module.exports = {
 
   entry: [
     path.join(__dirname, '/client/src/app.js')
@@ -16,10 +16,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        include: [
-          path.join(__dirname, 'client')
-        ],
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: ['react-hot-loader', 'babel-loader']
       },
@@ -38,7 +35,7 @@ export default {
         }))
       },
       {
-        test: /\.(jpg|png|gif|svg)$/i,
+        test: /\.(jpg|png|gif|ico|svg)$/i,
         loaders: [
           'file-loader?name=/[name].[ext]',
           'image-webpack-loader'

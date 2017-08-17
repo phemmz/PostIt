@@ -1,10 +1,11 @@
-import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER } from '../actions/types';
+import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER, SEND_MESSAGE } from '../actions/types';
 
 const initialState = {
   groupList: [],
   selectedGroup: null,
   groupMessages: [],
-  appStatus: 'ready'
+  appStatus: 'ready',
+  list: {}
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -15,6 +16,7 @@ const initialState = {
  */
 export default (state = initialState, action = {}) => {
   const updated = Object.assign({}, state);
+  const updatedList = Object.assign([], updated['groupList']);
   switch (action.type) {
     case GROUPS_RECEIVED:
       updated['groupList'] = action.groups;
@@ -26,7 +28,6 @@ export default (state = initialState, action = {}) => {
       return updated;
 
     case GROUP_CREATE:
-      const updatedList = Object.assign([], updated['groupList']);
       updatedList.push(action.group);
       updated['groupList'] = updatedList;
       return updated;
@@ -40,11 +41,15 @@ export default (state = initialState, action = {}) => {
       return updated;
 
     case GROUP_MESSAGES:
-      updated['groupMessages'] = action.groups;
+      updated['groupMessages'] = action.messages;
       return updated;
 
     case ADD_USER:
       updated['addUser'] = action.addUser;
+      return updated;
+
+    case SEND_MESSAGE:
+      updated['list'] = action.message;
       return updated;
 
     default:

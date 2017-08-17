@@ -35,7 +35,7 @@ export default class SignupValidations {
       })
       .then((user) => {
         if (user) {
-          errors.username = 'There is user with such username';
+          errors.username = 'Another user exist with this username';
         }
       }),
       /**
@@ -48,7 +48,7 @@ export default class SignupValidations {
       })
       .then((user) => {
         if (user) {
-          errors.email = 'There is user with such email';
+          errors.email = 'Another user exist with this email';
         }
       })
     ]).then(() => {
