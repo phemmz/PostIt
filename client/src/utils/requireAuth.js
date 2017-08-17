@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addFlashMessage } from '../actions/flashMessages';
 
 export default function (ComposedComponent) {
   class Authenticate extends Component {
     componentWillMount() {
       if (!this.props.isAuthenticated) {
-        this.props.addFlashMessage({
-          type: 'error',
-          text: 'You need to login to access this page'
-        });
+        Materialize.toast('You need to login to access this page', 4000, 'red')
         this.context.router.push('/login');
       }
     }
@@ -29,7 +25,6 @@ export default function (ComposedComponent) {
 
   Authenticate.propTypes = {
     isAuthenticated: React.PropTypes.bool.isRequired,
-    addFlashMessage: React.PropTypes.func.isRequired
   }
 
   Authenticate.contextTypes = {
@@ -42,5 +37,5 @@ export default function (ComposedComponent) {
     };
   }
 
-  return connect(mapStateToProps, { addFlashMessage })(Authenticate);
+  return connect(mapStateToProps)(Authenticate);
 }
