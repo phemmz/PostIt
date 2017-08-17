@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+/**
+ * AddUserModal class
+ */
 class AddUserModal extends Component {
 	render() {
 		return (
@@ -11,6 +13,7 @@ class AddUserModal extends Component {
             <div className="input-field col s12">
               <select ref="dropdown" id="username" value={this.props.value} onChange={this.props.onChange} style={{display: 'block'}}>
                 <option value="" disabled>Add User</option>
+                {/* Populate the select dropdown with registered users  */}
                 {this.props.appUsers}
               </select> 
             </div>
