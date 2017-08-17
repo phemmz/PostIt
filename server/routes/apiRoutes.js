@@ -17,7 +17,7 @@ const router = express.Router();
 /**
  * Router for getting all the registered users in the application
  */
-router.get('/api/user', UserController.getAllUsers);
+router.get('/api/user', authenticate, UserController.getAllUsers);
 /**
  * Router for identifying a particular user either by username or email
  */
