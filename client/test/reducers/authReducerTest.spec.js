@@ -32,5 +32,12 @@ describe('Auth Reducer', () => {
     expect(newState.isAuthenticated).toEqual(false);
     expect(newState.user).toEqual(user);
   });
+  it('should return default state when SET_CURRENT_USER is not passed', () => {
+    const user = {};
+    const action = { type: 'hello', user };
+    const newState = auth(initialState, action);
+
+    expect(newState).toEqual(initialState);
+  });
 });
 
