@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => 
+  up: (queryInterface, Sequelize) =>
     queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
@@ -11,9 +11,24 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      priority: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
       readcheck: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        type: Sequelize.BOOLEAN
+      },
+      messagecreator: {
+        type: Sequelize.TEXT
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE'
+      },
+      groupId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -22,17 +37,8 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
-      groupId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Groups',
-          key: 'id',
-          as: 'groupId',
-        },
-      },
+      }
     }),
-  down: (queryInterface/*, Sequelize*/) =>
+  down: queryInterface /* , Sequelize*/ =>
     queryInterface.dropTable('Messages'),
 };

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PostIt</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />		
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Allerta|Petit+Formal+Script" rel="stylesheet">
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
+         <link rel="stylesheet" type="text/css" href="./css/materialize.css" />
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			crossorigin="anonymous"></script>
+		<script src="./js/materialize.min.js"></script>
+
+	</head>
+	<body background="./images/post2.jpg">
+		<header>
+			<nav class="black navbar navbar-default" role="navigation">
+				<div class="nav-wrapper">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col s2" >
+								<a href="./dashboard.html" class="brand-logo"><img class="postlogo" src="./images/POSTIT.png" alt="postit logo"></a>
+								<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+							</div>
+							<div class="col s10">
+								<ul class="right hide-on-med-and-down">
+									<li><a href="#modal1" class="waves-effect waves-light btn">Login</a></li>
+									<li><a href="#modal2" class="waves-effect waves-light btn">Sign Up</a></li>
+								</ul>
+								<ul class="side-nav" id="mobile-demo">
+									<li><a href="./login.html" class="waves-effect waves-light btn">Login</a></li>
+									<li><a href="./signup.html" class="waves-effect waves-light btn">Sign Up</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<div class="row modal" id="modal2">
+			<div class="modal-content">
+				<div class="welc grouplist">
+				<form class="col s12" action="api/user/signup" method="post">
+					<div class= "row">
+						<h3 class="userlogin">SIGN UP</h3>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="email" type="text" class="validate">
+							<label for="email">Email</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="username" type="text" class="validate">
+							<label for="username">Username</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="password" type="password" class="validate">
+							<label for="password">Password</label>
+						</div>
+					</div>
+					<div class="row">
+						<a class="waves-effect waves-light btn" href="./dashboard.html">Sign Up</a>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn modal-action modal-close waves-effect waves-green btn-flat"Close></a>
+					</div>
+				</form>
+				</div>
+
+			</div>
+		</div>
+        <div classs="page-heading">
+			<h1 style="margin-top: 240px">POSTIT</h1>
+			<h2><b>The best way to stay connected with everybody you know </b> <br>
+			<a href="#" class="waves-effect waves-light postit-btn">POSTIT NOW</a></h2>
+		</div>		
+			<!--<div class="container-fluid">
+				<div class="row" style="margin-bottom: 0px">
+					<div class="image">
+						<h3 class="black-text text-darken-2" style="margin-top: 0px; margin-bottom: 0px"><em>POSTIT allows you,your friends and colleagues to create groups for notifications.</em><br /><a href="./signup.html" class="waves-effect waves-light btn">POSTIT NOW</a></h3>
+					</div>
+				</div>
+			</div>-->
+
+		<footer class="container-fluid" style="margin-top: 600px;">
+			<div class="black footer-copyright">
+					<div class="container">
+					© 2017 Andela
+					<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+					</div>
+				</div>
+		</footer>
+        <script>
+			$(".button-collapse").sideNav();
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('.modal').modal();
+			});
+		</script>
+	</body>
+
+</html>

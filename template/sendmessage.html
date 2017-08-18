@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PostIt</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />		
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"> -->
+         <link rel="stylesheet" type="text/css" href="./css/materialize.css" />
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+	</head>
+	<body>
+		<div class="card-panel teal lighten-2">
+			<div class="reg">
+				<em class="post">POSTIT</em>
+			
+				<a href="./homepage.html" class="waves-effect waves-light btn">Logout</a>
+			</div>
+		</div>
+		<div class="welc grouplist msgglist">
+			<h4 class="green-text text-darken-4 glist">Your Group List</h4>
+			<hr />
+			<ol>
+				<li><p class="z-depth-1 glist"><a href="./messageboard.html">JULY-FELLOWS-GENERAL</a></p></li>
+				<li><p class="z-depth-1 glist"><a href="./messageboard.html">JULY-FELLOWS-RANDOM</a></p></li>
+				<li><p class="z-depth-1 glist"><a href="./messageboard.html">JULY-FELLOWS-STANDUPS</a></p></li>				
+			</ol>	
+		</div>
+		<div class="welc msgform">
+			<h5 class="green-text text-darken-4 glist bm">Send Broadcast Message</h5>
+			<hr />
+			<div class="container">
+				<div class="row">
+					<form class="col s12" action="api/group/:id/message" method="post">
+						<div class="row">
+							<div class="input-field col s6">
+								<input id="groupid" type="text" class="validate">
+								<label for="groupname">Group Id</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col 6">
+								<h4>Message</h4>				
+								<textarea></textarea>				
+							</div>
+						</div>
+						<div class="row cbg">
+							<a class="waves-effect waves-light btn"   href="" onClick="window.alert("Message Sent");">Send Message</a>
+						</div>
+					</form>
+				</div>
+			</div>			
+		</div>			
+		</div>
+		<footer>
+			<div class="footer-copyright">
+				<div class="container">					
+					<p style="text-align: center">
+						&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Andela, Inc
+					</p>					
+				</div>
+			</div>
+		</footer>
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    	<!--<script type="text/javascript" src="./js/materialize.min.js"></script>-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    	<script type="text/javascript">
+
+    	</script>
+
+	</body>
+
+</html>
