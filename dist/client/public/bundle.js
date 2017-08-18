@@ -32681,7 +32681,7 @@ var Home = function (_Component) {
         { className: 'container-fluid' },
         _react2.default.createElement(
           'div',
-          { className: 'row' },
+          { className: 'row dashboard-layout' },
           _react2.default.createElement(
             'div',
             { className: 'col s5 m3 group' },
@@ -33973,13 +33973,13 @@ var CreateMessage = function (_Component) {
           { className: 'comment valign-wrapper center-align' },
           _react2.default.createElement(
             'div',
-            { id: 'message-input', className: 'col l12' },
+            { id: 'message-input', className: 'col s12' },
             _react2.default.createElement(
               'div',
               { className: 'row' },
               _react2.default.createElement(
                 'div',
-                { className: 'input-field col s5' },
+                { className: 'input-field col s12 l4' },
                 _react2.default.createElement(
                   'select',
                   { id: 'priority', value: this.state.messages.priority, onChange: this.updateMessage, style: { display: 'block' } },
@@ -34185,7 +34185,7 @@ var Message = function (_Component) {
 					{ className: "row" },
 					_react2.default.createElement(
 						"div",
-						{ className: "col s10 m10 l10" },
+						{ className: "col s12 m10 l10 msg-position" },
 						_react2.default.createElement(
 							"ul",
 							{ className: "collection" },
@@ -34816,36 +34816,52 @@ var Messages = function (_Component) {
 						'div',
 						{ className: 'msgscrbar' },
 						this.props.selectedGroup ? _react2.default.createElement(
-							'span',
-							null,
+							'div',
+							{ className: 'row' },
 							_react2.default.createElement(
-								'h5',
-								{ className: 'green-text text-darken-4' },
+								'div',
+								{ className: 'col s2 m12' },
 								_react2.default.createElement(
-									'strong',
+									'span',
 									null,
 									_react2.default.createElement(
-										'a',
-										{ href: '', id: 'slide-out-nav', 'data-activates': 'slide-out', className: 'button-collapse' },
+										'h5',
+										{ id: 'msg-header', className: 'green-text text-darken-4 card' },
 										_react2.default.createElement(
-											'i',
-											{ className: 'small left material-icons group-details tooltipped', 'data-tooltip': 'Show Group Details' },
-											'account_box'
+											'strong',
+											null,
+											_react2.default.createElement(
+												'a',
+												{ href: '', id: 'slide-out-nav', 'data-activates': 'slide-out', className: 'button-collapse' },
+												_react2.default.createElement(
+													'i',
+													{ className: 'small left material-icons group-details tooltipped', 'data-tooltip': 'Show Group Details' },
+													'account_box'
+												)
+											),
+											this.state.groupName
 										)
-									),
-									this.state.groupName
+									)
 								)
 							)
 						) : _react2.default.createElement(
-							'span',
-							null,
+							'div',
+							{ className: 'row' },
 							_react2.default.createElement(
-								'h5',
-								{ className: 'green-text text-darken-4' },
+								'div',
+								{ className: 'col s12' },
 								_react2.default.createElement(
-									'strong',
+									'span',
 									null,
-									this.state.groupName
+									_react2.default.createElement(
+										'h5',
+										{ id: 'welcome-header', className: 'green-text text-darken-4 card' },
+										_react2.default.createElement(
+											'strong',
+											null,
+											this.state.groupName
+										)
+									)
 								)
 							)
 						),
@@ -38258,7 +38274,7 @@ exports.default = sharedSigninValidations;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-				value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38282,50 +38298,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Main = function (_Component) {
-				_inherits(Main, _Component);
+    _inherits(Main, _Component);
 
-				function Main() {
-								_classCallCheck(this, Main);
+    function Main() {
+        _classCallCheck(this, Main);
 
-								return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
-				}
+        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    }
 
-				_createClass(Main, [{
-								key: 'render',
-								value: function render() {
-												return _react2.default.createElement(
-																'div',
-																null,
-																_react2.default.createElement(_NavigationBar2.default, null),
-																_react2.default.createElement(
-																				'div',
-																				{ className: 'container-fluid' },
-																				this.props.children
-																),
-																_react2.default.createElement(
-																				'footer',
-																				{ className: 'black footer' },
-																				_react2.default.createElement(
-																								'div',
-																								{ className: 'ffooter footer-copyright' },
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'container' },
-																												'\xA9 ',
-																												_react2.default.createElement(
-																																'script',
-																																{ type: 'text/javascript' },
-																																'document.write(new Date().getFullYear());'
-																												),
-																												' Adetunji Femi'
-																								)
-																				)
-																)
-												);
-								}
-				}]);
+    _createClass(Main, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_NavigationBar2.default, null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'container-fluid' },
+                    this.props.children
+                )
+            );
+        }
+    }]);
 
-				return Main;
+    return Main;
 }(_react.Component);
 
 exports.default = Main;
@@ -38603,19 +38600,42 @@ var Welcome = function (_Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				"div",
-				{ className: "container row" },
+				null,
 				_react2.default.createElement(
 					"div",
-					{ className: "col s7 offset-s3 welc" },
+					{ className: "container row" },
 					_react2.default.createElement(
-						"h4",
-						{ className: "green-text text-darken-4" },
-						"Welcome,"
-					),
+						"div",
+						{ className: "col s7 offset-s3 welc" },
+						_react2.default.createElement(
+							"h4",
+							{ className: "green-text text-darken-4" },
+							"Welcome,"
+						),
+						_react2.default.createElement(
+							"p",
+							{ className: "green-text text-darken-2" },
+							"POSTIT allows you,your friends and colleagues to create groups for notifications."
+						)
+					)
+				),
+				_react2.default.createElement(
+					"footer",
+					{ className: "black footer" },
 					_react2.default.createElement(
-						"p",
-						{ className: "green-text text-darken-2" },
-						"POSTIT allows you,your friends and colleagues to create groups for notifications."
+						"div",
+						{ className: "ffooter footer-copyright" },
+						_react2.default.createElement(
+							"div",
+							{ className: "container" },
+							"\xA9 ",
+							_react2.default.createElement(
+								"script",
+								{ type: "text/javascript" },
+								"document.write(new Date().getFullYear());"
+							),
+							" Adetunji Femi"
+						)
 					)
 				)
 			);
@@ -38816,7 +38836,7 @@ exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CreateGroup);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1502975561552
+      // 1503053766066
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);

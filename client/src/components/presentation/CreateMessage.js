@@ -53,9 +53,9 @@ class CreateMessage extends Component {
     if (this.props.selectedGroup) {
       content = 
         <div className="comment valign-wrapper center-align">
-          <div id="message-input" className="col l12">
+          <div id="message-input" className="col s12">
             <div className="row">
-              <div className="input-field col s5">
+              <div className="input-field col s12 l4">
                 <select id="priority" value={this.state.messages.priority} onChange={this.updateMessage} style={{display: 'block'}}>
                   <option value="" disabled>Select Priority</option>
                   <option value="1">Normal</option>

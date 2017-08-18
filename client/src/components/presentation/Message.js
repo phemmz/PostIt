@@ -5,7 +5,7 @@ class Message extends Component {
 		return (
 			<div className="email-content-wrap">
 				<div className="row">
-					<div className="col s10 m10 l10">
+					<div className="col s12 m10 l10 msg-position">
 						<ul className="collection">
 							<li className="collection-item avatar">
 								<span className="circle green lighten-1 center">{this.props.currentMessage.messagecreator[0]}</span>

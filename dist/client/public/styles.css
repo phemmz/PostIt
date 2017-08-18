@@ -46,8 +46,7 @@ hr {
 .comment {
   background-color: white;
   bottom: 0;
-  height: 200px;
-  width: 800px; }
+  height: 200px; }
 
 .lgout {
   margin-left: 60px; }
@@ -91,7 +90,7 @@ body {
   background: white;
   opacity: 0.7;
   width: 300;
-  height: 600px;
+  height: 520px;
   overflow: auto; }
 
 .add-group {
@@ -101,8 +100,23 @@ body {
   display: none !important; }
 
 .msgscrbar {
-  height: 500px;
+  height: 470px;
   overflow: auto; }
+
+#msg-header {
+  height: 50px;
+  width: 70%;
+  position: fixed;
+  z-index: 999; }
+
+.msg-position {
+  margin-top: 50px; }
+
+#welcome-header {
+  height: 50px; }
+
+.header-position {
+  position: fixed; }
 
 .login {
   background-color: white;
@@ -196,7 +210,7 @@ main {
 
 .messages {
   background-color: #D7CEC7;
-  height: 1000px; }
+  height: 670px; }
 
 .msgtxtbox {
   transition: box-shadow .25s;
@@ -209,7 +223,7 @@ main {
 .group {
   background-color: #76323F;
   margin: 0px;
-  height: 1000px; }
+  height: 100%; }
 
 .msgform {
   margin: -19rem 0 2rem 50rem;

@@ -60,7 +60,6 @@ app.use(apiRoutes);
  * It can be viewed at http://localhost:8000
  */
 app.get('/*', (req, res) => {
-  // res.sendFile(path.join(__dirname, '../views/index.html'));
   res.sendFile(path.resolve('./views/index.html'));
 });
 
