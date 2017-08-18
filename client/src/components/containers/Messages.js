@@ -187,22 +187,30 @@ class Messages extends Component {
 						{
 							(this.props.selectedGroup) ? 
 							(
-								<span><h5 className="green-text text-darken-4">
-									<strong>
-										{/* Activate sidenav for group details here  */}
-										<a href="" id="slide-out-nav" data-activates="slide-out" className="button-collapse">
-											<i className="small left material-icons group-details tooltipped" data-tooltip="Show Group Details">account_box</i>
-										</a>
-										{this.state.groupName}
-									</strong></h5>
-								</span>
+								<div className="row">
+									<div className="col s2 m12">
+										<span><h5 id="msg-header" className="green-text text-darken-4 card">
+											<strong>
+												{/* Activate sidenav for group details here  */}
+												<a href="" id="slide-out-nav" data-activates="slide-out" className="button-collapse">
+													<i className="small left material-icons group-details tooltipped" data-tooltip="Show Group Details">account_box</i>
+												</a>
+												{this.state.groupName}
+											</strong></h5>
+										</span>
+									</div>
+								</div>
 							) : 
 							(
-								<span><h5 className="green-text text-darken-4">
-									<strong>
-										{this.state.groupName}
-									</strong></h5>
-								</span>
+								<div className="row">
+									<div className="col s12">
+										<span><h5 id="welcome-header" className="green-text text-darken-4 card">
+											<strong>
+												{this.state.groupName}
+											</strong></h5>
+										</span>
+									</div>
+								</div>
 							)
 						}
 						{ errors.message  && <div className="alert alert-danger">{errors.message}</div> }
