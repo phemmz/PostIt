@@ -14,6 +14,14 @@ var _jsonwebtoken = require('jsonwebtoken');
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
+var _nodemailer = require('nodemailer');
+
+var _nodemailer2 = _interopRequireDefault(_nodemailer);
+
+var _shortid = require('shortid');
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
 var _models = require('../data/models');
 
 var _models2 = _interopRequireDefault(_models);
@@ -49,7 +57,8 @@ var UserController = function () {
       User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        phoneNumber: req.body.phoneNumber
       }).then(function (account) {
         /**
          * @description if successful JSON.stringify turns account array
@@ -210,15 +219,122 @@ var UserController = function () {
        */
       User.findOne({
         where: {
-          $or: [{ username: req.params.identifier }, { email: req.params.identifier }]
+          $or: [{ username: req.params.identifier }, { email: req.params.identifier }, { phoneNumber: req.params.identifier }, { verificationCode: req.params.identifier }]
         }
       }).then(function (user) {
         res.json({ user: {
             username: user.username,
-            email: user.email }
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            verificationCode: user.verificationCode }
         });
       }).catch(function (err) {
         res.json(err);
+      });
+    }
+    /**
+     * resetPassword generates a verification code using shortid
+     * It also sends a mail to the user which contains the verification code
+     * @param {*} req
+     * @param {*} res
+     * @return {*} json
+     */
+
+  }, {
+    key: 'resetPassword',
+    value: function resetPassword(req, res) {
+      User.findOne({
+        where: {
+          username: req.body.username
+        }
+      }).then(function (user) {
+        if (user === null) {
+          res.status(404).json({
+            confirmation: 'fail',
+            message: 'User not found'
+          });
+        } else {
+          var generatedId = _shortid2.default.generate();
+          var gameURL = 'https://phemmz-post-it.herokuapp.com/reset/verification';
+          var transporter = _nodemailer2.default.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: process.env.NM_EMAIL,
+              pass: process.env.NM_PASSWORD
+            }
+          });
+          var mailOptions = {
+            from: process.env.NM_EMAIL,
+            to: user.email,
+            subject: 'Reset password instructions',
+            html: '<p>Hello, ' + req.body.username + '!</p>          <p>Someone has requested a link to change your password. You can do this through the link below.</p>          <p><strong>Your Verification code is:</strong> ' + generatedId + '</p>          <p><a href="' + gameURL + '">Change my password</a></p><br /><br />          <p>If you didn\'t request this, please ignore this email</p>          <p>You can post messages with friends on <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>'
+          };
+          transporter.sendMail(mailOptions, function (err) {
+            if (err) {
+              res.json({
+                confirmation: 'fail',
+                message: 'Error sending email to ' + req.body.username
+              });
+            } else {
+              res.status(200).json({
+                confirmation: 'success',
+                message: 'You will receive an email with instructions on how to reset your password in a few minutes.'
+              });
+              user.update({
+                verificationCode: generatedId
+              }, {
+                where: {
+                  username: req.body.username
+                }
+              });
+            }
+          });
+        }
+      }).catch(function (err) {
+        res.status(500).json({
+          confirmation: 'fail',
+          err: err
+        });
+      });
+    }
+    /**
+     * This updates the password of a user in the database
+     * @param {*} req
+     * @param {*} res
+     * @return {*} json
+     */
+
+  }, {
+    key: 'updatePassword',
+    value: function updatePassword(req, res) {
+      var hashedPassword = _bcryptNodejs2.default.hashSync(req.body.password);
+      User.findOne({
+        where: {
+          username: req.body.username
+        }
+      }).then(function (user) {
+        user.update({
+          password: hashedPassword
+        }, {
+          where: {
+            username: req.body.username
+          }
+        }).then(function () {
+          res.json({
+            confirmation: 'success',
+            message: 'Password updated successfully'
+          });
+        }).catch(function () {
+          res.status(400).json({
+            confirmation: 'fail',
+            message: 'Failed to update password'
+          });
+        });
+      }).catch(function (err) {
+        res.status(500).json({
+          confirmation: 'fail',
+          message: err
+        });
       });
     }
   }]);

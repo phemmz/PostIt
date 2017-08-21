@@ -37,8 +37,8 @@ class NavigationBar extends Component {
           <li><Link to="/signup" className="waves-effect waves-light btn">Sign Up</Link></li>
         </ul>
         <ul className="side-nav" id="mobile-demo">
-          <li><a href="./login" className="waves-effect waves-light btn">Login</a></li>
-          <li><a href="./signup" className="waves-effect waves-light btn">Sign Up</a></li>
+          <li><Link to="/login" className="waves-effect waves-light btn">Login</Link></li>
+          <li><Link to="/signup" className="waves-effect waves-light btn">Sign Up</Link></li>
         </ul>
       </div>
     );

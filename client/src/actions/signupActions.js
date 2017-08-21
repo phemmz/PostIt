@@ -37,4 +37,13 @@ export default class SignupActions {
       return axios.get(`/api/user/${identifier}`);
     };
   }
+  /**
+   * @param {string} password
+   * @return {*} axios
+   */
+  static updatePassword(newUser) {
+    return () => {
+      return axios.put('/api/user/signup', newUser);
+    };
+  }
 }

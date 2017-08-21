@@ -415,7 +415,7 @@ module.exports = warning;
 "use strict";
 
 
-module.exports = __webpack_require__(29);
+module.exports = __webpack_require__(28);
 
 
 /***/ }),
@@ -913,7 +913,7 @@ module.exports = invariant;
 
 
 
-var _prodInvariant = __webpack_require__(30);
+var _prodInvariant = __webpack_require__(29);
 
 var ReactCurrentOwner = __webpack_require__(16);
 
@@ -1785,7 +1785,7 @@ var _prodInvariant = __webpack_require__(5),
 var CallbackQueue = __webpack_require__(106);
 var PooledClass = __webpack_require__(24);
 var ReactFeatureFlags = __webpack_require__(107);
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 var Transaction = __webpack_require__(48);
 
 var invariant = __webpack_require__(2);
@@ -3116,168 +3116,6 @@ module.exports = PooledClass;
 
 
 exports.__esModule = true;
-exports.createMemoryHistory = exports.hashHistory = exports.browserHistory = exports.applyRouterMiddleware = exports.formatPattern = exports.useRouterHistory = exports.match = exports.routerShape = exports.locationShape = exports.PropTypes = exports.RoutingContext = exports.RouterContext = exports.createRoutes = exports.useRoutes = exports.RouteContext = exports.Lifecycle = exports.History = exports.Route = exports.Redirect = exports.IndexRoute = exports.IndexRedirect = exports.withRouter = exports.IndexLink = exports.Link = exports.Router = undefined;
-
-var _RouteUtils = __webpack_require__(20);
-
-Object.defineProperty(exports, 'createRoutes', {
-  enumerable: true,
-  get: function get() {
-    return _RouteUtils.createRoutes;
-  }
-});
-
-var _PropTypes2 = __webpack_require__(78);
-
-Object.defineProperty(exports, 'locationShape', {
-  enumerable: true,
-  get: function get() {
-    return _PropTypes2.locationShape;
-  }
-});
-Object.defineProperty(exports, 'routerShape', {
-  enumerable: true,
-  get: function get() {
-    return _PropTypes2.routerShape;
-  }
-});
-
-var _PatternUtils = __webpack_require__(33);
-
-Object.defineProperty(exports, 'formatPattern', {
-  enumerable: true,
-  get: function get() {
-    return _PatternUtils.formatPattern;
-  }
-});
-
-var _Router2 = __webpack_require__(273);
-
-var _Router3 = _interopRequireDefault(_Router2);
-
-var _Link2 = __webpack_require__(133);
-
-var _Link3 = _interopRequireDefault(_Link2);
-
-var _IndexLink2 = __webpack_require__(287);
-
-var _IndexLink3 = _interopRequireDefault(_IndexLink2);
-
-var _withRouter2 = __webpack_require__(288);
-
-var _withRouter3 = _interopRequireDefault(_withRouter2);
-
-var _IndexRedirect2 = __webpack_require__(289);
-
-var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
-
-var _IndexRoute2 = __webpack_require__(290);
-
-var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
-
-var _Redirect2 = __webpack_require__(135);
-
-var _Redirect3 = _interopRequireDefault(_Redirect2);
-
-var _Route2 = __webpack_require__(291);
-
-var _Route3 = _interopRequireDefault(_Route2);
-
-var _History2 = __webpack_require__(292);
-
-var _History3 = _interopRequireDefault(_History2);
-
-var _Lifecycle2 = __webpack_require__(293);
-
-var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
-
-var _RouteContext2 = __webpack_require__(294);
-
-var _RouteContext3 = _interopRequireDefault(_RouteContext2);
-
-var _useRoutes2 = __webpack_require__(295);
-
-var _useRoutes3 = _interopRequireDefault(_useRoutes2);
-
-var _RouterContext2 = __webpack_require__(56);
-
-var _RouterContext3 = _interopRequireDefault(_RouterContext2);
-
-var _RoutingContext2 = __webpack_require__(296);
-
-var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
-
-var _PropTypes3 = _interopRequireDefault(_PropTypes2);
-
-var _match2 = __webpack_require__(297);
-
-var _match3 = _interopRequireDefault(_match2);
-
-var _useRouterHistory2 = __webpack_require__(138);
-
-var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
-
-var _applyRouterMiddleware2 = __webpack_require__(299);
-
-var _applyRouterMiddleware3 = _interopRequireDefault(_applyRouterMiddleware2);
-
-var _browserHistory2 = __webpack_require__(300);
-
-var _browserHistory3 = _interopRequireDefault(_browserHistory2);
-
-var _hashHistory2 = __webpack_require__(302);
-
-var _hashHistory3 = _interopRequireDefault(_hashHistory2);
-
-var _createMemoryHistory2 = __webpack_require__(136);
-
-var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Router = _Router3.default; /* components */
-
-exports.Link = _Link3.default;
-exports.IndexLink = _IndexLink3.default;
-exports.withRouter = _withRouter3.default;
-
-/* components (configuration) */
-
-exports.IndexRedirect = _IndexRedirect3.default;
-exports.IndexRoute = _IndexRoute3.default;
-exports.Redirect = _Redirect3.default;
-exports.Route = _Route3.default;
-
-/* mixins */
-
-exports.History = _History3.default;
-exports.Lifecycle = _Lifecycle3.default;
-exports.RouteContext = _RouteContext3.default;
-
-/* utils */
-
-exports.useRoutes = _useRoutes3.default;
-exports.RouterContext = _RouterContext3.default;
-exports.RoutingContext = _RoutingContext3.default;
-exports.PropTypes = _PropTypes3.default;
-exports.match = _match3.default;
-exports.useRouterHistory = _useRouterHistory3.default;
-exports.applyRouterMiddleware = _applyRouterMiddleware3.default;
-
-/* histories */
-
-exports.browserHistory = _browserHistory3.default;
-exports.hashHistory = _hashHistory3.default;
-exports.createMemoryHistory = _createMemoryHistory3.default;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
 exports.routes = exports.route = exports.components = exports.component = exports.history = undefined;
 exports.falsy = falsy;
 
@@ -3309,7 +3147,7 @@ var route = exports.route = oneOfType([object, element]);
 var routes = exports.routes = oneOfType([route, arrayOf(route)]);
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3363,13 +3201,13 @@ function parsePath(path) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(330);
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3507,7 +3345,7 @@ module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3551,7 +3389,7 @@ function reactProdInvariant(code) {
 module.exports = reactProdInvariant;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3723,7 +3561,7 @@ module.exports = ReactReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3844,6 +3682,168 @@ DOMLazyTree.queueHTML = queueHTML;
 DOMLazyTree.queueText = queueText;
 
 module.exports = DOMLazyTree;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.createMemoryHistory = exports.hashHistory = exports.browserHistory = exports.applyRouterMiddleware = exports.formatPattern = exports.useRouterHistory = exports.match = exports.routerShape = exports.locationShape = exports.PropTypes = exports.RoutingContext = exports.RouterContext = exports.createRoutes = exports.useRoutes = exports.RouteContext = exports.Lifecycle = exports.History = exports.Route = exports.Redirect = exports.IndexRoute = exports.IndexRedirect = exports.withRouter = exports.IndexLink = exports.Link = exports.Router = undefined;
+
+var _RouteUtils = __webpack_require__(20);
+
+Object.defineProperty(exports, 'createRoutes', {
+  enumerable: true,
+  get: function get() {
+    return _RouteUtils.createRoutes;
+  }
+});
+
+var _PropTypes2 = __webpack_require__(78);
+
+Object.defineProperty(exports, 'locationShape', {
+  enumerable: true,
+  get: function get() {
+    return _PropTypes2.locationShape;
+  }
+});
+Object.defineProperty(exports, 'routerShape', {
+  enumerable: true,
+  get: function get() {
+    return _PropTypes2.routerShape;
+  }
+});
+
+var _PatternUtils = __webpack_require__(33);
+
+Object.defineProperty(exports, 'formatPattern', {
+  enumerable: true,
+  get: function get() {
+    return _PatternUtils.formatPattern;
+  }
+});
+
+var _Router2 = __webpack_require__(273);
+
+var _Router3 = _interopRequireDefault(_Router2);
+
+var _Link2 = __webpack_require__(133);
+
+var _Link3 = _interopRequireDefault(_Link2);
+
+var _IndexLink2 = __webpack_require__(287);
+
+var _IndexLink3 = _interopRequireDefault(_IndexLink2);
+
+var _withRouter2 = __webpack_require__(288);
+
+var _withRouter3 = _interopRequireDefault(_withRouter2);
+
+var _IndexRedirect2 = __webpack_require__(289);
+
+var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
+
+var _IndexRoute2 = __webpack_require__(290);
+
+var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
+
+var _Redirect2 = __webpack_require__(135);
+
+var _Redirect3 = _interopRequireDefault(_Redirect2);
+
+var _Route2 = __webpack_require__(291);
+
+var _Route3 = _interopRequireDefault(_Route2);
+
+var _History2 = __webpack_require__(292);
+
+var _History3 = _interopRequireDefault(_History2);
+
+var _Lifecycle2 = __webpack_require__(293);
+
+var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
+
+var _RouteContext2 = __webpack_require__(294);
+
+var _RouteContext3 = _interopRequireDefault(_RouteContext2);
+
+var _useRoutes2 = __webpack_require__(295);
+
+var _useRoutes3 = _interopRequireDefault(_useRoutes2);
+
+var _RouterContext2 = __webpack_require__(56);
+
+var _RouterContext3 = _interopRequireDefault(_RouterContext2);
+
+var _RoutingContext2 = __webpack_require__(296);
+
+var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
+
+var _PropTypes3 = _interopRequireDefault(_PropTypes2);
+
+var _match2 = __webpack_require__(297);
+
+var _match3 = _interopRequireDefault(_match2);
+
+var _useRouterHistory2 = __webpack_require__(138);
+
+var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
+
+var _applyRouterMiddleware2 = __webpack_require__(299);
+
+var _applyRouterMiddleware3 = _interopRequireDefault(_applyRouterMiddleware2);
+
+var _browserHistory2 = __webpack_require__(300);
+
+var _browserHistory3 = _interopRequireDefault(_browserHistory2);
+
+var _hashHistory2 = __webpack_require__(302);
+
+var _hashHistory3 = _interopRequireDefault(_hashHistory2);
+
+var _createMemoryHistory2 = __webpack_require__(136);
+
+var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Router = _Router3.default; /* components */
+
+exports.Link = _Link3.default;
+exports.IndexLink = _IndexLink3.default;
+exports.withRouter = _withRouter3.default;
+
+/* components (configuration) */
+
+exports.IndexRedirect = _IndexRedirect3.default;
+exports.IndexRoute = _IndexRoute3.default;
+exports.Redirect = _Redirect3.default;
+exports.Route = _Route3.default;
+
+/* mixins */
+
+exports.History = _History3.default;
+exports.Lifecycle = _Lifecycle3.default;
+exports.RouteContext = _RouteContext3.default;
+
+/* utils */
+
+exports.useRoutes = _useRoutes3.default;
+exports.RouterContext = _RouterContext3.default;
+exports.RoutingContext = _RoutingContext3.default;
+exports.PropTypes = _PropTypes3.default;
+exports.match = _match3.default;
+exports.useRouterHistory = _useRouterHistory3.default;
+exports.applyRouterMiddleware = _applyRouterMiddleware3.default;
+
+/* histories */
+
+exports.browserHistory = _browserHistory3.default;
+exports.hashHistory = _hashHistory3.default;
+exports.createMemoryHistory = _createMemoryHistory3.default;
 
 /***/ }),
 /* 33 */
@@ -4728,6 +4728,8 @@ var GROUP_MESSAGES = exports.GROUP_MESSAGES = 'GROUP_MESSAGES';
 var ADD_USER = exports.ADD_USER = 'ADD_USER';
 var GET_ALL_USERS = exports.GET_ALL_USERS = 'GET_ALL_USERS';
 var SEND_MESSAGE = exports.SEND_MESSAGE = 'SEND_MESSAGE';
+var RESET_PASSWORD = exports.RESET_PASSWORD = 'RESET_PASSWORD';
+var GET_VERIFICATION_CODE = exports.GET_VERIFICATION_CODE = 'GET_VERIFICATION_CODE';
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "types.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -4749,7 +4751,7 @@ var _jwtDecode = __webpack_require__(87);
 
 var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -4846,6 +4848,23 @@ var AuthenticationActions = function () {
             type: _types.GET_ALL_USERS,
             users: users
           });
+        });
+      };
+    }
+    /**
+     * Makes a call to the api to send a reset email to
+     * the user with the username supplied
+     * @param {*} username
+     * @returns {string} message
+     */
+
+  }, {
+    key: 'resetPassword',
+    value: function resetPassword(username) {
+      return function () {
+        return _axios2.default.post('/api/reset', username).then(function (response) {
+          var message = response.data.message;
+          return message;
         });
       };
     }
@@ -6208,7 +6227,7 @@ var _runTransitionHook = __webpack_require__(80);
 
 var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _deprecate = __webpack_require__(81);
 
@@ -7236,7 +7255,7 @@ module.exports = getEventModifierState;
 
 
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var Danger = __webpack_require__(207);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactInstrumentation = __webpack_require__(13);
@@ -7535,7 +7554,7 @@ var _prodInvariant = __webpack_require__(5);
 var ReactPropTypesSecret = __webpack_require__(115);
 var propTypesFactory = __webpack_require__(100);
 
-var React = __webpack_require__(29);
+var React = __webpack_require__(28);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(2);
@@ -8579,7 +8598,7 @@ var _deprecateObjectProperties = __webpack_require__(53);
 
 var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 var InternalPropTypes = _interopRequireWildcard(_InternalPropTypes);
 
@@ -9411,7 +9430,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -9578,7 +9597,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = setAuthorizationToken;
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -9595,9 +9614,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function setAuthorizationToken(token) {
   if (token) {
-    _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    _axios2.default.defaults.headers.common.Authorization = 'Bearer ' + token;
   } else {
-    delete _axios2.default.defaults.headers.common['Authorization'];
+    delete _axios2.default.defaults.headers.common.Authorization;
   }
 }
 
@@ -9823,7 +9842,7 @@ module.exports = isEmpty;
 
 
 
-var _prodInvariant = __webpack_require__(30),
+var _prodInvariant = __webpack_require__(29),
     _assign = __webpack_require__(6);
 
 var ReactNoopUpdateQueue = __webpack_require__(96);
@@ -12335,7 +12354,7 @@ module.exports = instantiateReactComponent;
 
 var _prodInvariant = __webpack_require__(5);
 
-var React = __webpack_require__(29);
+var React = __webpack_require__(28);
 
 var invariant = __webpack_require__(2);
 
@@ -12933,9 +12952,9 @@ module.exports = getActiveElement;
 
 var _prodInvariant = __webpack_require__(5);
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var DOMProperty = __webpack_require__(19);
-var React = __webpack_require__(29);
+var React = __webpack_require__(28);
 var ReactBrowserEventEmitter = __webpack_require__(52);
 var ReactCurrentOwner = __webpack_require__(16);
 var ReactDOMComponentTree = __webpack_require__(7);
@@ -12945,7 +12964,7 @@ var ReactFeatureFlags = __webpack_require__(107);
 var ReactInstanceMap = __webpack_require__(39);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactMarkupChecksum = __webpack_require__(265);
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 var ReactUpdateQueue = __webpack_require__(75);
 var ReactUpdates = __webpack_require__(17);
 
@@ -13516,7 +13535,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _Actions = __webpack_require__(34);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _ExecutionEnvironment = __webpack_require__(54);
 
@@ -13894,7 +13913,7 @@ var _deepEqual = __webpack_require__(274);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _AsyncUtils = __webpack_require__(277);
 
@@ -14527,7 +14546,7 @@ var _RouteUtils = __webpack_require__(20);
 
 var _PatternUtils = __webpack_require__(33);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14672,7 +14691,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _ExecutionEnvironment = __webpack_require__(54);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _runTransitionHook = __webpack_require__(80);
 
@@ -16624,7 +16643,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(61);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(21);
 
@@ -16658,15 +16677,23 @@ var _Welcome = __webpack_require__(433);
 
 var _Welcome2 = _interopRequireDefault(_Welcome);
 
-var _CreateGroup = __webpack_require__(434);
+var _ResetPasswordPage = __webpack_require__(434);
+
+var _ResetPasswordPage2 = _interopRequireDefault(_ResetPasswordPage);
+
+var _CheckVerificationPage = __webpack_require__(446);
+
+var _CheckVerificationPage2 = _interopRequireDefault(_CheckVerificationPage);
+
+var _CreateGroup = __webpack_require__(435);
 
 var _CreateGroup2 = _interopRequireDefault(_CreateGroup);
 
-var _main = __webpack_require__(435);
+var _main = __webpack_require__(436);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _rootReducer = __webpack_require__(436);
+var _rootReducer = __webpack_require__(437);
 
 var _rootReducer2 = _interopRequireDefault(_rootReducer);
 
@@ -16678,7 +16705,7 @@ var _authActions = __webpack_require__(42);
 
 var _authActions2 = _interopRequireDefault(_authActions);
 
-var _requireAuth = __webpack_require__(440);
+var _requireAuth = __webpack_require__(441);
 
 var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -16711,6 +16738,8 @@ if (localStorage.jwtToken) {
 			_react2.default.createElement(_reactRouter.Route, { path: '/', component: _Welcome2.default }),
 			_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _SignupPage2.default }),
 			_react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LoginPage2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: '/reset', component: _ResetPasswordPage2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: '/reset/verification', component: _CheckVerificationPage2.default }),
 			_react2.default.createElement(_reactRouter.Route, { path: '/dashboard', component: (0, _requireAuth2.default)(_Home2.default) }),
 			_react2.default.createElement(_reactRouter.Route, { path: '/group', component: (0, _requireAuth2.default)(_CreateGroup2.default) })
 		)
@@ -16933,7 +16962,7 @@ module.exports = ReactChildren;
 
 
 
-var _prodInvariant = __webpack_require__(30);
+var _prodInvariant = __webpack_require__(29);
 
 var invariant = __webpack_require__(2);
 
@@ -17050,7 +17079,7 @@ module.exports = PooledClass;
 
 
 
-var _prodInvariant = __webpack_require__(30);
+var _prodInvariant = __webpack_require__(29);
 
 var ReactCurrentOwner = __webpack_require__(16);
 var REACT_ELEMENT_TYPE = __webpack_require__(97);
@@ -17471,7 +17500,7 @@ module.exports = ReactDOMFactories;
 
 
 
-var _prodInvariant = __webpack_require__(30);
+var _prodInvariant = __webpack_require__(29);
 
 var ReactPropTypeLocationNames = __webpack_require__(179);
 var ReactPropTypesSecret = __webpack_require__(180);
@@ -18733,7 +18762,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
  */
 
 
-var _prodInvariant = __webpack_require__(30);
+var _prodInvariant = __webpack_require__(29);
 
 var ReactElement = __webpack_require__(23);
 
@@ -18783,7 +18812,7 @@ module.exports = onlyChild;
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactDefaultInjection = __webpack_require__(189);
 var ReactMount = __webpack_require__(125);
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 var ReactUpdates = __webpack_require__(17);
 var ReactVersion = __webpack_require__(267);
 
@@ -21073,7 +21102,7 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _prodInvariant = __webpack_require__(5);
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var ExecutionEnvironment = __webpack_require__(8);
 
 var createNodesFromMarkup = __webpack_require__(208);
@@ -21492,7 +21521,7 @@ var _prodInvariant = __webpack_require__(5),
 
 var AutoFocusUtils = __webpack_require__(213);
 var CSSPropertyOperations = __webpack_require__(214);
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var DOMNamespaces = __webpack_require__(68);
 var DOMProperty = __webpack_require__(19);
 var DOMPropertyOperations = __webpack_require__(114);
@@ -23504,7 +23533,7 @@ module.exports = ReactDOMInput;
 
 var _assign = __webpack_require__(6);
 
-var React = __webpack_require__(29);
+var React = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactDOMSelect = __webpack_require__(116);
 
@@ -23803,7 +23832,7 @@ var ReactInstanceMap = __webpack_require__(39);
 var ReactInstrumentation = __webpack_require__(13);
 
 var ReactCurrentOwner = __webpack_require__(16);
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 var ReactChildReconciler = __webpack_require__(228);
 
 var emptyFunction = __webpack_require__(12);
@@ -24248,7 +24277,7 @@ module.exports = ReactMultiChild;
 
 
 
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 
 var instantiateReactComponent = __webpack_require__(117);
 var KeyEscapeUtils = __webpack_require__(74);
@@ -24410,14 +24439,14 @@ module.exports = ReactChildReconciler;
 var _prodInvariant = __webpack_require__(5),
     _assign = __webpack_require__(6);
 
-var React = __webpack_require__(29);
+var React = __webpack_require__(28);
 var ReactComponentEnvironment = __webpack_require__(71);
 var ReactCurrentOwner = __webpack_require__(16);
 var ReactErrorUtils = __webpack_require__(63);
 var ReactInstanceMap = __webpack_require__(39);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactNodeTypes = __webpack_require__(118);
-var ReactReconciler = __webpack_require__(31);
+var ReactReconciler = __webpack_require__(30);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(230);
@@ -25859,7 +25888,7 @@ module.exports = ReactServerUpdateQueue;
 
 var _assign = __webpack_require__(6);
 
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var ReactDOMComponentTree = __webpack_require__(7);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -26068,7 +26097,7 @@ var _prodInvariant = __webpack_require__(5),
     _assign = __webpack_require__(6);
 
 var DOMChildrenOperations = __webpack_require__(67);
-var DOMLazyTree = __webpack_require__(32);
+var DOMLazyTree = __webpack_require__(31);
 var ReactDOMComponentTree = __webpack_require__(7);
 
 var escapeTextContentForBrowser = __webpack_require__(51);
@@ -28943,7 +28972,7 @@ var _createTransitionManager = __webpack_require__(82);
 
 var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 var _RouterContext = __webpack_require__(56);
 
@@ -29363,7 +29392,7 @@ var _warning2 = _interopRequireDefault(_warning);
 
 var _Actions = __webpack_require__(34);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 function createLocation() {
   var location = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
@@ -30305,7 +30334,7 @@ var _Redirect = __webpack_require__(135);
 
 var _Redirect2 = _interopRequireDefault(_Redirect);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30373,7 +30402,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _RouteUtils = __webpack_require__(20);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30436,7 +30465,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _RouteUtils = __webpack_require__(20);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30494,7 +30523,7 @@ var _routerWarning = __webpack_require__(9);
 
 var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-var _InternalPropTypes = __webpack_require__(26);
+var _InternalPropTypes = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30848,7 +30877,7 @@ var _invariant = __webpack_require__(10);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _Actions = __webpack_require__(34);
 
@@ -31085,7 +31114,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _Actions = __webpack_require__(34);
 
-var _PathUtils = __webpack_require__(27);
+var _PathUtils = __webpack_require__(26);
 
 var _ExecutionEnvironment = __webpack_require__(54);
 
@@ -32724,11 +32753,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(21);
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(32);
 
 var _presentation = __webpack_require__(153);
 
@@ -33892,7 +33921,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -34060,7 +34089,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(32);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34549,9 +34578,9 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRedux = __webpack_require__(21);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(32);
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -34780,11 +34809,7 @@ var Messages = function (_Component) {
 							_react2.default.createElement(
 								'strong',
 								null,
-								_react2.default.createElement(
-									'em',
-									null,
-									this.state.groupName
-								)
+								this.state.groupName
 							)
 						),
 						errors.message && _react2.default.createElement(
@@ -35020,7 +35045,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _axios = __webpack_require__(28);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -35082,6 +35107,18 @@ var SignupActions = function () {
     value: function isUserExists(identifier) {
       return function () {
         return _axios2.default.get('/api/user/' + identifier);
+      };
+    }
+    /**
+     * @param {string} password
+     * @return {*} axios
+     */
+
+  }, {
+    key: 'updatePassword',
+    value: function updatePassword(newUser) {
+      return function () {
+        return _axios2.default.put('/api/user/signup', newUser);
       };
     }
   }]);
@@ -35151,6 +35188,7 @@ var SignupForm = function (_Component) {
     _this.state = {
       username: '',
       email: '',
+      phoneNumber: '',
       password: '',
       passwordConfirmation: '',
       errors: {},
@@ -35200,7 +35238,7 @@ var SignupForm = function (_Component) {
       var _this2 = this;
 
       var field = e.target.name;
-      var val = e.target.value;
+      var val = e.target.value.trim();
       if (val !== '') {
         this.props.isUserExists(val).then(function (res) {
           var errors = _this2.state.errors;
@@ -35283,6 +35321,16 @@ var SignupForm = function (_Component) {
               htmlFor: 'email',
               label: 'Email',
               type: 'email',
+              checkUserExists: this.checkUserExists
+            }),
+            _react2.default.createElement(_TextFieldGroup2.default, {
+              error: errors.phoneNumber,
+              id: 'phoneNumber',
+              onChange: this.onChange,
+              value: this.state.phoneNumber,
+              field: 'phoneNumber',
+              htmlFor: 'phoneNumber',
+              label: 'Phone Number',
               checkUserExists: this.checkUserExists
             }),
             _react2.default.createElement(_TextFieldGroup2.default, {
@@ -35389,6 +35437,14 @@ var sharedSignupValidations = function () {
       if (data.username) {
         if (_validator2.default.isEmpty(data.username.trim())) {
           errors.username = 'Please fill in your username';
+        }
+      }
+      if (!data.phoneNumber) {
+        errors.phoneNumber = 'Please fill in your phone number';
+      }
+      if (data.phoneNumber) {
+        if (_validator2.default.isEmpty(data.phoneNumber.trim())) {
+          errors.phoneNumber = 'Please fill in your username';
         }
       }
       if (!data.email) {
@@ -38000,6 +38056,8 @@ var _classnames = __webpack_require__(88);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _reactRouter = __webpack_require__(32);
+
 var _reactRedux = __webpack_require__(21);
 
 var _propTypes = __webpack_require__(35);
@@ -38084,11 +38142,15 @@ var LoginForm = function (_Component) {
             e.preventDefault();
             if (this.isValid()) {
                 this.setState({ errors: {} });
-                // the login action is fired here
+                /**
+                 * the login action is fired here
+                 */
                 this.props.login(this.state).then(function (res) {
-                    return [_this2.context.router.push('/dashboard'), Materialize.toast('Login Successful!!', 4000, 'green')];
-                }, function (err) {
-                    return _this2.setState({ errors: err.response.data.errors });
+                    _this2.context.router.push('/dashboard');
+                    Materialize.toast('Login Successful!!', 4000, 'green');
+                }).catch(function (err) {
+                    Materialize.toast(err.response.data.errors.message, 4000, 'red');
+                    _this2.setState({ errors: err.response.data.errors });
                 });
             }
         }
@@ -38121,7 +38183,7 @@ var LoginForm = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col s12 m6 offset-m6 login' },
+                        { className: 'col s12 m6 offset-s7 offset-m6 login' },
                         _react2.default.createElement(
                             'form',
                             { onSubmit: this.onSubmit },
@@ -38142,8 +38204,7 @@ var LoginForm = function (_Component) {
                                 value: this.state.username,
                                 field: 'username',
                                 htmlFor: 'username',
-                                label: 'Username',
-                                checkUserExists: this.checkUserExists
+                                label: 'Username'
                             }),
                             _react2.default.createElement(_TextFieldGroup2.default, {
                                 error: errors.password,
@@ -38153,8 +38214,7 @@ var LoginForm = function (_Component) {
                                 field: 'password',
                                 htmlFor: 'password',
                                 label: 'Password',
-                                type: 'password',
-                                checkUserExists: this.checkUserExists
+                                type: 'password'
                             }),
                             _react2.default.createElement(
                                 'div',
@@ -38163,6 +38223,15 @@ var LoginForm = function (_Component) {
                                     'button',
                                     { className: 'waves-effect waves-light btn' },
                                     'Login'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'center reset-link' },
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/reset' },
+                                    'Forgot Password?'
                                 )
                             )
                         )
@@ -38274,7 +38343,7 @@ exports.default = sharedSigninValidations;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -38282,8 +38351,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(25);
 
 var _NavigationBar = __webpack_require__(432);
 
@@ -38298,31 +38365,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Main = function (_Component) {
-    _inherits(Main, _Component);
+  _inherits(Main, _Component);
 
-    function Main() {
-        _classCallCheck(this, Main);
+  function Main() {
+    _classCallCheck(this, Main);
 
-        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+  }
+
+  _createClass(Main, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'landing-background' },
+        _react2.default.createElement(_NavigationBar2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'container-fluid' },
+          this.props.children
+        )
+      );
     }
+  }]);
 
-    _createClass(Main, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_NavigationBar2.default, null),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'container-fluid' },
-                    this.props.children
-                )
-            );
-        }
-    }]);
-
-    return Main;
+  return Main;
 }(_react.Component);
 
 exports.default = Main;
@@ -38347,7 +38414,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(21);
 
@@ -38476,8 +38543,8 @@ var NavigationBar = function (_Component) {
             'li',
             null,
             _react2.default.createElement(
-              'a',
-              { href: './login', className: 'waves-effect waves-light btn' },
+              _reactRouter.Link,
+              { to: '/login', className: 'waves-effect waves-light btn' },
               'Login'
             )
           ),
@@ -38485,8 +38552,8 @@ var NavigationBar = function (_Component) {
             'li',
             null,
             _react2.default.createElement(
-              'a',
-              { href: './signup', className: 'waves-effect waves-light btn' },
+              _reactRouter.Link,
+              { to: '/signup', className: 'waves-effect waves-light btn' },
               'Sign Up'
             )
           )
@@ -38667,7 +38734,237 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRedux = __webpack_require__(21);
+
+var _TextFieldGroup = __webpack_require__(58);
+
+var _TextFieldGroup2 = _interopRequireDefault(_TextFieldGroup);
+
+var _signupActions = __webpack_require__(355);
+
+var _signupActions2 = _interopRequireDefault(_signupActions);
+
+var _authActions = __webpack_require__(42);
+
+var _authActions2 = _interopRequireDefault(_authActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * ResetPasswordPage class
+ */
+var ResetPasswordPage = function (_Component) {
+  _inherits(ResetPasswordPage, _Component);
+
+  function ResetPasswordPage(props) {
+    _classCallCheck(this, ResetPasswordPage);
+
+    var _this = _possibleConstructorReturn(this, (ResetPasswordPage.__proto__ || Object.getPrototypeOf(ResetPasswordPage)).call(this, props));
+
+    _this.state = {
+      username: '',
+      errors: {},
+      invalid: false,
+      resetMessage: '',
+      isLoading: false
+      /**
+       * This binding is necessary to make `this` work in the callback
+       */
+    };_this.onChange = _this.onChange.bind(_this);
+    _this.checkUserExists = _this.checkUserExists.bind(_this);
+    _this.onSubmit = _this.onSubmit.bind(_this);
+    var isLoading = false;
+    return _this;
+  }
+  /**
+   * onChange gets called when the value of an element has been changed
+   * It sets this change into the state
+   * @param {*} e 
+   */
+
+
+  _createClass(ResetPasswordPage, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      this.setState(_defineProperty({}, e.target.id, e.target.value.trim()));
+    }
+    /**
+     * checkUserExists() checks if the username provided exist in the database
+     * It fires the isUserExists action that makes a call to the api to check if the user exist
+     * If the call returns an instance of the user, then it empties the errors object
+     * in the state
+     * if not, it returns the message `Username not found`
+     * @param {*} e
+     */
+
+  }, {
+    key: 'checkUserExists',
+    value: function checkUserExists(e) {
+      var _this2 = this;
+
+      var field = e.target.name;
+      var val = e.target.value;
+      if (val !== '') {
+        this.props.isUserExists(val).then(function (res) {
+          var errors = _this2.state.errors;
+          var invalid = void 0;
+          /**
+           * checks if isUserExists returns an object containing that user
+           */
+          if (res.data.user) {
+            errors[field] = '';
+            invalid = false;
+          } else {
+            errors[field] = 'Username not found';
+            invalid = true;
+          }
+          _this2.setState({ errors: errors, invalid: invalid });
+        });
+      }
+    }
+    /**
+     * onSubmit calls the resetPassword action which sends a mail to the
+     * user's email containing verification code and reset link
+     * @param {*} e 
+     */
+
+  }, {
+    key: 'onSubmit',
+    value: function onSubmit(e) {
+      var _this3 = this;
+
+      /**
+       * Prevents the default action of a form on submit
+       */
+      e.preventDefault();
+      /**
+       * empties the errors object in the state
+       * and also set isLoading to true
+       */
+      this.setState({ errors: {}, isLoading: true });
+      var username = { username: this.state.username };
+      this.props.resetPassword(username).then(function (response) {
+        _this3.setState({
+          isLoading: false,
+          resetMessage: response,
+          invalid: true
+        });
+        Materialize.toast('Message Sent to Email', 4000, 'green');
+      }).catch(function (err) {
+        Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state = this.state,
+          errors = _state.errors,
+          username = _state.username,
+          resetMessage = _state.resetMessage;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col s12 m6 offset-m3 reset-form' },
+            _react2.default.createElement(
+              'form',
+              { onSubmit: this.onSubmit },
+              _react2.default.createElement(
+                'h4',
+                { className: 'green-text text-darken-4 login-text' },
+                'Forgot Your Password?'
+              ),
+              resetMessage && _react2.default.createElement(
+                'div',
+                { className: 'card col s10 m4 reset-msg' },
+                resetMessage
+              ),
+              _react2.default.createElement(_TextFieldGroup2.default, {
+                error: errors.username,
+                id: 'username',
+                onChange: this.onChange,
+                value: this.state.username,
+                field: 'username',
+                htmlFor: 'username',
+                label: 'Username',
+                type: 'text',
+                checkUserExists: this.checkUserExists
+              }),
+              _react2.default.createElement(
+                'div',
+                { className: 'center' },
+                _react2.default.createElement(
+                  'button',
+                  { disabled: this.state.isLoading || this.state.invalid, className: 'waves-effect waves-light btn' },
+                  'Reset Password'
+                )
+              ),
+              this.state.isLoading && _react2.default.createElement(
+                'div',
+                { className: 'center' },
+                _react2.default.createElement(
+                  'h6',
+                  null,
+                  'Sending Verification Code to Email...'
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ResetPasswordPage;
+}(_react.Component);
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+  return {
+    isUserExists: function isUserExists(identifier) {
+      return dispatch(_signupActions2.default.isUserExists(identifier));
+    },
+    resetPassword: function resetPassword(username) {
+      return dispatch(_authActions2.default.resetPassword(username));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(ResetPasswordPage);
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ResetPasswordPage.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ }),
+/* 435 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(21);
 
@@ -38704,11 +39001,8 @@ var CreateGroup = function (_Component) {
 
     _this.state = {
       users: {},
-
       groups: {},
-
       list: [],
-
       userList: []
     };
     return _this;
@@ -38831,12 +39125,12 @@ exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CreateGroup);
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "CreateGroup.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503053766066
+      // 1503355308902
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -38844,7 +39138,7 @@ exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CreateGroup);
   
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38857,15 +39151,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(84);
 
-var _auth = __webpack_require__(437);
+var _auth = __webpack_require__(438);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _groupReducer = __webpack_require__(438);
+var _groupReducer = __webpack_require__(439);
 
 var _groupReducer2 = _interopRequireDefault(_groupReducer);
 
-var _userReducer = __webpack_require__(439);
+var _userReducer = __webpack_require__(440);
 
 var _userReducer2 = _interopRequireDefault(_userReducer);
 
@@ -38880,7 +39174,7 @@ exports.default = (0, _redux.combineReducers)({
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "rootReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -38931,7 +39225,7 @@ exports.default = function () {
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "auth.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -39008,7 +39302,7 @@ exports.default = function () {
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "groupReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -39043,7 +39337,7 @@ exports.default = function () {
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "userReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -39123,6 +39417,415 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "requireAuth.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ }),
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _validator = __webpack_require__(154);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _isEmpty = __webpack_require__(94);
+
+var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * sharedSignupValidations class
+ */
+var sharedResetValidations = function () {
+  function sharedResetValidations() {
+    _classCallCheck(this, sharedResetValidations);
+  }
+
+  _createClass(sharedResetValidations, null, [{
+    key: 'commonValidations',
+
+    /**
+     * commonValidations() takes in the data from the body for resetting password and validates them
+     * @param {object} data
+     * @return {object} errors
+     * @returns {object} errors,isValid
+     */
+    value: function commonValidations(data) {
+      var errors = {};
+      if (!data.password) {
+        errors.password = 'Please fill in your password';
+      }
+      if (data.password) {
+        if (_validator2.default.isEmpty(data.password.trim())) {
+          errors.password = 'Please fill in your password';
+        }
+      }
+      if (data.passwordConfirmation) {
+        if (_validator2.default.isEmpty(data.passwordConfirmation.trim())) {
+          errors.password = 'This field is required';
+        }
+      }
+      if (data.password && data.password.length <= 5) {
+        errors.password = 'Password length must not be less than 6 characters';
+      }
+      if (!data.passwordConfirmation) {
+        errors.passwordConfirmation = 'Please fill in your password';
+      }
+      if (data.password && data.passwordConfirmation) {
+        if (data.password.trim() !== data.passwordConfirmation.trim()) {
+          errors.passwordConfirmation = 'Passwords must match!!';
+        }
+      }
+      if (!data.passwordConfirmation) {
+        errors.invalid = 'Password Confirmation is required';
+      }
+      return {
+        errors: errors,
+        isValid: (0, _isEmpty2.default)(errors)
+      };
+    }
+  }]);
+
+  return sharedResetValidations;
+}();
+
+exports.default = sharedResetValidations;
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "resetValidations.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(21);
+
+var _propTypes = __webpack_require__(35);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _TextFieldGroup = __webpack_require__(58);
+
+var _TextFieldGroup2 = _interopRequireDefault(_TextFieldGroup);
+
+var _signupActions = __webpack_require__(355);
+
+var _signupActions2 = _interopRequireDefault(_signupActions);
+
+var _resetValidations = __webpack_require__(445);
+
+var _resetValidations2 = _interopRequireDefault(_resetValidations);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * CheckVerificationPage
+ */
+var CheckVerificationPage = function (_Component) {
+  _inherits(CheckVerificationPage, _Component);
+
+  function CheckVerificationPage(props) {
+    _classCallCheck(this, CheckVerificationPage);
+
+    var _this = _possibleConstructorReturn(this, (CheckVerificationPage.__proto__ || Object.getPrototypeOf(CheckVerificationPage)).call(this, props));
+
+    _this.state = {
+      errors: {},
+      invalid: false,
+      resetMessage: '',
+      verificationCode: '',
+      verificationStatus: false,
+      password: '',
+      passwordConfirmation: ''
+      /**
+       * This binding is necessary to make `this` work in the callback
+       */
+    };_this.onChange = _this.onChange.bind(_this);
+    _this.onSubmit = _this.onSubmit.bind(_this);
+    _this.checkVerificationCode = _this.checkVerificationCode.bind(_this);
+    _this.updatePassword = _this.updatePassword.bind(_this);
+    return _this;
+  }
+  /**
+   * onChange gets called when the value of an element has been changed
+   * It sets this change into the state
+   * It also sets invalid to false and then empties the errors object
+   * @param {*} e 
+   */
+
+
+  _createClass(CheckVerificationPage, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var _setState;
+
+      this.setState((_setState = {}, _defineProperty(_setState, e.target.id, e.target.value.trim()), _defineProperty(_setState, 'invalid', false), _defineProperty(_setState, 'errors', {}), _setState));
+    }
+    /**
+     * updatePassword updates the state when there is any change
+     * on the value of the input fields of password and password confirmation
+     * @param {*} e 
+     */
+
+  }, {
+    key: 'updatePassword',
+    value: function updatePassword(e) {
+      this.setState(_defineProperty({}, e.target.id, e.target.value.trim()));
+    }
+
+    /**
+     * isValid() does a client side validations on password and 
+     * password confirmation input fields.
+     */
+
+  }, {
+    key: 'isValid',
+    value: function isValid() {
+      var _sharedResetValidatio = _resetValidations2.default.commonValidations({
+        password: this.state.password,
+        passwordConfirmation: this.state.passwordConfirmation
+      }),
+          errors = _sharedResetValidatio.errors,
+          isValid = _sharedResetValidatio.isValid;
+
+      if (!isValid) {
+        this.setState({ errors: errors });
+      }
+      return isValid;
+    }
+    /**
+     * calls the action that reset the password on submit
+     * it calls the validation function first before performing
+     * any submit action
+     * @param {*} e 
+     */
+
+  }, {
+    key: 'onSubmit',
+    value: function onSubmit(e) {
+      var _this2 = this;
+
+      /**
+       * Prevents the default action of a form on submit
+       */
+      e.preventDefault();
+      if (this.isValid()) {
+        /**
+         * empties the errors object if there are no validation errors
+         */
+        this.setState({ errors: {} });
+        /**
+         * Fires the updatePassword action and passes the
+         * username with the new password along
+         */
+        this.props.updatePassword({
+          username: this.state.username,
+          password: this.state.password,
+          passwordConfirmation: this.state.passwordConfirmation
+        }).then(function () {
+          Materialize.toast('Password Reset Successfull', 4000, 'green');
+          /**
+           * On successfull reset of the password, it redirects to the login page
+           */
+          _this2.context.router.push('/login');
+        }).catch(function () {
+          Materialize.toast('Password Reset Failed', 4000, 'red');
+        });
+      }
+    }
+    /**
+     * This is where the verification code entered by the user gets verified
+     * An action is fired that checks if this verification code is the same as
+     * the one generated in the api
+     * @param {*} e 
+     */
+
+  }, {
+    key: 'checkVerificationCode',
+    value: function checkVerificationCode(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var identifier = this.state.verificationCode;
+      this.props.isUserExists(identifier).then(function (response) {
+        if (Object.keys(response.data).length === 0) {
+          _this3.setState({
+            errors: {
+              verificationCode: 'Wrong verification code'
+            },
+            invalid: true
+          });
+        } else {
+          _this3.setState({
+            verificationStatus: true,
+            username: response.data.user.username
+          });
+          Materialize.toast('Verification Code Accepted ', 4000, 'green');
+        }
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state = this.state,
+          errors = _state.errors,
+          resetMessage = _state.resetMessage,
+          verificationStatus = _state.verificationStatus;
+
+      var content = null;
+      if (verificationStatus) {
+        content = _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col s8 m6 offset-s2 offset-m3 reset-form reset-height' },
+              _react2.default.createElement(
+                'form',
+                { onSubmit: this.onSubmit },
+                _react2.default.createElement(
+                  'h4',
+                  { className: 'green-text text-darken-4 login-text' },
+                  'Enter New Password'
+                ),
+                _react2.default.createElement(_TextFieldGroup2.default, {
+                  error: errors.password,
+                  id: 'password',
+                  onChange: this.updatePassword,
+                  value: this.state.password,
+                  field: 'password',
+                  htmlFor: 'password',
+                  label: 'Password',
+                  type: 'password'
+                }),
+                _react2.default.createElement(_TextFieldGroup2.default, {
+                  error: errors.passwordConfirmation,
+                  id: 'passwordConfirmation',
+                  onChange: this.updatePassword,
+                  value: this.state.passwordConfirmation,
+                  field: 'passwordConfirmation',
+                  htmlFor: 'passwordConfirmation',
+                  label: 'Confirm Password',
+                  type: 'password'
+                }),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'center' },
+                  _react2.default.createElement(
+                    'button',
+                    { disabled: this.state.invalid, className: 'waves-effect waves-light btn' },
+                    'Reset Password'
+                  )
+                )
+              )
+            )
+          )
+        );
+      } else {
+        content = _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col s8 m6 offset-s2 offset-m3 reset-form' },
+              _react2.default.createElement(
+                'form',
+                { onSubmit: this.checkVerificationCode },
+                _react2.default.createElement(
+                  'h4',
+                  { className: 'green-text text-darken-4 login-text' },
+                  'Enter Verification Code'
+                ),
+                _react2.default.createElement(_TextFieldGroup2.default, {
+                  error: errors.verificationCode,
+                  id: 'verificationCode',
+                  onChange: this.onChange,
+                  value: this.state.verificationCode,
+                  field: 'verificationCode',
+                  htmlFor: 'verificationCode',
+                  label: 'Verification Code',
+                  type: 'text'
+                }),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'center' },
+                  _react2.default.createElement(
+                    'button',
+                    { disabled: this.state.invalid, className: 'waves-effect waves-light btn' },
+                    'Submit'
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+      return content;
+    }
+  }]);
+
+  return CheckVerificationPage;
+}(_react.Component);
+
+CheckVerificationPage.contextTypes = {
+  router: _propTypes2.default.object.isRequired
+};
+
+var dispatchToProps = function dispatchToProps(dispatch) {
+  return {
+    isUserExists: function isUserExists(identifier) {
+      return dispatch(_signupActions2.default.isUserExists(identifier));
+    },
+    updatePassword: function updatePassword(newUser) {
+      return dispatch(_signupActions2.default.updatePassword(newUser));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CheckVerificationPage);
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/aandeladeveloper/Desktop/PostIt/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "CheckVerificationPage.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ })
 /******/ ]);

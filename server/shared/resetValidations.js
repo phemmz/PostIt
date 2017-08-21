@@ -4,37 +4,15 @@ import isEmpty from 'lodash/isEmpty';
 /**
  * sharedSignupValidations class
  */
-export default class sharedSignupValidations {
+export default class sharedResetValidations {
 /**
- * commonValidations() takes in the data from the body for signup and validates them
+ * commonValidations() takes in the data from the body for resetting password and validates them
  * @param {object} data
  * @return {object} errors
  * @returns {object} errors,isValid
  */
   static commonValidations(data) {
     const errors = {};
-    if (!data.username) {
-      errors.username = 'Please fill in your username';
-    }
-    if (data.username) {
-      if (Validator.isEmpty(data.username.trim())) {
-        errors.username = 'Please fill in your username';
-      }
-    }
-    if (!data.phoneNumber) {
-      errors.phoneNumber = 'Please fill in your phone number';
-    }
-    if (data.phoneNumber) {
-      if (Validator.isEmpty(data.phoneNumber.trim())) {
-        errors.phoneNumber = 'Please fill in your username';
-      }
-    }
-    if (!data.email) {
-      errors.email = 'Please fill in your email';
-    }
-    if (data.email && !Validator.isEmail(data.email)) {
-      errors.email = 'Email is invalid';
-    }
     if (!data.password) {
       errors.password = 'Please fill in your password';
     }
@@ -60,7 +38,7 @@ export default class sharedSignupValidations {
       }
     }
     if (!data.passwordConfirmation) {
-      errors.invalid = 'Please fill in your details';
+      errors.invalid = 'Password Confirmation is required';
     }
     return {
       errors,

@@ -8,3 +8,5 @@ export const GROUP_MESSAGES = 'GROUP_MESSAGES';
 export const ADD_USER = 'ADD_USER';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const GET_VERIFICATION_CODE = 'GET_VERIFICATION_CODE';

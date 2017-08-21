@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import sharedSigninValidations from '../../../../../server/shared/loginValidations';
@@ -43,14 +44,19 @@ class LoginForm extends Component {
  */
         e.preventDefault();
         if (this.isValid()) {
-            this.setState({ errors: {} });
-            // the login action is fired here
-            this.props.login(this.state).then(
-                (res) => [
-                    this.context.router.push('/dashboard'),
-                    Materialize.toast('Login Successful!!', 4000, 'green')],
-                (err) => this.setState({ errors: err.response.data.errors}),
-            );
+          this.setState({ errors: {} });
+          /**
+           * the login action is fired here
+           */
+          this.props.login(this.state)
+            .then((res) => {
+              this.context.router.push('/dashboard');
+              Materialize.toast('Login Successful!!', 4000, 'green');
+            })
+            .catch((err) => {
+              Materialize.toast(err.response.data.errors.message, 4000, 'red')
+              this.setState({ errors: err.response.data.errors})
+            });
         }
     }
 /**
@@ -68,7 +74,7 @@ class LoginForm extends Component {
     	return (
             <div className="container">
                 <div className="row">
-                    <div className="col s12 m6 offset-m6 login">
+                    <div className="col s12 m6 offset-s7 offset-m6 login">
                         <form onSubmit={this.onSubmit}>
                             <h4 className="green-text text-darken-4 login-text">Login</h4>	
                             {/* renders error messages if there are error messages */}
@@ -81,7 +87,6 @@ class LoginForm extends Component {
                                 field="username"
                                 htmlFor="username"
                                 label="Username"
-                                checkUserExists={this.checkUserExists}
                             />
                             <TextFieldGroup 
                                 error={errors.password}
@@ -92,10 +97,12 @@ class LoginForm extends Component {
                                 htmlFor="password"
                                 label="Password"
                                 type="password"
-                                checkUserExists={this.checkUserExists}
                             />
                             <div className="center">
                                 <button className="waves-effect waves-light btn">Login</button>
+                            </div>
+                            <div className="center reset-link">
+                                <Link to="/reset">Forgot Password?</Link>
                             </div>
                         </form>	
                     </div>

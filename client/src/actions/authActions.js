@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER, GET_ALL_USERS } from './types';
+import { SET_CURRENT_USER, GET_ALL_USERS, RESET_PASSWORD } from './types';
 /**
  * AuthenticationActions class
  */
@@ -70,6 +70,21 @@ export default class AuthenticationActions {
             type: GET_ALL_USERS,
             users
           });
+        });
+    };
+  }
+  /**
+   * Makes a call to the api to send a reset email to
+   * the user with the username supplied
+   * @param {*} username
+   * @returns {string} message
+   */
+  static resetPassword(username) {
+    return () => {
+      return axios.post('/api/reset', username)
+        .then((response) => {
+          const message = response.data.message;
+          return message;
         });
     };
   }

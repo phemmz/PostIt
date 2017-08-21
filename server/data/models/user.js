@@ -22,6 +22,16 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       len: [5, 30],
       allowNull: false,
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    verificationCode: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true
     }
   });
 

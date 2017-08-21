@@ -21,44 +21,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /**
  * sharedSignupValidations class
  */
-var sharedSignupValidations = function () {
-  function sharedSignupValidations() {
-    _classCallCheck(this, sharedSignupValidations);
+var sharedResetValidations = function () {
+  function sharedResetValidations() {
+    _classCallCheck(this, sharedResetValidations);
   }
 
-  _createClass(sharedSignupValidations, null, [{
+  _createClass(sharedResetValidations, null, [{
     key: 'commonValidations',
 
     /**
-     * commonValidations() takes in the data from the body for signup and validates them
+     * commonValidations() takes in the data from the body for resetting password and validates them
      * @param {object} data
      * @return {object} errors
      * @returns {object} errors,isValid
      */
     value: function commonValidations(data) {
       var errors = {};
-      if (!data.username) {
-        errors.username = 'Please fill in your username';
-      }
-      if (data.username) {
-        if (_validator2.default.isEmpty(data.username.trim())) {
-          errors.username = 'Please fill in your username';
-        }
-      }
-      if (!data.phoneNumber) {
-        errors.phoneNumber = 'Please fill in your phone number';
-      }
-      if (data.phoneNumber) {
-        if (_validator2.default.isEmpty(data.phoneNumber.trim())) {
-          errors.phoneNumber = 'Please fill in your username';
-        }
-      }
-      if (!data.email) {
-        errors.email = 'Please fill in your email';
-      }
-      if (data.email && !_validator2.default.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
-      }
       if (!data.password) {
         errors.password = 'Please fill in your password';
       }
@@ -84,7 +62,7 @@ var sharedSignupValidations = function () {
         }
       }
       if (!data.passwordConfirmation) {
-        errors.invalid = 'Please fill in your details';
+        errors.invalid = 'Password Confirmation is required';
       }
       return {
         errors: errors,
@@ -93,7 +71,7 @@ var sharedSignupValidations = function () {
     }
   }]);
 
-  return sharedSignupValidations;
+  return sharedResetValidations;
 }();
 
-exports.default = sharedSignupValidations;
+exports.default = sharedResetValidations;

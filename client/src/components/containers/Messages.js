@@ -165,7 +165,7 @@ class Messages extends Component {
 					content =
 						<div>
 							<div className="msgscrbar">
-								<h4 className="green-text text-darken-4"><strong><em>{this.state.groupName}</em></strong></h4>
+								<h4 className="green-text text-darken-4"><strong>{this.state.groupName}</strong></h4>
 								{/* Replace alert alert-danger with Add materialize toast here  */}
 								{ errors.message  && <div className="alert alert-danger">{errors.message}</div> }			
 								<p>Yo, you can create a new group</p>

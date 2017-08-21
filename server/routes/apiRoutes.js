@@ -4,11 +4,13 @@ import GroupController from './../controllers/groupController';
 import MessageController from './../controllers/messageController';
 import SignupValidations from '../controllers/middlewares/signupMiddleware';
 import SigninValidations from '../controllers/middlewares/signinMiddleware';
+import UpdatePasswordValidations from '../controllers/middlewares/updatePasswordMiddleware';
 import CreateGroupValidations from '../controllers/middlewares/createGroupMiddleware';
 import AddUserValidations from '../controllers/middlewares/addUserMiddleware';
 import checkUserInGroup from '../controllers/middlewares/checkUserInGroup';
 import SendMessageValidations from '../controllers/middlewares/sendMessageMiddleware';
 import authenticate from '../controllers/middlewares/authenticate';
+import ResetValidations from '../controllers/middlewares/resetMiddleware';
 
 /**
  * Creates a new express router
@@ -19,7 +21,7 @@ const router = express.Router();
  */
 router.get('/api/user', authenticate, UserController.getAllUsers);
 /**
- * Router for identifying a particular user either by username or email
+ * Router for identifying a particular user either by username, phone number or email
  */
 router.get('/api/user/:identifier', UserController.getOne);
 /**
@@ -62,5 +64,15 @@ router.get('/api/group/:groupId/messages', authenticate, checkUserInGroup.isGrou
  * Takes the authenticate, validateUserInput and isGroupMember middlewares
  */
 router.post('/api/group/:groupId/user', authenticate, AddUserValidations.validateUserInput, checkUserInGroup.isGroupMember, GroupController.addUserToGroup);
+/**
+ * Router for resetting password
+ * Takes a middleware that validates user input
+ */
+router.post('/api/reset', ResetValidations.validateUserInput, UserController.resetPassword);
+/**
+ * Router for updating password field
+ * Takes a middleware that validates user input
+ */
+router.put('/api/user/signup', UpdatePasswordValidations.validateUserInput, UserController.updatePassword);
 
 export default router;

@@ -12,11 +12,8 @@ class CreateGroup extends Component {
     super();
     this.state = {
       users: {},
-
       groups: {},
-
       list: [],
-
       userList: []
     }
   }

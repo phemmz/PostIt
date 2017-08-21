@@ -91,7 +91,6 @@ app.use(_apiRoutes2.default);
  * It can be viewed at http://localhost:8000
  */
 app.get('/*', function (req, res) {
-  // res.sendFile(path.join(__dirname, '../views/index.html'));
   res.sendFile(_path2.default.resolve('./views/index.html'));
 });
 

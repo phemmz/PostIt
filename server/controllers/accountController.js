@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import shortid from 'shortid';
 import Models from '../data/models';
 
 const User = Models.User;
@@ -23,6 +25,7 @@ export default class UserController {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        phoneNumber: req.body.phoneNumber
       })
       .then((account) => {
 /**
@@ -183,18 +186,132 @@ export default class UserController {
       where: {
         $or: [
           { username: req.params.identifier },
-          { email: req.params.identifier }
+          { email: req.params.identifier },
+          { phoneNumber: req.params.identifier },
+          { verificationCode: req.params.identifier }
         ]
       }
     })
       .then((user) => {
         res.json({ user: {
           username: user.username,
-          email: user.email }
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          verificationCode: user.verificationCode }
         });
       })
       .catch((err) => {
         res.json(err);
+      });
+  }
+  /**
+   * resetPassword generates a verification code using shortid
+   * It also sends a mail to the user which contains the verification code
+   * @param {*} req
+   * @param {*} res
+   * @return {*} json
+   */
+  static resetPassword(req, res) {
+    User.findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+    .then((user) => {
+      if (user === null) {
+        res.status(404).json({
+          confirmation: 'fail',
+          message: 'User not found'
+        });
+      } else {
+        const generatedId = shortid.generate();
+        const gameURL = 'https://phemmz-post-it.herokuapp.com/reset/verification';
+        const transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: process.env.NM_EMAIL,
+            pass: process.env.NM_PASSWORD
+          }
+        });
+        const mailOptions = {
+          from: process.env.NM_EMAIL,
+          to: user.email,
+          subject: 'Reset password instructions',
+          html: `<p>Hello, ${req.body.username}!</p>\
+          <p>Someone has requested a link to change your password. You can do this through the link below.</p>\
+          <p><strong>Your Verification code is:</strong> ${generatedId}</p>\
+          <p><a href="${gameURL}">Change my password</a></p><br /><br />\
+          <p>If you didn't request this, please ignore this email</p>\
+          <p>You can post messages with friends on <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>`
+        };
+        transporter.sendMail(mailOptions, (err) => {
+          if (err) {
+            res.json({
+              confirmation: 'fail',
+              message: `Error sending email to ${req.body.username}`
+            });
+          } else {
+            res.status(200).json({
+              confirmation: 'success',
+              message: 'You will receive an email with instructions on how to reset your password in a few minutes.'
+            });
+            user.update({
+              verificationCode: generatedId
+            }, {
+              where: {
+                username: req.body.username
+              }
+            });
+          }
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        confirmation: 'fail',
+        err
+      });
+    });
+  }
+  /**
+   * This updates the password of a user in the database
+   * @param {*} req
+   * @param {*} res
+   * @return {*} json
+   */
+  static updatePassword(req, res) {
+    const hashedPassword = bcrypt.hashSync(req.body.password);
+    User.findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+      .then((user) => {
+        user.update({
+          password: hashedPassword
+        }, {
+          where: {
+            username: req.body.username
+          }
+        })
+          .then(() => {
+            res.json({
+              confirmation: 'success',
+              message: 'Password updated successfully'
+            });
+          })
+          .catch(() => {
+            res.status(400).json({
+              confirmation: 'fail',
+              message: 'Failed to update password'
+            });
+          });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          confirmation: 'fail',
+          message: err
+        });
       });
   }
 }

@@ -11,7 +11,8 @@ class SignupForm extends Component {
 		super(props);
 		this.state = {
 			username: '',
-			email: '',
+      email: '',
+      phoneNumber: '',
 			password: '',
 			passwordConfirmation: '',
 			errors: {},
@@ -48,7 +49,7 @@ class SignupForm extends Component {
    */
   checkUserExists(e) {
     const field = e.target.name;
-    const val = e.target.value;
+    const val = e.target.value.trim();
     if (val !== '') {
       this.props.isUserExists(val).then((res) => {
         let errors = this.state.errors;
@@ -116,6 +117,16 @@ class SignupForm extends Component {
               htmlFor="email"
               label="Email"
               type="email"
+              checkUserExists={this.checkUserExists}
+            />
+            <TextFieldGroup 
+              error={errors.phoneNumber}
+              id="phoneNumber"
+              onChange={this.onChange}
+              value={this.state.phoneNumber}
+              field="phoneNumber"
+              htmlFor="phoneNumber"
+              label="Phone Number"
               checkUserExists={this.checkUserExists}
             />
             <TextFieldGroup 

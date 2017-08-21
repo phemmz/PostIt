@@ -10,6 +10,8 @@ import SignupPage from './components/layout/SignupPage.js';
 import LoginPage from './components/layout/LoginPage';
 import Main from './components/layout/Main.js';
 import Welcome from './components/layout/Welcome.js';
+import ResetPasswordPage from './components/layout/ResetPasswordPage.js';
+import CheckVerificationPage from './components/layout/CheckVerificationPage.js';
 import createGroup from './components/containers/CreateGroup.js';
 import style from '../main.scss';
 import rootReducer from './rootReducer';
@@ -43,6 +45,8 @@ render(
 		        <Route path="/" component={Welcome} />
 		        <Route path="/signup" component={SignupPage} />
 						<Route path="/login" component={LoginPage} />
+						<Route path="/reset" component={ResetPasswordPage} />
+						<Route path="/reset/verification" component={CheckVerificationPage} />
 	   		    <Route path="/dashboard" component={requireAuth(Home)} />
 	   		    <Route path="/group" component={requireAuth(createGroup)} />
 			</Route>	

@@ -28,6 +28,10 @@ var _signinMiddleware = require('../controllers/middlewares/signinMiddleware');
 
 var _signinMiddleware2 = _interopRequireDefault(_signinMiddleware);
 
+var _updatePasswordMiddleware = require('../controllers/middlewares/updatePasswordMiddleware');
+
+var _updatePasswordMiddleware2 = _interopRequireDefault(_updatePasswordMiddleware);
+
 var _createGroupMiddleware = require('../controllers/middlewares/createGroupMiddleware');
 
 var _createGroupMiddleware2 = _interopRequireDefault(_createGroupMiddleware);
@@ -48,6 +52,10 @@ var _authenticate = require('../controllers/middlewares/authenticate');
 
 var _authenticate2 = _interopRequireDefault(_authenticate);
 
+var _resetMiddleware = require('../controllers/middlewares/resetMiddleware');
+
+var _resetMiddleware2 = _interopRequireDefault(_resetMiddleware);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -59,7 +67,7 @@ var router = _express2.default.Router();
  */
 router.get('/api/user', _authenticate2.default, _accountController2.default.getAllUsers);
 /**
- * Router for identifying a particular user either by username or email
+ * Router for identifying a particular user either by username, phone number or email
  */
 router.get('/api/user/:identifier', _accountController2.default.getOne);
 /**
@@ -102,5 +110,15 @@ router.get('/api/group/:groupId/messages', _authenticate2.default, _checkUserInG
  * Takes the authenticate, validateUserInput and isGroupMember middlewares
  */
 router.post('/api/group/:groupId/user', _authenticate2.default, _addUserMiddleware2.default.validateUserInput, _checkUserInGroup2.default.isGroupMember, _groupController2.default.addUserToGroup);
+/**
+ * Router for resetting password
+ * Takes a middleware that validates user input
+ */
+router.post('/api/reset', _resetMiddleware2.default.validateUserInput, _accountController2.default.resetPassword);
+/**
+ * Router for updating password field
+ * Takes a middleware that validates user input
+ */
+router.put('/api/user/signup', _updatePasswordMiddleware2.default.validateUserInput, _accountController2.default.updatePassword);
 
 exports.default = router;
