@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userSignupRequest } from '../../actions/signupActions.js';
-import SignupForm from './signup/SignupForm.js';
-
+import PropTypes from 'prop-types';
+import SignupActions from '../../actions/signupActions';
+import SignupForm from './signup/SignupForm';
+/**
+ * SignupPage class
+ */
 class SignupPage extends Component {
 	render() {
-		const { userSignupRequest } = this.props;
+		const { userSignupRequest, isUserExists } = this.props;
 		return (
 			<div className="container">
-			    <div className="welc box" style={{height: "700px"}}>
-				    <SignupForm userSignupRequest={userSignupRequest} />
-			    </div>
+				<SignupForm
+					isUserExists={isUserExists}
+					userSignupRequest={userSignupRequest}
+				/>
 			</div>
 		)
 	}
 }
 
-SignupPage.propTypes = {
-	userSignupRequest: React.PropTypes.func.isRequired
+const dispatchToProps = (dispatch) => {
+  return {
+    userSignupRequest: (userData) => dispatch(SignupActions.userSignupRequest(userData)),
+    isUserExists: (identifier) => dispatch(SignupActions.isUserExists(identifier))
+  }
 }
 
-export default connect(null, { userSignupRequest })(SignupPage);
+export default connect(null, dispatchToProps )(SignupPage);

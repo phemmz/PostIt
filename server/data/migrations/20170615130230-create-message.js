@@ -19,6 +19,9 @@ module.exports = {
       readcheck: {
         type: Sequelize.BOOLEAN
       },
+      messagecreator: {
+        type: Sequelize.TEXT
+      },
       userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE'

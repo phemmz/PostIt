@@ -4,6 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+/**
+ * Message model
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns {*} Message
+ */
 exports.default = function (sequelize, DataTypes) {
   var Message = sequelize.define('Message', {
     content: {
@@ -17,6 +23,7 @@ exports.default = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    messagecreator: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER
   });

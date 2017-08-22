@@ -1,12 +1,22 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _bcryptNodejs = require('bcrypt-nodejs');
 
 var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = function (sequelize, DataTypes) {
+/**
+ * Group model
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns {*} User
+ */
+exports.default = function (sequelize, DataTypes) {
   var User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
@@ -22,15 +32,21 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       len: [5, 30],
       allowNull: false
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    verificationCode: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true
     }
   });
 
-  User.beforeCreate(function (User, options) {
+  User.beforeCreate(function (User) {
     User.password = _bcryptNodejs2.default.hashSync(User.password);
-  });
-
-  User.afterCreate(function (User, options) {
-    // console.log('Account created');
   });
 
   User.associate = function (models) {

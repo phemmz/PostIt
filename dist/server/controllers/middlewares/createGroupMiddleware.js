@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * 
+ * CreateGroupValidations class
  */
 var CreateGroupValidations = function () {
   function CreateGroupValidations() {
@@ -30,8 +30,8 @@ var CreateGroupValidations = function () {
     key: 'validateCreateGroup',
 
     /**
-     * 
-     * @param {object} data 
+     * @param {object} data
+     * @returns {object} errors,isValid
      */
     value: function validateCreateGroup(data) {
       var errors = {};
@@ -49,10 +49,11 @@ var CreateGroupValidations = function () {
       };
     }
     /**
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
+     * validateUserInput()
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @returns {object} json
      */
 
   }, {
