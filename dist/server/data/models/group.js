@@ -1,6 +1,16 @@
 'use strict';
 
-module.exports = function (sequelize, DataTypes) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+/**
+ * Group model
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns {*} Group
+ */
+exports.default = function (sequelize, DataTypes) {
   var Group = sequelize.define('Group', {
     groupname: {
       type: DataTypes.STRING,
@@ -11,7 +21,6 @@ module.exports = function (sequelize, DataTypes) {
   Group.associate = function (models) {
     Group.hasMany(models.Message, {
       foreignKey: 'groupId'
-      // as: 'messages',
     });
     Group.belongsToMany(models.User, {
       foreignKey: 'groupId',

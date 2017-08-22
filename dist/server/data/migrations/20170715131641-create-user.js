@@ -24,6 +24,16 @@ module.exports = {
         len: [5, 30],
         allowNull: false
       },
+      phoneNumber: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
+      verificationCode: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

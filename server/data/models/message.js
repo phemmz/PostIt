@@ -1,3 +1,9 @@
+/**
+ * Message model
+ * @param {*} sequelize
+ * @param {*} DataTypes
+ * @returns {*} Message
+ */
 export default (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
     content: {
@@ -11,6 +17,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    messagecreator: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER
   });

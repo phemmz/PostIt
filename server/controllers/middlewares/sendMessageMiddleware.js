@@ -1,17 +1,18 @@
 import isEmpty from 'lodash/isEmpty';
 
 /**
- *
+ * SendMessageValidations class
  */
 export default class SendMessageValidations {
 /**
- *
+ * validateSendMessage validates user input fields
  * @param {object} data
+ * @returns {object}
  */
   static validateSendMessage(data) {
     const errors = {};
     if (data.content === '' || data.content === null) {
-      errors.username = 'Message content is required';
+      errors.content = 'Message content is required';
     }
     if (!data.content || !data.priority) {
       errors.invalid = 'Please fill the required parameters';
@@ -22,19 +23,14 @@ export default class SendMessageValidations {
     };
   }
 /**
- *
+ * validateUserInput
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
   static validateUserInput(req, res, next) {
     const { errors, isValid } = SendMessageValidations.validateSendMessage(req.body);
-    if (!req.session.username) {
-      res.status(401).json({
-        confirmation: 'fail',
-        message: 'Please sign in'
-      });
-    } else if (!isValid) {
+    if (!isValid) {
       res.status(422).json(errors);
     } else {
       next();

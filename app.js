@@ -3,47 +3,73 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import session from 'express-session';
+import favicon from 'serve-favicon';
 import dotenv from 'dotenv';
 import apiRoutes from './server/routes/apiRoutes';
-import index from './server/routes/index';
 
+/**
+ * configure dotenv to load env variables from .env file into process.env
+ */
 dotenv.config();
 
-// Express app setup
+/**
+ * Create an express application
+ */
 const app = express();
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hjs');
-// Morgan helps log all requests to the console
+
+/**
+ * Create new middleware to serve a favicon from the given path to a favicon file
+ */
+app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')));
+
+/**
+ * Morgan helps log all requests to the console
+ */
 app.use(logger('dev'));
 
-// Parse incoming requests data
+/**
+ * Parse incoming requests data
+ */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+/**
+ * Tells express where to serve static files
+ */
 app.use(express.static(path.join(__dirname, './client/public')));
 
+/**
+ * Use session middleware with the following options
+ * secret: is used to sign the session id cookie
+ * resave: forces the session to be saved back to the session store during requests
+ * saveUninitialized: forces a session that is new but not modified to be saved to the stored
+ */
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
 }));
 
-// Require our routes into the application
-
+/**
+ * Require routes into the application
+ */
 app.use(apiRoutes);
-index(app);
 
-// Setup a default catch-all route that sends back a welcome message in JSON format
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome!!!'
-}));
+/**
+ * Delivers html file
+ * It can be viewed at http://localhost:8000
+ */
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve('./views/index.html'));
+});
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 
+/**
+ * Checks if the parent object of running module is not listening to any port
+ */
 if (!module.parent) {
-  app.listen(port, () => {
-    // console.log('Listening on port 8000...');
-  });
+  app.listen(port);
 }
 
 export default app;

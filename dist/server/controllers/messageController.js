@@ -19,7 +19,7 @@ var User = _models2.default.User;
 var Group = _models2.default.Group;
 
 /**
- * 
+ * MessageController class
  */
 
 var MessageController = function () {
@@ -31,38 +31,51 @@ var MessageController = function () {
     key: 'sendMessage',
 
     /**
-     * 
-     * @param {object} req 
-     * @param {object} res 
+     * sendMessage() sends message to a particular group
+     * @param {object} req
+     * @param {object} res
+     * @return {object} json
      */
     value: function sendMessage(req, res) {
+      /**
+       * Find the particular group by its id
+       */
       Group.findOne({
         where: { id: req.params.groupId }
       }).then(function (group) {
+        /**
+         * Checks if the group exist
+         */
         if (group === null) {
           res.status(404).json({
             confirmation: 'fail',
             message: 'Group does not exist'
           });
         } else {
+          /**
+           * If the group exist,
+           * Find the User
+           */
           User.findOne({
-            where: { username: req.session.username }
+            where: { username: req.currentUser.username }
           }).then(function (user) {
             Message.create({
               content: req.body.content,
               readcheck: req.body.readcheck,
               priority: req.body.priority,
               groupId: req.params.groupId,
+              messagecreator: user.username,
               userId: user.id
-            }).then(function () {
+            }).then(function (message) {
               res.status(201).json({
                 confirmation: 'success',
-                message: 'Message sent'
+                message: 'Message sent',
+                results: message
               });
-            }).catch(function () {
+            }).catch(function (err) {
               res.status(400).json({
                 confirmation: 'fail',
-                message: 'Message failed'
+                message: err
               });
             });
           });
@@ -70,41 +83,35 @@ var MessageController = function () {
       });
     }
     /**
-     * 
-     * @param {object} req 
-     * @param {object} res 
+     * Get all messages in a group
+     * @param {object} req
+     * @param {object} res
+     * @return {object} json
      */
 
   }, {
     key: 'getMessages',
     value: function getMessages(req, res) {
-      if (req.session.username) {
-        Message.findAll({
-          where: { groupId: req.params.groupId }
-        }).then(function (messages) {
-          if (messages.length < 1) {
-            res.status(404).json({
-              confirmation: 'fail',
-              message: 'No message found'
-            });
-          } else {
-            res.status(200).json({
-              confirmation: 'success',
-              results: messages
-            });
-          }
-        }).catch(function (error) {
-          res.json({
+      Message.findAll({
+        where: { groupId: req.params.groupId }
+      }).then(function (messages) {
+        if (messages.length < 1) {
+          res.status(404).json({
             confirmation: 'fail',
-            message: error
+            message: 'No message found'
           });
-        });
-      } else {
-        res.status(401).json({
+        } else {
+          res.status(200).json({
+            confirmation: 'success',
+            results: messages
+          });
+        }
+      }).catch(function (error) {
+        res.json({
           confirmation: 'fail',
-          message: 'You are not logged in'
+          message: error
         });
-      }
+      });
     }
   }]);
 

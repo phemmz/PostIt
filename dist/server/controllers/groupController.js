@@ -31,69 +31,100 @@ var GroupController = function () {
 
     /**
      * This method creates a new group based on some validations
-     * @param {object} req 
-     * @param {object} res 
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json
      */
     value: function createGroup(req, res) {
-      if (req.session.username) {
-        Group.create({
-          groupname: req.body.groupname
-        }).then(function (group) {
-          User.findOne({
-            where: { username: req.session.username }
-          }).then(function (user) {
-            group.addUser(user).then(function () {
-              res.status(201).json({
-                confirmation: 'success',
-                message: req.body.groupname + ' successfully created'
-              });
+      /**
+       * Creates a new group
+       */
+      Group.create({
+        groupname: req.body.groupname.toLowerCase()
+      }).then(function (group) {
+        /**
+         * Query the User model for the current user
+         */
+        User.findOne({
+          where: { username: req.currentUser.username }
+        }).then(function (user) {
+          /**
+           * The user gets added to the group as the group creator
+           */
+          group.addUser(user).then(function () {
+            res.status(201).json({
+              confirmation: 'success',
+              message: req.body.groupname + ' successfully created',
+              result: group
             });
           });
-        }).catch(function () {
-          res.status(409).json({
-            confirmation: 'fail',
-            message: 'That group name already exist'
-          });
         });
-      } else {
-        res.status(401).json({
+      })
+      /**
+       * The catch block catches error if the groupname is not unique
+       */
+      .catch(function () {
+        res.status(409).json({
           confirmation: 'fail',
-          message: 'Please sign in to create a group'
+          message: 'That group name already exist'
         });
-      }
+      });
     }
     /**
      * This method adds a user to a particular group
-     * @param {object} req 
-     * @param {object} res 
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json
      */
 
   }, {
     key: 'addUserToGroup',
     value: function addUserToGroup(req, res) {
+      /**
+       * Finds the particular group by its id
+       */
       Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
+        /**
+         * Checks if the group exist or not
+         */
         if (group === null) {
           res.status(404).json({
             confirmation: 'fail',
             message: 'Group does not exist'
           });
         } else {
+          /**
+           * If the group exists, check if the user is a registered user
+           */
           User.findOne({
             where: { username: req.body.username }
           }).then(function (user) {
+            /**
+             * Returns json object with status 404,
+             * if the user is not a registered user
+             */
             if (user === null) {
               res.status(404).json({
                 confirmation: 'fail',
                 message: 'User does not exist'
               });
             } else {
+              /**
+               * If the user exist,
+               */
               group.addUser(user).then(function (added) {
+                /**
+                 * Checks if the user is already added to the group
+                 */
                 if (added.length === 0) {
                   res.status(400).json({
                     confirmation: 'fail',
                     message: 'User already exists'
                   });
                 } else {
+                  /**
+                   * If not return a json object with status 201
+                   */
                   res.status(201).json({
                     confirmation: 'success',
                     message: 'User added successfully'
@@ -116,50 +147,43 @@ var GroupController = function () {
       });
     }
     /**
-    * 
-    * @param {object} req 
-    * @param {object} res 
-    */
+     * Gets all the group(s) a user belongs to
+     * @param {object} req
+     * @param {object} res
+     */
 
   }, {
     key: 'getGroup',
     value: function getGroup(req, res) {
-      if (req.session.username) {
-        User.findOne({
-          where: { username: req.session.username }
-        }).then(function (user) {
-          user.getGroups({
-            where: {}
-          }).then(function (groups) {
-            if (groups.length < 1) {
-              res.status(200).json({
-                confirmation: 'success',
-                results: 'You currently dont belong to any group'
-              });
-            } else {
-              res.status(200).json({
-                confirmation: 'success',
-                results: groups
-              });
-            }
-          }).catch(function (error) {
+      User.findOne({
+        where: { username: req.currentUser.username }
+      }).then(function (user) {
+        user.getGroups({
+          where: {}
+        }).then(function (groups) {
+          if (groups.length < 1) {
             res.status(404).json({
               confirmation: 'fail',
-              message: error
+              message: 'You currently dont belong to any group'
             });
-          });
+          } else {
+            res.status(200).json({
+              confirmation: 'success',
+              results: groups
+            });
+          }
         }).catch(function (error) {
           res.status(404).json({
             confirmation: 'fail',
             message: error
           });
         });
-      } else {
-        res.status(401).json({
+      }).catch(function (error) {
+        res.status(404).json({
           confirmation: 'fail',
-          message: 'Please log in'
+          message: error
         });
-      }
+      });
     }
   }]);
 

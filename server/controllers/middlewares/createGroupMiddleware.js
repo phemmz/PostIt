@@ -2,12 +2,12 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * 
+ * CreateGroupValidations class
  */
 export default class CreateGroupValidations {
 /**
- * 
- * @param {object} data 
+ * @param {object} data
+ * @returns {object} errors,isValid
  */
   static validateCreateGroup(data) {
     const errors = {};
@@ -25,10 +25,11 @@ export default class CreateGroupValidations {
     };
   }
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * validateUserInput()
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns {object} json
  */
   static validateUserInput(req, res, next) {
     const { errors, isValid } = CreateGroupValidations.validateCreateGroup(req.body);
