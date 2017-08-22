@@ -74,5 +74,9 @@ router.post('/api/reset', ResetValidations.validateUserInput, UserController.res
  * Takes a middleware that validates user input
  */
 router.put('/api/user/signup', UpdatePasswordValidations.validateUserInput, UserController.updatePassword);
+/**
+ * Google callback url.
+ */
+router.post('/api/auth/google', UserController.googleSignup);
 
 export default router;

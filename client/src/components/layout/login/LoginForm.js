@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import GoogleLogin from 'react-google-login';
 import sharedSigninValidations from '../../../../../server/shared/loginValidations';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import AuthenticationActions from '../../../actions/authActions';
@@ -23,6 +24,7 @@ class LoginForm extends Component {
  */
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.responseGoogle = this.responseGoogle.bind(this);
     }
 /**
  * isValid() gets called on login submit and sets any validation errors to the state
@@ -65,6 +67,23 @@ class LoginForm extends Component {
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
+    /**
+     * Gets the userDetails as response from google
+     * @param {*} response 
+     */
+    responseGoogle(response) {
+      const userDetails = {
+        username: response.profileObj.email.substring(0, response.profileObj.email.indexOf('@')),
+        email: response.profileObj.email,
+        password: response.profileObj.googleId,
+        phoneNumber: response.profileObj.googleId
+      };
+      this.props.googleAuthentication(userDetails)
+        .then((res) => {
+          this.context.router.push('/dashboard');
+          Materialize.toast('Welcome!!', 4000, 'green');
+        });
+    }
 
 	render() {
 /**
@@ -72,42 +91,51 @@ class LoginForm extends Component {
  */
     	const { errors, username, password, isLoading } = this.state;
     	return (
-            <div className="container">
-                <div className="row">
-                    <div className="col s12 m6 offset-s7 offset-m6 login">
-                        <form onSubmit={this.onSubmit}>
-                            <h4 className="green-text text-darken-4 login-text">Login</h4>	
-                            {/* renders error messages if there are error messages */}
-                            { errors.message  && <div id="uname-error" className="error">{errors.message}</div> }
-                            <TextFieldGroup 
-                                error={errors.username}
-                                id="username"
-                                onChange={this.onChange}
-                                value={this.state.username}
-                                field="username"
-                                htmlFor="username"
-                                label="Username"
-                            />
-                            <TextFieldGroup 
-                                error={errors.password}
-                                id="password"
-                                onChange={this.onChange}
-                                value={this.state.password}
-                                field="password"
-                                htmlFor="password"
-                                label="Password"
-                                type="password"
-                            />
-                            <div className="center">
-                                <button className="waves-effect waves-light btn">Login</button>
-                            </div>
-                            <div className="center reset-link">
-                                <Link to="/reset">Forgot Password?</Link>
-                            </div>
-                        </form>	
-                    </div>
+        <div className="container">
+          <div className="row">
+            <div className="col s12 m6 offset-s7 offset-m6 login">
+              <div className="right">
+                <GoogleLogin
+                  clientId='484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com'
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseGoogle}
+                  buttonText="Sign in with Google"
+                  className="google-link"
+                />
+              </div>
+              <form onSubmit={this.onSubmit}>
+                <h4 className="green-text text-darken-4 login-text">Login</h4>	
+                {/* renders error messages if there are error messages */}
+                { errors.message  && <div id="uname-error" className="error">{errors.message}</div> }
+                <TextFieldGroup 
+                  error={errors.username}
+                  id="username"
+                  onChange={this.onChange}
+                  value={this.state.username}
+                  field="username"
+                  htmlFor="username"
+                  label="Username"
+                />
+                <TextFieldGroup 
+                  error={errors.password}
+                  id="password"
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  field="password"
+                  htmlFor="password"
+                  label="Password"
+                  type="password"
+                />
+                <div className="center">
+                  <button className="waves-effect waves-light btn">Login</button>
                 </div>
+                <div className="center reset-link">
+                  <Link to="/reset">Forgot Password?</Link>
+                </div>
+              </form>	
             </div>
+          </div>
+        </div>
 		)	
     }
 }
@@ -115,7 +143,8 @@ class LoginForm extends Component {
 
 const dispatchToProps = (dispatch) => {
   return {
-    login: (data) => dispatch(AuthenticationActions.login(data))
+    login: (data) => dispatch(AuthenticationActions.login(data)),
+    googleAuthentication: (userDetails) => dispatch(AuthenticationActions.googleAuthentication(userDetails))
   }
 }
 
