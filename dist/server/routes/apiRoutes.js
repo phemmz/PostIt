@@ -120,5 +120,9 @@ router.post('/api/reset', _resetMiddleware2.default.validateUserInput, _accountC
  * Takes a middleware that validates user input
  */
 router.put('/api/user/signup', _updatePasswordMiddleware2.default.validateUserInput, _accountController2.default.updatePassword);
+/**
+ * Google callback url.
+ */
+router.post('/api/auth/google', _accountController2.default.googleSignup);
 
 exports.default = router;

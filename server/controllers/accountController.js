@@ -81,7 +81,10 @@ export default class UserController {
  */
     User.findAll({
       where: {
-        username: req.body.username
+        $or: [
+          { username: req.body.username },
+          { email: req.body.email }
+        ]
       }
     })
       .then((account) => {
@@ -139,6 +142,45 @@ export default class UserController {
             }
           }
         );
+      });
+  }
+  /**
+   * Checks the email from the google authentication if it exist
+   * If it does, it logs the user in and generate token
+   * else, it creates a new user, with the google details
+   * @param {*} req
+   * @param {*} res
+   * @returns {*} json
+   */
+  static googleSignup(req, res) {
+    User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+      .then((user) => {
+        if (user === null) {
+          UserController.signup(req, res);
+        } else {
+          const token = jwt.sign({
+            username: req.body.username,
+            email: req.body.email,
+          }, process.env.SECRET);
+/**
+ * Returns a json object including the token generated
+ */
+          res.json({
+            confirmation: 'success',
+            message: `${req.body.username} logged in`,
+            token
+          });
+        }
+      })
+      .catch((err) => {
+        res.json({
+          confirmation: 'fail',
+          message: err
+        });
       });
   }
 /**

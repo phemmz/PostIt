@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import GoogleLogin from 'react-google-login';
 import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
 import TextFieldGroup from '../../common/TextFieldGroup';
 /**
@@ -24,6 +25,7 @@ class SignupForm extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
 	}
   /**
    * onChange() gets called when the input fields changes and the change is stored in the state
@@ -90,14 +92,40 @@ class SignupForm extends Component {
       );
     }
   }
+  /**
+   * Gets the userDetails as response from google
+   * @param {*} response 
+   */
+  responseGoogle(response) {
+    const userDetails = {
+      username: response.profileObj.email.substring(0, response.profileObj.email.indexOf('@')),
+      email: response.profileObj.email,
+      password: response.profileObj.googleId,
+      phoneNumber: response.profileObj.googleId
+    }
+    this.props.googleAuthentication(userDetails)
+      .then((res) => {
+        this.context.router.push('/dashboard');
+        Materialize.toast('Welcome!!', 4000, 'green');
+      })
+    }
 
   render() {
     const { errors } = this.state;
     return (
       <div className="row">
         <div className="col s12 m6 offset-m3 signup">
+          <div className="right">
+            <GoogleLogin
+              clientId='484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com'
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              className="google-link"
+              buttonText="Signup with Google"
+            />
+          </div>
           <form onSubmit={this.onSubmit}>
-            <h4 className="green-text text-darken-4">Create An Account</h4>	
+            <h4 className="green-text text-darken-4 valign">Create An Account</h4>	
             <TextFieldGroup 
               error={errors.username}
               id="username"
@@ -153,7 +181,7 @@ class SignupForm extends Component {
             />
             <div className="center">
               <button disabled={ this.state.isLoading || this.state.invalid } className="waves-effect waves-light btn">Sign Up</button>
-            </div>	
+            </div>
           </form>	
         </div>
       </div>

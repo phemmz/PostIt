@@ -42,7 +42,7 @@ exports.default = function (req, res, next) {
       } else {
         User.findOne({
           where: {
-            id: decoded.userId
+            $or: [{ id: decoded.userId }, { email: decoded.email }]
           }
         }).then(function (user) {
           if (!user) {
