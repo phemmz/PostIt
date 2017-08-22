@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import LoginForm from './login/LoginForm';
 
 class LoginPage extends Component {
 	render() {
 		return (
-			<h1>Login Page</h1>
+			<div className="row">
+				<div className="col s6 m9">
+					<LoginForm />
+				</div>
+			</div>
 		)
 	}
 }

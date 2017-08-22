@@ -35,9 +35,10 @@ var should = _chai2.default.should();
 var server = _supertest2.default.agent(_app2.default);
 
 _chai2.default.use(_chaiHttp2.default);
+var token = '';
 
 // Test the POST: /api/user/signup route
-describe('User', function () {
+describe('POSTIT', function () {
   before(function (done) {
     User.sync({ force: true }).then(function () {
       done();
@@ -50,10 +51,9 @@ describe('User', function () {
         username: 'phemzy'
       };
       _chai2.default.request(_app2.default).post('/api/group/1/user').send(addDetails).end(function (err, res) {
-        res.should.have.status(401);
+        res.should.have.status(403);
         res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please sign in to create a group');
+        res.body.should.have.property('error').eql('Please signin/signup');
         done();
       });
     });
@@ -67,8 +67,8 @@ describe('User', function () {
       server.post('/api/user/signup').send(signupDetails).expect(422).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Please fill in your details');
+        res.body.should.have.property('password');
+        res.body.should.have.property('password').eql('Please fill in your password');
         done();
       });
     });
@@ -117,8 +117,8 @@ describe('User', function () {
       server.post('/api/user/signup').send(signupDetails).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('invalid');
-        res.body.should.have.property('invalid').eql('Please fill in your details');
+        res.body.should.have.property('username');
+        res.body.should.have.property('username').eql('Please fill in your username');
         done();
       });
     });
@@ -127,10 +127,9 @@ describe('User', function () {
         groupname: 'sport gist'
       };
       server.post('/api/group').send(groupDetails).end(function (err, res) {
-        res.should.have.status(401);
+        res.should.have.status(403);
         res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please sign in to create a group');
+        res.body.should.have.property('error').eql('Please signin/signup');
         done();
       });
     });
@@ -178,15 +177,15 @@ describe('Group', function () {
     });
   });
   describe('Create Broadcast Group', function () {
-    it('it should not allow users that are not logged in to add new User to a group', function (done) {
+    it('it should not allow user that is not logged in to add new User to a group', function (done) {
       var addDetails = {
         username: 'femo'
       };
       server.post('/api/group/1/user').send(addDetails).end(function (err, res) {
-        res.should.have.status(401);
+        res.should.have.status(403);
         res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please sign in to create a group');
+        res.body.should.have.property('error');
+        res.body.should.have.property('error').eql('Please signin/signup');
         done();
       });
     });
@@ -198,17 +197,7 @@ describe('Group', function () {
       };
       server.post('/api/group/1/message').send(msgDetails).end(function (err, res) {
         res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Please sign in');
-        done();
-      });
-    });
-    it('it should not allow user to post message to group that does not exist', function (done) {
-      server.get('/api/group/3/messages').end(function (err, res) {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('confirmation').eql('fail');
-        res.body.should.have.property('message').eql('Group does not exist');
+        res.body.should.have.property('error').eql('Please signin/signup');
         done();
       });
     });
@@ -250,6 +239,7 @@ describe('Group', function () {
         password: 'douchee'
       };
       server.post('/api/user/signin').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(account).end(function (err, res) {
+        token = res.body.token;
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('success');
@@ -257,11 +247,23 @@ describe('Group', function () {
         done();
       });
     });
+    it('it should not allow logged in users to create broadcast group with an empty string as group name', function (done) {
+      var groupDetails = {
+        groupname: ' '
+      };
+      server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).type('form').send(groupDetails).end(function (err, res) {
+        res.should.have.status(422);
+        res.body.should.be.a('object');
+        res.body.should.have.property('username').eql('Please fill in your groupname');
+        done();
+      });
+    });
+
     it('it should allow logged in users to create broadcast group', function (done) {
       var groupDetails = {
         groupname: 'june fellows'
       };
-      server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(groupDetails).end(function (err, res) {
+      server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).type('form').send(groupDetails).end(function (err, res) {
         res.should.have.status(201);
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('success');
@@ -269,91 +271,74 @@ describe('Group', function () {
         done();
       });
     });
-  });
-  it('it should not allow logged in users to create broadcast group with an empty string as group name', function (done) {
-    var groupDetails = {
-      groupname: ' '
-    };
-    server.post('/api/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(groupDetails).end(function (err, res) {
-      res.should.have.status(422);
-      res.body.should.be.a('object');
-      res.body.should.have.property('username').eql('Please fill in your groupname');
-      done();
+    it('it should not allow logged in users to add a user that already belongs to a group', function (done) {
+      var addDetails = {
+        username: 'phemz1'
+      };
+      server.post('/api/group/1/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).type('form').send(addDetails).end(function (err, res) {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('User already exists');
+        res.body.should.have.property('confirmation').eql('fail');
+        done();
+      });
+    });
+    it('it should not allow logged in users to add new User to a group without providing username', function (done) {
+      var addDetails = {
+        username: ''
+      };
+      server.post('/api/group/1/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(addDetails).end(function (err, res) {
+        res.body.should.be.a('object');
+        done();
+      });
     });
   });
-  it.skip('it should signin a user', function (done) {
-    var account = {
-      username: 'hello000',
-      password: 'douchee'
-    };
-    server.post('/api/user/signin').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(account).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('success');
-      res.body.should.have.property('message');
-      done();
+  // Test the /POST api/group/:id/message
+  describe('/POST/:id Post Message', function () {
+    it('it should not allow a logged in user to POST messages to a group without content', function (done) {
+      var msgDetails = {
+        readcheck: true,
+        priority: 3
+      };
+      server.post('/api/group/2/message').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(msgDetails).end(function (err, res) {
+        res.body.should.be.a('object');
+        res.body.should.have.property('invalid');
+        done();
+      });
     });
-  });
-  it.skip('it should allow logged in users to add new User to a group', function (done) {
-    var addDetails = {
-      username: 'phemz1'
-    };
-    server.post('/api/group/1/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(addDetails).end(function (err, res) {
-      res.should.have.status(201);
-      res.body.should.be.a('object');
-      res.body.should.have.property('message').eql('User added successfully');
-      res.body.should.have.property('confirmation').eql('success');
-      done();
-    });
-  });
-  it('it should not allow logged in users to add new User to a group without providing username', function (done) {
-    var addDetails = {
-      username: ''
-    };
-    _chai2.default.request(_app2.default).post('/api/group/1/user').send(addDetails).end(function (err, res) {
-      res.body.should.be.a('object');
-      done();
-    });
-  });
-});
 
-// Test the /POST api/group/:id/message
-describe('/POST/:id Post Message', function () {
-  it('it should not allow a logged in user to POST messages to a group without content', function (done) {
-    var msgDetails = {
-      readcheck: true,
-      priority: 3
-    };
-    server.post('/api/group/2/message').send(msgDetails).end(function (err, res) {
-      res.body.should.be.a('object');
-      res.body.should.have.property('invalid');
-      done();
+    it('it should  POST messages to a group', function (done) {
+      var msgDetails = {
+        content: 'Manchester united is the best team in the world',
+        readcheck: true,
+        priority: 1
+      };
+      server.post('/api/group/1/message').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(msgDetails).end(function (err, res) {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('success');
+        res.body.should.have.property('message').eql('Message sent');
+        done();
+      });
     });
   });
-
-  it('it should  POST messages to a group', function (done) {
-    var msgDetails = {
-      content: 'Manchester united is the best team in the world',
-      readcheck: true,
-      priority: 1
-    };
-    server.post('/api/group/1/message').send(msgDetails).end(function (err, res) {
-      res.should.have.status(201);
-      res.body.should.be.a('object');
-      res.body.should.have.property('confirmation').eql('success');
-      res.body.should.have.property('message').eql('Message sent');
-      done();
+  // Test the /GET: /api/group/:id/messages route
+  describe('/GET/:id Messages', function () {
+    it('it should GET all messages that have been posted to the group they belong to', function (done) {
+      server.get('/api/group/1/messages').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
     });
-  });
-});
-
-// Test the /GET: /api/group/:id/messages route
-describe('/GET/:id Messages', function () {
-  it('it should GET all messages that have been posted to the group they belong to', function (done) {
-    server.get('/api/group/1/messages').end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      done();
+    it('it should not allow user to post message to group that does not exist', function (done) {
+      server.get('/api/group/3/messages').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Group does not exist');
+        done();
+      });
     });
   });
 });

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import superagent from 'superagent';
 
 export default {
@@ -22,7 +23,7 @@ export default {
   },
 
   post: (url, body, callback) => {
-    superagent
+    axios
       .post(url)
       .send(body)
       .set('Accept', 'application/json')

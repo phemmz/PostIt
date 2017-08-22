@@ -1,12 +1,46 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-
+/**
+ * Group class which extends React.Component
+ */
 class Group extends Component {
+  /**
+   * clickHandler() gets called when the groupname is clicked on
+   */
+	clickHandler(event) {
+    event.preventDefault();
+    /**
+     * Calls the groupClickHandler props and pass the groupId along
+     */
+    this.props.groupClickHandler(event.target.id);
+	}
+
 	render() {
+    /**
+     * Checks if the group is selected or not
+     * and changes its color accordingly
+     */
+		const title = (this.props.isSelected)
+       ?  (
+            <a href="" style={{color: 'red'}}
+              id={ this.props.groupId }
+              onClick={ this.clickHandler.bind(this) }
+            >
+              {this.props.groupPropsObj.groupname}
+            </a>
+          ) :
+          (
+            <a href="" onClick={ this.clickHandler.bind(this) }
+               id = { this.props.groupId }
+            >
+               {this.props.groupPropsObj.groupname}
+            </a>
+          );
 		return(
-			<div>				
-				<span className="z-depth-1 glist" style={{marginRight: 10}}><Link to={"/messageboard/"+this.props.currentGroup.id}><em>Group Name: </em>{this.props.currentGroup.groupname}</Link></span>
-				<span className="z-depth-1 glist" style={{marginLeft: 70, border: 30}}><em>Group Id: </em>{this.props.currentGroup.id}</span>
+			<div>	
+				<p>
+          <span className="z-depth-1">{ title }</span>
+        </p>			
 			</div>
 		)	
 	}
