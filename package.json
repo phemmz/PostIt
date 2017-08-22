@@ -4,7 +4,7 @@
   "description": "A simple application that allows friends and colleagues create groups for notifications",
   "main": "./server/bin/www",
   "scripts": {
-    "db:migrate": "sequelize db:migrate",
+    "db:migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "watch": "webpack -d --watch",
     "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel test/postit.js -d dist/ && babel webpack.config.js -d dist/ --presets es2015",
     "start": "npm run build && nodemon dist/app.js",
