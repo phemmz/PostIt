@@ -77,12 +77,12 @@ class LoginForm extends Component {
         email: response.profileObj.email,
         password: response.profileObj.googleId,
         phoneNumber: response.profileObj.googleId
-      }
+      };
       this.props.googleAuthentication(userDetails)
         .then((res) => {
           this.context.router.push('/dashboard');
           Materialize.toast('Welcome!!', 4000, 'green');
-        })
+        });
     }
 
 	render() {
