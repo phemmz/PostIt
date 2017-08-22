@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER, GET_ALL_USERS, RESET_PASSWORD } from './types';
+import { SET_CURRENT_USER, GET_ALL_USERS } from './types';
 /**
  * AuthenticationActions class
  */
@@ -85,6 +85,29 @@ export default class AuthenticationActions {
         .then((response) => {
           const message = response.data.message;
           return message;
+        });
+    };
+  }
+  /**
+   * sends the userDetails from the react google login to the api
+   * @param {*} userDetails
+   * @returns {*} object
+   */
+  static googleAuthentication(userDetails) {
+    return (dispatch) => {
+      return axios.post('/api/auth/google', userDetails)
+        .then((response) => {
+          const token = response.data.token;
+          /**
+           * this saves the token in the localstorage as a key value object
+           */
+          localStorage.setItem('jwtToken', token);
+          setAuthorizationToken(token);
+          /**
+           * the jwtDecode is a small browser library that helps
+           * decoding JWTs token which are Base64Url encoded
+           */
+          dispatch(AuthenticationActions.setCurrentUser(jwtDecode(token)));
         });
     };
   }
