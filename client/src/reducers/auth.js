@@ -12,6 +12,7 @@ const initialState = {
  * with isAuthenticated and the decoded token
  * @param {*} state
  * @param {*} action
+ * @return {*} state
  */
 export default (state = initialState, action = {}) => {
   switch (action.type) {

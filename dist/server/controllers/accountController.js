@@ -166,7 +166,7 @@ var UserController = function () {
         res.status(401).json({
           errors: {
             confirmation: 'fail',
-            message: 'Login failed'
+            message: 'Invalid Username'
           }
         });
       });
