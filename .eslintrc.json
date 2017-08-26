@@ -1,11 +1,23 @@
 {
   "root": true,
-  "extends": "airbnb-base",
-  "esversion": 6,
+  "extends": "airbnb",
+  "plugins": [
+    "import",
+    "react",
+    "jsx-a11y"
+  ],
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "mocha": true,
+    "jasmine": true
+  },
+  "globals": {
+    "document": true,
+    "Materialize": true,
+    "$": true,
+    "localStorage": true,
+    "window": true
   },
   "rules": {
     "one-var": 0,
@@ -15,14 +27,21 @@
     "no-param-reassign": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
+    "arrow-body-style": ["error", "always"],
     "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-unused-expressions": ["error", {"allowTernary": true}],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
       "requireParamDescription": false,
       "requireReturnDescription": true
     }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": ["**/tests/**"]
+    }],
+    "import/extensions": 0,
+    "class-methods-use-this": ["error", {"exceptMethods": ["searchIndex"]}],
     "require-jsdoc": ["error", {
         "require": {
             "FunctionDeclaration": true,
