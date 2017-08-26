@@ -1,12 +1,17 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TextFieldGroup from '../common/TextFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import SignupActions from '../../actions/signupActions';
 import AuthenticationActions from '../../actions/authActions';
 /**
  * ResetPasswordPage class
  */
 class ResetPasswordPage extends Component {
+  /**
+   * constructor
+   * @params {*} props
+   * @return {*} void
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,19 +20,19 @@ class ResetPasswordPage extends Component {
       invalid: false,
       resetMessage: '',
       isLoading: false
-    }
+    };
     /**
      * This binding is necessary to make `this` work in the callback
      */
     this.onChange = this.onChange.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    const isLoading = false;
   }
   /**
    * onChange gets called when the value of an element has been changed
    * It sets this change into the state
-   * @param {*} e 
+   * @param {*} e
+   * @return {*} void
    */
   onChange(e) {
     this.setState({ [e.target.id]: e.target.value.trim() });
@@ -45,7 +50,7 @@ class ResetPasswordPage extends Component {
     const val = e.target.value;
     if (val !== '') {
       this.props.isUserExists(val).then((res) => {
-        let errors = this.state.errors;
+        const errors = this.state.errors;
         let invalid;
         /**
          * checks if isUserExists returns an object containing that user
@@ -58,13 +63,14 @@ class ResetPasswordPage extends Component {
           invalid = true;
         }
         this.setState({ errors, invalid });
-      })
+      });
     }
   }
   /**
    * onSubmit calls the resetPassword action which sends a mail to the
    * user's email containing verification code and reset link
-   * @param {*} e 
+   * @param {*} e
+   * @return {*} void
    */
   onSubmit(e) {
     /**
@@ -80,57 +86,68 @@ class ResetPasswordPage extends Component {
     this.props.resetPassword(username)
       .then((response) => {
         this.setState({
-          isLoading: false, 
+          isLoading: false,
           resetMessage: response,
           invalid: true
         });
         Materialize.toast('Message Sent to Email', 4000, 'green');
       })
-      .catch((err) => {
+      .catch(() => {
         Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green');
-      })
+      });
   }
-    render() {
-      const { errors, username, resetMessage } = this.state;
-    	return (
-    		<div className="container">
-          <div className="row">
-              <div className="col s12 m6 offset-m3 reset-form">
-                <form onSubmit={ this.onSubmit } >
-                  <h4 className="green-text text-darken-4 login-text">Forgot Your Password?</h4>
-                  { resetMessage && <div className="card col s10 m4 reset-msg">{ resetMessage }</div> }
-                  <TextFieldGroup 
-                    error={ errors.username }
-                    id="username"
-                    onChange={ this.onChange }
-                    value={ this.state.username }
-                    field="username"
-                    htmlFor="username"
-                    label="Username"
-                    type="text"
-                    checkUserExists={ this.checkUserExists }
-                  />
-                  <div className="center">
-                    <button disabled={ this.state.isLoading || this.state.invalid } className="waves-effect waves-light btn">Reset Password</button>
-                  </div>
-                  { this.state.isLoading && 
-                    <div className="center">
-                      <h6>Sending Verification Code to Email...</h6>
-                    </div>
-                  }
-                </form>
+  /**
+   * render
+   * @return {*} void
+   */
+  render() {
+    const { errors, resetMessage } = this.state;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col s12 m6 offset-m3 reset-form">
+            <form onSubmit={this.onSubmit} >
+              <h4 className="green-text text-darken-4 login-text">Forgot Your Password?</h4>
+              { resetMessage && <div className="card col s10 m4 reset-msg">{ resetMessage }</div> }
+              <TextFieldGroup
+                error={errors.username}
+                id="username"
+                onChange={this.onChange}
+                value={this.state.username}
+                field="username"
+                htmlFor="username"
+                label="Username"
+                type="text"
+                checkUserExists={this.checkUserExists}
+              />
+              <div className="center">
+                <button
+                  disabled={this.state.isLoading || this.state.invalid}
+                  className="waves-effect waves-light btn"
+                >Reset Password</button>
               </div>
+              { this.state.isLoading &&
+                <div className="center">
+                  <h6>Sending Verification Code to Email...</h6>
+                </div>
+              }
+            </form>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
-    isUserExists: (identifier) => dispatch(SignupActions.isUserExists(identifier)),
-    resetPassword: (username) => dispatch(AuthenticationActions.resetPassword(username))
-  }
-}
+    isUserExists: (identifier) => {
+      return dispatch(SignupActions.isUserExists(identifier));
+    },
+    resetPassword: (username) => {
+      return dispatch(AuthenticationActions.resetPassword(username));
+    }
+  };
+};
 
-export default connect(null, dispatchToProps )(ResetPasswordPage);
+export default connect(null, dispatchToProps)(ResetPasswordPage);

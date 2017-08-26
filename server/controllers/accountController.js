@@ -138,7 +138,7 @@ export default class UserController {
           {
             errors: {
               confirmation: 'fail',
-              message: 'Login failed'
+              message: 'Invalid Username'
             }
           }
         );

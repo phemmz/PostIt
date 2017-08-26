@@ -1,42 +1,75 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
 import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
-import TextFieldGroup from '../../common/TextFieldGroup';
+import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 /**
  * SignupForm class
  */
 class SignupForm extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			username: '',
+  /**
+   * constructor
+   * @param {*} props
+   * @return {*} void
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
       email: '',
       phoneNumber: '',
-			password: '',
-			passwordConfirmation: '',
-			errors: {},
+      password: '',
+      passwordConfirmation: '',
+      errors: {},
       invalid: false
-		}
+    };
     /**
      * binds onChange, onSubmit and checkUserExists functions to this
      */
-		this.onChange = this.onChange.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
-	}
+  }
   /**
    * onChange() gets called when the input fields changes and the change is stored in the state
+   * @param {*} e
+   * @return {*} void
    */
-	onChange(e) {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  /**
+   * onSubmit() gets called when the user clicks on the signup button
+   * @param {*} e
+   * @return {*} void
+   */
+  onSubmit(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      /**
+       * empties the errors object if there are no validation errors
+       */
+      this.setState({ errors: {} });
+      /**
+       * calls the userSignupRequest action that has been passed down to it through props
+       * from SignupPage component
+       */
+      this.props.userSignupRequest(this.state).then(
+        () => {
+          this.context.router.push('/dashboard');
+          Materialize.toast('Signup Successful!!, Welcome', 4000, 'green');
+        })
+        .catch((err) => {
+          this.setState({ errors: err.response.data });
+        });
+    }
+  }
   /**
    * isValid() gets called on signup submit and sets any validation errors to the state
+   * @return {*} isValid
    */
   isValid() {
     const { errors, isValid } = sharedSignupValidations.commonValidations(this.state);
@@ -48,53 +81,34 @@ class SignupForm extends Component {
   /**
    * checkUserExists() gets called when a user leaves the username and email input field
    * It checks if the user already exist
+   * @param {*} e
+   * @return {*} void
    */
   checkUserExists(e) {
     const field = e.target.name;
     const val = e.target.value.trim();
     if (val !== '') {
       this.props.isUserExists(val).then((res) => {
-        let errors = this.state.errors;
+        const errors = this.state.errors;
         let invalid;
         /**
          * checks if isUserExists returns an object containing that user
          */
         if (res.data.user) {
-          errors[field] = 'Another user exist with this ' + field;
+          errors[field] = `Another user exist with this ${field}`;
           invalid = true;
         } else {
           errors[field] = '';
           invalid = false;
         }
         this.setState({ errors, invalid });
-      })
-    }
-  }
-  /**
-   * onSubmit() gets called when the user clicks on the signup button
-   */
-	onSubmit(e) {
-		e.preventDefault();
-		if (this.isValid()) {
-      /**
-       * empties the errors object if there are no validation errors
-       */
-      this.setState({ errors: {} });
-      /**
-       * calls the userSignupRequest action that has been passed down to it through props
-       * from SignupPage component
-       */
-      this.props.userSignupRequest(this.state).then(
-        (res) => [
-          this.context.router.push('/dashboard'),
-          Materialize.toast('Signup Successful!!, Welcome', 4000, 'green')],
-        (err) => this.setState({ errors: err.response.data })
-      );
+      });
     }
   }
   /**
    * Gets the userDetails as response from google
-   * @param {*} response 
+   * @param {*} response
+   * @return {*} void
    */
   responseGoogle(response) {
     const userDetails = {
@@ -104,12 +118,15 @@ class SignupForm extends Component {
       phoneNumber: response.profileObj.googleId
     };
     this.props.googleAuthentication(userDetails)
-      .then((res) => {
+      .then(() => {
         this.context.router.push('/dashboard');
         Materialize.toast('Welcome!!', 4000, 'green');
       });
   }
-
+/**
+ * render
+ * @return {*} div
+ */
   render() {
     const { errors } = this.state;
     return (
@@ -117,7 +134,7 @@ class SignupForm extends Component {
         <div className="col s12 m6 offset-m3 signup">
           <div className="right">
             <GoogleLogin
-              clientId='484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com'
+              clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               className="google-link"
@@ -125,8 +142,8 @@ class SignupForm extends Component {
             />
           </div>
           <form onSubmit={this.onSubmit}>
-            <h4 className="green-text text-darken-4 valign">Create An Account</h4>	
-            <TextFieldGroup 
+            <h4 className="green-text text-darken-4 valign">Create An Account</h4>
+            <TextFieldGroup
               error={errors.username}
               id="username"
               onChange={this.onChange}
@@ -136,7 +153,7 @@ class SignupForm extends Component {
               label="Username"
               checkUserExists={this.checkUserExists}
             />
-            <TextFieldGroup 
+            <TextFieldGroup
               error={errors.email}
               id="email"
               onChange={this.onChange}
@@ -147,7 +164,7 @@ class SignupForm extends Component {
               type="email"
               checkUserExists={this.checkUserExists}
             />
-            <TextFieldGroup 
+            <TextFieldGroup
               error={errors.phoneNumber}
               id="phoneNumber"
               onChange={this.onChange}
@@ -157,7 +174,7 @@ class SignupForm extends Component {
               label="Phone Number"
               checkUserExists={this.checkUserExists}
             />
-            <TextFieldGroup 
+            <TextFieldGroup
               error={errors.password}
               id="password"
               onChange={this.onChange}
@@ -168,7 +185,7 @@ class SignupForm extends Component {
               type="password"
               checkUserExists={this.checkUserExists}
             />
-            <TextFieldGroup 
+            <TextFieldGroup
               error={errors.passwordConfirmation}
               id="passwordConfirmation"
               onChange={this.onChange}
@@ -180,22 +197,25 @@ class SignupForm extends Component {
               checkUserExists={this.checkUserExists}
             />
             <div className="center">
-              <button disabled={ this.state.isLoading || this.state.invalid } className="waves-effect waves-light btn">Sign Up</button>
+              <button
+                disabled={this.state.isLoading || this.state.invalid}
+                className="waves-effect waves-light btn"
+              >Sign Up</button>
             </div>
-          </form>	
+          </form>
         </div>
       </div>
-    )	
+    );
   }
 }
 
 SignupForm.propTypes = {
-	userSignupRequest: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired 
-}
+  userSignupRequest: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
+};
 
 SignupForm.contextTypes = {
   router: PropTypes.object.isRequired
-}
+};
 
-export default SignupForm
+export default SignupForm;
