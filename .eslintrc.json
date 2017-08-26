@@ -19,6 +19,13 @@
     "localStorage": true,
     "window": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx"]
+      }
+    }
+  },
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,
