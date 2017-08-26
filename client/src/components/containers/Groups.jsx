@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { Group, GroupHeader, SearchButton, PreLoader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
@@ -57,11 +56,11 @@ class Groups extends Component {
    * @return {*} li
    */
   render() {
-    $('.tooltipped').tooltip({ delay: 30 });
-    const listItems = this.props.groupList.map((group) => {
+    $('.tooltipped').tooltip();
+    const listItems = this.props.groupList.map((group, index) => {
       const selected = (group.id === Number(this.props.selectedGroup));
       return (
-        <li className="each-group" key={group.id}>
+        <li className="each-group" key={index}>
           <Group
             groupPropsObj={group}
             groupClickHandler={this.groupClickHandler}

@@ -47,7 +47,10 @@ class Messages extends Component {
    * @return {*} void
    */
   componentWillReceiveProps(nxtProps) {
-    if (nxtProps.selectedGroup !== this.state.selectedGroupId) {
+    if (nxtProps.selectedGroup !== this.props.selectedGroup) {
+      this.setState({
+        errors: {}
+      });
       /**
        * The groupMessages action gets fired here
        * and the groupId of the group selected is passed along
@@ -55,7 +58,6 @@ class Messages extends Component {
       this.props.groupMessages(nxtProps.selectedGroup).then((results) => {
         const groupName = this.groupName(nxtProps.selectedGroup);
         this.setState({
-          errors: {},
           selectedGroupId: nxtProps.selectedGroup,
           groupName,
           list: results

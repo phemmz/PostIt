@@ -32791,8 +32791,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(18);
 
-var _reactRouter = __webpack_require__(21);
-
 var _propTypes = __webpack_require__(24);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -32882,12 +32880,12 @@ var Groups = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      $('.tooltipped').tooltip({ delay: 30 });
-      var listItems = this.props.groupList.map(function (group) {
+      $('.tooltipped').tooltip();
+      var listItems = this.props.groupList.map(function (group, index) {
         var selected = group.id === Number(_this2.props.selectedGroup);
         return _react2.default.createElement(
           'li',
-          { className: 'each-group', key: group.id },
+          { className: 'each-group', key: index },
           _react2.default.createElement(_presentation.Group, {
             groupPropsObj: group,
             groupClickHandler: _this2.groupClickHandler,
@@ -34849,7 +34847,10 @@ var Messages = function (_Component) {
     value: function componentWillReceiveProps(nxtProps) {
       var _this2 = this;
 
-      if (nxtProps.selectedGroup !== this.state.selectedGroupId) {
+      if (nxtProps.selectedGroup !== this.props.selectedGroup) {
+        this.setState({
+          errors: {}
+        });
         /**
          * The groupMessages action gets fired here
          * and the groupId of the group selected is passed along
@@ -34857,7 +34858,6 @@ var Messages = function (_Component) {
         this.props.groupMessages(nxtProps.selectedGroup).then(function (results) {
           var groupName = _this2.groupName(nxtProps.selectedGroup);
           _this2.setState({
-            errors: {},
             selectedGroupId: nxtProps.selectedGroup,
             groupName: groupName,
             list: results

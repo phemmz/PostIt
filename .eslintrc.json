@@ -16,7 +16,8 @@
     "document": true,
     "Materialize": true,
     "$": true,
-    "localStorage": true
+    "localStorage": true,
+    "window": true
   },
   "rules": {
     "one-var": 0,
