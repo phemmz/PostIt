@@ -1,7 +1,7 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TextFieldGroup from '../common/TextFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import SignupActions from '../../actions/signupActions';
 import sharedResetValidations from '../../../../server/shared/resetValidations';
 
@@ -9,6 +9,11 @@ import sharedResetValidations from '../../../../server/shared/resetValidations';
  * CheckVerificationPage
  */
 class CheckVerificationPage extends Component {
+  /**
+   * constructor
+   * @param {*} props
+   * @return {*} void
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -19,24 +24,25 @@ class CheckVerificationPage extends Component {
       verificationStatus: false,
       password: '',
       passwordConfirmation: ''
-    }
+    };
     /**
      * This binding is necessary to make `this` work in the callback
      */
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.checkVerificationCode = this.checkVerificationCode.bind(this);
-    this.updatePassword = this.updatePassword.bind(this)
+    this.updatePassword = this.updatePassword.bind(this);
   }
   /**
    * onChange gets called when the value of an element has been changed
    * It sets this change into the state
    * It also sets invalid to false and then empties the errors object
-   * @param {*} e 
+   * @param {*} e
+   * @return {*} void
    */
   onChange(e) {
     this.setState(
-      { 
+      {
         [e.target.id]: e.target.value.trim(),
         invalid: false,
         errors: {}
@@ -44,37 +50,11 @@ class CheckVerificationPage extends Component {
     );
   }
   /**
-   * updatePassword updates the state when there is any change
-   * on the value of the input fields of password and password confirmation
-   * @param {*} e 
-   */
-  updatePassword(e) {
-    this.setState({
-      [e.target.id]: e.target.value.trim()
-    });
-  }
-  
-  /**
-   * isValid() does a client side validations on password and 
-   * password confirmation input fields.
-   */
-  isValid() {
-    const { errors, isValid } = sharedResetValidations.commonValidations(
-      { 
-        password: this.state.password,
-        passwordConfirmation: this.state.passwordConfirmation
-      }
-    );
-    if (!isValid) {
-      this.setState({ errors });
-    }
-    return isValid;
-  }
-  /**
    * calls the action that reset the password on submit
    * it calls the validation function first before performing
    * any submit action
-   * @param {*} e 
+   * @param {*} e
+   * @return {*} void
    */
   onSubmit(e) {
     /**
@@ -107,11 +87,41 @@ class CheckVerificationPage extends Component {
         });
     }
   }
+
+  /**
+   * updatePassword updates the state when there is any change
+   * on the value of the input fields of password and password confirmation
+   * @param {*} e
+   * @return {*} void
+   */
+  updatePassword(e) {
+    this.setState({
+      [e.target.id]: e.target.value.trim()
+    });
+  }
+  /**
+   * isValid() does a client side validations on password and
+   * password confirmation input fields.
+   * @return {*} void
+   */
+  isValid() {
+    const { errors, isValid } = sharedResetValidations.commonValidations(
+      {
+        password: this.state.password,
+        passwordConfirmation: this.state.passwordConfirmation
+      }
+    );
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
   /**
    * This is where the verification code entered by the user gets verified
    * An action is fired that checks if this verification code is the same as
    * the one generated in the api
-   * @param {*} e 
+   * @param {*} e
+   * @return {*} void
    */
   checkVerificationCode(e) {
     e.preventDefault();
@@ -120,7 +130,7 @@ class CheckVerificationPage extends Component {
       .then((response) => {
         if (Object.keys(response.data).length === 0) {
           this.setState({
-            errors: { 
+            errors: {
               verificationCode: 'Wrong verification code'
             },
             invalid: true
@@ -132,20 +142,23 @@ class CheckVerificationPage extends Component {
           });
           Materialize.toast('Verification Code Accepted ', 4000, 'green');
         }
-      })
+      });
   }
-
+/**
+ * render
+ * @return {*} void
+ */
   render() {
-    const { errors, resetMessage, verificationStatus } = this.state;
+    const { errors, verificationStatus } = this.state;
     let content = null;
-    if ( verificationStatus ) {
-      content = 
-        <div className="container">
+    if (verificationStatus) {
+      content =
+        (<div className="container">
           <div className="row">
             <div className="col s8 m6 offset-s2 offset-m3 reset-form reset-height">
               <form onSubmit={this.onSubmit}>
                 <h4 className="green-text text-darken-4 login-text">Enter New Password</h4>
-                <TextFieldGroup 
+                <TextFieldGroup
                   error={errors.password}
                   id="password"
                   onChange={this.updatePassword}
@@ -155,7 +168,7 @@ class CheckVerificationPage extends Component {
                   label="Password"
                   type="password"
                 />
-                <TextFieldGroup 
+                <TextFieldGroup
                   error={errors.passwordConfirmation}
                   id="passwordConfirmation"
                   onChange={this.updatePassword}
@@ -166,20 +179,23 @@ class CheckVerificationPage extends Component {
                   type="password"
                 />
                 <div className="center">
-                  <button disabled={ this.state.invalid } className="waves-effect waves-light btn">Reset Password</button>
+                  <button
+                    disabled={this.state.invalid}
+                    className="waves-effect waves-light btn"
+                  >Reset Password</button>
                 </div>
               </form>
             </div>
           </div>
-        </div>
+        </div>);
     } else {
-      content = 
-        <div className="container">
+      content =
+        (<div className="container">
           <div className="row">
             <div className="col s8 m6 offset-s2 offset-m3 reset-form">
               <form onSubmit={this.checkVerificationCode}>
                 <h4 className="green-text text-darken-4 login-text">Enter Verification Code</h4>
-                <TextFieldGroup 
+                <TextFieldGroup
                   error={errors.verificationCode}
                   id="verificationCode"
                   onChange={this.onChange}
@@ -190,12 +206,15 @@ class CheckVerificationPage extends Component {
                   type="text"
                 />
                 <div className="center">
-                  <button disabled={ this.state.invalid } className="waves-effect waves-light btn">Submit</button>
+                  <button
+                    disabled={this.state.invalid}
+                    className="waves-effect waves-light btn"
+                  >Submit</button>
                 </div>
               </form>
             </div>
           </div>
-        </div>
+        </div>);
     }
     return content;
   }
@@ -203,13 +222,17 @@ class CheckVerificationPage extends Component {
 
 CheckVerificationPage.contextTypes = {
   router: PropTypes.object.isRequired
-}
+};
 
 const dispatchToProps = (dispatch) => {
   return {
-    isUserExists: (identifier) => dispatch(SignupActions.isUserExists(identifier)),
-    updatePassword: (newUser) => dispatch(SignupActions.updatePassword(newUser))
-  }
-}
+    isUserExists: (identifier) => {
+      return dispatch(SignupActions.isUserExists(identifier));
+    },
+    updatePassword: (newUser) => {
+      return dispatch(SignupActions.updatePassword(newUser));
+    }
+  };
+};
 
-export default connect(null, dispatchToProps )(CheckVerificationPage);
+export default connect(null, dispatchToProps)(CheckVerificationPage);

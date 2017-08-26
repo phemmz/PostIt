@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER, SEND_MESSAGE } from './types';
+import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, APPLICATION_STATE, ADD_USER } from './types';
 /**
  * GroupActions class
  */
@@ -67,24 +67,6 @@ export default class GroupActions {
     };
   }
   /**
-   * Gets the messages in a group
-   * @param {integer} groupId
-   * @returns {object} type, groups
-   */
-  static groupMessages(groupId) {
-    return (dispatch) => {
-      return axios.get(`api/group/${groupId}/messages`)
-        .then((response) => {
-          const messages = response.data.results;
-          dispatch({
-            type: GROUP_MESSAGES,
-            messages
-          });
-          return messages;
-        });
-    };
-  }
-  /**
    * @description Adds user to a group
    * @param {integer} groupId
    * @param {object} userAdded
@@ -98,24 +80,6 @@ export default class GroupActions {
             type: ADD_USER,
             addUser: response.data.results
           });
-        });
-    };
-  }
-  /**
-   * @description postMessage is the action that sends
-   * a message to a particular group
-   * @param {*} groupId
-   * @param {*} message
-   */
-  static postMessage(groupId, message) {
-    return (dispatch) => {
-      return axios.post(`api/group/${groupId}/message`, message)
-        .then((response) => {
-          dispatch({
-            type: SEND_MESSAGE,
-            message: response.data.results
-          });
-          return response.data.results;
         });
     };
   }
