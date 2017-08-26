@@ -8,8 +8,15 @@ h1, h2, h3, h4, h5, h6, p {
   font-family: 'Cinzel', serif;
   padding-top: 10px; }
 
+a {
+  font-family: 'Cinzel', serif; }
+
 .nav-anchor {
   font-family: 'Cinzel', serif; }
+
+.snav {
+  font-size: 25px !important;
+  color: white !important; }
 
 .my-preloader {
   margin-top: 100px; }
@@ -105,7 +112,8 @@ body {
   font-family: 'Cinzel', serif; }
 
 .add-group {
-  color: silver; }
+  color: silver;
+  padding-left: 10px; }
 
 .modal-overlay {
   display: none !important; }
@@ -116,12 +124,10 @@ body {
 
 #msg-header {
   height: 50px;
-  width: 70%;
-  position: fixed;
   z-index: 999; }
 
-.msg-position {
-  margin-top: 50px; }
+#user-size {
+  font-size: 12px; }
 
 #welcome-header {
   height: 50px; }
@@ -154,6 +160,21 @@ body {
   background-color: white;
   opacity: 0.9;
   height: 650px; }
+
+.each-group {
+  list-style-type: none; }
+
+.groupname-anchor {
+  padding-left: 10px;
+  font-size: 18px; }
+
+@media (max-width: 400px) {
+  .groupname-anchor {
+    padding-left: 5px;
+    font-size: 15px; }
+  .each-group {
+    list-style-type: none;
+    margin-left: 5px !important; } }
 
 footer {
   background-color: #333;
@@ -283,13 +304,40 @@ main {
 .groupdetails-nav {
   background-color: #76323F;
   width: 320px;
-  height: 550px;
+  height: 565px;
   top: auto; }
 
 #sidenav-overlay {
   display: none !important; }
 
 .group-details {
-  color: #1B5E20; }
+  color: #1B5E20;
+  padding-left: 10px; }
+
+.date-msg-position {
+  font-family: 'Cinzel', serif;
+  display: inline;
+  font-size: 12px; }
+
+.msg-content {
+  display: block; }
+
+.date-pad {
+  margin-right: 10px; }
+
+#msg-creator {
+  font-family: 'Cinzel', serif; }
+
+.wordwrap {
+  white-space: pre-wrap;
+  /* Webkit */
+  white-space: -moz-pre-wrap;
+  /* Firefox */
+  white-space: -pre-wrap;
+  /* Opera <7 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* IE */ }
 
 /*# sourceMappingURL=bundle.map*/
