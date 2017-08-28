@@ -10,10 +10,10 @@ const Home = () => {
   return (
     <div className="container-fluid">
       <div className="row dashboard-layout">
-        <div className="col s5 m3 group">
+        <div className="col s6 m2 group">
           <Groups />
         </div>
-        <div className="col s7 m9 messages">
+        <div className="col s6 m10 messages">
           <Messages />
         </div>
       </div>

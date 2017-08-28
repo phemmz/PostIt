@@ -48,6 +48,10 @@ h3 {
   opacity: 0.9;
 }
 
+.custom {
+  height: auto;
+}
+
 .btn-group {
   margin-right: 10px;
 }
@@ -204,6 +208,10 @@ body {
   list-style-type: none;
 }
 
+.mark-btn {
+  margin-right: 15px;
+}
+
 .groupname-anchor {
   padding-left: 10px;
   font-size: 18px;
@@ -243,6 +251,33 @@ body {
  main {
      flex: 1 0 auto;
  }
+
+.myBell {
+  font-size: 25px;
+  padding-left: 5px;
+  color: $primary-color;
+}
+
+.onNotification {
+  color: red;
+}
+
+.bellInfo {
+  border-radius: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 1px;
+  height: 23px;
+  background-color: #e53935;
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
+
+#mobileBell {
+  top: -2px;
+  left: -10px;
+}
 
 .post {
 	font-weight: bold;
@@ -333,6 +368,10 @@ body {
  height: 670px;
 }
 
+.orderedList {
+  padding-left: 20px;
+}
+
 .msgform {
   margin: -19rem 0 2rem 50rem;
   height: 500px;
@@ -369,8 +408,8 @@ body {
 
 .groupdetails-nav {
   background-color: #76323F;
-  width: 320px;
-  height: 565px;
+  width: 210px;
+  height: 625px;
   top: auto;
 }
 

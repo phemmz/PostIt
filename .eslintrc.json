@@ -17,7 +17,8 @@
     "Materialize": true,
     "$": true,
     "localStorage": true,
-    "window": true
+    "window": true,
+    "io": true
   },
   "settings": {
     "import/resolver": {

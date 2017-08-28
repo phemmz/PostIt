@@ -30,7 +30,6 @@ class NavigationBar extends Component {
    */
   render() {
     const { isAuthenticated } = this.props.auth;
-
     const userLinks = (
       <div>
         <ul className="right hide-on-med-and-down lgout">
@@ -46,6 +45,13 @@ class NavigationBar extends Component {
           <li><a href="./home" className="waves-effect waves-light btn">Home</a></li>
           <li><a href="./dashboard" className="waves-effect waves-light btn">Dashboard</a></li>
           <li><a href="./users" className="waves-effect waves-light btn">Users</a></li>
+          <li>
+            <a
+              href=""
+              onClick={this.logout}
+              className="waves-effect waves-light btn"
+            >Logout</a>
+          </li>
         </ul>
       </div>
     );
@@ -78,7 +84,7 @@ class NavigationBar extends Component {
                       <img
                         className="postlogo"
                         src="https://www.freelogoservices.com/api/main/images/1j+ojl1FOMkX9WypfBe43D6kjfaDpR5KmB...JwXs1M3EMoAJtlSAsgfNr...f4+"
-                        alt="postit logo"
+                        alt="postit"
                       />
                     </Link>
                     <a
@@ -102,7 +108,7 @@ class NavigationBar extends Component {
 
 const stateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 };
 

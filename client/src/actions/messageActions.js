@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GROUP_MESSAGES, SEND_MESSAGE } from './types';
+import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION } from './types';
 /**
  * MessageActions class
  */
@@ -39,6 +39,30 @@ export default class MessageActions {
           });
           return response.data.results;
         });
+    };
+  }
+  /**
+   * Add notification
+   * @param {string} notification
+   * @returns {object} type, groups
+   */
+  static addNotification(notification) {
+    return (dispatch) => {
+      dispatch({
+        type: ADD_NOTIFICATION,
+        notification
+      });
+    };
+  }
+  /**
+   * Clears notification
+   * @returns {*} void
+   */
+  static clearNotification() {
+    return (dispatch) => {
+      dispatch({
+        type: CLEAR_NOTIFICATION
+      });
     };
   }
 }
