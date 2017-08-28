@@ -19,7 +19,7 @@ const GroupHeader = ({ notifications }) => {
           </Link>
           { (notifications.length !== 0) ?
             (
-              <Link to="/notification" className="myBell onNotification">
+              <Link to="/notification" className="mybell on-notification">
                 <i
                   className="fa fa-bell-o tooltipped"
                   data-tooltip="You have new Notification(s)"
@@ -28,7 +28,7 @@ const GroupHeader = ({ notifications }) => {
               </Link>
             ) :
             (
-              <Link to="/notification" className="myBell">
+              <Link to="/notification" className="mybell">
                 <i
                   className="fa fa-bell-o tooltipped"
                   data-tooltip="No new Notification"

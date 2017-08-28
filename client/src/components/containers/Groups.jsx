@@ -120,7 +120,7 @@ class Groups extends Component {
                 />
                 <hr />
                 <div className="scrbar">
-                  <ol className="orderedList">
+                  <ol className="ordered-list">
                     {listItems}
                   </ol>
                 </div>

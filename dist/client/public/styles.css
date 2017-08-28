@@ -202,28 +202,13 @@ footer {
 main {
   flex: 1 0 auto; }
 
-.myBell {
+.mybell {
+  color: silver;
   font-size: 25px;
-  padding-left: 5px;
-  color: silver; }
+  padding-left: 5px; }
 
-.onNotification {
-  color: red; }
-
-.bellInfo {
-  border-radius: 10px;
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-bottom: 1px;
-  height: 23px;
-  background-color: #e53935;
-  position: relative;
-  top: -10px;
-  left: -10px; }
-
-#mobileBell {
-  top: -2px;
-  left: -10px; }
+.on-notification {
+  color: #ff0000; }
 
 .post {
   font-weight: bold;
@@ -302,7 +287,7 @@ main {
   margin: 0px;
   height: 670px; }
 
-.orderedList {
+.ordered-list {
   padding-left: 20px; }
 
 .msgform {
@@ -335,9 +320,9 @@ main {
 
 .groupdetails-nav {
   background-color: #76323F;
-  width: 210px;
   height: 625px;
-  top: auto; }
+  top: auto;
+  width: 210px; }
 
 #sidenav-overlay {
   display: none !important; }
