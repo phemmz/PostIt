@@ -5,7 +5,7 @@ import { Link } from 'react-router';
  * Home
  * @return {*} div
  */
-const GroupHeader = () => {
+const GroupHeader = ({ notifications }) => {
   return (
     <div className="row">
       <div className="col s12">
@@ -17,6 +17,26 @@ const GroupHeader = () => {
               aria-hidden="true"
             />
           </Link>
+          { (notifications.length !== 0) ?
+            (
+              <Link to="/notification" className="mybell on-notification">
+                <i
+                  className="fa fa-bell-o tooltipped"
+                  data-tooltip="You have new Notification(s)"
+                  aria-hidden="true"
+                />
+              </Link>
+            ) :
+            (
+              <Link to="/notification" className="mybell">
+                <i
+                  className="fa fa-bell-o tooltipped"
+                  data-tooltip="No new Notification"
+                  aria-hidden="true"
+                />
+              </Link>
+            )
+          }
         </h5>
       </div>
     </div>

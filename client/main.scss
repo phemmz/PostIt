@@ -1,4 +1,5 @@
 $primary-color: silver;
+$bell-color: #ff0000;
 
 .container-fluid {
   padding: 0;
@@ -46,6 +47,10 @@ h3 {
 .card {
   height: 250px;
   opacity: 0.9;
+}
+
+.custom {
+  height: auto;
 }
 
 .btn-group {
@@ -204,6 +209,10 @@ body {
   list-style-type: none;
 }
 
+.mark-btn {
+  margin-right: 15px;
+}
+
 .groupname-anchor {
   padding-left: 10px;
   font-size: 18px;
@@ -243,6 +252,16 @@ body {
  main {
      flex: 1 0 auto;
  }
+
+.mybell {
+  color: $primary-color;
+  font-size: 25px;
+  padding-left: 5px;
+}
+
+.on-notification {
+  color: $bell-color;
+}
 
 .post {
 	font-weight: bold;
@@ -333,6 +352,10 @@ body {
  height: 670px;
 }
 
+.ordered-list {
+  padding-left: 20px;
+}
+
 .msgform {
   margin: -19rem 0 2rem 50rem;
   height: 500px;
@@ -369,9 +392,9 @@ body {
 
 .groupdetails-nav {
   background-color: #76323F;
-  width: 320px;
-  height: 565px;
+  height: 625px;
   top: auto;
+  width: 210px;
 }
 
 #sidenav-overlay {

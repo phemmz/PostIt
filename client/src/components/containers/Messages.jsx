@@ -5,6 +5,8 @@ import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
 import AuthenticationActions from '../../actions/authActions';
 
+const socket = io();
+
 /**
  * Messages class
  */
@@ -39,6 +41,16 @@ class Messages extends Component {
     this.props.getUsers();
   }
   /**
+   * componentDidMount
+   * @return {*} void
+   */
+  componentDidMount() {
+    socket.on('newMsg', (notification) => {
+      this.props.addNotification(notification);
+      Materialize.toast(notification, 4000, 'green');
+    });
+  }
+  /**
    * @description this is called if there is change in props
    * it checks if selectedGroup of next props is different from
    * selectedGroupId of the state before calling setState
@@ -47,10 +59,10 @@ class Messages extends Component {
    * @return {*} void
    */
   componentWillReceiveProps(nxtProps) {
+    this.setState({
+      errors: {}
+    });
     if (nxtProps.selectedGroup !== this.props.selectedGroup) {
-      this.setState({
-        errors: {}
-      });
       /**
        * The groupMessages action gets fired here
        * and the groupId of the group selected is passed along
@@ -80,6 +92,9 @@ class Messages extends Component {
  * @return {*} void
  */
   sendMessage(message) {
+    this.setState({
+      errors: {}
+    });
     const groupId = this.props.selectedGroup;
     this.props.sendMessage(groupId, message)
       .then((response) => {
@@ -130,13 +145,13 @@ class Messages extends Component {
  * @return {*} li
  */
   messageList() {
-    return this.state.list.map(message => (
-      <li key={message.id}>
+    return this.state.list.map((message) => {
+      return (<li key={message.id}>
         <Message
           currentMessage={message}
         />
-      </li>
-    ));
+      </li>);
+    });
   }
 /**
  * @description groupPicked returns an array of the group selected
@@ -254,7 +269,7 @@ const stateToProps = (state) => {
     selectedGroup: state.groupReducer.selectedGroup,
     appStatus: state.groupReducer.appStatus,
     appUsers: state.userReducer.users,
-    currentUser: state.auth.user
+    currentUser: state.auth.user,
   };
 };
 
@@ -271,6 +286,9 @@ const dispatchToProps = (dispatch) => {
     },
     sendMessage: (groupId, message) => {
       return dispatch(MessageActions.postMessage(groupId, message));
+    },
+    addNotification: (notification) => {
+      return dispatch(MessageActions.addNotification(notification));
     }
   };
 };

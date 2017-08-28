@@ -11,7 +11,7 @@ const SearchButton = () => {
       <Link
         to=""
         className="searchbtn waves-effect waves-light btn center"
-      >Search for users</Link>
+      >Search</Link>
     </div>
   );
 };

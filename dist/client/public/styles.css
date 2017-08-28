@@ -36,6 +36,9 @@ h3 {
   height: 250px;
   opacity: 0.9; }
 
+.custom {
+  height: auto; }
+
 .btn-group {
   margin-right: 10px; }
 
@@ -164,6 +167,9 @@ body {
 .each-group {
   list-style-type: none; }
 
+.mark-btn {
+  margin-right: 15px; }
+
 .groupname-anchor {
   padding-left: 10px;
   font-size: 18px; }
@@ -195,6 +201,14 @@ footer {
 
 main {
   flex: 1 0 auto; }
+
+.mybell {
+  color: silver;
+  font-size: 25px;
+  padding-left: 5px; }
+
+.on-notification {
+  color: #ff0000; }
 
 .post {
   font-weight: bold;
@@ -273,6 +287,9 @@ main {
   margin: 0px;
   height: 670px; }
 
+.ordered-list {
+  padding-left: 20px; }
+
 .msgform {
   margin: -19rem 0 2rem 50rem;
   height: 500px;
@@ -303,9 +320,9 @@ main {
 
 .groupdetails-nav {
   background-color: #76323F;
-  width: 320px;
-  height: 565px;
-  top: auto; }
+  height: 625px;
+  top: auto;
+  width: 210px; }
 
 #sidenav-overlay {
   display: none !important; }

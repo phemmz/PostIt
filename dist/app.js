@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.io = undefined;
 
 var _express = require('express');
 
@@ -31,6 +32,14 @@ var _serveFavicon2 = _interopRequireDefault(_serveFavicon);
 var _dotenv = require('dotenv');
 
 var _dotenv2 = _interopRequireDefault(_dotenv);
+
+var _socket = require('socket.io');
+
+var _socket2 = _interopRequireDefault(_socket);
+
+var _http = require('http');
+
+var _http2 = _interopRequireDefault(_http);
 
 var _apiRoutes = require('./server/routes/apiRoutes');
 
@@ -94,13 +103,37 @@ app.get('/*', function (req, res) {
   res.sendFile(_path2.default.resolve('./views/index.html'));
 });
 
+var httpServer = _http2.default.Server(app);
+/**
+ * Create a new socketio instance which is attached to the httpserver
+ */
+var io = exports.io = (0, _socket2.default)(httpServer);
+app.io = io;
+var clients = 0;
+/**
+ * The io.on event handler handles connection, disconnection, etc
+ * It handles these events, using the socket object.
+ * Whenever someone connects io.on gets executed
+ */
+io.on('connection', function (socket) {
+  clients += 1;
+  socket.emit('newClientConnect', { description: 'Hey, welcome!' });
+  socket.broadcast.emit('newClientConnect', { description: clients + ' clients connected!' });
+  /**
+   * Whenever someone disconnects this piece of code executed
+   */
+  socket.on('disconnect', function () {
+    clients -= 1;
+    socket.broadcast.emit('newClientConnect', { description: clients + ' clients connected!' });
+  });
+});
 var port = parseInt(process.env.PORT, 10) || 8000;
 
 /**
  * Checks if the parent object of running module is not listening to any port
  */
 if (!module.parent) {
-  app.listen(port);
+  httpServer.listen(port);
 }
 
 exports.default = app;
