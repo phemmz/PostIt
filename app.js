@@ -5,6 +5,8 @@ import path from 'path';
 import session from 'express-session';
 import favicon from 'serve-favicon';
 import dotenv from 'dotenv';
+import socketio from 'socket.io';
+import http from 'http';
 import apiRoutes from './server/routes/apiRoutes';
 
 /**
@@ -63,13 +65,37 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve('./views/index.html'));
 });
 
+const httpServer = http.Server(app);
+/**
+ * Create a new socketio instance which is attached to the httpserver
+ */
+export const io = socketio(httpServer);
+app.io = io;
+let clients = 0;
+/**
+ * The io.on event handler handles connection, disconnection, etc
+ * It handles these events, using the socket object.
+ * Whenever someone connects io.on gets executed
+ */
+io.on('connection', (socket) => {
+  clients += 1;
+  socket.emit('newClientConnect', { description: 'Hey, welcome!' });
+  socket.broadcast.emit('newClientConnect', { description: `${clients} clients connected!` });
+  /**
+   * Whenever someone disconnects this piece of code executed
+   */
+  socket.on('disconnect', () => {
+    clients -= 1;
+    socket.broadcast.emit('newClientConnect', { description: `${clients} clients connected!` });
+  });
+});
 const port = parseInt(process.env.PORT, 10) || 8000;
 
 /**
  * Checks if the parent object of running module is not listening to any port
  */
 if (!module.parent) {
-  app.listen(port);
+  httpServer.listen(port);
 }
 
 export default app;

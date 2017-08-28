@@ -49,6 +49,7 @@ export default class MessageController {
                   userId: user.id
                 })
                   .then((message) => {
+                    req.app.io.emit('newMsg', `New message from ${message.messagecreator} in ${group.groupname} group`);
                     res.status(201).json({
                       confirmation: 'success',
                       message: 'Message sent',

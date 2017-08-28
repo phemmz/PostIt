@@ -96,7 +96,9 @@ class Groups extends Component {
         <div className="row" style={{ marginBottom: 0 }}>
           <div className="col s12 m12" style={{ paddingLeft: 0 }}>
             <div className="container-fluid">
-              <GroupHeader />
+              <GroupHeader
+                notifications={this.props.notifications}
+              />
               <hr />
               <div className="scrbar center">
                 <h4>You currently dont belong to any group</h4>
@@ -113,10 +115,12 @@ class Groups extends Component {
           <div className="row">
             <div className="col s12 m12">
               <div className="container-fluid">
-                <GroupHeader />
+                <GroupHeader
+                  notifications={this.props.notifications}
+                />
                 <hr />
                 <div className="scrbar">
-                  <ol>
+                  <ol className="orderedList">
                     {listItems}
                   </ol>
                 </div>
@@ -146,7 +150,8 @@ const stateToProps = (state) => {
   return {
     groupList: state.groupReducer.groupList,
     selectedGroup: state.groupReducer.selectedGroup,
-    appStatus: state.groupReducer.appStatus
+    appStatus: state.groupReducer.appStatus,
+    notifications: state.messageReducer.notifications
   };
 };
 

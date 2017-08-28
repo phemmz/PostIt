@@ -6,29 +6,16 @@ const SideNav = ({
   return (
     <ul id="slide-out" className="side-nav groupdetails-nav" >
       <li>
-        <div className="user-view">
-          <div className="background">
-            <img
-              className="groupdetails-img"
-              src="https://images.unsplash.com/photo-1493219686142-5a8641badc78?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop="
-              alt="groupdetails"
-            />
-          </div>
-          <div>
-            <a>
-              <span
-                className="white-text name"
-                id="user-size"
-              >{currentUser.username}</span>
-            </a>
-            <a>
-              <span
-                className="white-text email right"
-                id="user-size"
-              >{currentUser.email}</span>
-            </a>
-          </div>
-        </div>
+        <h5
+          className="white-text name"
+          id="user-size"
+        >{currentUser.username}</h5>
+      </li>
+      <li>
+        <h5
+          className="white-text email"
+          id="user-size"
+        >{currentUser.email}</h5>
       </li>
       <li>
         <a

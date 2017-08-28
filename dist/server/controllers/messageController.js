@@ -67,6 +67,7 @@ var MessageController = function () {
               messagecreator: user.username,
               userId: user.id
             }).then(function (message) {
+              req.app.io.emit('newMsg', 'New message from ' + message.messagecreator + ' in ' + group.groupname + ' group');
               res.status(201).json({
                 confirmation: 'success',
                 message: 'Message sent',

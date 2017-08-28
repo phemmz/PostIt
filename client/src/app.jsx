@@ -5,14 +5,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import jwtDecode from 'jwt-decode';
-import Home from './components/layout/Home.jsx';
-import SignupPage from './components/layout/SignupPage.jsx';
-import LoginPage from './components/layout/LoginPage.jsx';
-import Main from './components/layout/Main.jsx';
-import Welcome from './components/layout/Welcome.jsx';
-import ResetPasswordPage from './components/layout/ResetPasswordPage.jsx';
-import CheckVerificationPage from './components/layout/CheckVerificationPage.jsx';
-import createGroup from './components/containers/CreateGroup.jsx';
+import { Home, LoginPage, SignupPage, Main, Welcome, ResetPasswordPage, CheckVerificationPage, NotificationPage } from './components/layout';
+import CreateGroup from './components/containers/CreateGroup.jsx';
 import style from '../main.scss';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
@@ -50,7 +44,8 @@ render(
         <Route path="/reset" component={ResetPasswordPage} />
         <Route path="/reset/verification" component={CheckVerificationPage} />
         <Route path="/dashboard" component={requireAuth(Home)} />
-        <Route path="/group" component={requireAuth(createGroup)} />
+        <Route path="/group" component={requireAuth(CreateGroup)} />
+        <Route path="/notification" component={requireAuth(NotificationPage)} />
       </Route>
     </Router>
   </Provider>,
