@@ -33296,7 +33296,7 @@ var CreateMessage = function (_Component) {
         content: '',
         groupId: '',
         readCheck: false,
-        priority: '1'
+        priority: 'Normal'
       },
       list: []
     };
@@ -33339,7 +33339,7 @@ var CreateMessage = function (_Component) {
           content: '',
           groupId: '',
           readCheck: false,
-          priority: '1'
+          priority: 'Normal'
         }
       });
     }
@@ -33380,17 +33380,17 @@ var CreateMessage = function (_Component) {
                   ),
                   _react2.default.createElement(
                     'option',
-                    { value: '1' },
+                    { value: 'Normal' },
                     'Normal'
                   ),
                   _react2.default.createElement(
                     'option',
-                    { value: '2' },
+                    { value: 'Urgent' },
                     'Urgent'
                   ),
                   _react2.default.createElement(
                     'option',
-                    { value: '3' },
+                    { value: 'Critical' },
                     'Critical'
                   )
                 )
@@ -40194,7 +40194,7 @@ exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CreateGroup);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1503957539234
+      // 1504013962590
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
