@@ -16,7 +16,7 @@ class CreateMessage extends Component {
         content: '',
         groupId: '',
         readCheck: false,
-        priority: '1'
+        priority: 'Normal'
       },
       list: []
     };
@@ -51,7 +51,7 @@ class CreateMessage extends Component {
         content: '',
         groupId: '',
         readCheck: false,
-        priority: '1'
+        priority: 'Normal'
       }
     });
   }
@@ -74,9 +74,9 @@ class CreateMessage extends Component {
                   style={{ display: 'block' }}
                 >
                   <option value="" disabled>Select Priority</option>
-                  <option value="1">Normal</option>
-                  <option value="2">Urgent</option>
-                  <option value="3">Critical</option>
+                  <option value="Normal">Normal</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Critical">Critical</option>
                 </select>
               </div>
             </div>

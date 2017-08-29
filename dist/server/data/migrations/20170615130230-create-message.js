@@ -14,9 +14,8 @@ module.exports = {
         allowNull: false
       },
       priority: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0
+        type: Sequelize.STRING,
+        allowNull: false
       },
       readcheck: {
         type: Sequelize.BOOLEAN

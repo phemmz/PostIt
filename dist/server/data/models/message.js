@@ -20,7 +20,7 @@ exports.default = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN
     },
     priority: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     messagecreator: DataTypes.TEXT,

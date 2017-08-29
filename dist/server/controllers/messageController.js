@@ -10,6 +10,14 @@ var _models = require('../data/models');
 
 var _models2 = _interopRequireDefault(_models);
 
+var _sendMail = require('./helpers/sendMail');
+
+var _sendMail2 = _interopRequireDefault(_sendMail);
+
+var _sendSMS = require('./helpers/sendSMS');
+
+var _sendSMS2 = _interopRequireDefault(_sendSMS);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,24 +67,42 @@ var MessageController = function () {
           User.findOne({
             where: { username: req.currentUser.username }
           }).then(function (user) {
-            Message.create({
-              content: req.body.content,
-              readcheck: req.body.readcheck,
-              priority: req.body.priority,
-              groupId: req.params.groupId,
-              messagecreator: user.username,
-              userId: user.id
-            }).then(function (message) {
-              req.app.io.emit('newMsg', 'New message from ' + message.messagecreator + ' in ' + group.groupname + ' group');
-              res.status(201).json({
-                confirmation: 'success',
-                message: 'Message sent',
-                results: message
-              });
-            }).catch(function (err) {
-              res.status(400).json({
-                confirmation: 'fail',
-                message: err
+            group.getUsers({
+              where: {}
+            }).then(function (members) {
+              Message.create({
+                content: req.body.content,
+                readcheck: req.body.readcheck,
+                priority: req.body.priority,
+                groupId: req.params.groupId,
+                messagecreator: user.username,
+                userId: user.id
+              }).then(function (message) {
+                req.app.io.emit('newMsg', 'New message from ' + message.messagecreator + ' in ' + group.groupname + ' group');
+                members.map(function (member) {
+                  if (message.priority === 'Urgent') {
+                    if (member.username !== message.messagecreator) {
+                      (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, req, res);
+                    }
+                  } else if (message.priority === 'Critical') {
+                    if (member.username !== message.messagecreator) {
+                      (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, req, res);
+                      (0, _sendSMS2.default)(member.phoneNumber, message.messagecreator, message.priority, group.groupname);
+                    }
+                  }
+                  return member;
+                });
+                res.status(201).json({
+                  confirmation: 'success',
+                  message: 'Message sent',
+                  results: message,
+                  groupMembers: members
+                });
+              }).catch(function (err) {
+                res.status(400).json({
+                  confirmation: 'fail',
+                  message: err
+                });
               });
             });
           });

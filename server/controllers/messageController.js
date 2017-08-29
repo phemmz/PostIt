@@ -1,4 +1,6 @@
 import Model from '../data/models';
+import sendMail from './helpers/sendMail';
+import sendSMS from './helpers/sendSMS';
 
 const Message = Model.Message;
 const User = Model.User;
@@ -39,29 +41,51 @@ export default class MessageController {
             where: { username: req.currentUser.username }
           })
             .then((user) => {
-              Message
-                .create({
-                  content: req.body.content,
-                  readcheck: req.body.readcheck,
-                  priority: req.body.priority,
-                  groupId: req.params.groupId,
-                  messagecreator: user.username,
-                  userId: user.id
-                })
-                  .then((message) => {
-                    req.app.io.emit('newMsg', `New message from ${message.messagecreator} in ${group.groupname} group`);
-                    res.status(201).json({
-                      confirmation: 'success',
-                      message: 'Message sent',
-                      results: message
-                    });
-                  })
-                  .catch((err) => {
-                    res.status(400).json({
-                      confirmation: 'fail',
-                      message: err
-                    });
-                  });
+              group.getUsers({
+                where: {}
+              })
+                .then((members) => {
+                  Message
+                    .create({
+                      content: req.body.content,
+                      readcheck: req.body.readcheck,
+                      priority: req.body.priority,
+                      groupId: req.params.groupId,
+                      messagecreator: user.username,
+                      userId: user.id
+                    })
+                      .then((message) => {
+                        req.app.io.emit('newMsg', `New message from ${message.messagecreator} in ${group.groupname} group`);
+                        members.map((member) => {
+                          if (message.priority === 'Urgent') {
+                            if (member.username !== message.messagecreator) {
+                              sendMail(member.email, message.priority,
+                                message.messagecreator, group.groupname, member.username, req, res);
+                            }
+                          } else if (message.priority === 'Critical') {
+                            if (member.username !== message.messagecreator) {
+                              sendMail(member.email, message.priority, message.messagecreator,
+                                 group.groupname, member.username, req, res);
+                              sendSMS(member.phoneNumber, message.messagecreator,
+                                 message.priority, group.groupname);
+                            }
+                          }
+                          return member;
+                        });
+                        res.status(201).json({
+                          confirmation: 'success',
+                          message: 'Message sent',
+                          results: message,
+                          groupMembers: members
+                        });
+                      })
+                      .catch((err) => {
+                        res.status(400).json({
+                          confirmation: 'fail',
+                          message: err
+                        });
+                      });
+                });
             });
         }
       });
