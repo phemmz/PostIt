@@ -324,6 +324,13 @@ main {
   top: auto;
   width: 210px; }
 
+.read-marker-done {
+  color: #66BB6A;
+  cursor: pointer; }
+
+.my-collection {
+  background-color: #fff; }
+
 #sidenav-overlay {
   display: none !important; }
 

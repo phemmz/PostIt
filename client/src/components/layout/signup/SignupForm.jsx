@@ -183,7 +183,6 @@ class SignupForm extends Component {
               htmlFor="password"
               label="Password"
               type="password"
-              checkUserExists={this.checkUserExists}
             />
             <TextFieldGroup
               error={errors.passwordConfirmation}
@@ -194,7 +193,6 @@ class SignupForm extends Component {
               htmlFor="passwordConfirmation"
               label="Confirm Password"
               type="password"
-              checkUserExists={this.checkUserExists}
             />
             <div className="center">
               <button

@@ -1,5 +1,7 @@
 $primary-color: silver;
 $bell-color: #ff0000;
+$read-color: #66BB6A;
+$my-collection: #fff;
 
 .container-fluid {
   padding: 0;
@@ -395,6 +397,15 @@ body {
   height: 625px;
   top: auto;
   width: 210px;
+}
+
+.read-marker-done {
+  color: $read-color;
+  cursor: pointer;
+}
+
+.my-collection {
+  background-color: $my-collection;
 }
 
 #sidenav-overlay {

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Message = ({
-  currentMessage
+  currentMessage, readList
 }) => {
   return (
     <div className="email-content-wrap">
       <div className="row">
         <div className="col s12 m10 l10 msg-position">
-          <ul className="collection">
+          <ul className="collection my-collection">
             <li className="collection-item avatar">
               <span
                 className="circle green lighten-1 center"
@@ -28,6 +28,12 @@ const Message = ({
                   className="email-content msg-content"
                 >{currentMessage.content}</span>
               </div>
+              <div className="right">
+                <i
+                  className="material-icons read-marker-done tooltipped"
+                  data-tooltip={`Read by: ${readList}`}
+                >done_all</i>
+              </div>
             </li>
           </ul>
         </div>
@@ -39,6 +45,7 @@ const Message = ({
 
 Message.propTypes = {
   currentMessage: PropTypes.object.isRequired,
+  readList: PropTypes.string.isRequired
 };
 
 export default Message;

@@ -37,35 +37,7 @@ class ResetPasswordPage extends Component {
   onChange(e) {
     this.setState({ [e.target.id]: e.target.value.trim() });
   }
-  /**
-   * checkUserExists() checks if the username provided exist in the database
-   * It fires the isUserExists action that makes a call to the api to check if the user exist
-   * If the call returns an instance of the user, then it empties the errors object
-   * in the state
-   * if not, it returns the message `Username not found`
-   * @param {*} e
-   */
-  checkUserExists(e) {
-    const field = e.target.name;
-    const val = e.target.value;
-    if (val !== '') {
-      this.props.isUserExists(val).then((res) => {
-        const errors = this.state.errors;
-        let invalid;
-        /**
-         * checks if isUserExists returns an object containing that user
-         */
-        if (res.data.user) {
-          errors[field] = '';
-          invalid = false;
-        } else {
-          errors[field] = 'Username not found';
-          invalid = true;
-        }
-        this.setState({ errors, invalid });
-      });
-    }
-  }
+
   /**
    * onSubmit calls the resetPassword action which sends a mail to the
    * user's email containing verification code and reset link
@@ -95,6 +67,36 @@ class ResetPasswordPage extends Component {
       .catch(() => {
         Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green');
       });
+  }
+  /**
+   * checkUserExists() checks if the username provided exist in the database
+   * It fires the isUserExists action that makes a call to the api to check if the user exist
+   * If the call returns an instance of the user, then it empties the errors object
+   * in the state
+   * if not, it returns the message `Username not found`
+   * @param {*} e
+   * @return {*} void
+   */
+  checkUserExists(e) {
+    const field = e.target.name;
+    const val = e.target.value;
+    if (val !== '') {
+      this.props.isUserExists(val).then((res) => {
+        const errors = this.state.errors;
+        let invalid;
+        /**
+         * checks if isUserExists returns an object containing that user
+         */
+        if (res.data.user) {
+          errors[field] = '';
+          invalid = false;
+        } else {
+          errors[field] = 'Username not found';
+          invalid = true;
+        }
+        this.setState({ errors, invalid });
+      });
+    }
   }
   /**
    * render
