@@ -78,5 +78,8 @@ router.put('/api/user/signup', UpdatePasswordValidations.validateUserInput, User
  * Google callback url.
  */
 router.post('/api/auth/google', UserController.googleSignup);
+router.post('/api/group/:groupId/readStatus', authenticate, MessageController.readStatus);
+router.get('/api/group/:groupId/readStatus', authenticate, MessageController.readList);
+
 
 export default router;
