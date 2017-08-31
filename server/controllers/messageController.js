@@ -5,6 +5,7 @@ import sendSMS from './helpers/sendSMS';
 const Message = Model.Message;
 const User = Model.User;
 const Group = Model.Group;
+const View = Model.View;
 
 /**
  * MessageController class
@@ -117,6 +118,74 @@ export default class MessageController {
         res.json({
           confirmation: 'fail',
           message: error
+        });
+      });
+  }
+  /**
+   * readStatus
+   * @param {*} req
+   * @param {*} res
+   * @return {*} void
+   */
+  static readStatus(req, res) {
+    View.findOne({
+      where: {
+        groupId: req.params.groupId,
+        username: req.currentUser.username
+      }
+    })
+      .then((response) => {
+        if (response === null) {
+          View.create({
+            groupId: req.params.groupId,
+            username: req.currentUser.username
+          })
+            .then((view) => {
+              res.status(201).json({
+                confirmation: 'success',
+                results: view
+              });
+            })
+            .catch((err) => {
+              res.json({
+                confirmation: 'fail',
+                message: err
+              });
+            });
+        } else {
+          res.json({
+            confirmation: 'success'
+          });
+        }
+      });
+  }
+  /**
+   * readList
+   * @param {*} req
+   * @param {*} res
+   * @return {*} void
+   */
+  static readList(req, res) {
+    View.findAll({
+      where: { groupId: req.params.groupId }
+    })
+      .then((response) => {
+        const list = [];
+        response.map((eachUser) => {
+          return list.push(eachUser.username);
+        });
+        const uniqueList = list.filter((item, pos, self) => {
+          return self.indexOf(item) === pos;
+        });
+        res.status(200).json({
+          confirmation: 'success',
+          uniqueList
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          confirmation: 'fail',
+          message: err
         });
       });
   }

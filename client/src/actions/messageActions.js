@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION } from './types';
+import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from './types';
 /**
  * MessageActions class
  */
@@ -63,6 +63,29 @@ export default class MessageActions {
       dispatch({
         type: CLEAR_NOTIFICATION
       });
+    };
+  }
+  static updateReadStatus(groupId) {
+    return (dispatch) => {
+      return axios.post(`api/group/${groupId}/readStatus`)
+        .then((response) => {
+          dispatch({
+            type: READ_STATUS
+          });
+          return response.confirmation;
+        });
+    };
+  }
+  static readList(groupId) {
+    return (dispatch) => {
+      return axios.get(`api/group/${groupId}/readStatus`)
+        .then((response) => {
+          dispatch({
+            type: READ_LIST,
+            readList: response.data.uniqueList
+          });
+          return response.data.uniqueList;
+        });
     };
   }
 }

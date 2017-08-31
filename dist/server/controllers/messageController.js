@@ -25,6 +25,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Message = _models2.default.Message;
 var User = _models2.default.User;
 var Group = _models2.default.Group;
+var View = _models2.default.View;
 
 /**
  * MessageController class
@@ -137,6 +138,75 @@ var MessageController = function () {
         res.json({
           confirmation: 'fail',
           message: error
+        });
+      });
+    }
+    /**
+     * readStatus
+     * @param {*} req
+     * @param {*} res
+     * @return {*} void
+     */
+
+  }, {
+    key: 'readStatus',
+    value: function readStatus(req, res) {
+      View.findOne({
+        where: {
+          groupId: req.params.groupId,
+          username: req.currentUser.username
+        }
+      }).then(function (response) {
+        if (response === null) {
+          View.create({
+            groupId: req.params.groupId,
+            username: req.currentUser.username
+          }).then(function (view) {
+            res.status(201).json({
+              confirmation: 'success',
+              results: view
+            });
+          }).catch(function (err) {
+            res.json({
+              confirmation: 'fail',
+              message: err
+            });
+          });
+        } else {
+          res.json({
+            confirmation: 'success'
+          });
+        }
+      });
+    }
+    /**
+     * readList
+     * @param {*} req
+     * @param {*} res
+     * @return {*} void
+     */
+
+  }, {
+    key: 'readList',
+    value: function readList(req, res) {
+      View.findAll({
+        where: { groupId: req.params.groupId }
+      }).then(function (response) {
+        var list = [];
+        response.map(function (eachUser) {
+          return list.push(eachUser.username);
+        });
+        var uniqueList = list.filter(function (item, pos, self) {
+          return self.indexOf(item) === pos;
+        });
+        res.status(200).json({
+          confirmation: 'success',
+          uniqueList: uniqueList
+        });
+      }).catch(function (err) {
+        res.status(400).json({
+          confirmation: 'fail',
+          message: err
         });
       });
     }

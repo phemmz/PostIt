@@ -31,6 +31,7 @@ class Messages extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.addUser = this.addUser.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.readCheck = this.readCheck.bind(this);
   }
   /**
    * Just before the component mounts, getUsers action is fired
@@ -146,12 +147,22 @@ class Messages extends Component {
  */
   messageList() {
     return this.state.list.map((message) => {
-      return (<li key={message.id}>
+      return (<li onMouseLeave={this.readCheck} key={message.id}>
         <Message
           currentMessage={message}
+          readList={this.props.viewList.toString()}
         />
       </li>);
     });
+  }
+  /**
+   * readCheck
+   * @returns {*} void
+   */
+  readCheck() {
+    const groupId = this.props.selectedGroup;
+    this.props.updateReadStatus(groupId);
+    this.props.readList(groupId);
   }
 /**
  * @description groupPicked returns an array of the group selected
@@ -263,6 +274,7 @@ class Messages extends Component {
 
 const stateToProps = (state) => {
   return {
+    viewList: state.messageReducer.readList,
     groupList: state.groupReducer.groupList,
     groupMessages: state.messageReducer.groupMessages,
     addUser: state.groupReducer.addUser,
@@ -289,6 +301,12 @@ const dispatchToProps = (dispatch) => {
     },
     addNotification: (notification) => {
       return dispatch(MessageActions.addNotification(notification));
+    },
+    updateReadStatus: (groupId) => {
+      return dispatch(MessageActions.updateReadStatus(groupId));
+    },
+    readList: (groupId) => {
+      return dispatch(MessageActions.readList(groupId));
     }
   };
 };

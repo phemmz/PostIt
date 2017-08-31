@@ -17,7 +17,7 @@ export default function (ComposedComponent) {
      */
     componentWillMount() {
       if (!this.props.isAuthenticated) {
-        Materialize.toast('You need to login to access this page', 4000, 'red')
+        Materialize.toast('You need to login to access this page', 4000, 'red');
         this.context.router.push('/login');
       }
     }
