@@ -16122,6 +16122,12 @@ var MessageActions = function () {
         });
       };
     }
+    /**
+     * updateReadStatus
+     * @param {*} groupId
+     * @return {*} void
+     */
+
   }, {
     key: 'updateReadStatus',
     value: function updateReadStatus(groupId) {
@@ -16134,6 +16140,12 @@ var MessageActions = function () {
         });
       };
     }
+    /**
+     * readList
+     * @param {*} groupId
+     * @return {*} void
+     */
+
   }, {
     key: 'readList',
     value: function readList(groupId) {
@@ -40256,7 +40268,7 @@ exports.default = (0, _reactRedux.connect)(null, dispatchToProps)(CreateGroup);
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1504137626795
+      // 1504179619292
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);

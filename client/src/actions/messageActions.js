@@ -65,6 +65,11 @@ export default class MessageActions {
       });
     };
   }
+  /**
+   * updateReadStatus
+   * @param {*} groupId
+   * @return {*} void
+   */
   static updateReadStatus(groupId) {
     return (dispatch) => {
       return axios.post(`api/group/${groupId}/readStatus`)
@@ -76,6 +81,11 @@ export default class MessageActions {
         });
     };
   }
+  /**
+   * readList
+   * @param {*} groupId
+   * @return {*} void
+   */
   static readList(groupId) {
     return (dispatch) => {
       return axios.get(`api/group/${groupId}/readStatus`)
