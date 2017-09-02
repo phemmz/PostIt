@@ -14,3 +14,4 @@ export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 export const READ_STATUS = 'READ_STATUS';
 export const READ_LIST = 'READ_LIST';
+export const SEARCH_USER = 'SEARCH_USER';

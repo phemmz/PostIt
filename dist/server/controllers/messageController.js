@@ -210,6 +210,34 @@ var MessageController = function () {
         });
       });
     }
+    /**
+     * searchUsers
+     * @param {*} req
+     * @param {*} res
+     * @returns {*} json
+     */
+
+  }, {
+    key: 'searchUsers',
+    value: function searchUsers(req, res) {
+      User.findAll({
+        where: {
+          username: {
+            $iLike: '%' + req.params.searchKey + '%'
+          }
+        }
+      }).then(function (response) {
+        res.status(200).json({
+          confirmation: 'success',
+          users: response
+        });
+      }).catch(function (error) {
+        res.status(404).json({
+          confirmation: 'fail',
+          error: error
+        });
+      });
+    }
   }]);
 
   return MessageController;

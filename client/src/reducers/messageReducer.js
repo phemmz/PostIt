@@ -1,11 +1,12 @@
-import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from '../actions/types';
+import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST, SEARCH_USER } from '../actions/types';
 
 const initialState = {
   groupMessages: [],
   list: {},
   notifications: [],
   readStatus: false,
-  readList: []
+  readList: [],
+  searchedUsers: []
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -39,6 +40,10 @@ export default (state = initialState, action = {}) => {
 
     case READ_LIST:
       updated.readList = action.readList;
+      return updated;
+
+    case SEARCH_USER:
+      updated.searchedUsers = action.searchedUsers;
       return updated;
 
     default:

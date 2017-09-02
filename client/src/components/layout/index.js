@@ -6,6 +6,7 @@ import Welcome from './Welcome.jsx';
 import ResetPasswordPage from './ResetPasswordPage.jsx';
 import CheckVerificationPage from './CheckVerificationPage.jsx';
 import NotificationPage from './NotificationPage.jsx';
+import SearchPage from './SearchPage.jsx';
 
 export {
   Home,
@@ -15,5 +16,6 @@ export {
   Welcome,
   ResetPasswordPage,
   CheckVerificationPage,
-  NotificationPage
+  NotificationPage,
+  SearchPage
 };
