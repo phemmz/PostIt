@@ -281,7 +281,7 @@ const stateToProps = (state) => {
     selectedGroup: state.groupReducer.selectedGroup,
     appStatus: state.groupReducer.appStatus,
     appUsers: state.userReducer.users,
-    currentUser: state.auth.user,
+    currentUser: state.auth.user
   };
 };
 

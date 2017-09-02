@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from './types';
+import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST, SEARCH_USER } from './types';
 /**
  * MessageActions class
  */
@@ -95,6 +95,22 @@ export default class MessageActions {
             readList: response.data.uniqueList
           });
           return response.data.uniqueList;
+        });
+    };
+  }
+  /**
+   * @param {*} searchKey
+   * @return {*} response
+   */
+  static searchUser(searchKey) {
+    return (dispatch) => {
+      return axios.get(`api/search/${searchKey}`)
+        .then((response) => {
+          dispatch({
+            type: SEARCH_USER,
+            searchedUsers: response.data.users
+          });
+          return response.data.users;
         });
     };
   }

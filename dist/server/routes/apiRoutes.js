@@ -126,5 +126,6 @@ router.put('/api/user/signup', _updatePasswordMiddleware2.default.validateUserIn
 router.post('/api/auth/google', _accountController2.default.googleSignup);
 router.post('/api/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readStatus);
 router.get('/api/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readList);
+router.get('/api/search/:searchKey', _authenticate2.default, _messageController2.default.searchUsers);
 
 exports.default = router;

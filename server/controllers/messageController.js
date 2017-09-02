@@ -189,4 +189,31 @@ export default class MessageController {
         });
       });
   }
+  /**
+   * searchUsers
+   * @param {*} req
+   * @param {*} res
+   * @returns {*} json
+   */
+  static searchUsers(req, res) {
+    User.findAll({
+      where: {
+        username: {
+          $iLike: `%${req.params.searchKey}%`
+        }
+      }
+    })
+      .then((response) => {
+        res.status(200).json({
+          confirmation: 'success',
+          users: response
+        });
+      })
+      .catch((error) => {
+        res.status(404).json({
+          confirmation: 'fail',
+          error
+        });
+      });
+  }
 }
