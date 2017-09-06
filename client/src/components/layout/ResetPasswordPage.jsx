@@ -31,24 +31,24 @@ class ResetPasswordPage extends Component {
   /**
    * onChange gets called when the value of an element has been changed
    * It sets this change into the state
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onChange(e) {
-    this.setState({ [e.target.id]: e.target.value.trim() });
+  onChange(event) {
+    this.setState({ [event.target.id]: event.target.value.trim() });
   }
 
   /**
    * onSubmit calls the resetPassword action which sends a mail to the
    * user's email containing verification code and reset link
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onSubmit(e) {
+  onSubmit(event) {
     /**
      * Prevents the default action of a form on submit
      */
-    e.preventDefault();
+    event.preventDefault();
     /**
      * empties the errors object in the state
      * and also set isLoading to true
@@ -74,12 +74,12 @@ class ResetPasswordPage extends Component {
    * If the call returns an instance of the user, then it empties the errors object
    * in the state
    * if not, it returns the message `Username not found`
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  checkUserExists(e) {
-    const field = e.target.name;
-    const val = e.target.value;
+  checkUserExists(event) {
+    const field = event.target.name;
+    const val = event.target.value;
     if (val !== '') {
       this.props.isUserExists(val).then((res) => {
         const errors = this.state.errors;

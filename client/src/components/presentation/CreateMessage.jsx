@@ -26,12 +26,12 @@ class CreateMessage extends Component {
   /**
    * @description updateMessage is attached to onChange of textarea and select dropdown
    * It gets there value on change and set it to the state
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  updateMessage(e) {
+  updateMessage(event) {
     const updatedMessage = Object.assign({}, this.state.messages);
-    updatedMessage[e.target.id] = e.target.value;
+    updatedMessage[event.target.id] = event.target.value;
     updatedMessage.groupId = this.props.selectedGroup;
     this.setState({
       messages: updatedMessage

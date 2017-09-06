@@ -11,7 +11,7 @@ export default class MessageActions {
    */
   static groupMessages(groupId) {
     return (dispatch) => {
-      return axios.get(`api/group/${groupId}/messages`)
+      return axios.get(`api/v1/group/${groupId}/messages`)
         .then((response) => {
           const messages = response.data.results;
           dispatch({
@@ -31,7 +31,7 @@ export default class MessageActions {
    */
   static postMessage(groupId, message) {
     return (dispatch) => {
-      return axios.post(`api/group/${groupId}/message`, message)
+      return axios.post(`api/v1/group/${groupId}/message`, message)
         .then((response) => {
           dispatch({
             type: SEND_MESSAGE,
@@ -72,7 +72,7 @@ export default class MessageActions {
    */
   static updateReadStatus(groupId) {
     return (dispatch) => {
-      return axios.post(`api/group/${groupId}/readStatus`)
+      return axios.post(`api/v1/group/${groupId}/readStatus`)
         .then((response) => {
           dispatch({
             type: READ_STATUS
@@ -88,7 +88,7 @@ export default class MessageActions {
    */
   static readList(groupId) {
     return (dispatch) => {
-      return axios.get(`api/group/${groupId}/readStatus`)
+      return axios.get(`api/v1/group/${groupId}/readStatus`)
         .then((response) => {
           dispatch({
             type: READ_LIST,
@@ -104,7 +104,7 @@ export default class MessageActions {
    */
   static searchUser(searchKey) {
     return (dispatch) => {
-      return axios.get(`api/search/${searchKey}`)
+      return axios.get(`api/v1/search/${searchKey}`)
         .then((response) => {
           dispatch({
             type: SEARCH_USER,

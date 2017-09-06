@@ -50,7 +50,7 @@ var sharedSignupValidations = function () {
       }
       if (data.phoneNumber) {
         if (_validator2.default.isEmpty(data.phoneNumber.trim())) {
-          errors.phoneNumber = 'Please fill in your username';
+          errors.phoneNumber = 'Please fill in your phone number';
         }
       }
       if (!data.email) {

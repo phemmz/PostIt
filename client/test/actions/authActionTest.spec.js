@@ -16,7 +16,7 @@ describe('Login action', () => {
   it('creates SET_CURRENT_USER when login has been done', () => {
     const user = { username: 'femz', password: '123456' };
     nock('http://localhost.com')
-      .post('/user/signin', user)
+      .post('/api/v1/user/signin', user)
       .reply(200, {
         body: { token: 'abcderf', user: { userId: 1 } }
       });
@@ -35,7 +35,7 @@ describe('User action', () => {
   });
   it('gets all users', () => {
     nock('http://localhost.com')
-      .get('/api/user')
+      .get('/api/v1/user')
       .reply(200, {
         body: [
           {

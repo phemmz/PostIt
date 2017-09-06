@@ -12,7 +12,7 @@ export default class SignupActions {
    */
   static userSignupRequest(userData) {
     return (dispatch) => {
-      return axios.post('/api/user/signup', userData)
+      return axios.post('/api/v1/user/signup', userData)
         .then((res) => {
           const token = res.data.token;
           /**
@@ -34,7 +34,7 @@ export default class SignupActions {
    */
   static isUserExists(identifier) {
     return () => {
-      return axios.get(`/api/user/${identifier}`);
+      return axios.get(`/api/v1/user/${identifier}`);
     };
   }
   /**
@@ -43,7 +43,7 @@ export default class SignupActions {
    */
   static updatePassword(newUser) {
     return () => {
-      return axios.put('/api/user/signup', newUser);
+      return axios.put('/api/v1/user/signup', newUser);
     };
   }
 }

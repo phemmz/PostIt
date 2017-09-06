@@ -1,5 +1,4 @@
 import supertest from 'supertest';
-import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
@@ -9,7 +8,6 @@ import Model from '../server/data/models';
 process.env.NODE_ENV = 'test';
 const User = Model.User;
 const Group = Model.Group;
-const Message = Model.Messages;
 
 const should = chai.should();
 const server = supertest.agent(app);
@@ -32,7 +30,7 @@ describe('POSTIT', () => {
         username: 'phemzy',
       };
       chai.request(app)
-        .post('/api/group/1/user')
+        .post('/api/v1/group/1/user')
         .send(addDetails)
         .end((err, res) => {
           res.should.have.status(403);
@@ -42,14 +40,14 @@ describe('POSTIT', () => {
         });
     });
   });
-  describe('Authentication', () => {
+  describe('Signup', () => {
     it('it should not POST signup details without password', (done) => {
       const signupDetails = {
         username: 'phemzy',
         email: 'phemzy@gmail.com'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .expect(422)
         .end((err, res) => {
@@ -60,8 +58,6 @@ describe('POSTIT', () => {
           done();
         });
     });
-  });
-  describe('Signup', () => {
     it('it should not POST signup details if passwords do not match', (done) => {
       const signupDetails = {
         username: 'phemzy',
@@ -70,7 +66,7 @@ describe('POSTIT', () => {
         passwordConfirmation: 'abcdesa'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .expect(422)
         .send(signupDetails)
         .end((err, res) => {
@@ -81,8 +77,6 @@ describe('POSTIT', () => {
           done();
         });
     });
-  });
-  describe('Signup', () => {
     it('it should not POST signup details if password is less than 6 characters', (done) => {
       const signupDetails = {
         username: 'phemzy',
@@ -91,7 +85,7 @@ describe('POSTIT', () => {
         passwordConfirmation: '1234'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .end((err, res) => {
           res.should.have.status(422);
@@ -101,8 +95,6 @@ describe('POSTIT', () => {
           done();
         });
     });
-  });
-  describe('Signup', () => {
     it('it should not POST signup details without username', (done) => {
       const signupDetails = {
         email: 'phemzy@gmail.com',
@@ -110,7 +102,7 @@ describe('POSTIT', () => {
         passwordConfirmation: '123456'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .end((err, res) => {
           res.should.have.status(422);
@@ -125,7 +117,7 @@ describe('POSTIT', () => {
         groupname: 'sport gist',
       };
       server
-        .post('/api/group')
+        .post('/api/v1/group')
         .send(groupDetails)
         .end((err, res) => {
           res.should.have.status(403);
@@ -134,8 +126,6 @@ describe('POSTIT', () => {
           done();
         });
     });
-  });
-  describe('Signup', () => {
     it('it should not POST signup details with a null or empty string username', (done) => {
       const signupDetails = {
         username: ' ',
@@ -144,7 +134,7 @@ describe('POSTIT', () => {
         passwordConfirmation: '123456'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .end((err, res) => {
           res.should.have.status(422);
@@ -154,8 +144,6 @@ describe('POSTIT', () => {
           done();
         });
     });
-  });
-  describe('Signup', () => {
     it('it should not POST signup details with an invalid email address', (done) => {
       const signupDetails = {
         username: 'phemzy',
@@ -164,13 +152,31 @@ describe('POSTIT', () => {
         passwordConfirmation: '123456'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .end((err, res) => {
           res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('email');
           res.body.should.have.property('email').eql('Email is invalid');
+          done();
+        });
+    });
+    it('it should not POST signup details without phoneNumber', (done) => {
+      const signupDetails = {
+        username: 'phemzy',
+        email: 'phemzy@gmail.com',
+        password: '123456',
+        passwordConfirmation: '123456'
+      };
+      server
+        .post('/api/v1/user/signup')
+        .send(signupDetails)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('phoneNumber');
+          res.body.should.have.property('phoneNumber').eql('Please fill in your phone number');
           done();
         });
     });
@@ -190,7 +196,7 @@ describe('Group', () => {
         username: 'femo'
       };
       server
-        .post('/api/group/1/user')
+        .post('/api/v1/group/1/user')
         .send(addDetails)
         .end((err, res) => {
           res.should.have.status(403);
@@ -207,7 +213,7 @@ describe('Group', () => {
         readcheck: true
       };
       server
-        .post('/api/group/1/message')
+        .post('/api/v1/group/1/message')
         .send(msgDetails)
         .end((err, res) => {
           res.body.should.be.a('object');
@@ -221,11 +227,12 @@ describe('Group', () => {
       const signupDetails = {
         email: 'phemz1@gmail.com',
         username: 'phemz1',
+        phoneNumber: '08062935949',
         password: 'douchee',
         passwordConfirmation: 'douchee'
       };
       server
-      .post('/api/user/signup')
+      .post('/api/v1/user/signup')
       .send(signupDetails)
       .end((err, res) => {
         res.should.have.status(201);
@@ -239,11 +246,12 @@ describe('Group', () => {
       const signupDetails = {
         email: 'hello000@gmail.com',
         username: 'hello000',
+        phoneNumber: '09012344912',
         password: 'douchee',
         passwordConfirmation: 'douchee'
       };
       server
-        .post('/api/user/signup')
+        .post('/api/v1/user/signup')
         .send(signupDetails)
         .end((err, res) => {
           res.should.have.status(201);
@@ -259,7 +267,7 @@ describe('Group', () => {
         password: 'douchee'
       };
       server
-        .post('/api/user/signin')
+        .post('/api/v1/user/signin')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
@@ -278,7 +286,7 @@ describe('Group', () => {
         groupname: ' '
       };
       server
-        .post('/api/group')
+        .post('/api/v1/group')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .set('authorization', `Bearer ${token}`)
@@ -291,13 +299,12 @@ describe('Group', () => {
           done();
         });
     });
-    
     it('it should allow logged in users to create broadcast group', (done) => {
       const groupDetails = {
         groupname: 'june fellows',
       };
       server
-        .post('/api/group')
+        .post('/api/v1/group')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .set('authorization', `Bearer ${token}`)
@@ -311,12 +318,25 @@ describe('Group', () => {
           done();
         });
     });
+    it('it should allow logged in users to get all broadcast groups he belongs to', (done) => {
+      server
+        .get('/api/v1/group')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('results');
+          done();
+        });
+    });
     it('it should not allow logged in users to add a user that already belongs to a group', (done) => {
       const addDetails = {
         username: 'phemz1',
       };
       server
-      .post('/api/group/1/user')
+      .post('/api/v1/group/1/user')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${token}`)
@@ -335,13 +355,31 @@ describe('Group', () => {
         username: ''
       };
       server
-      .post('/api/group/1/user')
+      .post('/api/v1/group/1/user')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${token}`)
       .send(addDetails)
       .end((err, res) => {
         res.body.should.be.a('object');
+        done();
+      });
+    });
+    it('it should not allow logged in users to add User that does not exist', (done) => {
+      const addDetails = {
+        username: 'phemz4'
+      };
+      server
+      .post('/api/v1/group/1/user')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${token}`)
+      .send(addDetails)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('User does not exist');
         done();
       });
     });
@@ -354,7 +392,7 @@ describe('Group', () => {
         priority: 3
       };
       server
-      .post('/api/group/2/message')
+      .post('/api/v1/group/2/message')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${token}`)
@@ -373,7 +411,7 @@ describe('Group', () => {
         priority: 1
       };
       server
-      .post('/api/group/1/message')
+      .post('/api/v1/group/1/message')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${token}`)
@@ -391,7 +429,7 @@ describe('Group', () => {
   describe('/GET/:id Messages', () => {
     it('it should GET all messages that have been posted to the group they belong to', (done) => {
       server
-        .get('/api/group/1/messages')
+        .get('/api/v1/group/1/messages')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .set('authorization', `Bearer ${token}`)
@@ -403,7 +441,7 @@ describe('Group', () => {
     });
     it('it should not allow user to post message to group that does not exist', (done) => {
       server
-        .get('/api/group/3/messages')
+        .get('/api/v1/group/3/messages')
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .set('authorization', `Bearer ${token}`)

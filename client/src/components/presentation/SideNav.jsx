@@ -7,21 +7,19 @@ const SideNav = ({
     <ul id="slide-out" className="side-nav groupdetails-nav" >
       <li>
         <h5
-          className="white-text name"
-          id="user-size"
+          className="white-text name user-size"
         >{currentUser.username}</h5>
       </li>
       <li>
         <h5
-          className="white-text email"
-          id="user-size"
+          className="white-text email user-size"
         >{currentUser.email}</h5>
       </li>
       <li>
         <a
           href="#!"
           className="waves-effect waves-light green nav-anchor"
-        ><i className="fa fa-users snav" aria-hidden="true" />Group Members</a></li>
+        ><i className="fa fa-users snav" aria-hidden="true" />Members</a></li>
       <li><div className="divider" /></li>
       <li>
         <a

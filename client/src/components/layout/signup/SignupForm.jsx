@@ -33,21 +33,21 @@ class SignupForm extends Component {
   }
   /**
    * onChange() gets called when the input fields changes and the change is stored in the state
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onChange(e) {
+  onChange(event) {
     this.setState({
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   }
   /**
    * onSubmit() gets called when the user clicks on the signup button
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     if (this.isValid()) {
       /**
        * empties the errors object if there are no validation errors
@@ -81,12 +81,12 @@ class SignupForm extends Component {
   /**
    * checkUserExists() gets called when a user leaves the username and email input field
    * It checks if the user already exist
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  checkUserExists(e) {
-    const field = e.target.name;
-    const val = e.target.value.trim();
+  checkUserExists(event) {
+    const field = event.target.name;
+    const val = event.target.value.trim();
     if (val !== '') {
       this.props.isUserExists(val).then((res) => {
         const errors = this.state.errors;

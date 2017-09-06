@@ -17,11 +17,11 @@ class NavigationBar extends Component {
   }
   /**
    * logout function that calls the action that removes jwt token from local storage
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  logout(e) {
-    e.preventDefault();
+  logout(event) {
+    event.preventDefault();
     this.props.logout();
   }
   /**
@@ -30,7 +30,7 @@ class NavigationBar extends Component {
    */
   render() {
     const { isAuthenticated } = this.props.auth;
-    const userLinks = (
+    const authenticatedLinks = (
       <div>
         <ul className="right hide-on-med-and-down lgout">
           <li>
@@ -42,21 +42,24 @@ class NavigationBar extends Component {
           </li>
         </ul>
         <ul className="side-nav" id="mobile-demo">
-          <li><a href="./home" className="waves-effect waves-light btn">Home</a></li>
-          <li><a href="./dashboard" className="waves-effect waves-light btn">Dashboard</a></li>
-          <li><a href="./users" className="waves-effect waves-light btn">Users</a></li>
           <li>
-            <a
-              href=""
+            <button
               onClick={this.logout}
+              className="waves-effect waves-light btn mobile-logout"
+            >Logout</button>
+          </li>
+          <li><Link to="/dashboard" className="waves-effect waves-light btn">Dashboard</Link></li>
+          <li>
+            <Link
+              to="search"
               className="waves-effect waves-light btn"
-            >Logout</a>
+            >Search For Users</Link>
           </li>
         </ul>
       </div>
     );
 
-    const guestLinks = (
+    const userLinks = (
       <div className="col s10">
         <ul className="right hide-on-med-and-down">
           <li><Link to="/login" className="waves-effect waves-light btn">Login</Link></li>
@@ -95,7 +98,7 @@ class NavigationBar extends Component {
                       <i className="material-icons">menu</i>
                     </a>
                   </div>
-                  { isAuthenticated ? userLinks : guestLinks }
+                  { isAuthenticated ? authenticatedLinks : userLinks }
                 </div>
               </div>
             </div>

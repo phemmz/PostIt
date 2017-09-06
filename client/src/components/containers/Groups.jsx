@@ -33,8 +33,8 @@ class Groups extends Component {
  * a user belongs to on componentDidMount
  */
     this.props.fetchGroups();
-    window.$('.modal-trigger').click((e) => {
-      e.preventDefault();
+    window.$('.modal-trigger').click((event) => {
+      event.preventDefault();
       window.$('#createGroup').modal();
     });
   }
@@ -75,8 +75,8 @@ class Groups extends Component {
     if (this.props.appStatus === 'loading') {
       content =
       (<div className="container-fluid">
-        <div className="row" style={{ marginBottom: 0 }}>
-          <div className="col s12 m12" style={{ paddingLeft: 0 }}>
+        <div className="row">
+          <div className="col s12 m12">
             <div className="container-fluid">
               <div className="row">
                 <div className="col s12">
@@ -92,44 +92,32 @@ class Groups extends Component {
       );
     } else if (this.props.appStatus === 'no groups') {
       content =
-      (<div className="container-fluid">
-        <div className="row" style={{ marginBottom: 0 }}>
-          <div className="col s12 m12" style={{ paddingLeft: 0 }}>
-            <div className="container-fluid">
-              <GroupHeader
-                notifications={this.props.notifications}
-              />
-              <hr />
-              <div className="scrbar center">
-                <h4>You currently dont belong to any group</h4>
-              </div>
-            </div>
-            <SearchButton />
+      (
+        <GroupHeader
+          notifications={this.props.notifications}
+        >
+          <div className="scrbar center">
+            <h5>You currently dont belong to any group</h5>
           </div>
-        </div>
-      </div>
+          <hr />
+          <SearchButton />
+        </GroupHeader>
       );
     } else if (this.props.appStatus === 'ready') {
       content =
-        (<div className="container-fluid">
-          <div className="row">
-            <div className="col s12 m12">
-              <div className="container-fluid">
-                <GroupHeader
-                  notifications={this.props.notifications}
-                />
-                <hr />
-                <div className="scrbar">
-                  <ol className="ordered-list">
-                    {listItems}
-                  </ol>
-                </div>
-                <hr />
-              </div>
-              <SearchButton />
+        (
+          <GroupHeader
+            notifications={this.props.notifications}
+          >
+            <div className="scrbar">
+              <ol className="ordered-list">
+                {listItems}
+              </ol>
             </div>
-          </div>
-        </div>);
+            <hr />
+            <SearchButton />
+          </GroupHeader>
+        );
     }
     return content;
   }

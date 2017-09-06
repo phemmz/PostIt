@@ -7,6 +7,7 @@ import GroupListSection from './GroupListSection.jsx';
 import GroupHeader from './GroupHeader.jsx';
 import SearchButton from './SearchButton.jsx';
 import PreLoader from './PreLoader.jsx';
+import MessageHeader from './MessageHeader.jsx';
 
 export {
   CreateMessage,
@@ -17,5 +18,6 @@ export {
   GroupListSection,
   GroupHeader,
   SearchButton,
-  PreLoader
+  PreLoader,
+  MessageHeader
 };

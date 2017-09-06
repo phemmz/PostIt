@@ -37,13 +37,13 @@ class CheckVerificationPage extends Component {
    * onChange gets called when the value of an element has been changed
    * It sets this change into the state
    * It also sets invalid to false and then empties the errors object
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onChange(e) {
+  onChange(event) {
     this.setState(
       {
-        [e.target.id]: e.target.value.trim(),
+        [event.target.id]: event.target.value.trim(),
         invalid: false,
         errors: {}
       }
@@ -53,14 +53,14 @@ class CheckVerificationPage extends Component {
    * calls the action that reset the password on submit
    * it calls the validation function first before performing
    * any submit action
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  onSubmit(e) {
+  onSubmit(event) {
     /**
      * Prevents the default action of a form on submit
      */
-    e.preventDefault();
+    event.preventDefault();
     if (this.isValid()) {
       /**
        * empties the errors object if there are no validation errors
@@ -91,12 +91,12 @@ class CheckVerificationPage extends Component {
   /**
    * updatePassword updates the state when there is any change
    * on the value of the input fields of password and password confirmation
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  updatePassword(e) {
+  updatePassword(event) {
     this.setState({
-      [e.target.id]: e.target.value.trim()
+      [event.target.id]: event.target.value.trim()
     });
   }
   /**
@@ -120,11 +120,11 @@ class CheckVerificationPage extends Component {
    * This is where the verification code entered by the user gets verified
    * An action is fired that checks if this verification code is the same as
    * the one generated in the api
-   * @param {*} e
+   * @param {*} event
    * @return {*} void
    */
-  checkVerificationCode(e) {
-    e.preventDefault();
+  checkVerificationCode(event) {
+    event.preventDefault();
     const identifier = this.state.verificationCode;
     this.props.isUserExists(identifier)
       .then((response) => {

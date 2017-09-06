@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CreateMessage, Message, AddUserModal, SideNav } from '../presentation';
+import { CreateMessage, Message, AddUserModal, SideNav, MessageHeader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
 import AuthenticationActions from '../../actions/authActions';
@@ -133,12 +133,12 @@ class Messages extends Component {
   }
 /**
  * Gets the value from the select dropdown and set it to state
- * @param {*} e
+ * @param {*} event
  * @return {*} void
  */
-  updateUser(e) {
+  updateUser(event) {
     this.setState({
-      [e.target.id]: e.target.value
+      [event.target.id]: event.target.value
     });
   }
 /**
@@ -171,7 +171,9 @@ class Messages extends Component {
  * @return {*} array
  */
   groupPicked(selectedGroupId) {
-    return this.props.groupList.filter(groupObject => (groupObject.id === selectedGroupId))[0];
+    return this.props.groupList.filter((groupObject) => {
+      return (groupObject.id === Number(selectedGroupId));
+    })[0];
   }
 /**
  * @description groupName returns the groupname if a group is selected and returns
@@ -204,7 +206,6 @@ class Messages extends Component {
           <div className="msgscrbar">
             <h4 className="green-text text-darken-4"><strong>{this.state.groupName}</strong></h4>
             { errors.message && <div className="alert alert-danger">{errors.message}</div> }
-            <p>Yo, you can create a new group</p>
           </div>
         </div>);
     } else {
@@ -228,7 +229,7 @@ class Messages extends Component {
                   <span><h5 id="msg-header" className="green-text text-darken-4 card">
                     <strong>
                       <a
-                        href=""
+                        href="/#!"
                         id="slide-out-nav"
                         data-activates="slide-out"
                         className="button-collapse"
@@ -246,15 +247,9 @@ class Messages extends Component {
               </div>
             ) :
             (
-              <div className="row">
-                <div className="col s12">
-                  <span><h5 id="welcome-header" className="green-text text-darken-4 card">
-                    <strong>
-                      { this.state.groupName }
-                    </strong></h5>
-                  </span>
-                </div>
-              </div>
+              <MessageHeader
+                groupName={this.state.groupName}
+              />
             )
           }
           { errors.message && Materialize.toast(errors.message, 4000, 'red') }
