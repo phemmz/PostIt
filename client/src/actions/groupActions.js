@@ -11,7 +11,7 @@ export default class GroupActions {
    */
   static groupCreate(group) {
     return (dispatch) => {
-      return axios.post('/api/group', group)
+      return axios.post('/api/v1/group', group)
       .then(() => {
         dispatch({
           type: GROUP_CREATE,
@@ -45,7 +45,7 @@ export default class GroupActions {
         type: APPLICATION_STATE,
         status: 'loading'
       });
-      return axios.get('/api/group')
+      return axios.get('/api/v1/group')
         .then((response) => {
           const groups = response.data.results;
           /**
@@ -74,7 +74,7 @@ export default class GroupActions {
    */
   static addUser(groupId, userAdded) {
     return (dispatch) => {
-      return axios.post(`api/group/${groupId}/user`, userAdded)
+      return axios.post(`api/v1/group/${groupId}/user`, userAdded)
         .then((response) => {
           dispatch({
             type: ADD_USER,

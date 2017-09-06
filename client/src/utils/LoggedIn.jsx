@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 /**
- * requireAuth function
+ * LoggedIn function
  * @param {*} ComposedComponent
  * @return {*} void
  */
@@ -11,25 +11,14 @@ export default function (ComposedComponent) {
   /**
    * Authenticate
    */
-  class Authenticate extends Component {
+  class LoggedIn extends Component {
     /**
      * componentWillMount
      * @return {*} void
      */
     componentWillMount() {
-      if (!this.props.isAuthenticated) {
-        Materialize.toast('You need to login to access this page', 4000, 'red');
-        this.context.router.push('/login');
-      }
-    }
-    /**
-     * componentWillUpdate
-     * @param {*} nextProps
-     * @return {*} void
-     */
-    componentWillUpdate(nextProps) {
-      if (!nextProps.isAuthenticated) {
-        this.context.router.push('/');
+      if (this.props.isAuthenticated) {
+        this.context.router.push('/dashboard');
       }
     }
     /**
@@ -43,11 +32,11 @@ export default function (ComposedComponent) {
     }
   }
 
-  Authenticate.propTypes = {
+  LoggedIn.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
   };
 
-  Authenticate.contextTypes = {
+  LoggedIn.contextTypes = {
     router: PropTypes.object.isRequired
   };
   /**
@@ -61,5 +50,5 @@ export default function (ComposedComponent) {
     };
   }
 
-  return connect(mapStateToProps)(Authenticate);
+  return connect(mapStateToProps)(LoggedIn);
 }

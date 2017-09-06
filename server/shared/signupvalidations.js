@@ -26,7 +26,7 @@ export default class sharedSignupValidations {
     }
     if (data.phoneNumber) {
       if (Validator.isEmpty(data.phoneNumber.trim())) {
-        errors.phoneNumber = 'Please fill in your username';
+        errors.phoneNumber = 'Please fill in your phone number';
       }
     }
     if (!data.email) {

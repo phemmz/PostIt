@@ -21,6 +21,7 @@ class NotificationPage extends Component {
    */
   clearNotification() {
     this.props.clearNotification();
+    Materialize.toast('Notifications cleared!!', 4000, 'green');
   }
     /**
    *
@@ -45,15 +46,14 @@ class NotificationPage extends Component {
             </ul>
             <div className="row group-form">
               <div className="center">
-                <Link
-                  to="/dashboard"
+                <button
                   className="waves-effect waves-light btn center mark-btn"
                   onClick={this.clearNotification}
-                >Clear Notifications</Link>
+                >Clear Notifications</button>
                 <Link
                   to="/dashboard"
                   className="waves-effect waves-light btn center"
-                >Close</Link>
+                >Dashboard</Link>
               </div>
             </div>
           </div>

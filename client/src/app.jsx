@@ -12,6 +12,7 @@ import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import AuthenticationActions from './actions/authActions';
 import requireAuth from './utils/requireAuth.jsx';
+import LoggedIn from './utils/LoggedIn.jsx';
 
 /**
  * @description The store binds together the 3 principles of redux
@@ -39,10 +40,10 @@ render(
     <Router history={browserHistory}>
       <Route component={Main}>
         <Route path="/" component={Welcome} />
-        <Route path="/signup" component={SignupPage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={LoggedIn(SignupPage)} />
+        <Route path="/login" component={LoggedIn(LoginPage)} />
         <Route path="/reset" component={ResetPasswordPage} />
-        <Route path="/reset/verification" component={CheckVerificationPage} />
+        <Route path="/verification" component={CheckVerificationPage} />
         <Route path="/dashboard" component={requireAuth(Home)} />
         <Route path="/group" component={requireAuth(CreateGroup)} />
         <Route path="/notification" component={requireAuth(NotificationPage)} />

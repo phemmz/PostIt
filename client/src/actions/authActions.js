@@ -42,7 +42,7 @@ export default class AuthenticationActions {
    */
   static login(data) {
     return (dispatch) => {
-      return axios.post('api/user/signin', data).then((res) => {
+      return axios.post('api/v1/user/signin', data).then((res) => {
         const token = res.data.token;
         /**
          * this saves the token in the localstorage as a key value object
@@ -63,7 +63,7 @@ export default class AuthenticationActions {
    */
   static getUsers() {
     return (dispatch) => {
-      return axios.get('/api/user')
+      return axios.get('/api/v1/user')
         .then((response) => {
           const users = response.data.result;
           dispatch({
@@ -81,7 +81,7 @@ export default class AuthenticationActions {
    */
   static resetPassword(username) {
     return () => {
-      return axios.post('/api/reset', username)
+      return axios.post('/api/v1/reset', username)
         .then((response) => {
           const message = response.data.message;
           return message;
@@ -95,7 +95,7 @@ export default class AuthenticationActions {
    */
   static googleAuthentication(userDetails) {
     return (dispatch) => {
-      return axios.post('/api/auth/google', userDetails)
+      return axios.post('/api/v1/auth/google', userDetails)
         .then((response) => {
           const token = response.data.token;
           /**

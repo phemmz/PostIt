@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6, p {
   padding-top: 10px;
 }
 
-a {
+a, button {
   font-family: 'Cinzel', serif;
 }
 .nav-anchor {
@@ -135,6 +135,13 @@ body {
   overflow: auto;
 }
 
+.mobile-logout {
+  margin: 10px 15px 5px;
+  width: 270px;
+  height: 50px;
+  font-family: 'Cinzel', serif;
+}
+
 .reset-msg {
   background-color: #dceff8;
   position: fixed;
@@ -154,7 +161,7 @@ body {
 }
 
 .msgscrbar {
-  height: 470px;
+  height: 70vh;
   overflow: auto;
 }
 
@@ -163,8 +170,9 @@ body {
   z-index: 999;
 }
 
-#user-size {
+.user-size {
   font-size: 12px;
+  padding-left: 3px;
 }
 
 #welcome-header {
@@ -336,7 +344,7 @@ body {
 
 .messages {
   background-color: #D7CEC7;
-  height: 670px;
+  height: 100vh;
 }
 
 .msgtxtbox {
@@ -351,7 +359,7 @@ body {
 .group {
  background-color: #76323F;
  margin: 0px;
- height: 670px;
+ height: 100vh;
 }
 
 .ordered-list {
@@ -394,14 +402,18 @@ body {
 
 .groupdetails-nav {
   background-color: #76323F;
-  height: 625px;
+  height: 80vh;
   top: auto;
-  width: 210px;
+  width: 16vw;
 }
 
 .read-marker-done {
   color: $read-color;
   cursor: pointer;
+}
+
+.search-users {
+  font-size: 10px;
 }
 
 .my-collection {

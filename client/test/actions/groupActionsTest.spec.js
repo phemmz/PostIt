@@ -16,7 +16,7 @@ describe('Group actions', () => {
   it('should create an action that creates a group', () => {
     const group = { groupname: 'lagos fellows' };
     nock('http://localhost.com')
-      .post('/api/group', group)
+      .post('/api/v1/group', group)
       .reply(201, {
         body: {
           confirmation: 'success',
@@ -60,7 +60,7 @@ describe('Group actions', () => {
     ];
 
     nock('http://localhost.com')
-      .get('/api/group')
+      .get('/api/v1/group')
       .reply(200, {
         body: {
           confirmation: 'success',
@@ -96,7 +96,7 @@ describe('Group actions', () => {
       userId: 1,
     };
     nock('http://localhost.com')
-      .get(`api/group/${groupId}/messages`)
+      .get(`api/v1/group/${groupId}/messages`)
       .reply(200, {
         body: {
           confirmation: 'success',
@@ -120,7 +120,7 @@ describe('Group actions', () => {
     const userAdded = 'phemmz';
     const groupId = 1;
     nock('http://localhost.com')
-      .post(`api/group/${groupId}/user`, userAdded)
+      .post(`api/v1/group/${groupId}/user`, userAdded)
       .reply(201, {
         body: {
           confirmation: 'success',
@@ -146,7 +146,7 @@ describe('Group actions', () => {
     };
     const groupId = 1;
     nock('http://localhost.com')
-      .post(`api/group/${groupId}/message`, message)
+      .post(`api/v1/group/${groupId}/message`, message)
       .reply(201, {
         body: {
           confirmation: 'success',

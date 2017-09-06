@@ -34,14 +34,14 @@ class LoginForm extends Component {
 /**
  * onSubmit() gets called when the login button is pressed, it calls isValid() to check
  * if there are no validation errors and then fires the login action
- * @param {*} e
+ * @param {*} event
  * @return {*} void
  */
-  onSubmit(e) {
+  onSubmit(event) {
 /**
  * prevents the default onSubmit action of a form tag
  */
-    e.preventDefault();
+    event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {} });
       /**
@@ -60,11 +60,11 @@ class LoginForm extends Component {
   }
 /**
  * onChange() gets called when the input field changes and the change is stored in the state
- * @param {*} e
+ * @param {*} event
  * @return {*} void
  */
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 /**
  * Gets the userDetails as response from google

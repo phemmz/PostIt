@@ -10,8 +10,8 @@ const SearchButton = () => {
     <div className="center">
       <Link
         to="/search"
-        className="searchbtn waves-effect waves-light btn center"
-      >Search</Link>
+        className="searchbtn waves-effect waves-light btn center search-users"
+      >Search For Users</Link>
     </div>
   );
 };
