@@ -333,7 +333,7 @@ describe('Group', () => {
     });
     it('it should not allow logged in users to add a user that already belongs to a group', (done) => {
       const addDetails = {
-        username: 'phemz1',
+        username: 'hello000',
       };
       server
       .post('/api/v1/group/1/user')

@@ -282,7 +282,7 @@ describe('Group', function () {
     });
     it('it should not allow logged in users to add a user that already belongs to a group', function (done) {
       var addDetails = {
-        username: 'phemz1'
+        username: 'hello000'
       };
       server.post('/api/v1/group/1/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).type('form').send(addDetails).end(function (err, res) {
         res.should.have.status(400);
