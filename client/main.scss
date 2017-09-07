@@ -2,6 +2,7 @@ $primary-color: silver;
 $bell-color: #ff0000;
 $read-color: #66BB6A;
 $my-collection: #fff;
+$group-color: #76323f;
 
 .container-fluid {
   padding: 0;
@@ -219,6 +220,13 @@ body {
   list-style-type: none;
 }
 
+.search-user {
+  background-color: $primary-color;
+  font-family: 'Cinzel', serif;
+  height: 10vh;
+
+}
+
 .mark-btn {
   margin-right: 15px;
 }
@@ -357,33 +365,33 @@ body {
 }
 
 .group {
- background-color: #76323F;
- margin: 0px;
- height: 100vh;
+ background-color:  $group-color;
+ margin:  0px;
+ height:  100vh;
 }
 
 .ordered-list {
-  padding-left: 20px;
+  padding-left:  20px;
 }
 
 .msgform {
-  margin: -19rem 0 2rem 50rem;
-  height: 500px;
-  width: 550px;
+  margin:  -19rem 0 2rem 50rem;
+  height:  500px;
+  width:  550px;
 }
 
 .cbg {
-  margin-left: 5rem;
-  margin-top: 5rem;
+  margin-left:  5rem;
+  margin-top:  5rem;
 }
 
 .glist {
-  margin-top: 0;
+  margin-top:  0;
 }
 
 .text-darken-4 {
-	font-weight: bold;
-	text-align: center;
+	font-weight:  bold;
+	text-align:  center;
 }
 .text-darken-2 {	
 	text-align: center;
@@ -401,7 +409,7 @@ body {
 }
 
 .groupdetails-nav {
-  background-color: #76323F;
+  background-color: $group-color;
   height: 80vh;
   top: auto;
   width: 16vw;

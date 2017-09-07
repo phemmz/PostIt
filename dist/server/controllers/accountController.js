@@ -295,7 +295,7 @@ var UserController = function () {
           });
         } else {
           var generatedId = _shortid2.default.generate();
-          var gameURL = 'https://phemmz-post-it.herokuapp.com/reset/verification';
+          var gameURL = 'https://phemmz-post-it.herokuapp.com/verification';
           var transporter = _nodemailer2.default.createTransport({
             service: 'Gmail',
             auth: {
