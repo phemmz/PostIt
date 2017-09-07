@@ -111,6 +111,8 @@ To post a message to a group:
 }
 ```
 
+#### The full API documentation can be found [here](https://app.swaggerhub.com/apis/phemmz/PostIt/1.0.0).
+
 ## Limitations
 - One of the limitations of this app is that users who signed up using google+ authentication can not sign in with the local signin strategy unless the user creates a new account with a different email address.
 - Also, groups can not be deleted and users can not be removed from a group.
