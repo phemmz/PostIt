@@ -80,6 +80,6 @@ router.put('/api/v1/user/signup', UpdatePasswordValidations.validateUserInput, U
 router.post('/api/v1/auth/google', UserController.googleSignup);
 router.post('/api/v1/group/:groupId/readStatus', authenticate, MessageController.readStatus);
 router.get('/api/v1/group/:groupId/readStatus', authenticate, MessageController.readList);
-router.get('/api/v1/search/:searchKey', authenticate, MessageController.searchUsers);
+router.get('/api/v1/search/:searchKey/:offset/:perPage', authenticate, MessageController.searchUsers);
 
 export default router;

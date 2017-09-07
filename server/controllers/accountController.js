@@ -267,7 +267,7 @@ export default class UserController {
         });
       } else {
         const generatedId = shortid.generate();
-        const gameURL = 'https://phemmz-post-it.herokuapp.com/reset/verification';
+        const gameURL = 'https://phemmz-post-it.herokuapp.com/verification';
         const transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {

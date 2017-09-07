@@ -100,17 +100,19 @@ export default class MessageActions {
   }
   /**
    * @param {*} searchKey
+   * @param {*} offset
+   * @param {*} perPage
    * @return {*} response
    */
-  static searchUser(searchKey) {
+  static searchUser(searchKey, offset, perPage) {
     return (dispatch) => {
-      return axios.get(`api/v1/search/${searchKey}`)
+      return axios.get(`api/v1/search/${searchKey}/${offset}/${perPage}`)
         .then((response) => {
           dispatch({
             type: SEARCH_USER,
-            searchedUsers: response.data.users
+            searchedUsers: response.data.comments
           });
-          return response.data.users;
+          return response.data;
         });
     };
   }

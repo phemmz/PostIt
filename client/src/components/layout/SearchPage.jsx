@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import MessageActions from '../../actions/messageActions';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
+import SearchedUser from '../presentation/SearchedUser.jsx';
 
 /**
  * @class SearchPage
@@ -16,9 +18,14 @@ class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchKey: ''
+      searchKey: '',
+      offset: 0,
+      perPage: 5,
+      data: [],
+      pageCount: 0
     };
     this.searchHandler = this.searchHandler.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
   /**
    * searchHandler
@@ -31,13 +38,35 @@ class SearchPage extends Component {
       this.setState({
         [event.target.name]: event.target.value
       }, () => {
-        this.props.searchUser(this.state.searchKey);
+        this.props.searchUser(this.state.searchKey, this.state.offset, this.state.perPage)
+        .then((data) => {
+          this.setState({
+            data: data.comments,
+            pageCount: Math.ceil(data.meta.total_count / data.meta.limit)
+          });
+        });
       });
     } else {
       this.setState({
         [event.target.name]: event.target.value
       });
     }
+  }
+  /**
+   * handlePageClick
+   * @param {*} data
+   * @return {*} void
+   */
+  handlePageClick(data) {
+    const selected = data.selected;
+    const offset = Math.ceil(selected * 5);
+    this.props.searchUser(this.state.searchKey, offset, this.state.perPage)
+    .then((response) => {
+      this.setState({
+        data: response.comments,
+        pageCount: Math.ceil(response.meta.total_count / response.meta.limit)
+      });
+    });
   }
     /**
    *
@@ -46,29 +75,47 @@ class SearchPage extends Component {
   render() {
     const searched = this.props.searchedUsers.map((user, index) => {
       return (
-        <li className="each-group" key={index}>
-          {user.username}
-        </li>
+        <SearchedUser
+          key={index}
+          user={user}
+        />
       );
     });
     return (
       <div className="container">
         <div className="row">
           <div className="col s12 m6 offset-m3 card custom">
-            <h5 className="green-text text-darken-4">Search For Users</h5>
-            <TextFieldGroup
-              id="search"
-              field="searchKey"
-              value={this.state.searchKey}
-              htmlFor="search"
-              label="Search For Users"
-              onChange={this.searchHandler}
-            />
+            <div className="row">
+              <h5 className="green-text text-darken-4">Search For Users</h5>
+              <TextFieldGroup
+                id="search"
+                field="searchKey"
+                value={this.state.searchKey}
+                htmlFor="search"
+                label="Search For Users"
+                onChange={this.searchHandler}
+              />
+            </div>
             {
               (this.props.searchedUsers) ?
               (searched) :
               (<div />)
             }
+            <div className="center">
+              <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={<a href="">...</a>}
+                breakClassName={'break-me'}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={'pagination'}
+                subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+              />
+            </div>
             <div className="row group-form">
               <div className="center">
                 <Link
@@ -93,8 +140,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    searchUser: (searchKey) => {
-      return dispatch(MessageActions.searchUser(searchKey));
+    searchUser: (searchKey, offset, perPage) => {
+      return dispatch(MessageActions.searchUser(searchKey, offset, perPage));
     }
   };
 };

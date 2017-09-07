@@ -1,3 +1,4 @@
+import util from 'util';
 import Model from '../data/models';
 import sendMail from './helpers/sendMail';
 import sendSMS from './helpers/sendSMS';
@@ -204,9 +205,31 @@ export default class MessageController {
       }
     })
       .then((response) => {
+        const userDetails = [];
+        response.map((user) => {
+          return userDetails.push({
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber
+          });
+        });
+        const PER_PAGE = 5;
+        const offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
+        const nextOffset = (offset + PER_PAGE);
+        const previousOffset = (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
+        const meta = {
+          limit: PER_PAGE,
+          next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
+          offset: req.params.offset,
+          previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+          total_count: userDetails.length
+        };
+        const getPaginatedItems = userDetails.slice(offset, (offset + PER_PAGE));
         res.status(200).json({
           confirmation: 'success',
-          users: response
+          users: userDetails,
+          meta,
+          comments: getPaginatedItems
         });
       })
       .catch((error) => {
