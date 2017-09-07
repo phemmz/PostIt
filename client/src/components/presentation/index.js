@@ -8,6 +8,7 @@ import GroupHeader from './GroupHeader.jsx';
 import SearchButton from './SearchButton.jsx';
 import PreLoader from './PreLoader.jsx';
 import MessageHeader from './MessageHeader.jsx';
+import SearchedUser from './SearchedUser.jsx';
 
 export {
   CreateMessage,
@@ -19,5 +20,6 @@ export {
   GroupHeader,
   SearchButton,
   PreLoader,
-  MessageHeader
+  MessageHeader,
+  SearchedUser
 };

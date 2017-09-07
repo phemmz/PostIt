@@ -2,6 +2,7 @@ $primary-color: silver;
 $bell-color: #ff0000;
 $read-color: #66BB6A;
 $my-collection: #fff;
+$group-color: #76323F;
 
 .container-fluid {
   padding: 0;
@@ -219,6 +220,13 @@ body {
   list-style-type: none;
 }
 
+.search-user {
+  background-color: $primary-color;
+  font-family: 'Cinzel', serif;
+  height: 10vh;
+
+}
+
 .mark-btn {
   margin-right: 15px;
 }
@@ -357,7 +365,7 @@ body {
 }
 
 .group {
- background-color: #76323F;
+ background-color: $group-color;
  margin: 0px;
  height: 100vh;
 }
@@ -401,7 +409,7 @@ body {
 }
 
 .groupdetails-nav {
-  background-color: #76323F;
+  background-color: $group-color;
   height: 80vh;
   top: auto;
   width: 16vw;

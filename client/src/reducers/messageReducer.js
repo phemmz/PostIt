@@ -6,7 +6,8 @@ const initialState = {
   notifications: [],
   readStatus: false,
   readList: [],
-  searchedUsers: []
+  searchedUsers: [],
+  meta: {}
 };
 /**
  * Group reducer takes the state and action and then returns the state
