@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 
 /**
@@ -19,7 +20,7 @@ export default function (ComposedComponent) {
     componentWillMount() {
       if (!this.props.isAuthenticated) {
         Materialize.toast('You need to login to access this page', 4000, 'red');
-        this.context.router.push('/login');
+        browserHistory.push('/login');
       }
     }
     /**
@@ -29,7 +30,7 @@ export default function (ComposedComponent) {
      */
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {
-        this.context.router.push('/');
+        browserHistory.push('/');
       }
     }
     /**
@@ -47,9 +48,6 @@ export default function (ComposedComponent) {
     isAuthenticated: PropTypes.bool.isRequired,
   };
 
-  Authenticate.contextTypes = {
-    router: PropTypes.object.isRequired
-  };
   /**
    * mapStateToProps(state)
    * @param {*} state

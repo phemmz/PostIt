@@ -44,7 +44,12 @@ const Message = ({
 };
 
 Message.propTypes = {
-  currentMessage: PropTypes.object.isRequired,
+  currentMessage: PropTypes.shape({
+    messagecreator: PropTypes.string,
+    priority: PropTypes.string,
+    createdAt: PropTypes.string,
+    content: PropTypes.string
+  }).isRequired,
   readList: PropTypes.string.isRequired
 };
 

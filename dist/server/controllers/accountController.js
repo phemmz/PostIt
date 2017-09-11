@@ -77,7 +77,9 @@ var UserController = function () {
           userId: userdetails.id,
           username: userdetails.username,
           email: userdetails.email
-        }, process.env.SECRET);
+        }, process.env.SECRET, {
+          expiresIn: 60 * 60 * 24
+        });
         /**
          * If user is created successfully
          * return a json object with status 201
@@ -137,7 +139,9 @@ var UserController = function () {
             userId: userdetails[0].id,
             username: userdetails[0].username,
             email: userdetails[0].email
-          }, process.env.SECRET);
+          }, process.env.SECRET, {
+            expiresIn: 60 * 60 * 24
+          });
           /**
            * Returns a json object including the token generated
            */
@@ -194,11 +198,13 @@ var UserController = function () {
           var token = _jsonwebtoken2.default.sign({
             username: req.body.username,
             email: req.body.email
-          }, process.env.SECRET);
+          }, process.env.SECRET, {
+            expiresIn: 60 * 60 * 24
+          });
           /**
            * Returns a json object including the token generated
            */
-          res.json({
+          res.status(200).json({
             confirmation: 'success',
             message: req.body.username + ' logged in',
             token: token
@@ -224,7 +230,16 @@ var UserController = function () {
       /**
        * Queries the User model for all users
        */
-      User.findAll({}).then(function (data) {
+      User.findAll({}).then(function (allUsers) {
+        var data = [];
+        allUsers.map(function (user) {
+          return data.push({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber
+          });
+        });
         /**
          * Returns a json object with the data array passed along
          */
@@ -311,7 +326,7 @@ var UserController = function () {
           };
           transporter.sendMail(mailOptions, function (err) {
             if (err) {
-              res.json({
+              res.status(422).json({
                 confirmation: 'fail',
                 message: 'Error sending email to ' + req.body.username
               });
@@ -360,7 +375,7 @@ var UserController = function () {
             username: req.body.username
           }
         }).then(function () {
-          res.json({
+          res.status(200).json({
             confirmation: 'success',
             message: 'Password updated successfully'
           });
@@ -370,10 +385,10 @@ var UserController = function () {
             message: 'Failed to update password'
           });
         });
-      }).catch(function (err) {
-        res.status(500).json({
+      }).catch(function () {
+        res.status(404).json({
           confirmation: 'fail',
-          message: err
+          message: 'User not found'
         });
       });
     }

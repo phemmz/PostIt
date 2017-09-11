@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import MessageActions from '../../actions/messageActions';
 
 /**
@@ -62,6 +63,15 @@ class NotificationPage extends Component {
     );
   }
 }
+
+NotificationPage.propTypes = {
+  clearNotification: PropTypes.func.isRequired,
+  notifications: PropTypes.arrayOf(PropTypes.string)
+};
+
+NotificationPage.defaultProps = {
+  notifications: []
+};
 
 const stateToProps = (state) => {
   return {

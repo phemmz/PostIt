@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
 import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
@@ -59,7 +60,7 @@ class SignupForm extends Component {
        */
       this.props.userSignupRequest(this.state).then(
         () => {
-          this.context.router.push('/dashboard');
+          browserHistory.push('/dashboard');
           Materialize.toast('Signup Successful!!, Welcome', 4000, 'green');
         })
         .catch((err) => {
@@ -119,7 +120,7 @@ class SignupForm extends Component {
     };
     this.props.googleAuthentication(userDetails)
       .then(() => {
-        this.context.router.push('/dashboard');
+        browserHistory.push('/dashboard');
         Materialize.toast('Welcome!!', 4000, 'green');
       });
   }
@@ -209,11 +210,8 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired
-};
-
-SignupForm.contextTypes = {
-  router: PropTypes.object.isRequired
+  isUserExists: PropTypes.func.isRequired,
+  googleAuthentication: PropTypes.func.isRequired
 };
 
 export default SignupForm;

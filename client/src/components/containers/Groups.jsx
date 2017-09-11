@@ -127,11 +127,18 @@ Groups.propTypes = {
   appStatus: PropTypes.string.isRequired,
   selectedGroup: PropTypes.string,
   groupSelected: PropTypes.func.isRequired,
-  fetchGroups: PropTypes.func.isRequired
+  fetchGroups: PropTypes.func.isRequired,
+  groupList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    groupname: PropTypes.string
+  })),
+  notifications: PropTypes.arrayOf(PropTypes.string)
 };
 
 Groups.defaultProps = {
-  selectedGroup: ''
+  selectedGroup: '',
+  groupList: [],
+  notifications: []
 };
 
 const stateToProps = (state) => {

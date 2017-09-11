@@ -207,10 +207,10 @@ var MessageController = function () {
           confirmation: 'success',
           uniqueList: uniqueList
         });
-      }).catch(function (err) {
+      }).catch(function () {
         res.status(400).json({
           confirmation: 'fail',
-          message: err
+          message: 'Invalid group id'
         });
       });
     }

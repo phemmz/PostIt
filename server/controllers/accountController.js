@@ -45,7 +45,9 @@ export default class UserController {
           userId: userdetails.id,
           username: userdetails.username,
           email: userdetails.email
-        }, process.env.SECRET);
+        }, process.env.SECRET, {
+          expiresIn: 60 * 60 * 24
+        });
 /**
  * If user is created successfully
  * return a json object with status 201
@@ -107,7 +109,9 @@ export default class UserController {
             userId: userdetails[0].id,
             username: userdetails[0].username,
             email: userdetails[0].email
-          }, process.env.SECRET);
+          }, process.env.SECRET, {
+            expiresIn: 60 * 60 * 24
+          });
 /**
  * Returns a json object including the token generated
  */
@@ -165,11 +169,13 @@ export default class UserController {
           const token = jwt.sign({
             username: req.body.username,
             email: req.body.email,
-          }, process.env.SECRET);
+          }, process.env.SECRET, {
+            expiresIn: 60 * 60 * 24
+          });
 /**
  * Returns a json object including the token generated
  */
-          res.json({
+          res.status(200).json({
             confirmation: 'success',
             message: `${req.body.username} logged in`,
             token
@@ -194,7 +200,16 @@ export default class UserController {
  * Queries the User model for all users
  */
     User.findAll({})
-      .then((data) => {
+      .then((allUsers) => {
+        const data = [];
+        allUsers.map((user) => {
+          return data.push({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phoneNumber
+          });
+        });
 /**
  * Returns a json object with the data array passed along
  */
@@ -288,7 +303,7 @@ export default class UserController {
         };
         transporter.sendMail(mailOptions, (err) => {
           if (err) {
-            res.json({
+            res.status(422).json({
               confirmation: 'fail',
               message: `Error sending email to ${req.body.username}`
             });
@@ -337,7 +352,7 @@ export default class UserController {
           }
         })
           .then(() => {
-            res.json({
+            res.status(200).json({
               confirmation: 'success',
               message: 'Password updated successfully'
             });
@@ -349,10 +364,10 @@ export default class UserController {
             });
           });
       })
-      .catch((err) => {
-        res.status(500).json({
+      .catch(() => {
+        res.status(404).json({
           confirmation: 'fail',
-          message: err
+          message: 'User not found'
         });
       });
   }

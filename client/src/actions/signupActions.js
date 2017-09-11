@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import AuthenticationActions from './authActions';
+import { USER_EXIST } from './types';
 /**
  * SignupActions class
  */
@@ -38,7 +39,7 @@ export default class SignupActions {
     };
   }
   /**
-   * @param {string} password
+   * @param {string} newUser
    * @return {*} axios
    */
   static updatePassword(newUser) {

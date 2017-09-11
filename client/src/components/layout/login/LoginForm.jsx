@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
@@ -49,7 +49,7 @@ class LoginForm extends Component {
        */
       this.props.login(this.state)
         .then(() => {
-          this.context.router.push('/dashboard');
+          browserHistory.push('/dashboard');
           Materialize.toast('Login Successful!!', 4000, 'green');
         })
         .catch((err) => {
@@ -80,7 +80,7 @@ class LoginForm extends Component {
     };
     this.props.googleAuthentication(userDetails)
       .then(() => {
-        this.context.router.push('/dashboard');
+        browserHistory.push('/dashboard');
         Materialize.toast('Welcome!!', 4000, 'green');
       });
   }
@@ -153,6 +153,10 @@ class LoginForm extends Component {
   }
 }
 
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
+  googleAuthentication: PropTypes.func.isRequired
+};
 
 const dispatchToProps = (dispatch) => {
   return {
@@ -163,10 +167,6 @@ const dispatchToProps = (dispatch) => {
       return dispatch(AuthenticationActions.googleAuthentication(userDetails));
     }
   };
-};
-
-LoginForm.contextTypes = {
-  router: PropTypes.object.isRequired
 };
 
 export default connect(null, dispatchToProps)(LoginForm);

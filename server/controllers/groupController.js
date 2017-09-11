@@ -143,13 +143,20 @@ export default class GroupController {
         user.getGroups({
           where: {}
         })
-          .then((groups) => {
-            if (groups.length < 1) {
+          .then((data) => {
+            if (data.length < 1) {
               res.status(404).json({
                 confirmation: 'fail',
                 message: 'You currently dont belong to any group'
               });
             } else {
+              const groups = [];
+              data.map((group) => {
+                return groups.push({
+                  id: group.id,
+                  groupname: group.groupname
+                });
+              });
               res.status(200).json({
                 confirmation: 'success',
                 results: groups

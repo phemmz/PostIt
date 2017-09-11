@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 /**
  * Home
@@ -51,6 +52,11 @@ const GroupHeader = ({ notifications, children }) => {
       </div>
     </div>
   );
+};
+
+GroupHeader.propTypes = {
+  notifications: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default GroupHeader;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import MessageActions from '../../actions/messageActions';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
@@ -130,6 +131,19 @@ class SearchPage extends Component {
     );
   }
 }
+
+SearchPage.propTypes = {
+  searchUser: PropTypes.func.isRequired,
+  searchedUsers: PropTypes.arrayOf(PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    phoneNumber: PropTypes.string
+  })),
+};
+
+SearchPage.defaultProps = {
+  searchedUsers: []
+};
 
 const stateToProps = (state) => {
   return {
