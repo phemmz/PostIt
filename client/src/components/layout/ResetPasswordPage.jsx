@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import SignupActions from '../../actions/signupActions';
 import AuthenticationActions from '../../actions/authActions';
@@ -9,7 +10,7 @@ import AuthenticationActions from '../../actions/authActions';
 class ResetPasswordPage extends Component {
   /**
    * constructor
-   * @params {*} props
+   * @param {*} props
    * @return {*} void
    */
   constructor(props) {
@@ -140,6 +141,11 @@ class ResetPasswordPage extends Component {
     );
   }
 }
+
+ResetPasswordPage.propTypes = {
+  resetPassword: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
+};
 
 const dispatchToProps = (dispatch) => {
   return {

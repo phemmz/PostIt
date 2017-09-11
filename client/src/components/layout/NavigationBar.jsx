@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import AuthenticationActions from '../../actions/authActions';
 
 /**
@@ -108,6 +109,26 @@ class NavigationBar extends Component {
     );
   }
 }
+
+NavigationBar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      userId: PropTypes.number,
+      username: PropTypes.string,
+      email: PropTypes.string,
+      iat: PropTypes.number,
+      exp: PropTypes.number,
+    })
+  })
+};
+
+NavigationBar.defaultProps = {
+  auth: PropTypes.shape({
+    user: {}
+  })
+};
 
 const stateToProps = (state) => {
   return {

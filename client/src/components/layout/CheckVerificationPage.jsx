@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import SignupActions from '../../actions/signupActions';
@@ -76,11 +77,11 @@ class CheckVerificationPage extends Component {
         passwordConfirmation: this.state.passwordConfirmation
       })
         .then(() => {
-          Materialize.toast('Password Reset Successfull', 4000, 'green');
+          Materialize.toast('Password Reset Successful!!', 4000, 'green');
           /**
            * On successfull reset of the password, it redirects to the login page
            */
-          this.context.router.push('/login');
+          browserHistory.push('/login');
         })
         .catch(() => {
           Materialize.toast('Password Reset Failed', 4000, 'red');
@@ -220,8 +221,9 @@ class CheckVerificationPage extends Component {
   }
 }
 
-CheckVerificationPage.contextTypes = {
-  router: PropTypes.object.isRequired
+CheckVerificationPage.propTypes = {
+  updatePassword: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired
 };
 
 const dispatchToProps = (dispatch) => {

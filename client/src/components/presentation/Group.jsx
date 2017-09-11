@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 /**
  * Group class which extends React.Component
  */
@@ -68,4 +69,19 @@ class Group extends Component {
     );
   }
 }
+
+Group.propTypes = {
+  groupClickHandler: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  groupId: PropTypes.number,
+  groupPropsObj: PropTypes.shape({
+    id: PropTypes.number,
+    groupname: PropTypes.string
+  }).isRequired
+};
+
+Group.defaultProps = {
+  groupId: null
+};
+
 export default Group;

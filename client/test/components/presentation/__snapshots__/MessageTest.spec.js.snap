@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Component displays each message in a group 1`] = `
+<Message
+  currentMessage={
+    Object {
+      "content": "nah",
+      "createdAt": "2017-09-06T14:53:09.414Z",
+      "messagecreator": "phemmz",
+      "priority": "Normal",
+    }
+  }
+  readList="phemmz"
+>
+  <div
+    className="email-content-wrap"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col s12 m10 l10 msg-position"
+      >
+        <ul
+          className="collection my-collection"
+        >
+          <li
+            className="collection-item avatar"
+          >
+            <span
+              className="circle green lighten-1 center"
+            >
+              p
+            </span>
+            <span
+              className="email-title"
+              id="msg-creator"
+            >
+              phemmz
+            </span>
+            <span
+              className="grey-text ultra-small right date-msg-position"
+            >
+              Priority: 
+              Normal
+            </span>
+            <span
+              className="grey-text ultra-small right date-pad date-msg-position"
+            >
+              9/6/2017, 3:53:09 PM
+            </span>
+            <div
+              className="flex wordwrap"
+            >
+              <span
+                className="email-content msg-content"
+              >
+                nah
+              </span>
+            </div>
+            <div
+              className="right"
+            >
+              <i
+                className="material-icons read-marker-done tooltipped"
+                data-tooltip="Read by: phemmz"
+              >
+                done_all
+              </i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+  </div>
+</Message>
+`;

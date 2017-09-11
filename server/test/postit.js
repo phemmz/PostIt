@@ -2,12 +2,14 @@ import supertest from 'supertest';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
-import app from '../app';
-import Model from '../server/data/models';
+import app from '../../app';
+import Model from '../data/models';
 
 process.env.NODE_ENV = 'test';
 const User = Model.User;
 const Group = Model.Group;
+const Message = Model.Message;
+const View = Model.View;
 
 const should = chai.should();
 const server = supertest.agent(app);
@@ -225,7 +227,7 @@ describe('Group', () => {
   describe('Authentication', () => {
     it('it should POST signup details ', (done) => {
       const signupDetails = {
-        email: 'phemz1@gmail.com',
+        email: 'phemmzy2014@gmail.com',
         username: 'phemz1',
         phoneNumber: '08062935949',
         password: 'douchee',
@@ -386,6 +388,12 @@ describe('Group', () => {
   });
   // Test the /POST api/group/:id/message
   describe('/POST/:id Post Message', () => {
+    before((done) => {
+      Message.sync({ force: true })
+        .then(() => {
+          done();
+        });
+    });
     it('it should not allow a logged in user to POST messages to a group without content', (done) => {
       const msgDetails = {
         readcheck: true,
@@ -450,6 +458,266 @@ describe('Group', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('confirmation').eql('fail');
           res.body.should.have.property('message').eql('Group does not exist');
+          done();
+        });
+    });
+  });
+  describe('/POST Password reset', () => {
+    it('it should not send verification email to an unregistered user', (done) => {
+      const username = {
+        username: 'boy2'
+      };
+      server
+        .post('/api/v1/reset')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(username)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('User not found');
+          done();
+        });
+    });
+    it('it should not send verification email if no username is provided', (done) => {
+      const username = '';
+      server
+        .post('/api/v1/reset')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(username)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should send verification email to a registered user', (done) => {
+      const username = {
+        username: 'phemz1'
+      };
+      server
+        .post('/api/v1/reset')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(username)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('message').eql('You will receive an email with instructions on how to reset your password in a few minutes.');
+          done();
+        });
+    });
+    it('it should not update password of a user that is not registered', (done) => {
+      const newUser = {
+        username: 'phemmz21',
+        password: '123456',
+        passwordConfirmation: '123456'
+      };
+      server
+        .put('/api/v1/user/signup')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('User not found');
+          done();
+        });
+    });
+    it('it should not update password if no password is entered', (done) => {
+      const newUser = {
+        username: 'phemz1',
+        passwordConfirmation: '123456'
+      };
+      server
+        .put('/api/v1/user/signup')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('password').eql('Please fill in your password');
+          done();
+        });
+    });
+    it('it should not update password if no passwordConfirmation is entered', (done) => {
+      const newUser = {
+        username: 'phemz1',
+        password: '123456'
+      };
+      server
+        .put('/api/v1/user/signup')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('passwordConfirmation').eql('Please fill in your password');
+          done();
+        });
+    });
+    it('it should not update password if password and passwordConfirmation do not match', (done) => {
+      const newUser = {
+        username: 'phemz1',
+        password: '123456',
+        passwordConfirmation: '12345678'
+      };
+      server
+        .put('/api/v1/user/signup')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('passwordConfirmation').eql('Passwords must match!!');
+          done();
+        });
+    });
+    it('it should update password of a registered user', (done) => {
+      const newUser = {
+        username: 'phemz1',
+        password: '123456',
+        passwordConfirmation: '123456'
+      };
+      server
+        .put('/api/v1/user/signup')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send(newUser)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('message').eql('Password updated successfully');
+          done();
+        });
+    });
+  });
+  describe('/POST Google+ authentication', () => {
+    it('it should signup a new user using google details', (done) => {
+      const googleDetails = {
+        username: 'phemmz8',
+        email: 'phemmz8@gmail.com',
+        password: '123456',
+        phoneNumber: '107417116674271276210'
+      };
+      server
+        .post('/api/v1/auth/google')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .send(googleDetails)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('message').eql('phemmz8 successfully created');
+          done();
+        });
+    });
+    it('it should signin an existing user using google details', (done) => {
+      const googleDetails = {
+        username: 'hello000',
+        email: 'hello000@gmail.com',
+        password: 'douchee'
+      };
+      server
+        .post('/api/v1/auth/google')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .send(googleDetails)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('message').eql('hello000 logged in');
+          done();
+        });
+    });
+  });
+  describe('Read Status', () => {
+    before((done) => {
+      View.sync({ force: true })
+        .then(() => {
+          done();
+        });
+    });
+    it('it should add user has part of those who have read a message', (done) => {
+      const groupId = 1;
+      server
+        .post(`/api/v1/group/${groupId}/readStatus`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          done();
+        });
+    });
+    it('it should get users that have read a message', (done) => {
+      const groupId = 1;
+      server
+        .get(`/api/v1/group/${groupId}/readStatus`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('uniqueList');
+          done();
+        });
+    });
+    it('it should throw an error if an invalid groupId is passed', (done) => {
+      const groupId = '1a';
+      server
+        .get(`/api/v1/group/${groupId}/readStatus`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Invalid group id');
+          done();
+        });
+    });
+  });
+  describe('Search Users', () => {
+    it('it should search for users based on the search key passed', (done) => {
+      const searchKey = 'h';
+      const offset = 0;
+      const perPage = 5;
+      server
+        .get(`/api/v1/search/${searchKey}/${offset}/${perPage}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('meta');
+          res.body.should.have.property('comments');
           done();
         });
     });

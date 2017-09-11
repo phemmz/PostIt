@@ -3,12 +3,17 @@ import Group from './Group.jsx';
 import Message from './Message.jsx';
 import AddUserModal from './AddUserModal.jsx';
 import SideNav from './SideNav.jsx';
-import GroupListSection from './GroupListSection.jsx';
 import GroupHeader from './GroupHeader.jsx';
 import SearchButton from './SearchButton.jsx';
 import PreLoader from './PreLoader.jsx';
 import MessageHeader from './MessageHeader.jsx';
 import SearchedUser from './SearchedUser.jsx';
+import Welcome from './Welcome.jsx';
+import Main from './Main.jsx';
+import Home from './Home.jsx';
+import LoginPage from './LoginPage.jsx';
+import SignupPage from './SignupPage.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
 
 export {
   CreateMessage,
@@ -16,10 +21,15 @@ export {
   Message,
   AddUserModal,
   SideNav,
-  GroupListSection,
   GroupHeader,
   SearchButton,
   PreLoader,
   MessageHeader,
-  SearchedUser
+  SearchedUser,
+  Welcome,
+  Main,
+  Home,
+  LoginPage,
+  SignupPage,
+  NotFoundPage
 };

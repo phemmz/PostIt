@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 
 /**
@@ -18,7 +19,7 @@ export default function (ComposedComponent) {
      */
     componentWillMount() {
       if (this.props.isAuthenticated) {
-        this.context.router.push('/dashboard');
+        browserHistory.push('/dashboard');
       }
     }
     /**
@@ -34,10 +35,6 @@ export default function (ComposedComponent) {
 
   LoggedIn.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-  };
-
-  LoggedIn.contextTypes = {
-    router: PropTypes.object.isRequired
   };
   /**
    * mapStateToProps(state)

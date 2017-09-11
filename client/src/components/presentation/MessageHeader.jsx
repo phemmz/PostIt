@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Home
@@ -16,6 +17,10 @@ const MessageHeader = ({ groupName }) => {
       </div>
     </div>
   );
+};
+
+MessageHeader.propTypes = {
+  groupName: PropTypes.string.isRequired
 };
 
 export default MessageHeader;

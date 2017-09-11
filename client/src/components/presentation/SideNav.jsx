@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SideNav = ({
   currentUser
@@ -28,6 +29,13 @@ const SideNav = ({
         ><i className="fa fa-user-plus snav" aria-hidden="true" />Add User</a></li>
     </ul>
   );
+};
+
+SideNav.propTypes = {
+  currentUser: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string
+  }).isRequired
 };
 
 export default SideNav;

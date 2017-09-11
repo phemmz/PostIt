@@ -1,6 +1,6 @@
 import expect from 'expect';
 import groupReducer from '../../src/reducers/groupReducer';
-import { GROUP_CREATE, GROUP_SELECTED, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER, SEND_MESSAGE } from '../../src/actions/types';
+import { GROUP_CREATE, GROUP_SELECTED, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, APPLICATION_STATE, ADD_USER } from '../../src/actions/types';
 
 describe('Group Reducer', () => {
   const initialState = {
@@ -71,45 +71,6 @@ describe('Group Reducer', () => {
 
     expect(newState.groupList).toEqual([]);
     expect(newState.appStatus).toEqual('no groups');
-  });
-  it('should handle GROUP_MESSAGES', () => {
-    const messages = [
-      {
-        id: 1,
-        content: 'hello man',
-        readcheck: null,
-        priority: 1,
-        messagecreator: 'phemmz',
-        userId: 1,
-        groupId: 1,
-        createdAt: '2017-08-03T12:33:32.666Z',
-        updatedAt: '2017-08-03T12:33:32.666Z'
-      }
-    ];
-    const action = { type: GROUP_MESSAGES, messages };
-    const newState = groupReducer(initialState, action);
-
-    expect(newState.groupMessages).toEqual(messages);
-    expect(newState.groupMessages.messagecreator).toEqual(messages.messagecreator);
-  });
-  it('should handle SEND_MESSAGE', () => {
-    const message =
-      {
-        id: 1,
-        content: 'hello man',
-        readcheck: null,
-        priority: 1,
-        messagecreator: 'phemmz',
-        userId: 1,
-        groupId: 1,
-        createdAt: '2017-08-03T12:33:32.666Z',
-        updatedAt: '2017-08-03T12:33:32.666Z'
-      };
-    const action = { type: SEND_MESSAGE, message };
-    const newState = groupReducer(initialState, action);
-
-    expect(newState.list).toEqual(message);
-    expect(newState.list.messagecreator).toEqual(message.messagecreator);
   });
   it('should handle ADD_USER', () => {
     const addUser = 'phemz1';

@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Component displays the group header with notifications in the group section 1`] = `
+<GroupHeader
+  notifications={
+    Array [
+      "New message from neene",
+    ]
+  }
+>
+  <div
+    className="container-fluid"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col s12 m12"
+      >
+        <div
+          className="container-fluid"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col s12"
+            >
+              <h5
+                className="white-text text-darken-4"
+              >
+                Your Group List
+                <Link
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to="/group"
+                >
+                  <a
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-plus-square add-group tooltipped"
+                      data-tooltip="Create New Group"
+                    />
+                  </a>
+                </Link>
+                <Link
+                  className="mybell on-notification"
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to="/notification"
+                >
+                  <a
+                    className="mybell on-notification"
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-bell-o tooltipped"
+                      data-tooltip="You have new Notification(s)"
+                    />
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+          <hr />
+          <div
+            className="scrbar center"
+          >
+            <h5>
+              You currently dont belong to any group
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</GroupHeader>
+`;
+
+exports[`Message Component displays the group header without notifications 1`] = `
+<GroupHeader
+  notifications={Array []}
+>
+  <div
+    className="container-fluid"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col s12 m12"
+      >
+        <div
+          className="container-fluid"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col s12"
+            >
+              <h5
+                className="white-text text-darken-4"
+              >
+                Your Group List
+                <Link
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to="/group"
+                >
+                  <a
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-plus-square add-group tooltipped"
+                      data-tooltip="Create New Group"
+                    />
+                  </a>
+                </Link>
+                <Link
+                  className="mybell"
+                  onlyActiveOnIndex={false}
+                  style={Object {}}
+                  to="/notification"
+                >
+                  <a
+                    className="mybell"
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="fa fa-bell-o tooltipped"
+                      data-tooltip="No new Notification"
+                    />
+                  </a>
+                </Link>
+              </h5>
+            </div>
+          </div>
+          <hr />
+          <div
+            className="scrbar center"
+          >
+            <h5>
+              You currently dont belong to any group
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</GroupHeader>
+`;

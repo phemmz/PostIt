@@ -38,7 +38,7 @@ export default class SignupActions {
     };
   }
   /**
-   * @param {string} password
+   * @param {string} newUser
    * @return {*} axios
    */
   static updatePassword(newUser) {

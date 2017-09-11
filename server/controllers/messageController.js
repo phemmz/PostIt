@@ -183,10 +183,10 @@ export default class MessageController {
           uniqueList
         });
       })
-      .catch((err) => {
+      .catch(() => {
         res.status(400).json({
           confirmation: 'fail',
-          message: err
+          message: 'Invalid group id'
         });
       });
   }
