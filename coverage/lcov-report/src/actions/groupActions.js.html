@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">59.09% </span>
+        <span class="strong">69.23% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>13/22</span>
+        <span class='fraction'>9/13</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70.59% </span>
+        <span class="strong">72.73% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>12/17</span>
+        <span class='fraction'>8/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">59.09% </span>
+        <span class="strong">69.23% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/22</span>
+        <span class='fraction'>9/13</span>
       </div>
     </div>
   </div>
@@ -129,43 +129,7 @@
 84
 85
 86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+87</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,24 +203,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -265,30 +211,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
-import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER, SEND_MESSAGE } from './types';
+import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, APPLICATION_STATE, ADD_USER } from './types';
 /**
  * GroupActions class
  */
@@ -300,7 +228,7 @@ export default class GroupActions {
    */
   static groupCreate(group) {
     return (dispatch) =&gt; {
-      return axios.post('/api/group', group)
+      return axios.post('/api/v1/group', group)
       .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        dispatch({</span>
           type: GROUP_CREATE,
@@ -334,7 +262,7 @@ export default class GroupActions {
         type: APPLICATION_STATE,
         status: 'loading'
       });
-      return axios.get('/api/group')
+      return axios.get('/api/v1/group')
         .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
           const groups = <span class="cstat-no" title="statement not covered" >response.data.results;</span>
           /**
@@ -356,24 +284,6 @@ export default class GroupActions {
     };
   }
   /**
-   * Gets the messages in a group
-   * @param {integer} groupId
-   * @returns {object} type, groups
-   */
-  static groupMessages(groupId) {
-    return (dispatch) =&gt; {
-      return axios.get(`api/group/${groupId}/messages`)
-        .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
-          const messages = <span class="cstat-no" title="statement not covered" >response.data.results;</span>
-<span class="cstat-no" title="statement not covered" >          dispatch({</span>
-            type: GROUP_MESSAGES,
-            messages
-          });
-<span class="cstat-no" title="statement not covered" >          return messages;</span>
-        });
-    };
-  }
-  /**
    * @description Adds user to a group
    * @param {integer} groupId
    * @param {object} userAdded
@@ -381,30 +291,12 @@ export default class GroupActions {
    */
   static addUser(groupId, userAdded) {
     return (dispatch) =&gt; {
-      return axios.post(`api/group/${groupId}/user`, userAdded)
+      return axios.post(`api/v1/group/${groupId}/user`, userAdded)
         .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          dispatch({</span>
             type: ADD_USER,
             addUser: response.data.results
           });
-        });
-    };
-  }
-  /**
-   * @description postMessage is the action that sends
-   * a message to a particular group
-   * @param {*} groupId
-   * @param {*} message
-   */
-  static postMessage(groupId, message) {
-    return (dispatch) =&gt; {
-      return axios.post(`api/group/${groupId}/message`, message)
-        .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >          dispatch({</span>
-            type: SEND_MESSAGE,
-            message: response.data.results
-          });
-<span class="cstat-no" title="statement not covered" >          return response.data.results;</span>
         });
     };
   }
@@ -415,7 +307,7 @@ export default class GroupActions {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 17 2017 19:26:38 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 11 2017 00:59:13 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

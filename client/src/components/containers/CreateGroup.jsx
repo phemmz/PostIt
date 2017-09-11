@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GroupActions from '../../actions/groupActions';
@@ -42,7 +42,7 @@ class CreateGroup extends Component {
     event.preventDefault();
     this.props.groupCreate(this.state.groups)
       .then(() => {
-        this.context.router.push('/dashboard');
+        browserHistory.push('/dashboard');
         Materialize.toast('Group Created!', 4000, 'green');
       })
       .catch(() => {
@@ -94,8 +94,8 @@ class CreateGroup extends Component {
   }
 }
 
-CreateGroup.contextTypes = {
-  router: PropTypes.object.isRequired
+CreateGroup.propTypes = {
+  groupCreate: PropTypes.func.isRequired
 };
 
 const dispatchToProps = (dispatch) => {

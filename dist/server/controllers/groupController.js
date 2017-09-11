@@ -160,13 +160,20 @@ var GroupController = function () {
       }).then(function (user) {
         user.getGroups({
           where: {}
-        }).then(function (groups) {
-          if (groups.length < 1) {
+        }).then(function (data) {
+          if (data.length < 1) {
             res.status(404).json({
               confirmation: 'fail',
               message: 'You currently dont belong to any group'
             });
           } else {
+            var groups = [];
+            data.map(function (group) {
+              return groups.push({
+                id: group.id,
+                groupname: group.groupname
+              });
+            });
             res.status(200).json({
               confirmation: 'success',
               results: groups

@@ -32,7 +32,7 @@ const AddUserModal = ({
 
 AddUserModal.propTypes = {
   value: PropTypes.string.isRequired,
-  appUsers: PropTypes.array.isRequired,
+  appUsers: PropTypes.node.isRequired,
   onChange: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 };

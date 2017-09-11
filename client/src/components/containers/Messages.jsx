@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { CreateMessage, Message, AddUserModal, SideNav, MessageHeader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
@@ -266,6 +267,44 @@ class Messages extends Component {
     return content;
   }
 }
+
+Messages.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  addNotification: PropTypes.func.isRequired,
+  selectedGroup: PropTypes.string,
+  groupMessages: PropTypes.func.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
+  groupList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    groupname: PropTypes.string
+  })),
+  viewList: PropTypes.arrayOf(PropTypes.string),
+  updateReadStatus: PropTypes.func.isRequired,
+  readList: PropTypes.func.isRequired,
+  appUsers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    phoneNumber: PropTypes.string
+  })),
+  appStatus: PropTypes.string.isRequired,
+  currentUser: PropTypes.shape({
+    userId: PropTypes.number,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    iat: PropTypes.number,
+    exp: PropTypes.number,
+  }).isRequired
+};
+
+Messages.defaultProps = {
+  selectedGroup: null,
+  groupList: [],
+  notifications: [],
+  viewList: [],
+  appUsers: []
+};
 
 const stateToProps = (state) => {
   return {

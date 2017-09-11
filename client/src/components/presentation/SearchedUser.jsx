@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * SearchedUser
@@ -14,6 +15,14 @@ const SearchedUser = ({ user }) => {
       <span>Phone Number: {user.phoneNumber}</span>
     </div>
   );
+};
+
+SearchedUser.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    phoneNumber: PropTypes.string
+  }).isRequired
 };
 
 export default SearchedUser;

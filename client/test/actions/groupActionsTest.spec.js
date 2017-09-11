@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import groupActions from '../../src/actions/groupActions';
-import { GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, ADD_USER, GROUPS_NOT_RECEIVED, GROUP_MESSAGES, SEND_MESSAGE } from '../../src/actions/types';
+import { GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, ADD_USER, GROUPS_NOT_RECEIVED } from '../../src/actions/types';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -82,40 +82,6 @@ describe('Group actions', () => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
-  it('should get all messages in a group GROUP_MESSAGES', () => {
-    const groupId = 1;
-    const messages = {
-      content: 'hello man',
-      createdAt: '2017-08-03T12:33:32.666Z',
-      groupId: 1,
-      id: 1,
-      messagecreator: 'phemmz',
-      priority: 1,
-      readcheck: null,
-      updatedAt: '2017-08-03T12:33:32.666Z',
-      userId: 1,
-    };
-    nock('http://localhost.com')
-      .get(`api/v1/group/${groupId}/messages`)
-      .reply(200, {
-        body: {
-          confirmation: 'success',
-          results: messages
-        }
-      });
-    const expectedActions = [
-      {
-        type: GROUP_MESSAGES,
-        messages
-      }
-    ];
-    const store = mockStore({ groupReducer: {} });
-    store.dispatch(groupActions.groupMessages(groupId))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-        expect(groupActions.groupMessages).toEqual(messages);
-      });
-  });
   it('should create an action that adds a user to a group', () => {
     const userAdded = 'phemmz';
     const groupId = 1;
@@ -134,31 +100,6 @@ describe('Group actions', () => {
     ];
     const store = mockStore({ groupReducer: {} });
     store.dispatch(groupActions.addUser(groupId, userAdded))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-  });
-  it('should create an action that post a message', () => {
-    const message = {
-      content: 'Hello',
-      readcheck: 'false',
-      priority: '1',
-    };
-    const groupId = 1;
-    nock('http://localhost.com')
-      .post(`api/v1/group/${groupId}/message`, message)
-      .reply(201, {
-        body: {
-          confirmation: 'success',
-          message: 'Message sent'
-        }
-      });
-    const expectedActions = {
-      type: SEND_MESSAGE,
-      message
-    };
-    const store = mockStore({ groupReducer: {} });
-    store.dispatch(groupActions.postMessage(groupId, message))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

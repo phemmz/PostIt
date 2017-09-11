@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideNav Component should render a sidenav component 1`] = `
+<SearchedUser
+  user={
+    Object {
+      "email": "phemmzmcllroy@gmail.com",
+      "phoneNumber": "08012345678",
+      "username": "phemmz",
+    }
+  }
+>
+  <div
+    className="card search-user center green-text text-darken-4"
+  >
+    <span>
+      Username: 
+      phemmz
+    </span>
+    <br />
+    <span>
+      Email: 
+      phemmzmcllroy@gmail.com
+    </span>
+    <br />
+    <span>
+      Phone Number: 
+      08012345678
+    </span>
+  </div>
+</SearchedUser>
+`;

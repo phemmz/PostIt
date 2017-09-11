@@ -1,29 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SignupActions from '../../actions/signupActions';
-import SignupForm from './signup/SignupForm.jsx';
+import SignupForm from '../layout/signup/SignupForm.jsx';
 import AuthenticationActions from '../../actions/authActions';
+
 /**
  * SignupPage class
+ * @return {*} component
  */
-class SignupPage extends Component {
-  /**
-   * render
-   * @return {*} void
-   */
-  render() {
-    const { userSignupRequest, isUserExists, googleAuthentication } = this.props;
-    return (
-      <div className="container">
-        <SignupForm
-          isUserExists={isUserExists}
-          userSignupRequest={userSignupRequest}
-          googleAuthentication={googleAuthentication}
-        />
-      </div>
-    );
-  }
-}
+const SignupPage = ({
+  userSignupRequest, isUserExists, googleAuthentication
+}) => {
+  return (
+    <div className="container">
+      <SignupForm
+        userSignupRequest={userSignupRequest}
+        isUserExists={isUserExists}
+        googleAuthentication={googleAuthentication}
+      />
+    </div>
+  );
+};
+
+SignupPage.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired,
+  googleAuthentication: PropTypes.func.isRequired,
+};
 
 const dispatchToProps = (dispatch) => {
   return {

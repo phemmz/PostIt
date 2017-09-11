@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>19/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.82% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>9/11</span>
+        <span class='fraction'>7/9</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>19/19</span>
       </div>
     </div>
   </div>
@@ -91,17 +91,7 @@
 46
 47
 48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+49</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,11 +106,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,24 +137,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, GROUP_MESSAGES, ADD_USER, SEND_MESSAGE } from '../actions/types';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, ADD_USER } from '../actions/types';
 &nbsp;
 const initialState = {
   groupList: [],
   selectedGroup: null,
-  groupMessages: [],
   appStatus: 'ready',
-  list: {}
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -177,40 +155,32 @@ const initialState = {
  */
 export default (state = <span class="branch-0 cbranch-no" title="branch not covered" >initialState,</span> action = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
   const updated = Object.assign({}, state);
-  const updatedList = Object.assign([], updated['groupList']);
+  const updatedList = Object.assign([], updated.groupList);
   switch (action.type) {
     case GROUPS_RECEIVED:
-      updated['groupList'] = action.groups;
-      updated['appStatus'] = 'ready';
+      updated.groupList = action.groups;
+      updated.appStatus = 'ready';
       return updated;
 &nbsp;
     case GROUPS_NOT_RECEIVED:
-      updated['appStatus'] = 'no groups';
+      updated.appStatus = 'no groups';
       return updated;
 &nbsp;
     case GROUP_CREATE:
       updatedList.push(action.group);
-      updated['groupList'] = updatedList;
+      updated.groupList = updatedList;
       return updated;
 &nbsp;
     case GROUP_SELECTED:
-      updated['selectedGroup'] = action.selectedGroup;
+      updated.selectedGroup = action.selectedGroup;
       return updated;
 &nbsp;
     case APPLICATION_STATE:
-      updated['appStatus'] = action.status;
-      return updated;
-&nbsp;
-    case GROUP_MESSAGES:
-      updated['groupMessages'] = action.messages;
+      updated.appStatus = action.status;
       return updated;
 &nbsp;
     case ADD_USER:
-      updated['addUser'] = action.addUser;
-      return updated;
-&nbsp;
-    case SEND_MESSAGE:
-      updated['list'] = action.message;
+      updated.addUser = action.addUser;
       return updated;
 &nbsp;
     default:
@@ -223,7 +193,7 @@ export default (state = <span class="branch-0 cbranch-no" title="branch not cove
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 17 2017 19:26:38 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 11 2017 00:59:13 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

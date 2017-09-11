@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * CreateMessage Class
@@ -105,5 +106,14 @@ class CreateMessage extends Component {
     return content;
   }
 }
+
+CreateMessage.propTypes = {
+  selectedGroup: PropTypes.node,
+  onCreate: PropTypes.func.isRequired
+};
+
+CreateMessage.defaultProps = {
+  selectedGroup: null
+};
 
 export default CreateMessage;

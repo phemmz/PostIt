@@ -6,14 +6,14 @@
   "scripts": {
     "db:migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "watch": "webpack -d --watch",
-    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel test/postit.js -d dist/ && babel webpack.config.js -d dist/ --presets es2015",
+    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel webpack.config.js -d dist/ --presets es2015",
     "start": "npm run build && nodemon dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "NODE_ENV=test mocha dist/test --timeout 50000",
+    "test": "NODE_ENV=test mocha dist/server/test --timeout 50000",
     "front-test": "jest",
-    "cover": "istanbul cover _mocha dist/test --timeout 10000",
+    "cover": "istanbul cover _mocha dist/server/test --timeout 10000",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {

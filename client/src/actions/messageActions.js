@@ -48,7 +48,7 @@ export default class MessageActions {
    */
   static addNotification(notification) {
     return (dispatch) => {
-      dispatch({
+      return dispatch({
         type: ADD_NOTIFICATION,
         notification
       });
