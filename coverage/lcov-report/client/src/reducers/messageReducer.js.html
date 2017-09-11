@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for client/src/reducers/messageReducer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">client/src/reducers</a> messageReducer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.44% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.44% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/18</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST, SEARCH_USER } from '../actions/types';
+&nbsp;
+const initialState = {
+  groupMessages: [],
+  list: {},
+  notifications: [],
+  readStatus: false,
+  readList: [],
+  searchedUsers: [],
+  meta: {}
+};
+/**
+ * Group reducer takes the state and action and then returns the state
+ * with groupList, selectedGroup, groupMessages and appStatus
+ * @param {*} state
+ * @param {*} action
+ * @returns {object} state
+ */
+export default (state = <span class="branch-0 cbranch-no" title="branch not covered" >initialState,</span> action = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
+  const updated = Object.assign({}, state);
+  switch (action.type) {
+    case GROUP_MESSAGES:
+      updated.groupMessages = action.messages;
+      return updated;
+&nbsp;
+    case SEND_MESSAGE:
+      updated.list = action.message;
+      return updated;
+&nbsp;
+<span class="branch-2 cbranch-no" title="branch not covered" >    case ADD_NOTIFICATION:</span>
+<span class="cstat-no" title="statement not covered" >      updated.notifications.push(action.notification);</span>
+<span class="cstat-no" title="statement not covered" >      return updated;</span>
+&nbsp;
+<span class="branch-3 cbranch-no" title="branch not covered" >    case CLEAR_NOTIFICATION:</span>
+<span class="cstat-no" title="statement not covered" >      updated.notifications = [];</span>
+<span class="cstat-no" title="statement not covered" >      return updated;</span>
+&nbsp;
+<span class="branch-4 cbranch-no" title="branch not covered" >    case READ_STATUS:</span>
+<span class="cstat-no" title="statement not covered" >      updated.readStatus = true;</span>
+<span class="cstat-no" title="statement not covered" >      return updated;</span>
+&nbsp;
+<span class="branch-5 cbranch-no" title="branch not covered" >    case READ_LIST:</span>
+<span class="cstat-no" title="statement not covered" >      updated.readList = action.readList;</span>
+<span class="cstat-no" title="statement not covered" >      return updated;</span>
+&nbsp;
+<span class="branch-6 cbranch-no" title="branch not covered" >    case SEARCH_USER:</span>
+<span class="cstat-no" title="statement not covered" >      updated.searchedUsers = action.searchedUsers;</span>
+<span class="cstat-no" title="statement not covered" >      return updated;</span>
+&nbsp;
+    default:
+      return state;
+  }
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 08 2017 11:09:58 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

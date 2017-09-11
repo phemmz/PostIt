@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchButton Component should render a Link button for searching users 1`] = `
+<div
+  className="center"
+>
+  <Link
+    className="searchbtn waves-effect waves-light btn center search-users"
+    onlyActiveOnIndex={false}
+    style={Object {}}
+    to="/search"
+  >
+    Search For Users
+  </Link>
+</div>
+`;
