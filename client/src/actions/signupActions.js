@@ -2,7 +2,6 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import AuthenticationActions from './authActions';
-import { USER_EXIST } from './types';
 /**
  * SignupActions class
  */

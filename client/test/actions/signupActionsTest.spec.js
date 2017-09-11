@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import signupActions from '../../src/actions/signupActions';
-import { SET_CURRENT_USER, USER_EXIST } from '../../src/actions/types';
+import { SET_CURRENT_USER } from '../../src/actions/types';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -61,7 +61,7 @@ describe('Signup actions', () => {
       passwordConfirmation: 'boyboy'
     };
     nock('http://localhost.com')
-      .put(`/api/v1/user/signup`, newUser)
+      .put('/api/v1/user/signup', newUser)
       .reply(201);
     const expectedActions = [];
     const store = mockStore({ users: [] });
