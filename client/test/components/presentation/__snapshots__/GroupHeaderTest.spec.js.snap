@@ -14,6 +14,16 @@ exports[`Message Component displays the group header with notifications in the g
     <div
       className="row"
     >
+      <ReactTooltip
+        insecure={true}
+        resizeHide={true}
+        wrapper="div"
+      >
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+        />
+      </ReactTooltip>
       <div
         className="col s12 m12"
       >
@@ -41,8 +51,8 @@ exports[`Message Component displays the group header with notifications in the g
                   >
                     <i
                       aria-hidden="true"
-                      className="fa fa-plus-square add-group tooltipped"
-                      data-tooltip="Create New Group"
+                      className="fa fa-plus-square add-group"
+                      data-tip="Create New Group"
                     />
                   </a>
                 </Link>
@@ -59,8 +69,8 @@ exports[`Message Component displays the group header with notifications in the g
                   >
                     <i
                       aria-hidden="true"
-                      className="fa fa-bell-o tooltipped"
-                      data-tooltip="You have new Notification(s)"
+                      className="fa fa-bell-o"
+                      data-tip="You have new Notification(s)"
                     />
                   </a>
                 </Link>
@@ -92,6 +102,16 @@ exports[`Message Component displays the group header without notifications 1`] =
     <div
       className="row"
     >
+      <ReactTooltip
+        insecure={true}
+        resizeHide={true}
+        wrapper="div"
+      >
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+        />
+      </ReactTooltip>
       <div
         className="col s12 m12"
       >
@@ -119,8 +139,8 @@ exports[`Message Component displays the group header without notifications 1`] =
                   >
                     <i
                       aria-hidden="true"
-                      className="fa fa-plus-square add-group tooltipped"
-                      data-tooltip="Create New Group"
+                      className="fa fa-plus-square add-group"
+                      data-tip="Create New Group"
                     />
                   </a>
                 </Link>
@@ -137,8 +157,8 @@ exports[`Message Component displays the group header without notifications 1`] =
                   >
                     <i
                       aria-hidden="true"
-                      className="fa fa-bell-o tooltipped"
-                      data-tooltip="No new Notification"
+                      className="fa fa-bell-o"
+                      data-tip="No new Notification"
                     />
                   </a>
                 </Link>

@@ -4,13 +4,19 @@ exports[`SearchButton Component should render a Link button for searching users 
 <div
   className="center"
 >
+  <ReactTooltip
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
   <Link
     className="searchbtn waves-effect waves-light btn center search-users"
+    data-tip="Search Users"
     onlyActiveOnIndex={false}
     style={Object {}}
     to="/search"
   >
-    Search For Users
+    Search Users
   </Link>
 </div>
 `;
