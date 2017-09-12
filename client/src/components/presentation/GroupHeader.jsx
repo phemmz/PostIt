@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 /**
  * Home
@@ -10,6 +11,7 @@ const GroupHeader = ({ notifications, children }) => {
   return (
     <div className="container-fluid">
       <div className="row">
+        <ReactTooltip />
         <div className="col s12 m12">
           <div className="container-fluid">
             <div className="row">
@@ -17,8 +19,8 @@ const GroupHeader = ({ notifications, children }) => {
                 <h5 className="white-text text-darken-4">Your Group List
                   <Link to="/group">
                     <i
-                      className="fa fa-plus-square add-group tooltipped"
-                      data-tooltip="Create New Group"
+                      className="fa fa-plus-square add-group"
+                      data-tip="Create New Group"
                       aria-hidden="true"
                     />
                   </Link>
@@ -26,8 +28,8 @@ const GroupHeader = ({ notifications, children }) => {
                     (
                       <Link to="/notification" className="mybell on-notification">
                         <i
-                          className="fa fa-bell-o tooltipped"
-                          data-tooltip="You have new Notification(s)"
+                          className="fa fa-bell-o"
+                          data-tip="You have new Notification(s)"
                           aria-hidden="true"
                         />
                       </Link>
@@ -35,8 +37,8 @@ const GroupHeader = ({ notifications, children }) => {
                     (
                       <Link to="/notification" className="mybell">
                         <i
-                          className="fa fa-bell-o tooltipped"
-                          data-tooltip="No new Notification"
+                          className="fa fa-bell-o"
+                          data-tip="No new Notification"
                           aria-hidden="true"
                         />
                       </Link>

@@ -20,7 +20,7 @@ describe('Message Component', () => {
     expect(wrapper.find('h5').exists()).toBe(true);
     expect(wrapper.find('i').exists()).toBe(true);
     expect(wrapper.find('hr').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(7);
+    expect(wrapper.find('div').length).toBe(8);
     expect(wrapper.find('hr').length).toBe(1);
     expect(wrapper.find('h5').length).toBe(2);
     expect(wrapper.find('i').length).toBe(2);
@@ -36,7 +36,7 @@ describe('Message Component', () => {
     expect(wrapper.find('h5').exists()).toBe(true);
     expect(wrapper.find('i').exists()).toBe(true);
     expect(wrapper.find('hr').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(7);
+    expect(wrapper.find('div').length).toBe(8);
     expect(wrapper.find('hr').length).toBe(1);
     expect(wrapper.find('h5').length).toBe(2);
     expect(wrapper.find('i').length).toBe(2);
