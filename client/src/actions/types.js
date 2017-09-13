@@ -16,3 +16,4 @@ export const READ_STATUS = 'READ_STATUS';
 export const READ_LIST = 'READ_LIST';
 export const SEARCH_USER = 'SEARCH_USER';
 export const USER_EXIST = 'USER_EXIST';
+export const GROUP_MEMBERS = 'GROUP_MEMBERS';

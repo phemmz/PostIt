@@ -1,3 +1,4 @@
+import util from 'util';
 import Models from '../data/models';
 
 const Group = Models.Group;
@@ -174,6 +175,65 @@ export default class GroupController {
         res.status(404).json({
           confirmation: 'fail',
           message: error
+        });
+      });
+  }
+  /**
+   * groupMembers
+   * @param {*} req
+   * @param {*} res
+   * @return {*} json
+   */
+  static groupMembers(req, res) {
+    Group.findOne({
+      where: {
+        id: req.params.groupId
+      }
+    })
+      .then((group) => {
+        group.getUsers({
+          where: {}
+        })
+          .then((users) => {
+            const members = [];
+            users.map((member) => {
+              return members.push({
+                id: member.id,
+                username: member.username,
+                email: member.email,
+                phoneNumber: member.phoneNumber
+              });
+            });
+            const PER_PAGE = 5;
+            const offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
+            const nextOffset = (offset + PER_PAGE);
+            const previousOffset = (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
+            const meta = {
+              limit: PER_PAGE,
+              next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
+              offset: req.params.offset,
+              previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+              total_count: members.length
+            };
+            const getPaginatedItems = members.slice(offset, (offset + PER_PAGE));
+            res.status(200).json({
+              confirmation: 'success',
+              members,
+              meta,
+              comments: getPaginatedItems
+            });
+          })
+          .catch((err) => {
+            res.status(400).json({
+              confirmation: 'fail',
+              message: err.name
+            });
+          });
+      })
+      .catch(() => {
+        res.status(400).json({
+          confirmation: 'fail',
+          message: 'Failed to get group members'
         });
       });
   }

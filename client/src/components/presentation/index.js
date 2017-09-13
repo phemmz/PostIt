@@ -7,7 +7,7 @@ import GroupHeader from './GroupHeader.jsx';
 import SearchButton from './SearchButton.jsx';
 import PreLoader from './PreLoader.jsx';
 import MessageHeader from './MessageHeader.jsx';
-import SearchedUser from './SearchedUser.jsx';
+import User from './User.jsx';
 import Welcome from './Welcome.jsx';
 import Main from './Main.jsx';
 import Home from './Home.jsx';
@@ -25,7 +25,7 @@ export {
   SearchButton,
   PreLoader,
   MessageHeader,
-  SearchedUser,
+  User,
   Welcome,
   Main,
   Home,

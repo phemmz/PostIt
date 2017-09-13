@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
  * SearchedUser
  * @return {*} div
  */
-const SearchedUser = ({ user }) => {
+const User = ({ user }) => {
   return (
     <div className="card search-user center green-text text-darken-4">
       <span>Username: {user.username}</span>
@@ -17,7 +17,7 @@ const SearchedUser = ({ user }) => {
   );
 };
 
-SearchedUser.propTypes = {
+User.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
@@ -25,4 +25,4 @@ SearchedUser.propTypes = {
   }).isRequired
 };
 
-export default SearchedUser;
+export default User;

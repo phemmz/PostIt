@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import { ResetPasswordPage, CheckVerificationPage, NotificationPage, SearchPage } from './components/layout';
+import { ResetPasswordPage,
+  CheckVerificationPage, NotificationPage,
+  SearchPage, GroupMembersPage } from './components/layout';
 import { SignupPage, LoginPage, Home, Main, Welcome, NotFoundPage } from './components/presentation';
 import CreateGroup from './components/containers/CreateGroup.jsx';
 import requireAuth from './utils/requireAuth.jsx';
@@ -17,6 +19,7 @@ export default (
     <Route path="/group" component={requireAuth(CreateGroup)} />
     <Route path="/notification" component={requireAuth(NotificationPage)} />
     <Route path="/search" component={requireAuth(SearchPage)} />
+    <Route path="/members" component={requireAuth(GroupMembersPage)} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );

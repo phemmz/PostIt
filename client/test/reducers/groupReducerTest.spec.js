@@ -1,6 +1,8 @@
 import expect from 'expect';
 import groupReducer from '../../src/reducers/groupReducer';
-import { GROUP_CREATE, GROUP_SELECTED, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, APPLICATION_STATE, ADD_USER } from '../../src/actions/types';
+import { GROUP_CREATE, GROUP_SELECTED, GROUPS_RECEIVED,
+  GROUPS_NOT_RECEIVED, APPLICATION_STATE,
+  ADD_USER, GROUP_MEMBERS } from '../../src/actions/types';
 
 describe('Group Reducer', () => {
   const initialState = {
@@ -8,7 +10,8 @@ describe('Group Reducer', () => {
     selectedGroup: null,
     groupMessages: [],
     appStatus: 'ready',
-    list: {}
+    list: {},
+    groupMembers: []
   };
   it('should handle GROUP_CREATE', () => {
     const group = {
@@ -85,6 +88,24 @@ describe('Group Reducer', () => {
 
     expect(newState).toEqual(initialState);
     expect(newState.groupList).toEqual([]);
+  });
+  it('should handle GROUP_MEMBERS', () => {
+    const groupMembers = [
+      {
+        username: 'user1',
+        email: 'user1@gmail.com',
+        phoneNumber: '8717718187'
+      },
+      {
+        username: 'user2',
+        email: 'user2@gmail.com',
+        phoneNumber: '871221187'
+      }
+    ];
+    const action = { type: GROUP_MEMBERS, groupMembers };
+    const newState = groupReducer(initialState, action);
+
+    expect(newState.groupMembers).toEqual(groupMembers);
   });
 });
 

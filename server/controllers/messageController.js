@@ -208,6 +208,7 @@ export default class MessageController {
         const userDetails = [];
         response.map((user) => {
           return userDetails.push({
+            id: user.id,
             username: user.username,
             email: user.email,
             phoneNumber: user.phoneNumber

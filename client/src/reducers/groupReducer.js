@@ -1,9 +1,12 @@
-import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, ADD_USER } from '../actions/types';
+import { GROUPS_RECEIVED, GROUPS_NOT_RECEIVED,
+   GROUP_CREATE, GROUP_SELECTED,
+    APPLICATION_STATE, ADD_USER, GROUP_MEMBERS } from '../actions/types';
 
 const initialState = {
   groupList: [],
   selectedGroup: null,
   appStatus: 'ready',
+  groupMembers: []
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -40,6 +43,10 @@ export default (state = initialState, action = {}) => {
 
     case ADD_USER:
       updated.addUser = action.addUser;
+      return updated;
+    
+    case GROUP_MEMBERS:
+      updated.groupMembers = action.groupMembers;
       return updated;
 
     default:

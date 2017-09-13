@@ -3,7 +3,9 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import groupActions from '../../src/actions/groupActions';
-import { GROUP_CREATE, GROUP_SELECTED, APPLICATION_STATE, ADD_USER, GROUPS_NOT_RECEIVED } from '../../src/actions/types';
+import { GROUP_CREATE, GROUP_SELECTED,
+ APPLICATION_STATE, ADD_USER,
+  GROUPS_NOT_RECEIVED, GROUP_MEMBERS } from '../../src/actions/types';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -100,6 +102,44 @@ describe('Group actions', () => {
     ];
     const store = mockStore({ groupReducer: {} });
     store.dispatch(groupActions.addUser(groupId, userAdded))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+  it('should create an action that gets all users in a group', () => {
+    const groupId = 1;
+    const offset = 0;
+    const perPage = 5;
+    const members = [
+      {
+        id: 1,
+        username: 'boy1',
+        email: 'boy1@gmail.com',
+        phoneNumber: '99999999'
+      },
+      {
+        id: 1,
+        username: 'boy2',
+        email: 'boy2@gmail.com',
+        phoneNumber: '1234443454'
+      }
+    ];
+    nock('http://localhost.com')
+      .get(`api/v1/members/${groupId}/${offset}/${perPage}`)
+      .reply(200, {
+        body: {
+          confirmation: 'success',
+          results: members
+        }
+      });
+    const expectedActions = [
+      {
+        type: GROUP_MEMBERS,
+        members
+      }
+    ];
+    const store = mockStore({ groupReducer: {} });
+    store.dispatch(groupActions.getGroupMembers(groupId, offset, perPage))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

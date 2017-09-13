@@ -722,4 +722,57 @@ describe('Group', () => {
         });
     });
   });
+  describe('Group Members', () => {
+    it('it should not get members of a group if user is not authenticated', (done) => {
+      const groupId = 1;
+      const offset = 0;
+      const perPage = 5;
+      server
+        .get(`/api/v1/members/${groupId}/${offset}/${perPage}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('Please signin/signup');
+          done();
+        });
+    });
+    it('it should get all the members of a group', (done) => {
+      const groupId = 1;
+      const offset = 0;
+      const perPage = 5;
+      server
+        .get(`/api/v1/members/${groupId}/${offset}/${perPage}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('success');
+          res.body.should.have.property('members');
+          res.body.should.have.property('meta');
+          res.body.should.have.property('comments');
+          done();
+        });
+    });
+    it('it should not get members of a group if string is passed as groupId', (done) => {
+      const groupId = 'asjansj';
+      const offset = 0;
+      const perPage = 5;
+      server
+        .get(`/api/v1/members/${groupId}/${offset}/${perPage}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Failed to get group members');
+          done();
+        });
+    });
+  });
 });

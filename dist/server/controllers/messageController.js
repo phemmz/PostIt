@@ -234,6 +234,7 @@ var MessageController = function () {
         var userDetails = [];
         response.map(function (user) {
           return userDetails.push({
+            id: user.id,
             username: user.username,
             email: user.email,
             phoneNumber: user.phoneNumber
