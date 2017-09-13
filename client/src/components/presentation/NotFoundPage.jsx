@@ -4,7 +4,7 @@ import React from 'react';
  * Home
  * @return {*} div
  */
-const PreLoader = () => {
+const NotFoundPage = () => {
   return (
     <div className="container">
       <div className="row">
@@ -17,4 +17,4 @@ const PreLoader = () => {
   );
 };
 
-export default PreLoader;
+export default NotFoundPage;

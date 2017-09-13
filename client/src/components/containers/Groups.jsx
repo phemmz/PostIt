@@ -57,10 +57,10 @@ class Groups extends Component {
    */
   render() {
     $('.tooltipped').tooltip();
-    const listItems = this.props.groupList.map((group, index) => {
+    const listItems = this.props.groupList.map((group) => {
       const selected = (group.id === Number(this.props.selectedGroup));
       return (
-        <li className="each-group" key={index}>
+        <li className="each-group" key={group.id}>
           <Group
             groupPropsObj={group}
             groupClickHandler={this.groupClickHandler}

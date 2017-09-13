@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44.44% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/18</span>
+        <span class='fraction'>18/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/10</span>
+        <span class='fraction'>8/10</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44.44% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/18</span>
+        <span class='fraction'>18/18</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -115,8 +115,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -126,24 +126,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -178,25 +178,25 @@ export default (state = <span class="branch-0 cbranch-no" title="branch not cove
       updated.list = action.message;
       return updated;
 &nbsp;
-<span class="branch-2 cbranch-no" title="branch not covered" >    case ADD_NOTIFICATION:</span>
-<span class="cstat-no" title="statement not covered" >      updated.notifications.push(action.notification);</span>
-<span class="cstat-no" title="statement not covered" >      return updated;</span>
+    case ADD_NOTIFICATION:
+      updated.notifications.push(action.notification);
+      return updated;
 &nbsp;
-<span class="branch-3 cbranch-no" title="branch not covered" >    case CLEAR_NOTIFICATION:</span>
-<span class="cstat-no" title="statement not covered" >      updated.notifications = [];</span>
-<span class="cstat-no" title="statement not covered" >      return updated;</span>
+    case CLEAR_NOTIFICATION:
+      updated.notifications = [];
+      return updated;
 &nbsp;
-<span class="branch-4 cbranch-no" title="branch not covered" >    case READ_STATUS:</span>
-<span class="cstat-no" title="statement not covered" >      updated.readStatus = true;</span>
-<span class="cstat-no" title="statement not covered" >      return updated;</span>
+    case READ_STATUS:
+      updated.readStatus = true;
+      return updated;
 &nbsp;
-<span class="branch-5 cbranch-no" title="branch not covered" >    case READ_LIST:</span>
-<span class="cstat-no" title="statement not covered" >      updated.readList = action.readList;</span>
-<span class="cstat-no" title="statement not covered" >      return updated;</span>
+    case READ_LIST:
+      updated.readList = action.readList;
+      return updated;
 &nbsp;
-<span class="branch-6 cbranch-no" title="branch not covered" >    case SEARCH_USER:</span>
-<span class="cstat-no" title="statement not covered" >      updated.searchedUsers = action.searchedUsers;</span>
-<span class="cstat-no" title="statement not covered" >      return updated;</span>
+    case SEARCH_USER:
+      updated.searchedUsers = action.searchedUsers;
+      return updated;
 &nbsp;
     default:
       return state;
@@ -208,7 +208,7 @@ export default (state = <span class="branch-0 cbranch-no" title="branch not cove
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 08 2017 11:09:58 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 18:32:20 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

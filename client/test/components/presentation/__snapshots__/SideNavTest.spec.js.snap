@@ -28,16 +28,24 @@ exports[`SideNav Component should render a sidenav component 1`] = `
       </h5>
     </li>
     <li>
-      <a
+      <Link
         className="waves-effect waves-light green nav-anchor"
-        href="#!"
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/members"
       >
-        <i
-          aria-hidden="true"
-          className="fa fa-users snav"
-        />
-        Members
-      </a>
+        <a
+          className="waves-effect waves-light green nav-anchor"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <i
+            aria-hidden="true"
+            className="fa fa-users snav"
+          />
+          Members
+        </a>
+      </Link>
     </li>
     <li>
       <div

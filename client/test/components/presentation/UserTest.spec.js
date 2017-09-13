@@ -1,15 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import SearchedUser from '../../../src/components/presentation/SearchedUser';
+import User from '../../../src/components/presentation/User';
 
-describe('SideNav Component', () => {
+describe('User Component', () => {
   const user = {
     username: 'phemmz',
     email: 'phemmzmcllroy@gmail.com',
     phoneNumber: '08012345678'
   };
-  it('should render a sidenav component', () => {
-    const wrapper = mount(<SearchedUser user={user} />);
+  it('should render a user component', () => {
+    const wrapper = mount(<User user={user} />);
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.prop('user')).toBe(user);
     expect(wrapper.find('div').exists()).toBe(true);

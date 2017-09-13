@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import MessageActions from '../../actions/messageActions';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
-import SearchedUser from '../presentation/SearchedUser.jsx';
+import User from '../presentation/User.jsx';
 
 /**
  * @class SearchPage
@@ -74,10 +74,10 @@ class SearchPage extends Component {
    * @returns {component} - renders a React component
    */
   render() {
-    const searched = this.props.searchedUsers.map((user, index) => {
+    const searched = this.props.searchedUsers.map((user) => {
       return (
-        <SearchedUser
-          key={index}
+        <User
+          key={user.id}
           user={user}
         />
       );

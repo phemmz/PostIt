@@ -122,6 +122,9 @@ class Messages extends Component {
  * @return {*} void
  */
   addUser() {
+    this.setState({
+      errors: {}
+    });
     const groupId = this.props.selectedGroup;
     const username = { username: this.state.username };
     this.props.addUser(groupId, username)
@@ -138,6 +141,9 @@ class Messages extends Component {
  * @return {*} void
  */
   updateUser(event) {
+    this.setState({
+      errors: {}
+    });
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -214,6 +220,7 @@ class Messages extends Component {
       (<div>
         <SideNav
           currentUser={this.props.currentUser}
+          groupMembers={this.groupMembers}
         />
         <AddUserModal
           value={this.state.username}

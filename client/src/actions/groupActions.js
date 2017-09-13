@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { GROUP_CREATE, GROUPS_RECEIVED, GROUPS_NOT_RECEIVED, GROUP_SELECTED, APPLICATION_STATE, ADD_USER } from './types';
+import { GROUP_CREATE, GROUPS_RECEIVED,
+   GROUPS_NOT_RECEIVED, GROUP_SELECTED,
+    APPLICATION_STATE, ADD_USER, GROUP_MEMBERS } from './types';
 /**
  * GroupActions class
  */
@@ -80,6 +82,25 @@ export default class GroupActions {
             type: ADD_USER,
             addUser: response.data.results
           });
+        });
+    };
+  }
+  /**
+   * getGroupMembers
+   * @param {*} groupId
+   * @param {*} offset
+   * @param {*} perPage
+   * @return {*} response
+   */
+  static getGroupMembers(groupId, offset, perPage) {
+    return (dispatch) => {
+      return axios.get(`api/v1/members/${groupId}/${offset}/${perPage}`)
+        .then((response) => {
+          dispatch({
+            type: GROUP_MEMBERS,
+            groupMembers: response.data.comments
+          });
+          return response.data;
         });
     };
   }

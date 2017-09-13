@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideNav Component should render a sidenav component 1`] = `
-<SearchedUser
+exports[`User Component should render a user component 1`] = `
+<User
   user={
     Object {
       "email": "phemmzmcllroy@gmail.com",
@@ -28,5 +28,5 @@ exports[`SideNav Component should render a sidenav component 1`] = `
       08012345678
     </span>
   </div>
-</SearchedUser>
+</User>
 `;

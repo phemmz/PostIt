@@ -46,7 +46,7 @@ class CreateMessage extends Component {
  */
   sendMessage() {
     this.props.onCreate(this.state.messages);
-    this.refs.messages.value = '';
+    this.groupRef.value = '';
     this.setState({
       messages: {
         content: '',
@@ -84,7 +84,7 @@ class CreateMessage extends Component {
             <div className="row">
               <div className="col s10">
                 <textarea
-                  ref="messages"
+                  ref={(el) => { this.groupRef = el; }}
                   onChange={this.updateMessage}
                   id="content"
                   className="validate"

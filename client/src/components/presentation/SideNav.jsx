@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 const SideNav = ({
   currentUser
@@ -17,10 +18,10 @@ const SideNav = ({
         >{currentUser.email}</h5>
       </li>
       <li>
-        <a
-          href="#!"
+        <Link
+          to="/members"
           className="waves-effect waves-light green nav-anchor"
-        ><i className="fa fa-users snav" aria-hidden="true" />Members</a></li>
+        ><i className="fa fa-users snav" aria-hidden="true" />Members</Link></li>
       <li><div className="divider" /></li>
       <li>
         <a

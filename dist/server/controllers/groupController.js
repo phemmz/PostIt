@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _util = require('util');
+
+var _util2 = _interopRequireDefault(_util);
+
 var _models = require('../data/models');
 
 var _models2 = _interopRequireDefault(_models);
@@ -189,6 +193,64 @@ var GroupController = function () {
         res.status(404).json({
           confirmation: 'fail',
           message: error
+        });
+      });
+    }
+    /**
+     * groupMembers
+     * @param {*} req
+     * @param {*} res
+     * @return {*} json
+     */
+
+  }, {
+    key: 'groupMembers',
+    value: function groupMembers(req, res) {
+      Group.findOne({
+        where: {
+          id: req.params.groupId
+        }
+      }).then(function (group) {
+        group.getUsers({
+          where: {}
+        }).then(function (users) {
+          var members = [];
+          users.map(function (member) {
+            return members.push({
+              id: member.id,
+              username: member.username,
+              email: member.email,
+              phoneNumber: member.phoneNumber
+            });
+          });
+          var PER_PAGE = 5;
+          var offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
+          var nextOffset = offset + PER_PAGE;
+          var previousOffset = offset - PER_PAGE < 1 ? 0 : offset - PER_PAGE;
+          var meta = {
+            limit: PER_PAGE,
+            next: _util2.default.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
+            offset: req.params.offset,
+            previous: _util2.default.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+            total_count: members.length
+          };
+          var getPaginatedItems = members.slice(offset, offset + PER_PAGE);
+          res.status(200).json({
+            confirmation: 'success',
+            members: members,
+            meta: meta,
+            comments: getPaginatedItems
+          });
+        }).catch(function (err) {
+          res.status(400).json({
+            confirmation: 'fail',
+            message: err.name
+          });
+        });
+      }).catch(function () {
+        res.status(400).json({
+          confirmation: 'fail',
+          message: 'Failed to get group members'
         });
       });
     }

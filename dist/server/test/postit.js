@@ -550,4 +550,43 @@ describe('Group', function () {
       });
     });
   });
+  describe('Group Members', function () {
+    it('it should not get members of a group if user is not authenticated', function (done) {
+      var groupId = 1;
+      var offset = 0;
+      var perPage = 5;
+      server.get('/api/v1/members/' + groupId + '/' + offset + '/' + perPage).set('Connection', 'keep alive').set('Content-Type', 'application/json').end(function (err, res) {
+        res.should.have.status(403);
+        res.body.should.be.a('object');
+        res.body.should.have.property('error').eql('Please signin/signup');
+        done();
+      });
+    });
+    it('it should get all the members of a group', function (done) {
+      var groupId = 1;
+      var offset = 0;
+      var perPage = 5;
+      server.get('/api/v1/members/' + groupId + '/' + offset + '/' + perPage).set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('success');
+        res.body.should.have.property('members');
+        res.body.should.have.property('meta');
+        res.body.should.have.property('comments');
+        done();
+      });
+    });
+    it('it should not get members of a group if string is passed as groupId', function (done) {
+      var groupId = 'asjansj';
+      var offset = 0;
+      var perPage = 5;
+      server.get('/api/v1/members/' + groupId + '/' + offset + '/' + perPage).set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Failed to get group members');
+        done();
+      });
+    });
+  });
 });

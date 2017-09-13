@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">16% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/25</span>
+        <span class='fraction'>10/25</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">21.05% </span>
+        <span class="strong">52.63% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/19</span>
+        <span class='fraction'>10/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">16% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/25</span>
+        <span class='fraction'>10/25</span>
       </div>
     </div>
   </div>
@@ -235,8 +235,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,8 +251,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,8 +269,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -331,7 +331,7 @@ export default class MessageActions {
    */
 <span class="fstat-no" title="function not covered" >  st</span>atic addNotification(notification) {
 <span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >(d</span>ispatch) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      dispatch({</span>
+<span class="cstat-no" title="statement not covered" >      return dispatch({</span>
         type: ADD_NOTIFICATION,
         notification
       });
@@ -353,9 +353,9 @@ export default class MessageActions {
    * @param {*} groupId
    * @return {*} void
    */
-<span class="fstat-no" title="function not covered" >  st</span>atic updateReadStatus(groupId) {
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >(d</span>ispatch) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return axios.post(`api/v1/group/${groupId}/readStatus`)</span>
+  static updateReadStatus(groupId) {
+    return (dispatch) =&gt; {
+      return axios.post(`api/v1/group/${groupId}/readStatus`)
         .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          dispatch({</span>
             type: READ_STATUS
@@ -369,9 +369,9 @@ export default class MessageActions {
    * @param {*} groupId
    * @return {*} void
    */
-<span class="fstat-no" title="function not covered" >  st</span>atic readList(groupId) {
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >(d</span>ispatch) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return axios.get(`api/v1/group/${groupId}/readStatus`)</span>
+  static readList(groupId) {
+    return (dispatch) =&gt; {
+      return axios.get(`api/v1/group/${groupId}/readStatus`)
         .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          dispatch({</span>
             type: READ_LIST,
@@ -387,9 +387,9 @@ export default class MessageActions {
    * @param {*} perPage
    * @return {*} response
    */
-<span class="fstat-no" title="function not covered" >  st</span>atic searchUser(searchKey, offset, perPage) {
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >(d</span>ispatch) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return axios.get(`api/v1/search/${searchKey}/${offset}/${perPage}`)</span>
+  static searchUser(searchKey, offset, perPage) {
+    return (dispatch) =&gt; {
+      return axios.get(`api/v1/search/${searchKey}/${offset}/${perPage}`)
         .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          dispatch({</span>
             type: SEARCH_USER,
@@ -406,7 +406,7 @@ export default class MessageActions {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 08 2017 11:09:58 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 18:32:20 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for client/src/components/layout/signup/SignupForm.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">All files</a> / <a href="index.html">client/src/components/layout/signup</a> SignupForm.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.78% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.78% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import GoogleLogin from 'react-google-login';
+import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
+import TextFieldGroup from '../../common/TextFieldGroup.jsx';
+/**
+ * SignupForm class
+ */
+class SignupForm extends Component {
+  /**
+   * constructor
+   * @param {*} props
+   * @return {*} void
+   */
+<span class="fstat-no" title="function not covered" >  co</span>nstructor(props) {
+<span class="cstat-no" title="statement not covered" >    super(props);</span>
+<span class="cstat-no" title="statement not covered" >    this.state = {</span>
+      username: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      passwordConfirmation: '',
+      errors: {},
+      invalid: false
+    };
+    /**
+     * binds onChange, onSubmit and checkUserExists functions to this
+     */
+<span class="cstat-no" title="statement not covered" >    this.onChange = this.onChange.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >    this.onSubmit = this.onSubmit.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >    this.checkUserExists = this.checkUserExists.bind(this);</span>
+<span class="cstat-no" title="statement not covered" >    this.responseGoogle = this.responseGoogle.bind(this);</span>
+  }
+  /**
+   * onChange() gets called when the input fields changes and the change is stored in the state
+   * @param {*} event
+   * @return {*} void
+   */
+<span class="fstat-no" title="function not covered" >  on</span>Change(event) {
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      [event.target.name]: event.target.value
+    });
+  }
+  /**
+   * onSubmit() gets called when the user clicks on the signup button
+   * @param {*} event
+   * @return {*} void
+   */
+<span class="fstat-no" title="function not covered" >  on</span>Submit(event) {
+<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    if (this.isValid()) {</span>
+      /**
+       * empties the errors object if there are no validation errors
+       */
+<span class="cstat-no" title="statement not covered" >      this.setState({ errors: {} });</span>
+      /**
+       * calls the userSignupRequest action that has been passed down to it through props
+       * from SignupPage component
+       */
+<span class="cstat-no" title="statement not covered" >      this.props.userSignupRequest(this.state).then(</span>
+<span class="fstat-no" title="function not covered" >        ()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >          browserHistory.push('/dashboard');</span>
+<span class="cstat-no" title="statement not covered" >          Materialize.toast('Signup Successful!!, Welcome', 4000, 'green');</span>
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >          this.setState({ errors: err.response.data });</span>
+        });
+    }
+  }
+  /**
+   * isValid() gets called on signup submit and sets any validation errors to the state
+   * @return {*} isValid
+   */
+<span class="fstat-no" title="function not covered" >  is</span>Valid() {
+    const { errors, isValid } = <span class="cstat-no" title="statement not covered" >sharedSignupValidations.commonValidations(this.state);</span>
+<span class="cstat-no" title="statement not covered" >    if (!isValid) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({ errors });</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return isValid;</span>
+  }
+  /**
+   * checkUserExists() gets called when a user leaves the username and email input field
+   * It checks if the user already exist
+   * @param {*} event
+   * @return {*} void
+   */
+<span class="fstat-no" title="function not covered" >  ch</span>eckUserExists(event) {
+    const field = <span class="cstat-no" title="statement not covered" >event.target.name;</span>
+    const val = <span class="cstat-no" title="statement not covered" >event.target.value.trim();</span>
+<span class="cstat-no" title="statement not covered" >    if (val !== '') {</span>
+<span class="cstat-no" title="statement not covered" >      this.props.isUserExists(val).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {</span>
+        const errors = <span class="cstat-no" title="statement not covered" >this.state.errors;</span>
+        let invalid;
+        /**
+         * checks if isUserExists returns an object containing that user
+         */
+<span class="cstat-no" title="statement not covered" >        if (res.data.user) {</span>
+<span class="cstat-no" title="statement not covered" >          errors[field] = `Another user exist with this ${field}`;</span>
+<span class="cstat-no" title="statement not covered" >          invalid = true;</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          errors[field] = '';</span>
+<span class="cstat-no" title="statement not covered" >          invalid = false;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.setState({ errors, invalid });</span>
+      });
+    }
+  }
+  /**
+   * Gets the userDetails as response from google
+   * @param {*} response
+   * @return {*} void
+   */
+<span class="fstat-no" title="function not covered" >  re</span>sponseGoogle(response) {
+    const userDetails = <span class="cstat-no" title="statement not covered" >{</span>
+      username: response.profileObj.email.substring(0, response.profileObj.email.indexOf('@')),
+      email: response.profileObj.email,
+      password: response.profileObj.googleId,
+      phoneNumber: response.profileObj.googleId
+    };
+<span class="cstat-no" title="statement not covered" >    this.props.googleAuthentication(userDetails)</span>
+      .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >        browserHistory.push('/dashboard');</span>
+<span class="cstat-no" title="statement not covered" >        Materialize.toast('Welcome!!', 4000, 'green');</span>
+      });
+  }
+/**
+ * render
+ * @return {*} div
+ */
+<span class="fstat-no" title="function not covered" >  re</span>nder() {
+    const { errors } = <span class="cstat-no" title="statement not covered" >this.state;</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;div className="row"&gt;
+        &lt;div className="col s12 m6 offset-m3 signup"&gt;
+          &lt;div className="right"&gt;
+            &lt;GoogleLogin
+              clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              className="google-link"
+              buttonText="Signup with Google"
+            /&gt;
+          &lt;/div&gt;
+          &lt;form onSubmit={this.onSubmit}&gt;
+            &lt;h4 className="green-text text-darken-4 valign"&gt;Create An Account&lt;/h4&gt;
+            &lt;TextFieldGroup
+              error={errors.username}
+              id="username"
+              onChange={this.onChange}
+              value={this.state.username}
+              field="username"
+              htmlFor="username"
+              label="Username"
+              checkUserExists={this.checkUserExists}
+            /&gt;
+            &lt;TextFieldGroup
+              error={errors.email}
+              id="email"
+              onChange={this.onChange}
+              value={this.state.email}
+              field="email"
+              htmlFor="email"
+              label="Email"
+              type="email"
+              checkUserExists={this.checkUserExists}
+            /&gt;
+            &lt;TextFieldGroup
+              error={errors.phoneNumber}
+              id="phoneNumber"
+              onChange={this.onChange}
+              value={this.state.phoneNumber}
+              field="phoneNumber"
+              htmlFor="phoneNumber"
+              label="Phone Number"
+              checkUserExists={this.checkUserExists}
+            /&gt;
+            &lt;TextFieldGroup
+              error={errors.password}
+              id="password"
+              onChange={this.onChange}
+              value={this.state.password}
+              field="password"
+              htmlFor="password"
+              label="Password"
+              type="password"
+            /&gt;
+            &lt;TextFieldGroup
+              error={errors.passwordConfirmation}
+              id="passwordConfirmation"
+              onChange={this.onChange}
+              value={this.state.passwordConfirmation}
+              field="passwordConfirmation"
+              htmlFor="passwordConfirmation"
+              label="Confirm Password"
+              type="password"
+            /&gt;
+            &lt;div className="center"&gt;
+              &lt;button
+                disabled={this.state.isLoading || this.state.invalid}
+                className="waves-effect waves-light btn"
+              &gt;Sign Up&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+&nbsp;
+SignupForm.propTypes = {
+  userSignupRequest: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired,
+  googleAuthentication: PropTypes.func.isRequired
+};
+&nbsp;
+export default SignupForm;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 18:32:20 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>
