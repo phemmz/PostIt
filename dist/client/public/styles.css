@@ -181,7 +181,7 @@ body {
 .search-user {
   background-color: silver;
   font-family: 'Cinzel', serif;
-  height: 10vh; }
+  height: auto; }
 
 .mark-btn {
   margin-right: 15px; }

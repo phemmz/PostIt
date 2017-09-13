@@ -33666,7 +33666,7 @@ module.exports = typeof window !== 'undefined' && window.atob && window.atob.bin
 
 // removed by extract-text-webpack-plugin
     if(false) {
-      // 1505325824372
+      // 1505332114176
       const cssReload = require("../node_modules/css-hot-loader/hotModuleReplacement.js")(module.id, {"fileMap":"{fileName}"});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -34425,7 +34425,8 @@ var initialState = {
   groupList: [],
   selectedGroup: null,
   appStatus: 'ready',
-  groupMembers: []
+  groupMembers: [],
+  groupCreated: []
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -34440,7 +34441,7 @@ exports.default = function () {
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   var updated = Object.assign({}, state);
-  var updatedList = Object.assign([], updated.groupList);
+  var updatedList = Object.assign([], updated.groupCreated);
   switch (action.type) {
     case _types.GROUPS_RECEIVED:
       updated.groupList = action.groups;
@@ -34453,7 +34454,7 @@ exports.default = function () {
 
     case _types.GROUP_CREATE:
       updatedList.push(action.group);
-      updated.groupList = updatedList;
+      updated.groupCreated = action.group;
       return updated;
 
     case _types.GROUP_SELECTED:
