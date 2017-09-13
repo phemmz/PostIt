@@ -11,7 +11,8 @@ describe('Group Reducer', () => {
     groupMessages: [],
     appStatus: 'ready',
     list: {},
-    groupMembers: []
+    groupMembers: [],
+    groupCreated: []
   };
   it('should handle GROUP_CREATE', () => {
     const group = {
@@ -21,7 +22,7 @@ describe('Group Reducer', () => {
     const action = { type: GROUP_CREATE, group };
     const newState = groupReducer(initialState, action);
 
-    expect(newState.groupList).toEqual([group]);
+    expect(newState.groupCreated).toEqual(group);
   });
   it('should set the groupId of the group selected to the state when passed GROUP_SELECTED', () => {
     const selectedGroup = {
