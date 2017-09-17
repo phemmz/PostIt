@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import MessageActions from '../../actions/messageActions';
+import UserActions from '../../actions/userActions';
 import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import User from '../presentation/User.jsx';
 
@@ -26,7 +26,7 @@ class SearchPage extends Component {
       pageCount: 0
     };
     this.searchHandler = this.searchHandler.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.paginationHandler = this.paginationHandler.bind(this);
   }
   /**
    * searchHandler
@@ -43,7 +43,7 @@ class SearchPage extends Component {
         .then((data) => {
           this.setState({
             data: data.comments,
-            pageCount: Math.ceil(data.meta.total_count / data.meta.limit)
+            pageCount: Math.ceil(data.metaData.total_count / data.metaData.limit)
           });
         });
       });
@@ -54,18 +54,18 @@ class SearchPage extends Component {
     }
   }
   /**
-   * handlePageClick
-   * @param {*} data
+   * paginationHandler
+   * @param {*} pageDetails
    * @return {*} void
    */
-  handlePageClick(data) {
-    const selected = data.selected;
+  paginationHandler(pageDetails) {
+    const selected = pageDetails.selected;
     const offset = Math.ceil(selected * 5);
     this.props.searchUser(this.state.searchKey, offset, this.state.perPage)
     .then((response) => {
       this.setState({
         data: response.comments,
-        pageCount: Math.ceil(response.meta.total_count / response.meta.limit)
+        pageCount: Math.ceil(response.metaData.total_count / response.metaData.limit)
       });
     });
   }
@@ -111,7 +111,7 @@ class SearchPage extends Component {
                 pageCount={this.state.pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
+                onPageChange={this.paginationHandler}
                 containerClassName={'pagination'}
                 subContainerClassName={'pages pagination'}
                 activeClassName={'active'}
@@ -148,14 +148,14 @@ SearchPage.defaultProps = {
 const stateToProps = (state) => {
   return {
     notifications: state.messageReducer.notifications,
-    searchedUsers: state.messageReducer.searchedUsers
+    searchedUsers: state.userReducer.searchedUsers
   };
 };
 
 const dispatchToProps = (dispatch) => {
   return {
     searchUser: (searchKey, offset, perPage) => {
-      return dispatch(MessageActions.searchUser(searchKey, offset, perPage));
+      return dispatch(UserActions.searchUser(searchKey, offset, perPage));
     }
   };
 };

@@ -8,9 +8,9 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
-var _accountController = require('./../controllers/accountController');
+var _userController = require('./../controllers/userController');
 
-var _accountController2 = _interopRequireDefault(_accountController);
+var _userController2 = _interopRequireDefault(_userController);
 
 var _groupController = require('./../controllers/groupController');
 
@@ -65,21 +65,21 @@ var router = _express2.default.Router();
 /**
  * Router for getting all the registered users in the application
  */
-router.get('/api/v1/user', _authenticate2.default, _accountController2.default.getAllUsers);
+router.get('/api/v1/user', _authenticate2.default, _userController2.default.getAllUsers);
 /**
  * Router for identifying a particular user either by username, phone number or email
  */
-router.get('/api/v1/user/:identifier', _accountController2.default.getOne);
+router.get('/api/v1/user/:identifier', _userController2.default.getOne);
 /**
  * Router for signup
  * Takes a middleware that validates user input
  */
-router.post('/api/v1/user/signup', _signupMiddleware2.default.validateUserInput, _accountController2.default.signup);
+router.post('/api/v1/user/signup', _signupMiddleware2.default.validateUserInput, _userController2.default.signup);
 /**
  * Router for signin
  * Takes a middleware that validates user input
  */
-router.post('/api/v1/user/signin', _signinMiddleware2.default.validateUserInput, _accountController2.default.signin);
+router.post('/api/v1/user/signin', _signinMiddleware2.default.validateUserInput, _userController2.default.signin);
 /**
  * Post router for creating a group
  * Takes authenticate and validateUserInput middlewares
@@ -114,18 +114,18 @@ router.post('/api/v1/group/:groupId/user', _authenticate2.default, _addUserMiddl
  * Router for resetting password
  * Takes a middleware that validates user input
  */
-router.post('/api/v1/reset', _resetMiddleware2.default.validateUserInput, _accountController2.default.resetPassword);
+router.post('/api/v1/reset', _resetMiddleware2.default.validateUserInput, _userController2.default.resetPassword);
 /**
  * Router for updating password field
  * Takes a middleware that validates user input
  */
-router.put('/api/v1/user/signup', _updatePasswordMiddleware2.default.validateUserInput, _accountController2.default.updatePassword);
+router.put('/api/v1/user/signup', _updatePasswordMiddleware2.default.validateUserInput, _userController2.default.updatePassword);
 /**
  * Google callback url.
  */
-router.post('/api/v1/auth/google', _accountController2.default.googleSignup);
+router.post('/api/v1/auth/google', _userController2.default.googleSignup);
 router.post('/api/v1/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readStatus);
 router.get('/api/v1/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readList);
-router.get('/api/v1/search/:searchKey/:offset/:perPage', _authenticate2.default, _messageController2.default.searchUsers);
+router.get('/api/v1/search/:searchKey/:offset/:perPage', _authenticate2.default, _userController2.default.searchUsers);
 router.get('/api/v1/members/:groupId/:offset/:perPage', _authenticate2.default, _groupController2.default.groupMembers);
 exports.default = router;

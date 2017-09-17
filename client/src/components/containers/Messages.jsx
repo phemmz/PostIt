@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { CreateMessage, Message, AddUserModal, SideNav, MessageHeader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
-import AuthenticationActions from '../../actions/authActions';
+import UserActions from '../../actions/userActions';
 
 const socket = io();
 
@@ -335,7 +335,7 @@ const dispatchToProps = (dispatch) => {
       return dispatch(GroupActions.addUser(groupId, userAdded));
     },
     getUsers: () => {
-      return dispatch(AuthenticationActions.getUsers());
+      return dispatch(UserActions.getUsers());
     },
     sendMessage: (groupId, message) => {
       return dispatch(MessageActions.postMessage(groupId, message));

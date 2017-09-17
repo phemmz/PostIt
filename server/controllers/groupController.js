@@ -208,7 +208,7 @@ export default class GroupController {
             const offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
             const nextOffset = (offset + PER_PAGE);
             const previousOffset = (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
-            const meta = {
+            const metaData = {
               limit: PER_PAGE,
               next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
               offset: req.params.offset,
@@ -219,8 +219,8 @@ export default class GroupController {
             res.status(200).json({
               confirmation: 'success',
               members,
-              meta,
-              comments: getPaginatedItems
+              metaData,
+              paginatedMembers: getPaginatedItems
             });
           })
           .catch((err) => {

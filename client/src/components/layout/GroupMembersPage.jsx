@@ -23,7 +23,7 @@ class GroupMembersPage extends Component {
       data: [],
       pageCount: 0
     };
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.paginationHandler = this.paginationHandler.bind(this);
   }
   /**
    * componentWillMount
@@ -35,8 +35,8 @@ class GroupMembersPage extends Component {
       this.props.getGroupMembers(this.props.selectedGroup, this.state.offset, this.state.perPage)
       .then((data) => {
         this.setState({
-          data: data.comments,
-          pageCount: Math.ceil(data.meta.total_count / data.meta.limit)
+          data: data.paginatedMembers,
+          pageCount: Math.ceil(data.metaData.total_count / data.metaData.limit)
         });
       })
     ) :
@@ -45,18 +45,18 @@ class GroupMembersPage extends Component {
     );
   }
   /**
-   * handlePageClick
-   * @param {*} data
+   * paginationHandler
+   * @param {*} pageDetails
    * @return {*} void
    */
-  handlePageClick(data) {
-    const selected = data.selected;
+  paginationHandler(pageDetails) {
+    const selected = pageDetails.selected;
     const offset = Math.ceil(selected * 5);
     this.props.getGroupMembers(this.props.selectedGroup, offset, this.state.perPage)
     .then((response) => {
       this.setState({
-        data: response.comments,
-        pageCount: Math.ceil(response.meta.total_count / response.meta.limit)
+        data: response.paginatedMembers,
+        pageCount: Math.ceil(response.metaData.total_count / response.metaData.limit)
       });
     });
   }
@@ -95,7 +95,7 @@ class GroupMembersPage extends Component {
                 pageCount={this.state.pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
+                onPageChange={this.paginationHandler}
                 containerClassName={'pagination'}
                 subContainerClassName={'pages pagination'}
                 activeClassName={'active'}

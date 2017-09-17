@@ -5,9 +5,7 @@ const initialState = {
   list: {},
   notifications: [],
   readStatus: false,
-  readList: [],
-  searchedUsers: [],
-  meta: {}
+  readList: []
 };
 /**
  * Group reducer takes the state and action and then returns the state
@@ -41,10 +39,6 @@ export default (state = initialState, action = {}) => {
 
     case READ_LIST:
       updated.readList = action.readList;
-      return updated;
-
-    case SEARCH_USER:
-      updated.searchedUsers = action.searchedUsers;
       return updated;
 
     default:

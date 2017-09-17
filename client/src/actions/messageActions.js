@@ -110,7 +110,7 @@ export default class MessageActions {
         .then((response) => {
           dispatch({
             type: SEARCH_USER,
-            searchedUsers: response.data.comments
+            searchedUsers: response.data.searchedUsers
           });
           return response.data;
         });

@@ -58,22 +58,6 @@ export default class AuthenticationActions {
     };
   }
   /**
-   * This action gets all the registered users
-   * @returns {object} users
-   */
-  static getUsers() {
-    return (dispatch) => {
-      return axios.get('/api/v1/user')
-        .then((response) => {
-          const users = response.data.result;
-          dispatch({
-            type: GET_ALL_USERS,
-            users
-          });
-        });
-    };
-  }
-  /**
    * Makes a call to the api to send a reset email to
    * the user with the username supplied
    * @param {*} username

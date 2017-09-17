@@ -544,8 +544,8 @@ describe('Group', function () {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('success');
-        res.body.should.have.property('meta');
-        res.body.should.have.property('comments');
+        res.body.should.have.property('metaData');
+        res.body.should.have.property('searchedUsers');
         done();
       });
     });
@@ -571,8 +571,8 @@ describe('Group', function () {
         res.body.should.be.a('object');
         res.body.should.have.property('confirmation').eql('success');
         res.body.should.have.property('members');
-        res.body.should.have.property('meta');
-        res.body.should.have.property('comments');
+        res.body.should.have.property('metaData');
+        res.body.should.have.property('paginatedMembers');
         done();
       });
     });

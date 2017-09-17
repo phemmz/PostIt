@@ -21,7 +21,7 @@ const AddUserModal = ({
         <a className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         <a
           onClick={onClick}
-          className="modal-action modal-close waves-effect waves-green btn-flat"
+          className="modal-action modal-close waves-effect waves-green btn-flat add-btn"
           role="link"
           tabIndex={0}
         >Add User</a>

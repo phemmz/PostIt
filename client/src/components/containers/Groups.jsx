@@ -19,7 +19,7 @@ class Groups extends Component {
       userList: [],
       selected: 0
     };
-    this.groupClickHandler = this.groupClickHandler.bind(this);
+    this.setSelectedGroupId = this.setSelectedGroupId.bind(this);
   }
   /**
  * componentDidMount() is called at the instance where the Groups component is being created
@@ -44,7 +44,7 @@ class Groups extends Component {
  * @param {integer} groupId
  * @return {*} void
  */
-  groupClickHandler(groupId) {
+  setSelectedGroupId(groupId) {
     /**
  * calls the groupSelected action and passes the groupId of the group selected to it
  * This action saves the id to the reducer
@@ -63,7 +63,7 @@ class Groups extends Component {
         <li className="each-group" key={group.id}>
           <Group
             groupPropsObj={group}
-            groupClickHandler={this.groupClickHandler}
+            groupClickHandler={this.setSelectedGroupId}
             isSelected={selected}
             groupId={group.id}
           />
