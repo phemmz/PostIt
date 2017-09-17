@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _util = require('util');
-
-var _util2 = _interopRequireDefault(_util);
-
 var _models = require('../data/models');
 
 var _models2 = _interopRequireDefault(_models);
@@ -211,57 +207,6 @@ var MessageController = function () {
         res.status(400).json({
           confirmation: 'fail',
           message: 'Invalid group id'
-        });
-      });
-    }
-    /**
-     * searchUsers
-     * @param {*} req
-     * @param {*} res
-     * @returns {*} json
-     */
-
-  }, {
-    key: 'searchUsers',
-    value: function searchUsers(req, res) {
-      User.findAll({
-        where: {
-          username: {
-            $iLike: '%' + req.params.searchKey + '%'
-          }
-        }
-      }).then(function (response) {
-        var userDetails = [];
-        response.map(function (user) {
-          return userDetails.push({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            phoneNumber: user.phoneNumber
-          });
-        });
-        var PER_PAGE = 5;
-        var offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
-        var nextOffset = offset + PER_PAGE;
-        var previousOffset = offset - PER_PAGE < 1 ? 0 : offset - PER_PAGE;
-        var meta = {
-          limit: PER_PAGE,
-          next: _util2.default.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
-          offset: req.params.offset,
-          previous: _util2.default.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
-          total_count: userDetails.length
-        };
-        var getPaginatedItems = userDetails.slice(offset, offset + PER_PAGE);
-        res.status(200).json({
-          confirmation: 'success',
-          users: userDetails,
-          meta: meta,
-          comments: getPaginatedItems
-        });
-      }).catch(function (error) {
-        res.status(404).json({
-          confirmation: 'fail',
-          error: error
         });
       });
     }

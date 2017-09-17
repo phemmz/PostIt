@@ -35,11 +35,13 @@ TextFieldGroup.propTypes = {
   error: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  checkUserExists: PropTypes.func
 };
 
 TextFieldGroup.defaultProps = {
   type: 'text',
-  error: ''
+  error: '',
+  checkUserExists: () => {}
 };
 
 export default TextFieldGroup;

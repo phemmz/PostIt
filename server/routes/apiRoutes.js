@@ -1,5 +1,5 @@
 import express from 'express';
-import UserController from './../controllers/accountController';
+import UserController from './../controllers/userController';
 import GroupController from './../controllers/groupController';
 import MessageController from './../controllers/messageController';
 import SignupValidations from '../controllers/middlewares/signupMiddleware';
@@ -80,6 +80,6 @@ router.put('/api/v1/user/signup', UpdatePasswordValidations.validateUserInput, U
 router.post('/api/v1/auth/google', UserController.googleSignup);
 router.post('/api/v1/group/:groupId/readStatus', authenticate, MessageController.readStatus);
 router.get('/api/v1/group/:groupId/readStatus', authenticate, MessageController.readList);
-router.get('/api/v1/search/:searchKey/:offset/:perPage', authenticate, MessageController.searchUsers);
+router.get('/api/v1/search/:searchKey/:offset/:perPage', authenticate, UserController.searchUsers);
 router.get('/api/v1/members/:groupId/:offset/:perPage', authenticate, GroupController.groupMembers);
 export default router;

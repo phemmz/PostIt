@@ -47,7 +47,7 @@ class CreateGroup extends Component {
       })
       .catch(() => {
         Materialize.toast('Group Already Exist!', 4000, 'red');
-        this.refs.group.value = '';
+        this.groupRef.value = '';
       });
   }
   /**
@@ -66,7 +66,7 @@ class CreateGroup extends Component {
                   <div className="input-field col s12">
                     <i className="material-icons prefix">group</i>
                     <input
-                      ref="group"
+                      ref={(el) => { this.groupRef = el; }}
                       onChange={this.updateGroupHandler}
                       id="groupname"
                       type="text"

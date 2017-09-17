@@ -358,8 +358,8 @@ main {
   padding-left: 10px; }
 
 .date-msg-position {
-  font-family: 'Cinzel', serif;
   display: inline;
+  font-family: 'Cinzel', serif;
   font-size: 12px; }
 
 .msg-content {
@@ -368,19 +368,14 @@ main {
 .date-pad {
   margin-right: 10px; }
 
-#msg-creator {
+.msg-creator {
   font-family: 'Cinzel', serif; }
 
 .wordwrap {
   white-space: pre-wrap;
-  /* Webkit */
   white-space: -moz-pre-wrap;
-  /* Firefox */
   white-space: -pre-wrap;
-  /* Opera <7 */
   white-space: -o-pre-wrap;
-  /* Opera 7 */
-  word-wrap: break-word;
-  /* IE */ }
+  word-wrap: break-word; }
 
 /*# sourceMappingURL=bundle.map*/

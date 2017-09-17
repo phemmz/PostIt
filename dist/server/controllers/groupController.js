@@ -227,7 +227,7 @@ var GroupController = function () {
           var offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
           var nextOffset = offset + PER_PAGE;
           var previousOffset = offset - PER_PAGE < 1 ? 0 : offset - PER_PAGE;
-          var meta = {
+          var metaData = {
             limit: PER_PAGE,
             next: _util2.default.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
             offset: req.params.offset,
@@ -238,8 +238,8 @@ var GroupController = function () {
           res.status(200).json({
             confirmation: 'success',
             members: members,
-            meta: meta,
-            comments: getPaginatedItems
+            metaData: metaData,
+            paginatedMembers: getPaginatedItems
           });
         }).catch(function (err) {
           res.status(400).json({

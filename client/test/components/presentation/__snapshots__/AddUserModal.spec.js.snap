@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddUserModal Component displays modal for adding user to a group 1`] = `
+<AddUserModal
+  appUsers={
+    Array [
+      "phemmz",
+      "nawtuaw",
+    ]
+  }
+  onChange={[Function]}
+  onClick={[Function]}
+  value="phemmz"
+>
+  <div
+    className="modal"
+    id="addUser"
+  >
+    <div
+      className="modal-content"
+    >
+      <h4
+        className="green-text text-darken-4"
+      >
+        Add User to a Group
+      </h4>
+      <div
+        className="row"
+      >
+        <div
+          className="input-field col s12"
+        >
+          <select
+            id="username"
+            onChange={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+            value="phemmz"
+          >
+            <option
+              disabled={true}
+              value=""
+            >
+              Add User
+            </option>
+            phemmz
+            nawtuaw
+          </select>
+        </div>
+      </div>
+    </div>
+    <div
+      className="modal-footer"
+    >
+      <a
+        className="modal-action modal-close waves-effect waves-green btn-flat"
+      >
+        Cancel
+      </a>
+      <a
+        className="modal-action modal-close waves-effect waves-green btn-flat add-btn"
+        onClick={[Function]}
+        role="link"
+        tabIndex={0}
+      >
+        Add User
+      </a>
+    </div>
+  </div>
+</AddUserModal>
+`;

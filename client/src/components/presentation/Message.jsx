@@ -14,8 +14,7 @@ const Message = ({
                 className="circle green lighten-1 center"
               >{currentMessage.messagecreator[0]}</span>
               <span
-                className="email-title"
-                id="msg-creator"
+                className="email-title msg-creator"
               >{currentMessage.messagecreator}</span>
               <span
                 className="grey-text ultra-small right date-msg-position"

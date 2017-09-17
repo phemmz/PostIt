@@ -98,7 +98,7 @@ export default class GroupActions {
         .then((response) => {
           dispatch({
             type: GROUP_MEMBERS,
-            groupMembers: response.data.comments
+            groupMembers: response.data.paginatedMembers
           });
           return response.data;
         });
