@@ -5,8 +5,8 @@
   "main": "./server/bin/www",
   "scripts": {
     "db:migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
-    "watch": "webpack -d --watch",
-    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares && babel webpack.config.js -d dist/ --presets es2015",
+    "build-dev": "webpack --config webpack.config.dev.js --watch",
+    "build": "babel ./app.js -d dist && babel server/ -d dist/server/ && babel server/data/ -d dist/server/data/ && babel server/data/config -d dist/server/data && babel server/controllers/middlewares -d dist/server/controllers/middlewares  --presets es2015",
     "start": "npm run build && nodemon dist/app.js",
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
@@ -14,7 +14,8 @@
     "test": "NODE_ENV=test mocha dist/server/test --timeout 50000",
     "front-test": "jest --coverage",
     "cover": "istanbul cover _mocha dist/server/test --timeout 10000",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "build-prod": "webpack --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "express": "^4.15.3",
     "express-favicon": "^2.0.0",
     "express-session": "^1.15.3",
+    "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "history": "^4.6.3",
     "identity-obj-proxy": "^3.0.0",
