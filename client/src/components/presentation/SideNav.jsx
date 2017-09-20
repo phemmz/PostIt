@@ -9,12 +9,12 @@ const SideNav = ({
     <ul id="slide-out" className="side-nav groupdetails-nav" >
       <li>
         <h5
-          className="white-text name user-size"
+          className="white-text name user-size current-username"
         >{currentUser.username}</h5>
       </li>
       <li>
         <h5
-          className="white-text email user-size"
+          className="white-text email user-size current-email"
         >{currentUser.email}</h5>
       </li>
       <li>

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideNav Component should render a sidenav component 1`] = `
+exports[`SideNav Component should always render ul 1`] = `
 <SideNav
   currentUser={
     Object {
-      "email": "phemmzmcllroy@gmail.com",
-      "username": "phemmz",
+      "email": "user1@gmail.com",
+      "username": "user1",
     }
   }
 >
@@ -15,16 +15,16 @@ exports[`SideNav Component should render a sidenav component 1`] = `
   >
     <li>
       <h5
-        className="white-text name user-size"
+        className="white-text name user-size current-username"
       >
-        phemmz
+        user1
       </h5>
     </li>
     <li>
       <h5
-        className="white-text email user-size"
+        className="white-text email user-size current-email"
       >
-        phemmzmcllroy@gmail.com
+        user1@gmail.com
       </h5>
     </li>
     <li>

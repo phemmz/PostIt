@@ -1,7 +1,7 @@
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-module.exports = {
+const webpackConfig = {
 
   entry: [
     path.join(__dirname, '/client/src/app.jsx')
@@ -46,3 +46,5 @@ module.exports = {
     new ExtractTextPlugin({ filename: './styles.css', allChunks: true })
   ]
 };
+
+export default webpackConfig;

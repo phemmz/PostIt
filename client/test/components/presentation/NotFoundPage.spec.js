@@ -1,16 +1,35 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { mount } from "enzyme";
 import NotFoundPage from '../../../src/components/presentation/NotFoundPage';
 
-describe('NotFoundPage Component', () => {
-  it('should render a notfoundpage component', () => {
-    const wrapper = shallow(<NotFoundPage />);
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('h4').exists()).toBe(true);
-    expect(wrapper.find('i').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(3);
-    expect(wrapper.find('h4').length).toBe(2);
-    expect(wrapper.find('i').length).toBe(1);
+describe("NotFoundPage Component", () => {
+  let mountedNotFoundPage;
+
+  const notFoundPage = () => {
+    if (!mountedNotFoundPage) {
+      mountedNotFoundPage = mount(
+        <NotFoundPage />
+      );
+    }
+    return mountedNotFoundPage;
+  }
+
+  beforeEach(() => {
+    mountedNotFoundPage: undefined;
+  });
+
+  it("should always render a div", () => {
+    const divs = notFoundPage().find("div");
+    expect(notFoundPage()).toMatchSnapshot();
+    expect(divs.length).toBeGreaterThan(0);
+  });
+
+  describe("the rendered div", () => {
+    it("should contain everything else that gets rendered", () => {
+      const divs = notFoundPage().find("div");
+      const wrappingDiv = divs.first();
+      expect(wrappingDiv.children()).toEqual(notFoundPage().children());
+    });
   });
 });
+

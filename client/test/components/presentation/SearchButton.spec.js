@@ -1,14 +1,34 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { mount } from "enzyme";
 import SearchButton from '../../../src/components/presentation/SearchButton';
 
-describe('SearchButton Component', () => {
-  it('should render a Link button for searching users', () => {
-    const wrapper = shallow(<SearchButton />);
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('Link').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(1);
-    expect(wrapper.find('Link').length).toBe(1);
+describe("SearchButton Component", () => {
+  let mountedSearchButton;
+
+  const searchButton = () => {
+    if (!mountedSearchButton) {
+      mountedSearchButton = mount(
+        <SearchButton />
+      );
+    }
+    return mountedSearchButton;
+  }
+
+  beforeEach(() => {
+    searchButton: undefined;
+  });
+
+  it("should always render a div", () => {
+    const divs = searchButton().find("div");
+    expect(searchButton()).toMatchSnapshot();
+    expect(divs.length).toBeGreaterThan(0);
+  });
+
+  describe("the rendered div", () => {
+    it("should contain everything else that gets rendered", () => {
+      const divs = searchButton().find("div");
+      const wrappingDiv = divs.first();
+      expect(wrappingDiv.children()).toEqual(searchButton().children());
+    });
   });
 });

@@ -2,7 +2,7 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 
-module.exports = {
+const webpackConfig = {
 
   entry: [
     path.join(__dirname, '/client/src/app.jsx')
@@ -53,3 +53,5 @@ module.exports = {
     })
   ]
 };
+
+export default webpackConfig;

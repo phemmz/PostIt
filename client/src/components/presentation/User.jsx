@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 const User = ({ user }) => {
   return (
     <div className="card search-user center green-text text-darken-4">
-      <span>Username: {user.username}</span>
+      <span className="username">Username: {user.username}</span>
       <br />
-      <span>Email: {user.email}</span>
+      <span className="email">Email: {user.email}</span>
       <br />
-      <span>Phone Number: {user.phoneNumber}</span>
+      <span className="phoneNumber">Phone Number: {user.phoneNumber}</span>
     </div>
   );
 };

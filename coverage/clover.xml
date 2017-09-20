@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1505642861466" clover="3.2.0">
-  <project timestamp="1505642861466" name="All files">
-    <metrics statements="297" coveredstatements="236" conditionals="104" coveredconditionals="55" methods="101" coveredmethods="84" elements="502" coveredelements="375" complexity="0" loc="297" ncloc="297" packages="9" files="27" classes="27">
+<coverage generated="1505950874745" clover="3.2.0">
+  <project timestamp="1505950874745" name="All files">
+    <metrics statements="312" coveredstatements="245" conditionals="104" coveredconditionals="55" methods="107" coveredmethods="88" elements="523" coveredelements="388" complexity="0" loc="312" ncloc="312" packages="10" files="28" classes="28">
       <package name="client.src.actions">
-        <metrics statements="100" coveredstatements="96" conditionals="0" coveredconditionals="0" methods="58" coveredmethods="55"/>
+        <metrics statements="96" coveredstatements="96" conditionals="0" coveredconditionals="0" methods="55" coveredmethods="55"/>
         <file name="authActions.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/actions/authActions.js">
           <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="12"/>
           <line num="16" count="4" type="stmt"/>
@@ -49,7 +49,7 @@
           <line num="103" count="1" type="stmt"/>
         </file>
         <file name="messageActions.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/actions/messageActions.js">
-          <metrics statements="25" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="19" coveredmethods="16"/>
+          <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="16" coveredmethods="16"/>
           <line num="13" count="1" type="stmt"/>
           <line num="14" count="1" type="stmt"/>
           <line num="16" count="1" type="stmt"/>
@@ -71,10 +71,6 @@
           <line num="91" count="1" type="stmt"/>
           <line num="93" count="1" type="stmt"/>
           <line num="97" count="1" type="stmt"/>
-          <line num="108" count="0" type="stmt"/>
-          <line num="109" count="0" type="stmt"/>
-          <line num="111" count="0" type="stmt"/>
-          <line num="115" count="0" type="stmt"/>
         </file>
         <file name="signupActions.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/actions/signupActions.js">
           <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
@@ -91,25 +87,25 @@
         </file>
         <file name="types.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/actions/types.js">
           <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-          <line num="1" count="11" type="stmt"/>
-          <line num="2" count="11" type="stmt"/>
-          <line num="3" count="11" type="stmt"/>
-          <line num="4" count="11" type="stmt"/>
-          <line num="5" count="11" type="stmt"/>
-          <line num="6" count="11" type="stmt"/>
-          <line num="7" count="11" type="stmt"/>
-          <line num="8" count="11" type="stmt"/>
-          <line num="9" count="11" type="stmt"/>
-          <line num="10" count="11" type="stmt"/>
-          <line num="11" count="11" type="stmt"/>
-          <line num="12" count="11" type="stmt"/>
-          <line num="13" count="11" type="stmt"/>
-          <line num="14" count="11" type="stmt"/>
-          <line num="15" count="11" type="stmt"/>
-          <line num="16" count="11" type="stmt"/>
-          <line num="17" count="11" type="stmt"/>
-          <line num="18" count="11" type="stmt"/>
-          <line num="19" count="11" type="stmt"/>
+          <line num="1" count="12" type="stmt"/>
+          <line num="2" count="12" type="stmt"/>
+          <line num="3" count="12" type="stmt"/>
+          <line num="4" count="12" type="stmt"/>
+          <line num="5" count="12" type="stmt"/>
+          <line num="6" count="12" type="stmt"/>
+          <line num="7" count="12" type="stmt"/>
+          <line num="8" count="12" type="stmt"/>
+          <line num="9" count="12" type="stmt"/>
+          <line num="10" count="12" type="stmt"/>
+          <line num="11" count="12" type="stmt"/>
+          <line num="12" count="12" type="stmt"/>
+          <line num="13" count="12" type="stmt"/>
+          <line num="14" count="12" type="stmt"/>
+          <line num="15" count="12" type="stmt"/>
+          <line num="16" count="12" type="stmt"/>
+          <line num="17" count="12" type="stmt"/>
+          <line num="18" count="12" type="stmt"/>
+          <line num="19" count="12" type="stmt"/>
         </file>
         <file name="userActions.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/actions/userActions.js">
           <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
@@ -131,6 +127,31 @@
           <line num="11" count="37" type="stmt"/>
           <line num="29" count="2" type="stmt"/>
           <line num="41" count="2" type="stmt"/>
+        </file>
+      </package>
+      <package name="client.src.components.containers">
+        <metrics statements="19" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="4"/>
+        <file name="CreateGroup.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/containers/CreateGroup.jsx">
+          <metrics statements="19" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="4"/>
+          <line num="14" count="5" type="stmt"/>
+          <line num="15" count="5" type="stmt"/>
+          <line num="21" count="5" type="stmt"/>
+          <line num="22" count="5" type="stmt"/>
+          <line num="30" count="0" type="stmt"/>
+          <line num="31" count="0" type="stmt"/>
+          <line num="32" count="0" type="stmt"/>
+          <line num="42" count="0" type="stmt"/>
+          <line num="43" count="0" type="stmt"/>
+          <line num="45" count="0" type="stmt"/>
+          <line num="46" count="0" type="stmt"/>
+          <line num="49" count="0" type="stmt"/>
+          <line num="50" count="0" type="stmt"/>
+          <line num="58" count="5" type="stmt"/>
+          <line num="69" count="5" type="stmt"/>
+          <line num="97" count="1" type="stmt"/>
+          <line num="101" count="1" type="stmt"/>
+          <line num="102" count="5" type="stmt"/>
+          <line num="104" count="0" type="stmt"/>
         </file>
       </package>
       <package name="client.src.components.layout.login">
@@ -221,19 +242,19 @@
         <file name="GroupHeader.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/GroupHeader.jsx">
           <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
           <line num="10" count="1" type="stmt"/>
-          <line num="11" count="2" type="stmt"/>
+          <line num="11" count="5" type="stmt"/>
           <line num="59" count="1" type="stmt"/>
         </file>
         <file name="Message.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/Message.jsx">
           <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="4" count="1" type="stmt"/>
-          <line num="7" count="1" type="stmt"/>
+          <line num="7" count="5" type="stmt"/>
           <line num="45" count="1" type="stmt"/>
         </file>
         <file name="MessageHeader.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/MessageHeader.jsx">
           <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="8" count="1" type="stmt"/>
-          <line num="9" count="1" type="stmt"/>
+          <line num="9" count="4" type="stmt"/>
           <line num="22" count="1" type="stmt"/>
         </file>
         <file name="NotFoundPage.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/NotFoundPage.jsx">
@@ -254,7 +275,7 @@
         <file name="SideNav.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/SideNav.jsx">
           <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="5" count="1" type="stmt"/>
-          <line num="8" count="1" type="stmt"/>
+          <line num="8" count="5" type="stmt"/>
           <line num="35" count="1" type="stmt"/>
         </file>
         <file name="User.jsx" path="/Users/aandeladeveloper/Desktop/PostIt/client/src/components/presentation/User.jsx">
@@ -346,10 +367,10 @@
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <file name="jestsetup.js" path="/Users/aandeladeveloper/Desktop/PostIt/client/test/jestsetup.js">
           <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-          <line num="4" count="21" type="stmt"/>
-          <line num="5" count="21" type="stmt"/>
-          <line num="6" count="21" type="stmt"/>
-          <line num="8" count="21" type="stmt"/>
+          <line num="4" count="22" type="stmt"/>
+          <line num="5" count="22" type="stmt"/>
+          <line num="6" count="22" type="stmt"/>
+          <line num="8" count="22" type="stmt"/>
           <line num="9" count="0" type="stmt"/>
         </file>
       </package>

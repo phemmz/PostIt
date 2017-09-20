@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageHeader Component should render groupname of the group selected 1`] = `
+exports[`MessageHeader Component should always render a div 1`] = `
 <MessageHeader
-  groupName="Random"
+  groupName="random"
 >
   <div
     className="row"
@@ -16,7 +16,7 @@ exports[`MessageHeader Component should render groupname of the group selected 1
           id="welcome-header"
         >
           <strong>
-            Random
+            random
           </strong>
         </h5>
       </span>
