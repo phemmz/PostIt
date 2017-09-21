@@ -1,31 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`User Component should render a user component 1`] = `
+exports[`User Component should always render div 1`] = `
 <User
   user={
     Object {
-      "email": "phemmzmcllroy@gmail.com",
-      "phoneNumber": "08012345678",
-      "username": "phemmz",
+      "email": "user1@gmail.com",
+      "phoneNumber": "08055123456",
+      "username": "user1",
     }
   }
 >
   <div
     className="card search-user center green-text text-darken-4"
   >
-    <span>
+    <span
+      className="username"
+    >
       Username: 
-      phemmz
+      user1
     </span>
     <br />
-    <span>
+    <span
+      className="email"
+    >
       Email: 
-      phemmzmcllroy@gmail.com
+      user1@gmail.com
     </span>
     <br />
-    <span>
+    <span
+      className="phoneNumber"
+    >
       Phone Number: 
-      08012345678
+      08055123456
     </span>
   </div>
 </User>

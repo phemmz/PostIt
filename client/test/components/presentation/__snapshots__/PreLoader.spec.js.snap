@@ -1,41 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PreLoader Component should render a materialize preloader 1`] = `
-<div
-  className="container"
->
+exports[`PreLoader Component should always render a div 1`] = `
+<PreLoader>
   <div
-    className="col s3 offset-s4 my-preloader"
+    className="container"
   >
     <div
-      className="valign-wrapper preloader-wrapper active"
+      className="col s3 offset-s4 my-preloader"
     >
       <div
-        className="spinner-layer spinner-red-only"
+        className="valign-wrapper preloader-wrapper active"
       >
         <div
-          className="circle-clipper left"
+          className="spinner-layer spinner-red-only"
         >
           <div
-            className="circle"
-          />
-        </div>
-        <div
-          className="gap-patch"
-        >
+            className="circle-clipper left"
+          >
+            <div
+              className="circle"
+            />
+          </div>
           <div
-            className="circle"
-          />
-        </div>
-        <div
-          className="circle-clipper right"
-        >
+            className="gap-patch"
+          >
+            <div
+              className="circle"
+            />
+          </div>
           <div
-            className="circle"
-          />
+            className="circle-clipper right"
+          >
+            <div
+              className="circle"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</PreLoader>
 `;

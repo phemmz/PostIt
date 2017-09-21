@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddUserModal Component displays modal for adding user to a group 1`] = `
+exports[`AddUserModal Component always renders a div 1`] = `
 <AddUserModal
   appUsers={
     Array [

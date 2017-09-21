@@ -1,43 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Welcome Component should render a welcome component on the landing page 1`] = `
-<div>
-  <div
-    className="container row"
-  >
+exports[`Welcome Component should always render a div 1`] = `
+<Welcome>
+  <div>
     <div
-      className="col s7 offset-s3 welc"
-    >
-      <h4
-        className="green-text text-darken-4"
-      >
-        Welcome,
-      </h4>
-      <p
-        className="green-text text-darken-2"
-      >
-        POSTIT allows you,your friends and colleagues to create groups for notifications.
-      </p>
-    </div>
-  </div>
-  <footer
-    className="black footer"
-  >
-    <div
-      className="ffooter footer-copyright"
+      className="container row"
     >
       <div
-        className="container"
+        className="col s7 offset-s3 welc"
       >
-        © 
-        <script
-          type="text/javascript"
+        <h4
+          className="green-text text-darken-4"
         >
-          document.write(new Date().getFullYear());
-        </script>
-         Adetunji Femi
+          Welcome,
+        </h4>
+        <p
+          className="green-text text-darken-2"
+        >
+          POSTIT allows you,your friends and colleagues to create groups for notifications.
+        </p>
       </div>
     </div>
-  </footer>
-</div>
+    <footer
+      className="black footer"
+    >
+      <div
+        className="ffooter footer-copyright"
+      >
+        <div
+          className="container"
+        >
+          © 
+          <script
+            type="text/javascript"
+          >
+            document.write(new Date().getFullYear());
+          </script>
+           Adetunji Femi
+        </div>
+      </div>
+    </footer>
+  </div>
+</Welcome>
 `;

@@ -1,44 +1,63 @@
-import React from 'react';
-import { mount } from 'enzyme';
+import React from "react";
+import { mount } from "enzyme";
 import GroupHeader from '../../../src/components/presentation/GroupHeader';
 
-describe('Message Component', () => {
-  const notifications = ['New message from neene'];
-  const noNotification = [];
-  const children = (
-    <div className="scrbar center">
-      <h5>You currently dont belong to any group</h5>
-    </div>);
-  it('displays the group header with notifications in the group section', () => {
-    const wrapper = mount(
-    <GroupHeader
-      notifications={notifications}
-    >{children}</GroupHeader>);
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.prop('notifications')).toBe(notifications);
-    expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('h5').exists()).toBe(true);
-    expect(wrapper.find('i').exists()).toBe(true);
-    expect(wrapper.find('hr').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(8);
-    expect(wrapper.find('hr').length).toBe(1);
-    expect(wrapper.find('h5').length).toBe(2);
-    expect(wrapper.find('i').length).toBe(2);
+describe("GroupHeader Component", () => {
+  let props;
+  let mountedGroupHeader;
+  const groupHeader = () => {
+    if (!mountedGroupHeader) {
+      mountedGroupHeader = mount(
+        <GroupHeader {...props} />
+      );
+    }
+    return mountedGroupHeader;
+  }
+
+  beforeEach(() => {
+    props = {
+      notifications: ["New message from neene"],
+      children: <div />
+    };
+    mountedGroupHeader = undefined;
   });
-  it('displays the group header without notifications', () => {
-    const wrapper = mount(
-    <GroupHeader
-      notifications={noNotification}
-    >{children}</GroupHeader>);
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.prop('notifications')).toBe(noNotification);
-    expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('h5').exists()).toBe(true);
-    expect(wrapper.find('i').exists()).toBe(true);
-    expect(wrapper.find('hr').exists()).toBe(true);
-    expect(wrapper.find('div').length).toBe(8);
-    expect(wrapper.find('hr').length).toBe(1);
-    expect(wrapper.find('h5').length).toBe(2);
-    expect(wrapper.find('i').length).toBe(2);
+
+  it("always renders a div", () => {
+    const divs = groupHeader().find("div");
+    expect(divs.length).toBeGreaterThan(0);
+  });
+
+  describe("the rendered div", () => {
+    it("contains everything else that gets rendered", () => {
+      const divs = groupHeader().find("div");
+      const wrappingDiv = divs.first();
+      expect(wrappingDiv.children()).toEqual(groupHeader().children());
+    });
+  });
+
+  describe("rendered `GroupHeader`", () => {
+    it("receives props", () => {
+      expect(Object.keys(groupHeader().props()).length).toBe(2);
+    });
+  });
+
+  describe("when notifications is defined", () => {
+    beforeEach(() => {
+      props.notifications = ["New message from neene"];
+    });
+
+    it("checks the class of the rendered notification icon", () => {
+      expect(groupHeader().find('.on-notification').exists()).toBe(true);
+    });
+  });
+
+  describe("when notifications is not defined", () => {
+    beforeEach(() => {
+      props.notifications = "";
+    });
+
+    it("checks the class of the rendered notification icon", () => {
+      expect(groupHeader().find('.mybell').exists()).toBe(true);
+    });
   });
 });
