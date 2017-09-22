@@ -42,7 +42,7 @@ var AddUserValidations = function () {
         }
       }
       if (!data.username) {
-        errors.invalid = 'Please fill in your details oahhjqj';
+        errors.invalid = 'Please fill in your details';
       }
       return {
         errors: errors,

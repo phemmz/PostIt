@@ -24,15 +24,17 @@ class Messages extends Component {
       errors: {},
       selectedGroupId: this.props.selectedGroup,
       groupName: 'Welcome',
-      username: ''
+      chips: [],
+      addUserSuccess: false,
+      addUserFail: false
     };
 
     this.messageList = this.messageList.bind(this);
     this.groupPicked = this.groupPicked.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.addUser = this.addUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
     this.readCheck = this.readCheck.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
    * Just before the component mounts, getUsers action is fired
@@ -62,7 +64,10 @@ class Messages extends Component {
    */
   componentWillReceiveProps(nxtProps) {
     this.setState({
-      errors: {}
+      errors: {},
+      chips: [],
+      addUserSuccess: false,
+      addUserFail: false
     });
     if (nxtProps.selectedGroup !== this.props.selectedGroup) {
       /**
@@ -85,6 +90,20 @@ class Messages extends Component {
         });
       });
     }
+  }
+  /**
+   * @description This function gets called onChange of add user input field
+   * Gets the value as chips from the react chips package and set it to state
+   * @param {*} chips
+   * @return {*} void
+   */
+  onChange(chips) {
+    this.setState({
+      errors: {},
+      addUserSuccess: false,
+      addUserFail: false,
+      chips
+    });
   }
 /**
  * @description Fires the postMessage action.
@@ -123,29 +142,33 @@ class Messages extends Component {
  */
   addUser() {
     this.setState({
-      errors: {}
+      errors: {},
+      addUserSuccess: false,
+      addUserFail: false
     });
     const groupId = this.props.selectedGroup;
-    const username = { username: this.state.username };
-    this.props.addUser(groupId, username)
+    const usersAddedSuccessfully = [];
+    const existingUser = [];
+    this.state.chips.map((username) => {
+      this.props.addUser(groupId, { username })
       .then(() => {
-        Materialize.toast('User Successfully Added to Group', 4000, 'green');
+        usersAddedSuccessfully.push(username);
+        this.setState({
+          addUserSuccess: true,
+          usersAddedSuccessfully
+        });
       })
       .catch(() => {
-        Materialize.toast('User Already Exist In The Group', 4000, 'red');
+        existingUser.push(username);
+        this.setState({
+          addUserFail: true,
+          existingUser
+        });
       });
-  }
-/**
- * Gets the value from the select dropdown and set it to state
- * @param {*} event
- * @return {*} void
- */
-  updateUser(event) {
-    this.setState({
-      errors: {}
+      return username;
     });
     this.setState({
-      [event.target.id]: event.target.value
+      chips: []
     });
   }
 /**
@@ -200,10 +223,9 @@ class Messages extends Component {
     $('#addUser').modal();
     $('.button-collapse').sideNav();
     $('.tooltipped').tooltip({ delay: 50 });
-    const appUsers = this.props.appUsers.map((users) => {
-      return (
-        <option key={users.id} value={users.username}>{users.username}</option>
-      );
+    const allUsers = [];
+    this.props.appUsers.map((users) => {
+      return allUsers.push(users.username);
     });
     const { errors } = this.state;
     let content = null;
@@ -223,10 +245,14 @@ class Messages extends Component {
           groupMembers={this.groupMembers}
         />
         <AddUserModal
-          value={this.state.username}
-          onChange={this.updateUser}
-          appUsers={appUsers}
           onClick={this.addUser}
+          users={this.state.chips}
+          suggestions={allUsers}
+          onChipsChange={this.onChange}
+          addUserSuccess={this.state.addUserSuccess}
+          addUserFail={this.state.addUserFail}
+          existingUser={this.state.existingUser}
+          usersAddedSuccessfully={this.state.usersAddedSuccessfully}
         />
         <div className="msgscrbar">
           {
