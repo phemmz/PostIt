@@ -17,7 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Group = _models2.default.Group;
 
 /**
- * checkUserInGroup class
+ * @description checkUserInGroup class
  */
 
 var checkUserInGroup = function () {
@@ -29,30 +29,38 @@ var checkUserInGroup = function () {
     key: 'isGroupMember',
 
     /**
-     * isGroupMember checks if a user belongs to a group
+     * @description isGroupMember checks if a user belongs to a group
      * @param {*} req
      * @param {*} res
      * @param {*} next
      * @returns {object} json
      */
     value: function isGroupMember(req, res, next) {
-      Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
-        if (group === null) {
-          return res.status(400).json({
-            confirmation: 'fail',
-            message: 'Group does not exist'
-          });
-        }
-        group.getUsers({ where: { username: req.currentUser.username } }).then(function (user) {
-          if (user.length < 1) {
+      if (isNaN(req.params.groupId)) {
+        res.status(422).json({
+          error: {
+            message: 'Invalid groupId supplied'
+          }
+        });
+      } else {
+        Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
+          if (group === null) {
             return res.status(400).json({
               confirmation: 'fail',
-              message: 'You dont belong to this group'
+              message: 'Group does not exist'
             });
           }
-          return next();
+          group.getUsers({ where: { username: req.currentUser.username } }).then(function (user) {
+            if (user.length < 1) {
+              return res.status(400).json({
+                confirmation: 'fail',
+                message: 'You dont belong to this group'
+              });
+            }
+            return next();
+          });
         });
-      });
+      }
     }
   }]);
 

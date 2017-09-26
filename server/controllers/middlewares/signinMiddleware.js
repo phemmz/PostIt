@@ -1,19 +1,22 @@
 import sharedSigninValidations from '../../shared/loginValidations';
 /**
- * SigninValidations class
+ * @description SigninValidations class
  */
 export default class SigninValidations {
 /**
- * validateUserInput()
+ * @description validates User Input
  * @param {*} req
  * @param {*} res
  * @param {*} next
  * @returns {object} json
  */
   static validateUserInput(req, res, next) {
-    const { errors, isValid } = sharedSigninValidations.validateSignin(req.body);
+    const { errors, isValid } =
+      sharedSigninValidations.validateSignin(req.body);
     if (!isValid) {
-      res.status(422).json(errors);
+      res.status(422).json({
+        errors
+      });
     } else {
       next();
     }

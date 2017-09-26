@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * SigninValidations class
+ * @description SigninValidations class
  */
 var SigninValidations = function () {
   function SigninValidations() {
@@ -26,7 +26,7 @@ var SigninValidations = function () {
     key: 'validateUserInput',
 
     /**
-     * validateUserInput()
+     * @description validates User Input
      * @param {*} req
      * @param {*} res
      * @param {*} next
@@ -38,7 +38,9 @@ var SigninValidations = function () {
           isValid = _sharedSigninValidati.isValid;
 
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors: errors
+        });
       } else {
         next();
       }

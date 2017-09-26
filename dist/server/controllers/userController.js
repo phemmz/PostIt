@@ -74,8 +74,9 @@ var UserController = function () {
         userdetails = JSON.parse(userdetails);
         /**
          * This generates the token by encoding the userdetails passed into it
-         * It joins the resulting encoded strings together with a period (.) in between them
-         * The token is generated in the format header.payload.signature
+         * It joins the resulting encoded strings together with a period (.)
+         * in between them. The token is generated in the format
+         * header.payload.signature
          */
         var token = _jsonwebtoken2.default.sign({
           userId: userdetails.id,
@@ -107,7 +108,7 @@ var UserController = function () {
     }
 
     /**
-     * This method is for signin a user in
+     * @description This method is for signin a user in
      * @param {*} req
      * @param {*} res
      * @returns {object} json
@@ -136,8 +137,9 @@ var UserController = function () {
         if (req.body.username && req.body.password && _bcryptNodejs2.default.compareSync(req.body.password, userdetails[0].password) === true) {
           /**
            * This generates the token by encoding the userdetails passed into it
-           * It joins the resulting encoded strings together with a period (.) in between them
-           * The token is generated in the format header.payload.signature
+           * It joins the resulting encoded strings together with a period (.)
+           * in between them. The token is generated in the format
+           * header.payload.signature
            */
           var token = _jsonwebtoken2.default.sign({
             userId: userdetails[0].id,
@@ -180,7 +182,7 @@ var UserController = function () {
       });
     }
     /**
-     * Checks the email from the google authentication if it exist
+     * @description Checks the email from the google authentication if it exist
      * If it does, it logs the user in and generate token
      * else, it creates a new user, with the google details
      * @param {*} req
@@ -222,7 +224,7 @@ var UserController = function () {
       });
     }
     /**
-     * This method gets all the registered users in the application
+     * @description This method gets all the registered users in the application
      * @param {object} req
      * @param {object} res
      * @returns {object} json
@@ -263,7 +265,7 @@ var UserController = function () {
       });
     }
     /**
-     * Gets just one user
+     * @description Gets just one user
      * @param {*} req
      * @param {*} res
      * @returns {object} json
@@ -292,7 +294,7 @@ var UserController = function () {
       });
     }
     /**
-     * resetPassword generates a verification code using shortid
+     * @description resetPassword generates a verification code using shortid
      * It also sends a mail to the user which contains the verification code
      * @param {*} req
      * @param {*} res
@@ -326,7 +328,7 @@ var UserController = function () {
             from: process.env.NM_EMAIL,
             to: user.email,
             subject: 'Reset password instructions',
-            html: '<p>Hello, ' + req.body.username + '!</p>          <p>Someone has requested a link to change your password. You can do this through the link below.</p>          <p><strong>Your Verification code is:</strong> ' + generatedId + '</p>          <p><a href="' + gameURL + '">Change my password</a></p><br /><br />          <p>If you didn\'t request this, please ignore this email</p>          <p>You can post messages with friends on <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>'
+            html: '<p>Hello, ' + req.body.username + '!</p>          <p>Someone has requested a link to change your password.\n           You can do this through the link below.</p>          <p><strong>Your Verification code is:</strong> ' + generatedId + '</p>          <p><a href="' + gameURL + '">Change my password</a></p><br /><br />          <p>If you didn\'t request this, please ignore this email</p>          <p>You can post messages with friends on \n          <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>'
           };
           transporter.sendMail(mailOptions, function (err) {
             if (err) {
@@ -337,7 +339,7 @@ var UserController = function () {
             } else {
               res.status(200).json({
                 confirmation: 'success',
-                message: 'You will receive an email with instructions on how to reset your password in a few minutes.'
+                message: 'You will receive an email with instructions on how to reset your password in a few minutes.' // eslint-disable-line
               });
               user.update({
                 verificationCode: generatedId
@@ -357,7 +359,7 @@ var UserController = function () {
       });
     }
     /**
-     * This updates the password of a user in the database
+     * @description Updates the password of a user in the database
      * @param {*} req
      * @param {*} res
      * @return {*} json
@@ -397,7 +399,7 @@ var UserController = function () {
       });
     }
     /**
-     * searchUsers
+     * @description search for Users
      * @param {*} req
      * @param {*} res
      * @returns {*} json

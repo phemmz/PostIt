@@ -21,13 +21,21 @@ const SideNav = ({
         <Link
           to="/members"
           className="waves-effect waves-light green nav-anchor"
-        ><i className="fa fa-users snav" aria-hidden="true" />Members</Link></li>
+        >
+          <i
+            className="fa fa-users snav"
+            aria-hidden="true"
+          />Members</Link></li>
       <li><div className="divider" /></li>
       <li>
         <a
           href="#addUser"
           className="waves-effect waves-light green nav-anchor modal-trigger"
-        ><i className="fa fa-user-plus snav" aria-hidden="true" />Add User</a></li>
+        >
+          <i
+            className="fa fa-user-plus snav"
+            aria-hidden="true"
+          />Add User</a></li>
     </ul>
   );
 };

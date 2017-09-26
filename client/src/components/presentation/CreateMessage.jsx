@@ -25,8 +25,8 @@ class CreateMessage extends Component {
     this.sendMessage = this.sendMessage.bind(this);
   }
   /**
-   * @description updateMessage is attached to onChange of textarea and select dropdown
-   * It gets there value on change and set it to the state
+   * @description updateMessage is attached to onChange of textarea
+   * and select dropdown. It gets there value on change and set it to the state
    * @param {*} event
    * @return {*} void
    */

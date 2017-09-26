@@ -22,9 +22,9 @@ describe('Group Reducer', () => {
     const action = { type: GROUP_CREATE, group };
     const newState = groupReducer(initialState, action);
 
-    expect(newState.groupCreated).toEqual(group);
+    expect(newState.groupCreated).toEqual([group]);
   });
-  it('should set the groupId of the group selected to the state when passed GROUP_SELECTED', () => {
+  it('should set the groupId of the group selected to the state when passed GROUP_SELECTED', () => {  // eslint-disable-line
     const selectedGroup = {
       id: 12
     };
@@ -33,7 +33,7 @@ describe('Group Reducer', () => {
 
     expect(newState.selectedGroup).toEqual(selectedGroup);
   });
-  it('should set the groupId of the group selected to the state when passed GROUP_SELECTED', () => {
+  it('should set the groupId of the group selected to the state when passed GROUP_SELECTED', () => {  // eslint-disable-line
     const selectedGroup = {
       id: 12
     };
@@ -73,7 +73,7 @@ describe('Group Reducer', () => {
     const action = { type: GROUPS_NOT_RECEIVED };
     const newState = groupReducer(initialState, action);
 
-    expect(newState.groupList).toEqual([]);
+    expect(newState.groupList).toEqual(undefined);
     expect(newState.appStatus).toEqual('no groups');
   });
   it('should handle ADD_USER', () => {

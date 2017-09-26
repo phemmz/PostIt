@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import MessageActions from '../../actions/messageActions';
 
 /**
- * NotificationPage
+ * @description NotificationPage
  */
 class NotificationPage extends Component {
   /**
@@ -17,25 +17,25 @@ class NotificationPage extends Component {
     this.clearNotification = this.clearNotification.bind(this);
   }
   /**
-   * clearNotification
+   * @description clearNotification
    * @return {*} void
    */
   clearNotification() {
     this.props.clearNotification();
     Materialize.toast('Notifications cleared!!', 4000, 'green');
   }
-    /**
-   *
+  /**
    * @returns {component} - renders a React component
    */
   render() {
-    const allNotifications = this.props.notifications.map((notification, index) => {
-      return (
-        <li className="each-notification" key={index}>
-          {notification}
-        </li>
-      );
-    });
+    const allNotifications = this.props.notifications.map(
+      (notification, index) => {
+        return (
+          <li className="each-notification" key={index}>
+            {notification}
+          </li>
+        );
+      });
     return (
       <div className="container">
         <div className="row">
@@ -54,7 +54,7 @@ class NotificationPage extends Component {
                 <Link
                   to="/dashboard"
                   className="waves-effect waves-light btn center"
-                >Dashboard</Link>
+                >Go Back To Dashboard</Link>
               </div>
             </div>
           </div>

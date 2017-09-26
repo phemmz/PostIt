@@ -3,7 +3,7 @@ import Groups from '../containers/Groups.jsx';
 import Messages from '../containers/Messages.jsx';
 
 /**
- * Home
+ * @description Home Component
  * @return {*} div
  */
 const Home = () => {

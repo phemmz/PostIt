@@ -397,4 +397,14 @@ main {
   white-space: -o-pre-wrap;
   word-wrap: break-word; }
 
+.pagination {
+  cursor: pointer; }
+
+.mark-btn {
+  margin-bottom: 5px;
+  margin-left: 15px; }
+
+.my-sidenav {
+  width: 50vw; }
+
 /*# sourceMappingURL=bundle.map*/

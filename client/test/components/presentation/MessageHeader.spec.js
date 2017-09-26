@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import MessageHeader from '../../../src/components/presentation/MessageHeader';
+import { groups } from '../../__mockData__/dummyData';
 
 describe("MessageHeader Component", () => {
   let props;
@@ -17,7 +18,7 @@ describe("MessageHeader Component", () => {
 
   beforeEach(() => {
     props = {
-      groupName: 'random'
+      groupName: groups[0].groupname
     };
     mountedMessageHeader = undefined;
   });
@@ -28,23 +29,19 @@ describe("MessageHeader Component", () => {
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("should contain everything else that gets rendered", () => {
-      const divs = messageHeader().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(messageHeader().children());
-    });
+  it("should contain everything else that gets rendered", () => {
+    const divs = messageHeader().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(messageHeader().children());
   });
 
-  describe("rendered MessageHeader", () => {
-    it("should receive props", () => {
-      expect(Object.keys(messageHeader().props()).length).toBe(1);
-    });
+  it("should receive props", () => {
+    expect(Object.keys(messageHeader().props()).length).toBe(1);
   });
 
   describe("when groupname prop is defined", () => {
     it("should display the groupname", () => {
-      expect(messageHeader().find('span').text()).toBe("random");
+      expect(messageHeader().find('span').text()).toBe("june fellows");
     });
   });
 });

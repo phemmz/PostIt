@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CreateMessage, Message, AddUserModal, SideNav, MessageHeader } from '../presentation';
+import { CreateMessage, Message,
+  AddUserModal, SideNav, MessageHeader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
 import UserActions from '../../actions/userActions';
@@ -9,7 +10,7 @@ import UserActions from '../../actions/userActions';
 const socket = io();
 
 /**
- * Messages class
+ * @description Messages class
  */
 class Messages extends Component {
   /**
@@ -37,7 +38,7 @@ class Messages extends Component {
     this.onChange = this.onChange.bind(this);
   }
   /**
-   * Just before the component mounts, getUsers action is fired
+   * @description Just before the component mounts, getUsers action is fired
    * The action makes a call to the api and gets all registered users
    * @return {*} void
    */
@@ -45,13 +46,12 @@ class Messages extends Component {
     this.props.getUsers();
   }
   /**
-   * componentDidMount
+   * @description componentDidMount
    * @return {*} void
    */
   componentDidMount() {
     socket.on('newMsg', (notification) => {
       this.props.addNotification(notification);
-      Materialize.toast(notification, 4000, 'green');
     });
   }
   /**
@@ -132,7 +132,7 @@ class Messages extends Component {
         Materialize.toast('Message Sent', 4000, 'green');
       })
       .catch(() => {
-        Materialize.toast('Message Failed', 4000, 'red');
+        Materialize.toast('No Message Entered', 4000, 'red');
       });
   }
 /**
@@ -172,7 +172,8 @@ class Messages extends Component {
     });
   }
 /**
- * Loops through the list array in the state and displays each message in the list array
+ * @description Loops through the list array in
+ * the state and displays each message in the list array
  * @return {*} li
  */
   messageList() {
@@ -186,7 +187,7 @@ class Messages extends Component {
     });
   }
   /**
-   * readCheck
+   * @description readCheck
    * @returns {*} void
    */
   readCheck() {
@@ -206,8 +207,8 @@ class Messages extends Component {
     })[0];
   }
 /**
- * @description groupName returns the groupname if a group is selected and returns
- * just Welcome if no groupname is selected
+ * @description groupName returns the groupname
+ * if a group is selected and returns just Welcome if no groupname is selected
  * @param {*} groupId
  * @return {*} groupname
  */
@@ -233,8 +234,11 @@ class Messages extends Component {
       content =
         (<div>
           <div className="msgscrbar">
-            <h4 className="green-text text-darken-4"><strong>{this.state.groupName}</strong></h4>
-            { errors.message && <div className="alert alert-danger">{errors.message}</div> }
+            <h4
+              className="green-text text-darken-4"
+            ><strong>{this.state.groupName}</strong></h4>
+            { errors.message &&
+              <div className="alert alert-danger">{errors.message}</div> }
           </div>
         </div>);
     } else {
@@ -260,22 +264,22 @@ class Messages extends Component {
             (
               <div className="row">
                 <div className="col s12 m12">
-                  <span><h5 id="msg-header" className="green-text text-darken-4 card">
-                    <strong>
-                      <a
-                        href="/#!"
-                        id="slide-out-nav"
-                        data-activates="slide-out"
-                        className="button-collapse"
-                      >
-                        <i
-                          className="fa fa-info-circle left group-details tooltipped"
-                          aria-hidden="true"
-                          data-tooltip="Show Group Details"
-                        />
-                      </a>
-                      { this.state.groupName }
-                    </strong></h5>
+                  <span><h5
+                    id="msg-header"
+                    className="green-text text-darken-4 card"
+                  ><strong><a
+                    href="/#!"
+                    id="slide-out-nav"
+                    data-activates="slide-out"
+                    className="button-collapse"
+                  ><i
+                    className="fa fa-info-circle left group-details tooltipped"
+                    aria-hidden="true"
+                    data-tooltip="Show Group Details"
+                  />
+                  </a>
+                    { this.state.groupName }
+                  </strong></h5>
                   </span>
                 </div>
               </div>

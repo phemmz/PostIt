@@ -30,7 +30,8 @@ var sharedSignupValidations = function () {
     key: 'commonValidations',
 
     /**
-     * commonValidations() takes in the data from the body for signup and validates them
+     * commonValidations() takes in the data from the body for signup and
+     * validates them
      * @param {object} data
      * @return {object} errors
      * @returns {object} errors,isValid

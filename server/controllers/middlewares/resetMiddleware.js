@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default class ResetValidations {
 /**
+ * @description validates user input fields
  * @param {object} data
  * @returns {object} errors,isValid
  */
@@ -25,16 +26,19 @@ export default class ResetValidations {
     };
   }
 /**
- * validateUserInput()
+ * @description validate User Input
  * @param {*} req
  * @param {*} res
  * @param {*} next
  * @returns {object} json
  */
   static validateUserInput(req, res, next) {
-    const { errors, isValid } = ResetValidations.validateResetPassword(req.body);
+    const { errors, isValid } =
+      ResetValidations.validateResetPassword(req.body);
     if (!isValid) {
-      res.status(422).json(errors);
+      res.status(422).json({
+        errors
+      });
     } else {
       next();
     }

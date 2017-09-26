@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NavigationBar from '../layout/NavigationBar.jsx';
 
 /**
- * Main
+ * @description Main component
  * @return {*} element
  */
 const Main = ({ children }) => {

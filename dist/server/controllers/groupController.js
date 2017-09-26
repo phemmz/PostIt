@@ -22,7 +22,7 @@ var Group = _models2.default.Group;
 var User = _models2.default.User;
 
 /**
- * This class performs create and read functions for group
+ * @description This class performs create and read functions for group
  */
 
 var GroupController = function () {
@@ -34,26 +34,27 @@ var GroupController = function () {
     key: 'createGroup',
 
     /**
-     * This method creates a new group based on some validations
+     * @description This method creates a new group based on some validations
      * @param {object} req
      * @param {object} res
      * @returns {object} json
      */
     value: function createGroup(req, res) {
       /**
-       * Creates a new group
+       * @description Creates a new group
        */
       Group.create({
         groupname: req.body.groupname.toLowerCase()
       }).then(function (group) {
         /**
-         * Query the User model for the current user
+         * @description Query the User model for the current user
          */
         User.findOne({
           where: { username: req.currentUser.username }
         }).then(function (user) {
           /**
-           * The user gets added to the group as the group creator
+           * @description The user gets added to the group as
+           * the group creator
            */
           group.addUser(user).then(function () {
             res.status(201).json({
@@ -65,7 +66,8 @@ var GroupController = function () {
         });
       })
       /**
-       * The catch block catches error if the groupname is not unique
+       * @description The catch block catches error if the
+       * groupname is not unique
        */
       .catch(function () {
         res.status(409).json({
@@ -75,7 +77,7 @@ var GroupController = function () {
       });
     }
     /**
-     * This method adds a user to a particular group
+     * @description This method adds a user to a particular group
      * @param {object} req
      * @param {object} res
      * @returns {object} json
@@ -85,11 +87,11 @@ var GroupController = function () {
     key: 'addUserToGroup',
     value: function addUserToGroup(req, res) {
       /**
-       * Finds the particular group by its id
+       * @description Finds the particular group by its id
        */
       Group.findOne({ where: { id: req.params.groupId } }).then(function (group) {
         /**
-         * Checks if the group exist or not
+         * @description Checks if the group exist or not
          */
         if (group === null) {
           res.status(404).json({
@@ -98,13 +100,14 @@ var GroupController = function () {
           });
         } else {
           /**
-           * If the group exists, check if the user is a registered user
+           * @description If the group exists, check if the user
+           * is a registered user
            */
           User.findOne({
             where: { username: req.body.username }
           }).then(function (user) {
             /**
-             * Returns json object with status 404,
+             * @description Returns json object with status 404,
              * if the user is not a registered user
              */
             if (user === null) {
@@ -114,11 +117,12 @@ var GroupController = function () {
               });
             } else {
               /**
-               * If the user exist,
+               * @description If the user exist,
                */
               group.addUser(user).then(function (added) {
                 /**
-                 * Checks if the user is already added to the group
+                 * @description Checks if the user is already
+                 * added to the group
                  */
                 if (added.length === 0) {
                   res.status(400).json({
@@ -127,7 +131,8 @@ var GroupController = function () {
                   });
                 } else {
                   /**
-                   * If not return a json object with status 201
+                   * @description If not return a json object with
+                   * status 201
                    */
                   res.status(201).json({
                     confirmation: 'success',
@@ -151,9 +156,10 @@ var GroupController = function () {
       });
     }
     /**
-     * Gets all the group(s) a user belongs to
+     * @description Gets all the group(s) a user belongs to
      * @param {object} req
      * @param {object} res
+     * @return {*} json
      */
 
   }, {
@@ -197,7 +203,7 @@ var GroupController = function () {
       });
     }
     /**
-     * groupMembers
+     * @description gets all the members of a group
      * @param {*} req
      * @param {*} res
      * @return {*} json

@@ -1,16 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
 import Message from '../../../src/components/presentation/Message';
+import { currentMessage, readList } from '../../__mockData__/dummyProps';
 
 describe("Message Component", () => {
   let props;
   let mountedMessage;
-  const currentMessage = {
-    messagecreator: 'phemmz',
-    priority: 'Normal',
-    createdAt: '2017-09-06T14:53:09.414Z',
-    content: 'nah'
-  };
   const message = () => {
     if (!mountedMessage) {
       mountedMessage = mount(
@@ -23,29 +18,25 @@ describe("Message Component", () => {
   beforeEach(() => {
     props = {
       currentMessage,
-      readList: 'phemmz'
+      readList
     };
     mountedMessage = undefined;
   });
 
-  it("always renders a div", () => {
+  it("should always render a div", () => {
     const divs = message().find("div");
     expect(message()).toMatchSnapshot();
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("contains everything else that gets rendered", () => {
-      const divs = message().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(message().children());
-    });
+  it("should contain everything else that gets rendered", () => {
+    const divs = message().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(message().children());
   });
 
-  describe("rendered Message", () => {
-    it("receives props", () => {
-      expect(Object.keys(message().props()).length).toBe(2);
-    });
+  it("should receive props", () => {
+    expect(Object.keys(message().props()).length).toBe(2);
   });
 
   describe("when currentMessage is defined", () => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 /**
- * Group class which extends React.Component
+ * @description Group class which extends React.Component
  */
 class Group extends Component {
   /**
@@ -13,7 +13,7 @@ class Group extends Component {
     this.clickHandler = this.clickHandler.bind(this);
   }
   /**
-   * clickHandler() gets called when the groupname is clicked on
+   * @description clickHandler() gets called when the groupname is clicked on
    * @param {*} event
    * @return {*} void
    */

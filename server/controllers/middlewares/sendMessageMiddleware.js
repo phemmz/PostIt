@@ -1,13 +1,13 @@
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * SendMessageValidations class
+ * @description SendMessageValidations class
  */
 export default class SendMessageValidations {
 /**
- * validateSendMessage validates user input fields
+ * @description validateSendMessage validates user input fields
  * @param {object} data
- * @returns {object}
+ * @returns {object} errors, isValid
  */
   static validateSendMessage(data) {
     const errors = {};
@@ -23,15 +23,19 @@ export default class SendMessageValidations {
     };
   }
 /**
- * validateUserInput
+ * @description validates User Input
  * @param {*} req
  * @param {*} res
  * @param {*} next
+ * @return {*} void
  */
   static validateUserInput(req, res, next) {
-    const { errors, isValid } = SendMessageValidations.validateSendMessage(req.body);
+    const { errors, isValid } =
+      SendMessageValidations.validateSendMessage(req.body);
     if (!isValid) {
-      res.status(422).json(errors);
+      res.status(422).json({
+        errors
+      });
     } else {
       next();
     }

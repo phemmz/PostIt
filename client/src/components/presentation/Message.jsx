@@ -20,7 +20,7 @@ const Message = ({
                 className="grey-text ultra-small right date-msg-position"
               >Priority: {currentMessage.priority}</span>
               <span
-                className="grey-text ultra-small right date-pad date-msg-position"
+                className="grey-text ultra-small right date-pad date-msg-position" // eslint-disable-line
               >{new Date(currentMessage.createdAt).toLocaleString()}</span>
               <div className="flex wordwrap">
                 <span

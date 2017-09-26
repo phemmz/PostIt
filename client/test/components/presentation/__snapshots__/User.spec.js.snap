@@ -4,9 +4,13 @@ exports[`User Component should always render div 1`] = `
 <User
   user={
     Object {
-      "email": "user1@gmail.com",
-      "phoneNumber": "08055123456",
-      "username": "user1",
+      "email": "boy1@gmail.com",
+      "id": 2,
+      "password": "123456",
+      "passwordConfirmation": "123456",
+      "phoneNumber": "99999999",
+      "token": "1212112",
+      "username": "boy1",
     }
   }
 >
@@ -17,21 +21,21 @@ exports[`User Component should always render div 1`] = `
       className="username"
     >
       Username: 
-      user1
+      boy1
     </span>
     <br />
     <span
       className="email"
     >
       Email: 
-      user1@gmail.com
+      boy1@gmail.com
     </span>
     <br />
     <span
       className="phoneNumber"
     >
       Phone Number: 
-      08055123456
+      99999999
     </span>
   </div>
 </User>

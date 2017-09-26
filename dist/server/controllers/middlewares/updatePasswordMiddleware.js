@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * UpdatePasswordValidations class
+ * @description UpdatePasswordValidations class
  */
 var UpdatePasswordValidations = function () {
   function UpdatePasswordValidations() {
@@ -26,7 +26,7 @@ var UpdatePasswordValidations = function () {
     key: 'validateUserInput',
 
     /**
-     * validateUserInput()
+     * @description it validates User's input fields
      * @param {*} req
      * @param {*} res
      * @param {*} next
@@ -38,7 +38,9 @@ var UpdatePasswordValidations = function () {
           isValid = _sharedResetValidatio.isValid;
 
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors: errors
+        });
       } else {
         next();
       }

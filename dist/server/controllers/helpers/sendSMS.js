@@ -11,7 +11,7 @@ var _nodeJusibe2 = _interopRequireDefault(_nodeJusibe);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * Sends Mail
+ * @description helper function for sending SMS
  * @param {*} phoneNumber
  * @param {*} messagecreator
  * @param {*} priority
@@ -25,7 +25,7 @@ exports.default = function (phoneNumber, messagecreator, priority, groupname, re
   var params = {
     to: phoneNumber,
     from: 'Post It',
-    message: messagecreator + ' just posted a new ' + priority + ' message in ' + groupname + ' POSTIT group.'
+    message: messagecreator + ' just posted a new ' + priority + ' message\n     in ' + groupname + ' POSTIT group.'
   };
   jusibeSDK.sendMessage(params).then(function () {
     res.status(200).json({

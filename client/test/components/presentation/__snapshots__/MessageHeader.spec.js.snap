@@ -2,7 +2,7 @@
 
 exports[`MessageHeader Component should always render a div 1`] = `
 <MessageHeader
-  groupName="random"
+  groupName="june fellows"
 >
   <div
     className="row"
@@ -16,7 +16,7 @@ exports[`MessageHeader Component should always render a div 1`] = `
           id="welcome-header"
         >
           <strong>
-            random
+            june fellows
           </strong>
         </h5>
       </span>

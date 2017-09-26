@@ -3,11 +3,11 @@ import { GROUP_CREATE, GROUPS_RECEIVED,
    GROUPS_NOT_RECEIVED, GROUP_SELECTED,
     APPLICATION_STATE, ADD_USER, GROUP_MEMBERS } from './types';
 /**
- * GroupActions class
+ * @description GroupActions class
  */
 export default class GroupActions {
   /**
-   * groupCreate() creates a group
+   * @description groupCreate() creates a group
    * @param {object} group
    * @returns {object} type, group
    */
@@ -23,7 +23,8 @@ export default class GroupActions {
     };
   }
   /**
-   * groupSelected action saves the groupId of the group clicked to the state
+   * @description groupSelected action saves the groupId of
+   * the group clicked to the state
    * @param {integer} groupId
    * @returns {object} type, selectedGroup
    */
@@ -34,7 +35,8 @@ export default class GroupActions {
     };
   }
   /**
-   * @description fetchGroups actions makes an api call to fetch groups a user belongs to
+   * @description fetchGroups actions makes an api call
+   * to fetch groups a user belongs to
    * @returns {object} type,status,groups
    */
   static fetchGroups() {
@@ -86,7 +88,7 @@ export default class GroupActions {
     };
   }
   /**
-   * getGroupMembers
+   * @description getGroupMembers
    * @param {*} groupId
    * @param {*} offset
    * @param {*} perPage

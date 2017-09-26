@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import AuthenticationActions from '../../actions/authActions';
 
 /**
- * The Navigation Bar class
+ * @description The Navigation Bar class
  */
 class NavigationBar extends Component {
   /**
@@ -17,7 +17,8 @@ class NavigationBar extends Component {
     this.logout = this.logout.bind(this);
   }
   /**
-   * logout function that calls the action that removes jwt token from local storage
+   * @description logout function that calls the
+   * action that removes jwt token from local storage
    * @param {*} event
    * @return {*} void
    */
@@ -42,14 +43,20 @@ class NavigationBar extends Component {
             >Logout</a>
           </li>
         </ul>
-        <ul className="side-nav" id="mobile-demo">
+        <ul className="side-nav my-sidenav" id="mobile-demo">
           <li>
-            <button
+            <a
               onClick={this.logout}
-              className="waves-effect waves-light btn mobile-logout"
-            >Logout</button>
+              className="waves-effect waves-light btn"
+              role="button"
+              href="#!"
+            >Logout</a>
           </li>
-          <li><Link to="/dashboard" className="waves-effect waves-light btn">Dashboard</Link></li>
+          <li>
+            <Link
+              to="/dashboard"
+              className="waves-effect waves-light btn"
+            >Dashboard</Link></li>
           <li>
             <Link
               to="search"
@@ -63,12 +70,28 @@ class NavigationBar extends Component {
     const userLinks = (
       <div className="col s10">
         <ul className="right hide-on-med-and-down">
-          <li><Link to="/login" className="waves-effect waves-light btn">Login</Link></li>
-          <li><Link to="/signup" className="waves-effect waves-light btn">Sign Up</Link></li>
+          <li>
+            <Link
+              to="/login"
+              className="waves-effect waves-light btn"
+            >Login</Link></li>
+          <li>
+            <Link
+              to="/signup"
+              className="waves-effect waves-light btn"
+            >Sign Up</Link></li>
         </ul>
-        <ul className="side-nav" id="mobile-demo">
-          <li><Link to="/login" className="waves-effect waves-light btn">Login</Link></li>
-          <li><Link to="/signup" className="waves-effect waves-light btn">Sign Up</Link></li>
+        <ul className="side-nav my-sidenav" id="mobile-demo">
+          <li>
+            <Link
+              to="/login"
+              className="waves-effect waves-light btn"
+            >Login</Link></li>
+          <li>
+            <Link
+              to="/signup"
+              className="waves-effect waves-light btn"
+            >Sign Up</Link></li>
         </ul>
       </div>
     );

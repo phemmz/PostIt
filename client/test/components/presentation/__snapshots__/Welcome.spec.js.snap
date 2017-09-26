@@ -17,7 +17,7 @@ exports[`Welcome Component should always render a div 1`] = `
         <p
           className="green-text text-darken-2"
         >
-          POSTIT allows you,your friends and colleagues to create groups for notifications.
+          POSTIT allows you, your friends and colleagues to create groups for notifications.
         </p>
       </div>
     </div>

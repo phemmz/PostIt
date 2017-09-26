@@ -1,4 +1,5 @@
-import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST, SEARCH_USER } from '../actions/types';
+import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION,
+  CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from '../actions/types';
 
 const initialState = {
   groupMessages: [],
@@ -8,25 +9,23 @@ const initialState = {
   readList: []
 };
 /**
- * Group reducer takes the state and action and then returns the state
- * with groupList, selectedGroup, groupMessages and appStatus
+ * @description Group reducer takes the state and action and then returns
+ * the state with groupList, selectedGroup, groupMessages and appStatus
  * @param {*} state
  * @param {*} action
  * @returns {object} state
  */
 export default (state = initialState, action = {}) => {
-  const updated = Object.assign({}, state);
+  const updated = { ...state };
   switch (action.type) {
     case GROUP_MESSAGES:
-      updated.groupMessages = action.messages;
-      return updated;
+      return { ...state, groupMessages: action.messages };
 
     case SEND_MESSAGE:
-      updated.list = action.message;
-      return updated;
+      return { ...state, list: action.message };
 
     case ADD_NOTIFICATION:
-      updated.notifications.push(action.notification);
+      updated.notifications = [...updated.notifications, action.notification];
       return updated;
 
     case CLEAR_NOTIFICATION:
@@ -34,12 +33,10 @@ export default (state = initialState, action = {}) => {
       return updated;
 
     case READ_STATUS:
-      updated.readStatus = true;
-      return updated;
+      return { ...state, readStatus: true };
 
     case READ_LIST:
-      updated.readList = action.readList;
-      return updated;
+      return { ...state, readList: action.readList };
 
     default:
       return state;

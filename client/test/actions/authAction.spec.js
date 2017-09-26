@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import MocalLocalStorage from 'mock-localstorage';
 import authActions from '../../src/actions/authActions';
+import { user } from '../__mockData__/dummyData';
 import { SET_CURRENT_USER } from '../../src/actions/types';
 
 jest.mock('jwt-decode', () => {
@@ -20,7 +21,7 @@ const mockStorage = new MocalLocalStorage();
 
 window.localStorage = mockStorage;
 
-const token = 'abcdef';
+const token = user[0].token;
 
 describe('Login action', () => {
   afterEach(() => {
@@ -30,12 +31,15 @@ describe('Login action', () => {
     nock('http://localhost')
       .post('/api/v1/user/signin')
       .reply(200);
-    const user = { username: 'femz', password: '123456' };
     const expectedActions = [{ type: SET_CURRENT_USER,
-      user }];
+      user: {
+        username: user[0].username,
+        password: user[0].password
+      }
+    }];
     const store = mockStore({ auth: {} });
     mockStorage.setItem('jwtToken', token);
-    return store.dispatch(authActions.login(user))
+    return store.dispatch(authActions.login(user[0]))
     .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -46,47 +50,43 @@ describe('User action', () => {
     nock.cleanAll();
   });
   it('creates SET_CURRENT_USER for google authentication', () => {
-    const user = { username: 'femz', password: '123456' };
     nock('http://localhost')
-      .post('/api/v1/auth/google', user)
+      .post('/api/v1/auth/google', user[0])
       .reply(200, {
-        body: { token: 'abcderf', user: { userId: 1 } }
+        body: { token: user[0].token, user: { userId: 1 } }
       });
     const expectedActions = [{ type: SET_CURRENT_USER,
-      user }];
+      user: user[0] }];
     const store = mockStore({ auth: {} });
-    store.dispatch(authActions.googleAuthentication(user))
+    store.dispatch(authActions.googleAuthentication(user[0]))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('creates an action for resetting password', () => {
-    const user = {
-      username: 'femz'
-    };
     nock('http://localhost')
-      .post('/api/v1/reset', user)
+      .post('/api/v1/reset', user[0].username)
       .reply(200);
     const expectedActions = [];
     const store = mockStore({ auth: {} });
-    return store.dispatch(authActions.resetPassword(user))
+    return store.dispatch(authActions.resetPassword(user[0].username))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('creates an action for google authentication', () => {
-    const user = {
-      username: 'femz',
-      password: '123456'
-    };
     nock('http://localhost')
-    .post('/api/v1/auth/google', user)
+    .post('/api/v1/auth/google', user[0])
     .reply(200);
     const expectedActions = [{ type: SET_CURRENT_USER,
-      user }];
+      user: {
+        username: user[0].username,
+        password: user[0].password
+      }
+    }];
     const store = mockStore({ auth: {} });
-    mockStorage.setItem('jwtToken', token);
-    return store.dispatch(authActions.googleAuthentication(user))
+    mockStorage.setItem('jwtToken', user[0].token);
+    return store.dispatch(authActions.googleAuthentication(user[0]))
     .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });

@@ -30,6 +30,7 @@ var ResetValidations = function () {
     key: 'validateResetPassword',
 
     /**
+     * @description validates user input fields
      * @param {object} data
      * @returns {object} errors,isValid
      */
@@ -49,7 +50,7 @@ var ResetValidations = function () {
       };
     }
     /**
-     * validateUserInput()
+     * @description validate User Input
      * @param {*} req
      * @param {*} res
      * @param {*} next
@@ -64,7 +65,9 @@ var ResetValidations = function () {
           isValid = _ResetValidations$val.isValid;
 
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors: errors
+        });
       } else {
         next();
       }

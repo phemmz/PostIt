@@ -24,7 +24,7 @@ describe('Auth Reducer', () => {
     expect(newState.isAuthenticated).toEqual(true);
     expect(newState.user).toEqual(user);
   });
-  it('should return false for isAuthenticated when auth is passed with empty action', () => {
+  it('should return false for isAuthenticated when auth is passed with empty action', () => {  // eslint-disable-line
     const user = {};
     const action = { type: SET_CURRENT_USER, user };
     const newState = auth(initialState, action);

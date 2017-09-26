@@ -1,10 +1,10 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-module.exports = {
+const webpackConfig = {
 
   entry: [
-    path.join(__dirname, '/client/src/app.jsx')
+    path.join(__dirname, '/client/src/App.jsx')
   ],
   output: {
     path: `${__dirname}/dist/client/public/`,
@@ -46,3 +46,5 @@ module.exports = {
     new ExtractTextPlugin({ filename: './styles.css', allChunks: true })
   ]
 };
+
+export default webpackConfig;

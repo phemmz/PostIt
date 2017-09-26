@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Group, GroupHeader, SearchButton, PreLoader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 /**
- * Groups class which inherits the React.Component class
+ * @description Groups class which inherits the React.Component class
  */
 class Groups extends Component {
   /**
@@ -21,14 +21,15 @@ class Groups extends Component {
     };
     this.setSelectedGroupId = this.setSelectedGroupId.bind(this);
   }
-  /**
- * componentDidMount() is called at the instance where the Groups component is being created
+/**
+ * @description componentDidMount() is called at the instance where the Groups
+ * component is being created
  * and inserted into the DOM
  * It fires the action that gets all the groups a user belongs to
  * @return {*} void
  */
   componentDidMount() {
-    /**
+/**
  * Fires the action for fetching all groups
  * a user belongs to on componentDidMount
  */
@@ -38,17 +39,17 @@ class Groups extends Component {
       window.$('#createGroup').modal();
     });
   }
-  /**
- * groupClickHandler gets called from Group component when a groupname is clicked on
- * It fires the groupSelected action
+/**
+ * @description  groupClickHandler gets called from Group component
+ * when a groupname is clicked on. It fires the groupSelected action
  * @param {integer} groupId
  * @return {*} void
  */
   setSelectedGroupId(groupId) {
-    /**
- * calls the groupSelected action and passes the groupId of the group selected to it
- * This action saves the id to the reducer
- */
+  /**
+   * calls the groupSelected action and passes the groupId
+   * of the group selected to it. This action saves the id to the reducer
+   */
     this.props.groupSelected(groupId);
   }
   /**

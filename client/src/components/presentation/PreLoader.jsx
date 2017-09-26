@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Home
+ * @description PreLoader Component
  * @return {*} div
  */
 const PreLoader = () => {

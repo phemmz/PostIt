@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * SearchedUser
+ * @description User Component
  * @return {*} div
  */
 const User = ({ user }) => {

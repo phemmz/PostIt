@@ -6,11 +6,11 @@ import Model from '../../data/models';
 const User = Model.User;
 
 /**
- * SignupValidations class
+ * @description SignupValidations class
  */
 export default class SignupValidations {
   /**
-   * validateInput() validates user inputs for signup
+   * @description validateInput() validates user inputs for signup
    * and also checks if the username and email already exist on the database
    * @param {*} data
    * @param {*} otherValidations
@@ -18,7 +18,7 @@ export default class SignupValidations {
    */
   static validateInput(data, otherValidations) {
     /**
-     * Deconstruct all errors from otherValidations
+     * @description Deconstruct all errors from otherValidations
      */
     const { errors } = otherValidations(data);
     /**
@@ -39,7 +39,7 @@ export default class SignupValidations {
         }
       }),
       /**
-       * Checks if the email already exists
+       * @description Checks if the email already exists
        */
       User.findOne({
         where: {
@@ -59,17 +59,20 @@ export default class SignupValidations {
     });
   }
 /**
- * validateUserInput()
+ * @description validates User Input
  * @param {*} req
  * @param {*} res
  * @param {*} next
  * @returns {object} json
  */
   static validateUserInput(req, res, next) {
-    SignupValidations.validateInput(req.body, sharedSignupValidations.commonValidations)
+    SignupValidations.validateInput(
+      req.body, sharedSignupValidations.commonValidations)
     .then(({ errors, isValid }) => {
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors
+        });
       } else {
         next();
       }

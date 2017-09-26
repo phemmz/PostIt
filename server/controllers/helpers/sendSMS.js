@@ -1,7 +1,7 @@
 import Jusibe from 'node-jusibe';
 
 /**
- * Sends Mail
+ * @description helper function for sending SMS
  * @param {*} phoneNumber
  * @param {*} messagecreator
  * @param {*} priority
@@ -17,7 +17,8 @@ export default (phoneNumber, messagecreator, priority, groupname, req, res) => {
   const params = {
     to: phoneNumber,
     from: 'Post It',
-    message: `${messagecreator} just posted a new ${priority} message in ${groupname} POSTIT group.`
+    message: `${messagecreator} just posted a new ${priority} message
+     in ${groupname} POSTIT group.`
   };
   jusibeSDK.sendMessage(params)
     .then(() => {

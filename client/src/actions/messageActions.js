@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { GROUP_MESSAGES, SEND_MESSAGE, ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from './types';
+import { GROUP_MESSAGES, SEND_MESSAGE,
+ ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from './types';
 /**
- * MessageActions class
+ * @description MessageActions class
  */
 export default class MessageActions {
   /**
-   * Gets the messages in a group
+   * @description Gets the messages in a group
    * @param {integer} groupId
    * @returns {object} type, groups
    */
@@ -42,7 +43,7 @@ export default class MessageActions {
     };
   }
   /**
-   * Add notification
+   * @description Add notification
    * @param {string} notification
    * @returns {object} type, groups
    */
@@ -55,7 +56,7 @@ export default class MessageActions {
     };
   }
   /**
-   * Clears notification
+   * @description Clears notification
    * @returns {*} void
    */
   static clearNotification() {
@@ -66,7 +67,7 @@ export default class MessageActions {
     };
   }
   /**
-   * updateReadStatus
+   * @description updates Read Status
    * @param {*} groupId
    * @return {*} void
    */
@@ -82,7 +83,7 @@ export default class MessageActions {
     };
   }
   /**
-   * readList
+   * @description read List
    * @param {*} groupId
    * @return {*} void
    */

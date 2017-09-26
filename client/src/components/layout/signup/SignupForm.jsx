@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
-import sharedSignupValidations from '../../../../../server/shared/signupvalidations';
+import sharedSignupValidations from
+  '../../../../../server/shared/signupvalidations';
 import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 /**
  * SignupForm class
@@ -33,7 +34,8 @@ class SignupForm extends Component {
     this.responseGoogle = this.responseGoogle.bind(this);
   }
   /**
-   * onChange() gets called when the input fields changes and the change is stored in the state
+   * onChange() gets called when the input fields changes and
+   * the change is stored in the state
    * @param {*} event
    * @return {*} void
    */
@@ -55,8 +57,8 @@ class SignupForm extends Component {
        */
       this.setState({ errors: {} });
       /**
-       * calls the userSignupRequest action that has been passed down to it through props
-       * from SignupPage component
+       * calls the userSignupRequest action that has been passed down to it
+       * through props from SignupPage component
        */
       this.props.userSignupRequest(this.state).then(
         () => {
@@ -69,19 +71,21 @@ class SignupForm extends Component {
     }
   }
   /**
-   * isValid() gets called on signup submit and sets any validation errors to the state
+   * isValid() gets called on signup submit and sets any
+   * validation errors to the state
    * @return {*} isValid
    */
   isValid() {
-    const { errors, isValid } = sharedSignupValidations.commonValidations(this.state);
+    const { errors, isValid } =
+      sharedSignupValidations.commonValidations(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
   }
   /**
-   * checkUserExists() gets called when a user leaves the username and email input field
-   * It checks if the user already exist
+   * checkUserExists() gets called when a user leaves the username and
+   * email input field. It checks if the user already exist
    * @param {*} event
    * @return {*} void
    */
@@ -113,7 +117,8 @@ class SignupForm extends Component {
    */
   responseGoogle(response) {
     const userDetails = {
-      username: response.profileObj.email.substring(0, response.profileObj.email.indexOf('@')),
+      username: response.profileObj.email.substring(
+        0, response.profileObj.email.indexOf('@')),
       email: response.profileObj.email,
       password: response.profileObj.googleId,
       phoneNumber: response.profileObj.googleId
@@ -135,7 +140,7 @@ class SignupForm extends Component {
         <div className="col s12 m6 offset-m3 signup">
           <div className="right">
             <GoogleLogin
-              clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
+              clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com" // eslint-disable-line
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               className="google-link"
@@ -143,7 +148,9 @@ class SignupForm extends Component {
             />
           </div>
           <form onSubmit={this.onSubmit}>
-            <h4 className="green-text text-darken-4 valign">Create An Account</h4>
+            <h4
+              className="green-text text-darken-4 valign"
+            >Create An Account</h4>
             <TextFieldGroup
               error={errors.username}
               id="username"

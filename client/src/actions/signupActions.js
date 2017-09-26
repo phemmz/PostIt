@@ -3,10 +3,11 @@ import jwtDecode from 'jwt-decode';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import AuthenticationActions from './authActions';
 /**
- * SignupActions class
+ * @description SignupActions class
  */
 export default class SignupActions {
   /**
+   * @description user signup request action
    * @param {object} userData
    * @return {*} axios
    */
@@ -29,6 +30,7 @@ export default class SignupActions {
     };
   }
   /**
+   * @description checks if a user exists
    * @param {string} identifier
    * @return {*} axios
    */
@@ -38,6 +40,7 @@ export default class SignupActions {
     };
   }
   /**
+   * @description updates password
    * @param {string} newUser
    * @return {*} axios
    */

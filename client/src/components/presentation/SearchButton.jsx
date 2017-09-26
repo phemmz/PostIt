@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 /**
- * Home
+ * @description SearchButton Component
  * @return {*} div
  */
 const SearchButton = () => {

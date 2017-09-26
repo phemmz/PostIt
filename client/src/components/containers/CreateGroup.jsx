@@ -22,7 +22,7 @@ class CreateGroup extends Component {
     this.updateGroupHandler = this.updateGroupHandler.bind(this);
   }
 /**
- * gets the value from the input field and set it to the state
+ * @description gets the value from the input field and set it to the state
  * @param {*} event
  * @return {*} state
  */
@@ -34,7 +34,8 @@ class CreateGroup extends Component {
     });
   }
 /**
- * onSubmit, the create group button fires an action that creates a group
+ * @description onSubmit, the create group button fires an action
+ * that creates a group
  * @param {*} event
  * @return {*} flashmessage
  */
@@ -59,7 +60,9 @@ class CreateGroup extends Component {
       <div className="container">
         <div className="row">
           <div className="col s12 m6 offset-m3 card">
-            <h5 className="green-text text-darken-4">Create Broadcast Group</h5>
+            <h5
+              className="green-text text-darken-4"
+            >Create Broadcast Group</h5>
             <div className="row group-form">
               <form onSubmit={this.submitHandler} className="col s12">
                 <div className="row">

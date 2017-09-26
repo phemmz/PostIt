@@ -39,8 +39,9 @@ export default class UserController {
         userdetails = JSON.parse(userdetails);
 /**
  * This generates the token by encoding the userdetails passed into it
- * It joins the resulting encoded strings together with a period (.) in between them
- * The token is generated in the format header.payload.signature
+ * It joins the resulting encoded strings together with a period (.)
+ * in between them. The token is generated in the format
+ * header.payload.signature
  */
         const token = jwt.sign({
           userId: userdetails.id,
@@ -72,7 +73,7 @@ export default class UserController {
   }
 
 /**
- * This method is for signin a user in
+ * @description This method is for signin a user in
  * @param {*} req
  * @param {*} res
  * @returns {object} json
@@ -100,11 +101,13 @@ export default class UserController {
         let userdetails = JSON.stringify(account);
         userdetails = JSON.parse(userdetails);
         if (req.body.username && req.body.password &&
-        bcrypt.compareSync(req.body.password, userdetails[0].password) === true) {
+        bcrypt.compareSync(
+          req.body.password, userdetails[0].password) === true) {
 /**
  * This generates the token by encoding the userdetails passed into it
- * It joins the resulting encoded strings together with a period (.) in between them
- * The token is generated in the format header.payload.signature
+ * It joins the resulting encoded strings together with a period (.)
+ * in between them. The token is generated in the format
+ * header.payload.signature
  */
           const token = jwt.sign({
             userId: userdetails[0].id,
@@ -150,7 +153,7 @@ export default class UserController {
       });
   }
   /**
-   * Checks the email from the google authentication if it exist
+   * @description Checks the email from the google authentication if it exist
    * If it does, it logs the user in and generate token
    * else, it creates a new user, with the google details
    * @param {*} req
@@ -191,7 +194,7 @@ export default class UserController {
       });
   }
 /**
- * This method gets all the registered users in the application
+ * @description This method gets all the registered users in the application
  * @param {object} req
  * @param {object} res
  * @returns {object} json
@@ -230,7 +233,7 @@ export default class UserController {
       });
   }
 /**
- * Gets just one user
+ * @description Gets just one user
  * @param {*} req
  * @param {*} res
  * @returns {object} json
@@ -263,7 +266,7 @@ export default class UserController {
       });
   }
   /**
-   * resetPassword generates a verification code using shortid
+   * @description resetPassword generates a verification code using shortid
    * It also sends a mail to the user which contains the verification code
    * @param {*} req
    * @param {*} res
@@ -296,11 +299,13 @@ export default class UserController {
           to: user.email,
           subject: 'Reset password instructions',
           html: `<p>Hello, ${req.body.username}!</p>\
-          <p>Someone has requested a link to change your password. You can do this through the link below.</p>\
+          <p>Someone has requested a link to change your password.
+           You can do this through the link below.</p>\
           <p><strong>Your Verification code is:</strong> ${generatedId}</p>\
           <p><a href="${gameURL}">Change my password</a></p><br /><br />\
           <p>If you didn't request this, please ignore this email</p>\
-          <p>You can post messages with friends on <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>`
+          <p>You can post messages with friends on 
+          <a href="phemmz-post-it.herokuapp.com">POSTIT</a></p>`
         };
         transporter.sendMail(mailOptions, (err) => {
           if (err) {
@@ -311,7 +316,7 @@ export default class UserController {
           } else {
             res.status(200).json({
               confirmation: 'success',
-              message: 'You will receive an email with instructions on how to reset your password in a few minutes.'
+              message: 'You will receive an email with instructions on how to reset your password in a few minutes.' // eslint-disable-line
             });
             user.update({
               verificationCode: generatedId
@@ -332,7 +337,7 @@ export default class UserController {
     });
   }
   /**
-   * This updates the password of a user in the database
+   * @description Updates the password of a user in the database
    * @param {*} req
    * @param {*} res
    * @return {*} json
@@ -373,7 +378,7 @@ export default class UserController {
       });
   }
   /**
-   * searchUsers
+   * @description search for Users
    * @param {*} req
    * @param {*} res
    * @returns {*} json
@@ -399,15 +404,18 @@ export default class UserController {
         const PER_PAGE = 5;
         const offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
         const nextOffset = (offset + PER_PAGE);
-        const previousOffset = (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
+        const previousOffset =
+          (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
         const metaData = {
           limit: PER_PAGE,
           next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
           offset: req.params.offset,
-          previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+          previous: util.format(
+            '?limit=%s&offset=%s', PER_PAGE, previousOffset),
           total_count: userDetails.length
         };
-        const getPaginatedItems = userDetails.slice(offset, (offset + PER_PAGE));
+        const getPaginatedItems =
+          userDetails.slice(offset, (offset + PER_PAGE));
         res.status(200).json({
           confirmation: 'success',
           metaData,

@@ -7,7 +7,7 @@ import SignupActions from '../../actions/signupActions';
 import sharedResetValidations from '../../../../server/shared/resetValidations';
 
 /**
- * CheckVerificationPage
+ * @description CheckVerificationPage
  */
 class CheckVerificationPage extends Component {
   /**
@@ -27,7 +27,8 @@ class CheckVerificationPage extends Component {
       passwordConfirmation: ''
     };
     /**
-     * This binding is necessary to make `this` work in the callback
+     * @description This binding is necessary to make `this` work
+     * in the callback
      */
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -35,8 +36,8 @@ class CheckVerificationPage extends Component {
     this.updatePassword = this.updatePassword.bind(this);
   }
   /**
-   * onChange gets called when the value of an element has been changed
-   * It sets this change into the state
+   * @description onChange gets called when the value of an element has been
+   * changed. It sets this change into the state
    * It also sets invalid to false and then empties the errors object
    * @param {*} event
    * @return {*} void
@@ -51,7 +52,7 @@ class CheckVerificationPage extends Component {
     );
   }
   /**
-   * calls the action that reset the password on submit
+   * @description calls the action that reset the password on submit
    * it calls the validation function first before performing
    * any submit action
    * @param {*} event
@@ -79,7 +80,8 @@ class CheckVerificationPage extends Component {
         .then(() => {
           Materialize.toast('Password Reset Successful!!', 4000, 'green');
           /**
-           * On successfull reset of the password, it redirects to the login page
+           * On successfull reset of the password,
+           * it redirects to the login page
            */
           browserHistory.push('/login');
         })
@@ -90,7 +92,7 @@ class CheckVerificationPage extends Component {
   }
 
   /**
-   * updatePassword updates the state when there is any change
+   * @description updatePassword updates the state when there is any change
    * on the value of the input fields of password and password confirmation
    * @param {*} event
    * @return {*} void
@@ -101,7 +103,7 @@ class CheckVerificationPage extends Component {
     });
   }
   /**
-   * isValid() does a client side validations on password and
+   * @description isValid() does a client side validations on password and
    * password confirmation input fields.
    * @return {*} void
    */
@@ -118,9 +120,9 @@ class CheckVerificationPage extends Component {
     return isValid;
   }
   /**
-   * This is where the verification code entered by the user gets verified
-   * An action is fired that checks if this verification code is the same as
-   * the one generated in the api
+   * @description This is where the verification code entered by
+   * the user gets verified. An action is fired that checks if
+   * this verification code is the same as the one generated in the api
    * @param {*} event
    * @return {*} void
    */
@@ -156,9 +158,13 @@ class CheckVerificationPage extends Component {
       content =
         (<div className="container">
           <div className="row">
-            <div className="col s8 m6 offset-s2 offset-m3 reset-form reset-height">
+            <div
+              className="col s8 m6 offset-s2 offset-m3 reset-form reset-height"
+            >
               <form onSubmit={this.onSubmit}>
-                <h4 className="green-text text-darken-4 login-text">Enter New Password</h4>
+                <h4
+                  className="green-text text-darken-4 login-text"
+                >Enter New Password</h4>
                 <TextFieldGroup
                   error={errors.password}
                   id="password"
@@ -195,7 +201,9 @@ class CheckVerificationPage extends Component {
           <div className="row">
             <div className="col s8 m6 offset-s2 offset-m3 reset-form">
               <form onSubmit={this.checkVerificationCode}>
-                <h4 className="green-text text-darken-4 login-text">Enter Verification Code</h4>
+                <h4
+                  className="green-text text-darken-4 login-text"
+                >Enter Verification Code</h4>
                 <TextFieldGroup
                   error={errors.verificationCode}
                   id="verificationCode"

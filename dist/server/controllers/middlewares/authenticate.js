@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var User = _models2.default.User;
 /**
- * This function verifies the token
+ * @description This function verifies the token
  * @param {*} req
  * @param {*} res
  * @param {*} next
@@ -24,13 +24,13 @@ var User = _models2.default.User;
  */
 
 exports.default = function (req, res, next) {
-  var authorizationHeader = req.headers['authorization'];
+  var authorizationHeader = req.headers.authorization;
   var token = void 0;
   if (authorizationHeader) {
     token = authorizationHeader.split(' ')[1];
   }
   /**
-   * Checks if there is token and verifies the token
+   * @description Checks if there is token and verifies the token
    * Should return decoded if token is valid
    */
   if (token) {
@@ -50,7 +50,11 @@ exports.default = function (req, res, next) {
               error: 'No such user'
             });
           } else {
-            req.currentUser = { email: user.email, username: user.username, id: user.id };
+            req.currentUser = {
+              email: user.email,
+              username: user.username,
+              id: user.id
+            };
             next();
           }
         });

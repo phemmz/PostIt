@@ -5,7 +5,9 @@ import nock from 'nock';
 import groupActions from '../../src/actions/groupActions';
 import { GROUP_CREATE, GROUP_SELECTED,
  APPLICATION_STATE, ADD_USER,
- GROUPS_RECEIVED, GROUP_MEMBERS, GROUPS_NOT_RECEIVED } from '../../src/actions/types';
+ GROUPS_RECEIVED, GROUP_MEMBERS,
+ GROUPS_NOT_RECEIVED } from '../../src/actions/types';
+import { user, group, groups, metaData } from '../__mockData__/dummyData';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -16,9 +18,8 @@ describe('Group actions', () => {
   });
 
   it('should create an action that creates a group', () => {
-    const group = { groupname: 'lagos fellows' };
     nock('http://localhost')
-      .post('/api/v1/group', group)
+      .post('/api/v1/group', { groupname: group.groupname })
       .reply(201, {
         group: {
           confirmation: 'success',
@@ -28,35 +29,24 @@ describe('Group actions', () => {
     const expectedActions = [
       {
         type: GROUP_CREATE,
-        group
+        group: { groupname: group.groupname }
       }
     ];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(groupActions.groupCreate(group))
+    return store.dispatch(groupActions.groupCreate(
+      { groupname: group.groupname }))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('should create an action that saves the id of the GROUP_SELECTED', () => {
-    const groupId = 1;
     const expectedAction = {
       type: GROUP_SELECTED,
-      selectedGroup: groupId
+      selectedGroup: group.groupId
     };
-    expect(groupActions.groupSelected(groupId)).toEqual(expectedAction);
+    expect(groupActions.groupSelected(group.groupId)).toEqual(expectedAction);
   });
   it('should create an action that fetch all groups a user belongs to', () => {
-    const groups = [
-      {
-        groupname: 'june fellows',
-        id: 1,
-      },
-      {
-        groupname: 'law',
-        id: 2,
-      }
-    ];
-
     nock('http://localhost')
       .get('/api/v1/group')
       .reply(200, {
@@ -100,10 +90,8 @@ describe('Group actions', () => {
       });
   });
   it('should create an action that adds a user to a group', () => {
-    const userAdded = 'phemmz';
-    const groupId = 1;
     nock('http://localhost')
-      .post(`/api/v1/group/${groupId}/user`, userAdded)
+      .post(`/api/v1/group/${group.groupId}/user`, user.username)
       .reply(200, {
         results: {
           message: 'User added Successfully'
@@ -118,46 +106,31 @@ describe('Group actions', () => {
       }
     ];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(groupActions.addUser(groupId, userAdded))
+    return store.dispatch(groupActions.addUser(group.groupId, user.username))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('should create an action that gets all users in a group', () => {
-    const groupId = 1;
-    const offset = 0;
-    const perPage = 5;
-    const members = [
-      {
-        id: 1,
-        username: 'boy1',
-        email: 'boy1@gmail.com',
-        phoneNumber: '99999999'
-      },
-      {
-        id: 1,
-        username: 'boy2',
-        email: 'boy2@gmail.com',
-        phoneNumber: '1234443454'
-      }
-    ];
-    nock('http://localhost')
-      .get(`/api/v1/members/${groupId}/${offset}/${perPage}`)
+    nock('http://localhost').get(
+      `/api/v1/members/${group.groupId}/${metaData.offset}/${metaData.perPage}`)
       .reply(200, {
         paginatedMembers: {
-          members
+          members: user
         }
       });
     const expectedActions = [
       {
         type: GROUP_MEMBERS,
         groupMembers: {
-          members
+          members: user
         }
       }
     ];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(groupActions.getGroupMembers(groupId, offset, perPage))
+    return store.dispatch(
+      groupActions.getGroupMembers(
+        group.groupId, metaData.offset, metaData.perPage))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

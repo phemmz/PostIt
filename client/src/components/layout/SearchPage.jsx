@@ -29,7 +29,7 @@ class SearchPage extends Component {
     this.paginationHandler = this.paginationHandler.bind(this);
   }
   /**
-   * searchHandler
+   * @description searchHandler
    * @param {*} event
    * @return {*} void
    */
@@ -39,11 +39,13 @@ class SearchPage extends Component {
       this.setState({
         [event.target.name]: event.target.value
       }, () => {
-        this.props.searchUser(this.state.searchKey, this.state.offset, this.state.perPage)
+        this.props.searchUser(
+          this.state.searchKey, this.state.offset, this.state.perPage)
         .then((data) => {
           this.setState({
             data: data.comments,
-            pageCount: Math.ceil(data.metaData.total_count / data.metaData.limit)
+            pageCount: Math.ceil(
+              data.metaData.total_count / data.metaData.limit)
           });
         });
       });
@@ -54,7 +56,7 @@ class SearchPage extends Component {
     }
   }
   /**
-   * paginationHandler
+   * @description paginationHandler
    * @param {*} pageDetails
    * @return {*} void
    */
@@ -65,7 +67,8 @@ class SearchPage extends Component {
     .then((response) => {
       this.setState({
         data: response.comments,
-        pageCount: Math.ceil(response.metaData.total_count / response.metaData.limit)
+        pageCount: Math.ceil(
+          response.metaData.total_count / response.metaData.limit)
       });
     });
   }
