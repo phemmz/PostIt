@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 /**
- * Home
+ * @description GroupHeader component
  * @return {*} div
  */
 const GroupHeader = ({ notifications, children }) => {
@@ -26,7 +26,10 @@ const GroupHeader = ({ notifications, children }) => {
                   </Link>
                   { (notifications.length !== 0) ?
                     (
-                      <Link to="/notification" className="mybell on-notification">
+                      <Link
+                        to="/notification"
+                        className="mybell on-notification"
+                      >
                         <i
                           className="fa fa-bell-o"
                           data-tip="You have new Notification(s)"

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CreateMessage, Message, AddUserModal, SideNav, MessageHeader } from '../presentation';
+import { CreateMessage, Message,
+  AddUserModal, SideNav, MessageHeader } from '../presentation';
 import GroupActions from '../../actions/groupActions';
 import MessageActions from '../../actions/messageActions';
 import UserActions from '../../actions/userActions';
@@ -9,7 +10,7 @@ import UserActions from '../../actions/userActions';
 const socket = io();
 
 /**
- * Messages class
+ * @description Messages class
  */
 class Messages extends Component {
   /**
@@ -24,18 +25,20 @@ class Messages extends Component {
       errors: {},
       selectedGroupId: this.props.selectedGroup,
       groupName: 'Welcome',
-      username: ''
+      chips: [],
+      addUserSuccess: false,
+      addUserFail: false
     };
 
     this.messageList = this.messageList.bind(this);
     this.groupPicked = this.groupPicked.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.addUser = this.addUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
     this.readCheck = this.readCheck.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
-   * Just before the component mounts, getUsers action is fired
+   * @description Just before the component mounts, getUsers action is fired
    * The action makes a call to the api and gets all registered users
    * @return {*} void
    */
@@ -43,13 +46,12 @@ class Messages extends Component {
     this.props.getUsers();
   }
   /**
-   * componentDidMount
+   * @description componentDidMount
    * @return {*} void
    */
   componentDidMount() {
     socket.on('newMsg', (notification) => {
       this.props.addNotification(notification);
-      Materialize.toast(notification, 4000, 'green');
     });
   }
   /**
@@ -62,7 +64,10 @@ class Messages extends Component {
    */
   componentWillReceiveProps(nxtProps) {
     this.setState({
-      errors: {}
+      errors: {},
+      chips: [],
+      addUserSuccess: false,
+      addUserFail: false
     });
     if (nxtProps.selectedGroup !== this.props.selectedGroup) {
       /**
@@ -85,6 +90,20 @@ class Messages extends Component {
         });
       });
     }
+  }
+  /**
+   * @description This function gets called onChange of add user input field
+   * Gets the value as chips from the react chips package and set it to state
+   * @param {*} chips
+   * @return {*} void
+   */
+  onChange(chips) {
+    this.setState({
+      errors: {},
+      addUserSuccess: false,
+      addUserFail: false,
+      chips
+    });
   }
 /**
  * @description Fires the postMessage action.
@@ -113,7 +132,7 @@ class Messages extends Component {
         Materialize.toast('Message Sent', 4000, 'green');
       })
       .catch(() => {
-        Materialize.toast('Message Failed', 4000, 'red');
+        Materialize.toast('No Message Entered', 4000, 'red');
       });
   }
 /**
@@ -123,33 +142,38 @@ class Messages extends Component {
  */
   addUser() {
     this.setState({
-      errors: {}
+      errors: {},
+      addUserSuccess: false,
+      addUserFail: false
     });
     const groupId = this.props.selectedGroup;
-    const username = { username: this.state.username };
-    this.props.addUser(groupId, username)
+    const usersAddedSuccessfully = [];
+    const existingUser = [];
+    this.state.chips.map((username) => {
+      this.props.addUser(groupId, { username })
       .then(() => {
-        Materialize.toast('User Successfully Added to Group', 4000, 'green');
+        usersAddedSuccessfully.push(username);
+        this.setState({
+          addUserSuccess: true,
+          usersAddedSuccessfully
+        });
       })
       .catch(() => {
-        Materialize.toast('User Already Exist In The Group', 4000, 'red');
+        existingUser.push(username);
+        this.setState({
+          addUserFail: true,
+          existingUser
+        });
       });
-  }
-/**
- * Gets the value from the select dropdown and set it to state
- * @param {*} event
- * @return {*} void
- */
-  updateUser(event) {
-    this.setState({
-      errors: {}
+      return username;
     });
     this.setState({
-      [event.target.id]: event.target.value
+      chips: []
     });
   }
 /**
- * Loops through the list array in the state and displays each message in the list array
+ * @description Loops through the list array in
+ * the state and displays each message in the list array
  * @return {*} li
  */
   messageList() {
@@ -163,7 +187,7 @@ class Messages extends Component {
     });
   }
   /**
-   * readCheck
+   * @description readCheck
    * @returns {*} void
    */
   readCheck() {
@@ -183,8 +207,8 @@ class Messages extends Component {
     })[0];
   }
 /**
- * @description groupName returns the groupname if a group is selected and returns
- * just Welcome if no groupname is selected
+ * @description groupName returns the groupname
+ * if a group is selected and returns just Welcome if no groupname is selected
  * @param {*} groupId
  * @return {*} groupname
  */
@@ -200,10 +224,9 @@ class Messages extends Component {
     $('#addUser').modal();
     $('.button-collapse').sideNav();
     $('.tooltipped').tooltip({ delay: 50 });
-    const appUsers = this.props.appUsers.map((users) => {
-      return (
-        <option key={users.id} value={users.username}>{users.username}</option>
-      );
+    const allUsers = [];
+    this.props.appUsers.map((users) => {
+      return allUsers.push(users.username);
     });
     const { errors } = this.state;
     let content = null;
@@ -211,8 +234,11 @@ class Messages extends Component {
       content =
         (<div>
           <div className="msgscrbar">
-            <h4 className="green-text text-darken-4"><strong>{this.state.groupName}</strong></h4>
-            { errors.message && <div className="alert alert-danger">{errors.message}</div> }
+            <h4
+              className="green-text text-darken-4"
+            ><strong>{this.state.groupName}</strong></h4>
+            { errors.message &&
+              <div className="alert alert-danger">{errors.message}</div> }
           </div>
         </div>);
     } else {
@@ -223,10 +249,14 @@ class Messages extends Component {
           groupMembers={this.groupMembers}
         />
         <AddUserModal
-          value={this.state.username}
-          onChange={this.updateUser}
-          appUsers={appUsers}
           onClick={this.addUser}
+          users={this.state.chips}
+          suggestions={allUsers}
+          onChipsChange={this.onChange}
+          addUserSuccess={this.state.addUserSuccess}
+          addUserFail={this.state.addUserFail}
+          existingUser={this.state.existingUser}
+          usersAddedSuccessfully={this.state.usersAddedSuccessfully}
         />
         <div className="msgscrbar">
           {
@@ -234,22 +264,22 @@ class Messages extends Component {
             (
               <div className="row">
                 <div className="col s12 m12">
-                  <span><h5 id="msg-header" className="green-text text-darken-4 card">
-                    <strong>
-                      <a
-                        href="/#!"
-                        id="slide-out-nav"
-                        data-activates="slide-out"
-                        className="button-collapse"
-                      >
-                        <i
-                          className="fa fa-info-circle left group-details tooltipped"
-                          aria-hidden="true"
-                          data-tooltip="Show Group Details"
-                        />
-                      </a>
-                      { this.state.groupName }
-                    </strong></h5>
+                  <span><h5
+                    id="msg-header"
+                    className="green-text text-darken-4 card"
+                  ><strong><a
+                    href="/#!"
+                    id="slide-out-nav"
+                    data-activates="slide-out"
+                    className="button-collapse"
+                  ><i
+                    className="fa fa-info-circle left group-details tooltipped"
+                    aria-hidden="true"
+                    data-tooltip="Show Group Details"
+                  />
+                  </a>
+                    { this.state.groupName }
+                  </strong></h5>
                   </span>
                 </div>
               </div>

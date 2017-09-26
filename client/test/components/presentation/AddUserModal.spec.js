@@ -1,51 +1,37 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import AddUserModal from '../../../src/components/presentation/AddUserModal';
-
-const setup = () => {
-  const props = {
-    onClick: jest.fn(),
-    updateUser: jest.fn()
-  };
-  const enzymeWrapper = mount(<SignUp {...props} />);
-  return {
-    props,
-    enzymeWrapper
-  };
-};
+import { suggestions,
+   updateUser, groupDetails } from '../../__mockData__/dummyProps';
 
 describe('AddUserModal Component', () => {
-  let value = 'phemmz';
-  const updateUser = () => {
-    value = 'new phemmz';
-  };
-  const appUsers = ['phemmz', 'nawtuaw'];
-  const addUser = () => {
-    appUsers.push('Nanda');
-  };
+  let users = ['phemmz'];
   const onClick = jest.fn();
-  it('always renders a div', () => {
-    const wrapper = mount(
-      <AddUserModal
-        value={value}
-        onChange={updateUser}
-        appUsers={appUsers}
-        onClick={onClick}
-      />);
+  const onChipsChange = jest.fn();
+  const addUserSuccess = false;
+  const addUserFail = false;
+  const wrapper = mount(
+    <AddUserModal
+      users={users}
+      onChange={updateUser}
+      suggestions={suggestions}
+      onClick={onClick}
+      onChipsChange={onChipsChange}
+      addUserSuccess={addUserSuccess}
+      addUserFail={addUserFail}
+    />);
+  it('should always render a div', () => {
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('div').exists()).toBe(true);
   });
   
   it('should call onClick function when the Add User link is clicked',
   () => {
-    const wrapper = mount(
-      <AddUserModal
-        value={value}
-        onChange={updateUser}
-        appUsers={appUsers}
-        onClick={onClick}
-      />);
     wrapper.find('.add-btn').simulate('click');
     expect(onClick.mock.calls.length).toBe(1);
+  });
+
+  it('should receive props', () => {
+    expect(Object.keys(wrapper.props()).length).toBe(9);
   });
 });

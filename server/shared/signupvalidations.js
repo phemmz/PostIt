@@ -6,7 +6,8 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default class sharedSignupValidations {
 /**
- * commonValidations() takes in the data from the body for signup and validates them
+ * commonValidations() takes in the data from the body for signup and
+ * validates them
  * @param {object} data
  * @return {object} errors
  * @returns {object} errors,isValid

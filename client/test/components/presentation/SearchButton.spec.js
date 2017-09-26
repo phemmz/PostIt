@@ -24,11 +24,9 @@ describe("SearchButton Component", () => {
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("should contain everything else that gets rendered", () => {
-      const divs = searchButton().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(searchButton().children());
-    });
+  it("should contain everything else that gets rendered", () => {
+    const divs = searchButton().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(searchButton().children());
   });
 });

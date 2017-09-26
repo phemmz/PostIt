@@ -3,11 +3,12 @@ import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
-import sharedSigninValidations from '../../../../../server/shared/loginValidations';
+import sharedSigninValidations from
+  '../../../../../server/shared/loginValidations';
 import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 import AuthenticationActions from '../../../actions/authActions';
 /**
- * LoginForm class
+ * @description LoginForm class
  */
 class LoginForm extends Component {
   /**
@@ -32,7 +33,8 @@ class LoginForm extends Component {
   }
 
 /**
- * onSubmit() gets called when the login button is pressed, it calls isValid() to check
+ * @description onSubmit() gets called when the
+ * login button is pressed, it calls isValid() to check
  * if there are no validation errors and then fires the login action
  * @param {*} event
  * @return {*} void
@@ -59,7 +61,8 @@ class LoginForm extends Component {
     }
   }
 /**
- * onChange() gets called when the input field changes and the change is stored in the state
+ * @description onChange() gets called when the input field changes
+ * and the change is stored in the state
  * @param {*} event
  * @return {*} void
  */
@@ -67,13 +70,14 @@ class LoginForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 /**
- * Gets the userDetails as response from google
+ * @description Gets the userDetails as response from google
  * @param {*} response
  * @return {*} void
  */
   responseGoogle(response) {
     const userDetails = {
-      username: response.profileObj.email.substring(0, response.profileObj.email.indexOf('@')),
+      username: response.profileObj.email.substring(
+        0, response.profileObj.email.indexOf('@')),
       email: response.profileObj.email,
       password: response.profileObj.googleId,
       phoneNumber: response.profileObj.googleId
@@ -85,11 +89,13 @@ class LoginForm extends Component {
       });
   }
 /**
- * isValid() gets called on login submit and sets any validation errors to the state
+ * @description isValid() gets called on login submit
+ * and sets any validation errors to the state
  * @return {*} isValid
  */
   isValid() {
-    const { errors, isValid } = sharedSigninValidations.validateSignin(this.state);
+    const { errors, isValid } =
+      sharedSigninValidations.validateSignin(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -108,18 +114,19 @@ class LoginForm extends Component {
       <div className="container">
         <div className="row">
           <div className="col s12 m6 offset-s7 offset-m6 login">
-            <div className="right">
-              <GoogleLogin
-                clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
-                buttonText="Sign in with Google"
-                className="google-link"
-              />
+            <div className="right"><GoogleLogin
+              clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com" // eslint-disable-line
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              buttonText="Sign in with Google"
+              className="google-link"
+            />
             </div>
             <form onSubmit={this.onSubmit}>
               <h4 className="green-text text-darken-4 login-text">Login</h4>
-              { errors.message && <div id="uname-error" className="error">{ errors.message }</div> }
+              { errors.message &&
+                <div id="uname-error" className="error">{ errors.message }</div>
+              }
               <TextFieldGroup
                 error={errors.username}
                 id="username"

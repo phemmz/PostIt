@@ -3,20 +3,20 @@ import Model from '../../data/models';
 
 const User = Model.User;
 /**
- * This function verifies the token
+ * @description This function verifies the token
  * @param {*} req
  * @param {*} res
  * @param {*} next
  * @returns {object} json
  */
 export default (req, res, next) => {
-  const authorizationHeader = req.headers['authorization'];
+  const authorizationHeader = req.headers.authorization;
   let token;
   if (authorizationHeader) {
     token = authorizationHeader.split(' ')[1];
   }
   /**
-   * Checks if there is token and verifies the token
+   * @description Checks if there is token and verifies the token
    * Should return decoded if token is valid
    */
   if (token) {
@@ -40,7 +40,11 @@ export default (req, res, next) => {
                 error: 'No such user'
               });
             } else {
-              req.currentUser = { email: user.email, username: user.username, id: user.id };
+              req.currentUser = {
+                email: user.email,
+                username: user.username,
+                id: user.id
+              };
               next();
             }
           });

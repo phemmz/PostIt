@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import GroupHeader from '../../../src/components/presentation/GroupHeader';
+import { notifications } from '../../__mockData__/dummyProps';
 
 describe("GroupHeader Component", () => {
   let props;
@@ -16,29 +17,25 @@ describe("GroupHeader Component", () => {
 
   beforeEach(() => {
     props = {
-      notifications: ["New message from neene"],
+      notifications,
       children: <div />
     };
     mountedGroupHeader = undefined;
   });
 
-  it("always renders a div", () => {
+  it("should alway render a div", () => {
     const divs = groupHeader().find("div");
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("contains everything else that gets rendered", () => {
-      const divs = groupHeader().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(groupHeader().children());
-    });
+  it("should contain everything else that gets rendered", () => {
+    const divs = groupHeader().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(groupHeader().children());
   });
 
-  describe("rendered `GroupHeader`", () => {
-    it("receives props", () => {
-      expect(Object.keys(groupHeader().props()).length).toBe(2);
-    });
+  it("should receive props", () => {
+    expect(Object.keys(groupHeader().props()).length).toBe(2);
   });
 
   describe("when notifications is defined", () => {

@@ -32,7 +32,8 @@ class GroupMembersPage extends Component {
   componentWillMount() {
     (this.props.selectedGroup) ?
     (
-      this.props.getGroupMembers(this.props.selectedGroup, this.state.offset, this.state.perPage)
+      this.props.getGroupMembers(
+        this.props.selectedGroup, this.state.offset, this.state.perPage)
       .then((data) => {
         this.setState({
           data: data.paginatedMembers,
@@ -45,23 +46,24 @@ class GroupMembersPage extends Component {
     );
   }
   /**
-   * paginationHandler
+   * @description paginationHandler
    * @param {*} pageDetails
    * @return {*} void
    */
   paginationHandler(pageDetails) {
     const selected = pageDetails.selected;
     const offset = Math.ceil(selected * 5);
-    this.props.getGroupMembers(this.props.selectedGroup, offset, this.state.perPage)
+    this.props.getGroupMembers(
+      this.props.selectedGroup, offset, this.state.perPage)
     .then((response) => {
       this.setState({
         data: response.paginatedMembers,
-        pageCount: Math.ceil(response.metaData.total_count / response.metaData.limit)
+        pageCount: Math.ceil(
+          response.metaData.total_count / response.metaData.limit)
       });
     });
   }
   /**
-   *
    * @returns {component} - renders a React component
    */
   render() {

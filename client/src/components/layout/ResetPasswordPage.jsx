@@ -5,7 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup.jsx';
 import SignupActions from '../../actions/signupActions';
 import AuthenticationActions from '../../actions/authActions';
 /**
- * ResetPasswordPage class
+ * @description ResetPasswordPage class
  */
 class ResetPasswordPage extends Component {
   /**
@@ -30,8 +30,8 @@ class ResetPasswordPage extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
-   * onChange gets called when the value of an element has been changed
-   * It sets this change into the state
+   * @description onChange gets called when the value
+   * of an element has been changed. It sets this change into the state
    * @param {*} event
    * @return {*} void
    */
@@ -40,8 +40,9 @@ class ResetPasswordPage extends Component {
   }
 
   /**
-   * onSubmit calls the resetPassword action which sends a mail to the
-   * user's email containing verification code and reset link
+   * @description onSubmit calls the resetPassword action which
+   * sends a mail to the user's email containing verification code and
+   * reset link
    * @param {*} event
    * @return {*} void
    */
@@ -66,15 +67,16 @@ class ResetPasswordPage extends Component {
         Materialize.toast('Message Sent to Email', 4000, 'green');
       })
       .catch(() => {
-        Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green');
+        Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green'); // eslint-disable-line
       });
   }
   /**
-   * checkUserExists() checks if the username provided exist in the database
-   * It fires the isUserExists action that makes a call to the api to check if the user exist
-   * If the call returns an instance of the user, then it empties the errors object
-   * in the state
-   * if not, it returns the message `Username not found`
+   * @description checkUserExists() checks if the username
+   * provided exist in the database. It fires the isUserExists
+   * action that makes a call to the api to check if the user exist.
+   * If the call returns an instance of the user, then it empties
+   * the errors object in the state if not,
+   * it returns the message `Username not found`
    * @param {*} event
    * @return {*} void
    */
@@ -110,8 +112,13 @@ class ResetPasswordPage extends Component {
         <div className="row">
           <div className="col s12 m6 offset-m3 reset-form">
             <form onSubmit={this.onSubmit} >
-              <h4 className="green-text text-darken-4 login-text">Forgot Your Password?</h4>
-              { resetMessage && <div className="card col s10 m4 reset-msg">{ resetMessage }</div> }
+              <h4
+                className="green-text text-darken-4 login-text"
+              >Forgot Your Password?</h4>
+              { resetMessage &&
+                <div
+                  className="card col s10 m4 reset-msg"
+                >{ resetMessage }</div> }
               <TextFieldGroup
                 error={errors.username}
                 id="username"

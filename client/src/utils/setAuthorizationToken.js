@@ -1,6 +1,6 @@
 import axios from 'axios';
 /**
- * setAuthorizationToken
+ * @description setAuthorizationToken
  * Sets Authorization on request headers if token is available
  * Deletes Authorization if token is false
  * The reason why JWT is used and attached to the header

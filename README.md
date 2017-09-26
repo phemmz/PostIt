@@ -47,75 +47,10 @@ Based on project requirement, PostIt has the following features:
 3. Critical: in-app, email and sms notification is sent to all users in the group
 
 ### API Documentation
-
-Name   |     url       |   HTTP verb  | Payload  |   description
------- | ------------- | ------------ | ---------| -------------------
-**AUTHENTICATION** 
-signup     |  /api/user/signup     |     POST     | username, email, password, passwordConfirmation |  Allows users to signup a new account on the PostIt app
-signin     |    /api/user/signin   |    POST      | username, password | Allows a registered user to signin to the PostIt app
-allusers   | /api/user/            |    GET       | none | Gets all registered users for the application
-**GROUP** 
-getGroup     |    /api/group   |    GET      | none  |   Gets all the groups a user belongs to.
-createGroup     |  /api/group/     |     POST     | groupname | Allows a registered user to create a new group
-**USERS** 
-addUserToGroup     |  /api/group/:id/user     |     POST     | username, groupId | Allows group owner to add registered users to his group
-**MESSAGES**
-getMessages    |    /api/group/:id/messages   |    GET      | none |   Retrieves all the messages in a particular group
-sendMessage     |  /api/group/:id/message     |     POST     | content, priority, readcheck, groupId | Allows group members to post messages to groups they belong to
-
-## How to use the Payloads
-
-#### SIGNUP for new user: `api/user/signup`
-To signup a new user, send the parameters as shown below:
-```
-{
-  "username": "tuna",
-  "email": "tuna@gmail.com",
-  "password": "sumo123tu",
-  "passwordConfirmation": "sumo123tu"
-}
-```
-
-#### SIGNIN for registered user: `api/user/signin`
-To signin, send the parameters in the below format:
-```
-{
-  "username": "tuna",
-  "password": "sumo123tu"
-}
-```
-
-#### CREATE a new group: `api/group`
-To create a new group, send the paramters in the below format:
-```
-{
-  "groupname": "Tuna Family"
-}
-```
-#### ADD a user to a group: `api/group/:groupId/user`
-To add a user to a group:
-```
-{
-  "username": "rocky"
-}
-```
-NB: To add a user to a group, the user must be registered on the application
-
-#### POST a message to a group: `api/group/:groupId/message`
-To post a message to a group:
-```
-{
-  "content": "Hello everybody",
-  "readcheck": false,
-  "priority": 1
-}
-```
-
-#### The full API documentation can be found [here](https://app.swaggerhub.com/apis/phemmz/PostIt/1.0.0).
+- The full API documentation can be found [here](https://app.swaggerhub.com/apis/phemmz/PostIt/1.0.0).
 
 ## Limitations
-- One of the limitations of this app is that users who signed up using google+ authentication can not sign in with the local signin strategy unless the user creates a new account with a different email address.
-- Also, groups can not be deleted and users can not be removed from a group.
+- One of the limitations of this app is that groups can not be deleted and users can not be removed from a group.
 - Currently, Users can not update their profile information.
 
 ## Tests
@@ -130,7 +65,7 @@ To post a message to a group:
 - Create your feature branch locally with ``` git checkout -b your-feature-branch-name ```
 - Commit your changes using ``` git commit -m 'Commit name' ```
 - Push your changes to your remote branch with ``` git push -u origin your-feature-branch-name ```
-- Open a pull request to the master branch, and describe how your feature works
+- Open a pull request to the develop branch, and describe how your feature works
 
 ## License
 The MIT License

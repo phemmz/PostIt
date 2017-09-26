@@ -2,11 +2,11 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * AddUserValidations class
+ * @description AddUserValidations class
  */
 export default class AddUserValidations {
 /**
- * validateAddUser()
+ * @description validates AddUser input fields
  * @param {object} data
  * @returns {object} errors,isValid
  */
@@ -18,7 +18,7 @@ export default class AddUserValidations {
       }
     }
     if (!data.username) {
-      errors.invalid = 'Please fill in your details oahhjqj';
+      errors.invalid = 'Please fill in your details';
     }
     return {
       errors,
@@ -26,7 +26,7 @@ export default class AddUserValidations {
     };
   }
 /**
- * validateUserInput
+ * @description validateUserInput
  * @param {*} req
  * @param {*} res
  * @param {*} next
@@ -35,7 +35,9 @@ export default class AddUserValidations {
   static validateUserInput(req, res, next) {
     const { errors, isValid } = AddUserValidations.validateAddUser(req.body);
     if (!isValid) {
-      res.status(422).json(errors);
+      res.status(422).json({
+        errors
+      });
     } else {
       next();
     }

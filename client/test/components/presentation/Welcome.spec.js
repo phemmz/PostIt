@@ -24,11 +24,9 @@ describe("Welcome Component", () => {
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("should contain everything else that gets rendered", () => {
-      const divs = welcome().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(welcome().children());
-    });
+  it("should contain everything else that gets rendered", () => {
+    const divs = welcome().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(welcome().children());
   });
 });

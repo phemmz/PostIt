@@ -67,7 +67,8 @@ var router = _express2.default.Router();
  */
 router.get('/api/v1/user', _authenticate2.default, _userController2.default.getAllUsers);
 /**
- * Router for identifying a particular user either by username, phone number or email
+ * Router for identifying a particular user either by username,
+ * phone number or email
  */
 router.get('/api/v1/user/:identifier', _userController2.default.getOne);
 /**
@@ -124,8 +125,8 @@ router.put('/api/v1/user/signup', _updatePasswordMiddleware2.default.validateUse
  * Google callback url.
  */
 router.post('/api/v1/auth/google', _userController2.default.googleSignup);
-router.post('/api/v1/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readStatus);
-router.get('/api/v1/group/:groupId/readStatus', _authenticate2.default, _messageController2.default.readList);
+router.post('/api/v1/group/:groupId/readStatus', _authenticate2.default, _checkUserInGroup2.default.isGroupMember, _messageController2.default.readStatus);
+router.get('/api/v1/group/:groupId/readStatus', _authenticate2.default, _checkUserInGroup2.default.isGroupMember, _messageController2.default.readList);
 router.get('/api/v1/search/:searchKey/:offset/:perPage', _authenticate2.default, _userController2.default.searchUsers);
-router.get('/api/v1/members/:groupId/:offset/:perPage', _authenticate2.default, _groupController2.default.groupMembers);
+router.get('/api/v1/members/:groupId/:offset/:perPage', _authenticate2.default, _checkUserInGroup2.default.isGroupMember, _groupController2.default.groupMembers);
 exports.default = router;

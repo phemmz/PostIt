@@ -4,8 +4,12 @@ exports[`SideNav Component should always render ul 1`] = `
 <SideNav
   currentUser={
     Object {
-      "email": "user1@gmail.com",
-      "username": "user1",
+      "email": "femz@gmail.com",
+      "id": 1,
+      "password": "123456",
+      "phoneNo": "08012345678",
+      "token": "1212112",
+      "username": "femz",
     }
   }
 >
@@ -17,14 +21,14 @@ exports[`SideNav Component should always render ul 1`] = `
       <h5
         className="white-text name user-size current-username"
       >
-        user1
+        femz
       </h5>
     </li>
     <li>
       <h5
         className="white-text email user-size current-email"
       >
-        user1@gmail.com
+        femz@gmail.com
       </h5>
     </li>
     <li>

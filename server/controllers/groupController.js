@@ -5,18 +5,18 @@ const Group = Models.Group;
 const User = Models.User;
 
 /**
- * This class performs create and read functions for group
+ * @description This class performs create and read functions for group
  */
 export default class GroupController {
   /**
-   * This method creates a new group based on some validations
+   * @description This method creates a new group based on some validations
    * @param {object} req
    * @param {object} res
    * @returns {object} json
    */
   static createGroup(req, res) {
     /**
-     * Creates a new group
+     * @description Creates a new group
      */
     Group
       .create({
@@ -24,14 +24,15 @@ export default class GroupController {
       })
       .then((group) => {
         /**
-         * Query the User model for the current user
+         * @description Query the User model for the current user
          */
         User.findOne({
           where: { username: req.currentUser.username }
         })
           .then((user) => {
             /**
-             * The user gets added to the group as the group creator
+             * @description The user gets added to the group as
+             * the group creator
              */
             group.addUser(user)
               .then(() => {
@@ -44,7 +45,8 @@ export default class GroupController {
           });
       })
       /**
-       * The catch block catches error if the groupname is not unique
+       * @description The catch block catches error if the
+       * groupname is not unique
        */
       .catch(() => {
         res.status(409).json({
@@ -54,19 +56,19 @@ export default class GroupController {
       });
   }
   /**
-   * This method adds a user to a particular group
+   * @description This method adds a user to a particular group
    * @param {object} req
    * @param {object} res
    * @returns {object} json
    */
   static addUserToGroup(req, res) {
     /**
-     * Finds the particular group by its id
+     * @description Finds the particular group by its id
      */
     Group.findOne({ where: { id: req.params.groupId } })
       .then((group) => {
         /**
-         * Checks if the group exist or not
+         * @description Checks if the group exist or not
          */
         if (group === null) {
           res.status(404).json({
@@ -75,14 +77,15 @@ export default class GroupController {
           });
         } else {
           /**
-           * If the group exists, check if the user is a registered user
+           * @description If the group exists, check if the user
+           * is a registered user
            */
           User.findOne({
             where: { username: req.body.username }
           })
             .then((user) => {
               /**
-               * Returns json object with status 404,
+               * @description Returns json object with status 404,
                * if the user is not a registered user
                */
               if (user === null) {
@@ -92,12 +95,13 @@ export default class GroupController {
                 });
               } else {
                 /**
-                 * If the user exist,
+                 * @description If the user exist,
                  */
                 group.addUser(user)
                   .then((added) => {
                     /**
-                     * Checks if the user is already added to the group
+                     * @description Checks if the user is already
+                     * added to the group
                      */
                     if (added.length === 0) {
                       res.status(400).json({
@@ -106,7 +110,8 @@ export default class GroupController {
                       });
                     } else {
                       /**
-                       * If not return a json object with status 201
+                       * @description If not return a json object with
+                       * status 201
                        */
                       res.status(201).json({
                         confirmation: 'success',
@@ -132,9 +137,10 @@ export default class GroupController {
       });
   }
 /**
- * Gets all the group(s) a user belongs to
+ * @description Gets all the group(s) a user belongs to
  * @param {object} req
  * @param {object} res
+ * @return {*} json
  */
   static getGroup(req, res) {
     User.findOne({
@@ -179,7 +185,7 @@ export default class GroupController {
       });
   }
   /**
-   * groupMembers
+   * @description gets all the members of a group
    * @param {*} req
    * @param {*} res
    * @return {*} json
@@ -205,17 +211,21 @@ export default class GroupController {
               });
             });
             const PER_PAGE = 5;
-            const offset = req.params.offset ? parseInt(req.params.offset, 10) : 0;
+            const offset =
+              req.params.offset ? parseInt(req.params.offset, 10) : 0;
             const nextOffset = (offset + PER_PAGE);
-            const previousOffset = (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
+            const previousOffset =
+              (offset - PER_PAGE < 1) ? 0 : (offset - PER_PAGE);
             const metaData = {
               limit: PER_PAGE,
               next: util.format('?limit=%s&offset=%s', PER_PAGE, nextOffset),
               offset: req.params.offset,
-              previous: util.format('?limit=%s&offset=%s', PER_PAGE, previousOffset),
+              previous: util.format(
+                '?limit=%s&offset=%s', PER_PAGE, previousOffset),
               total_count: members.length
             };
-            const getPaginatedItems = members.slice(offset, (offset + PER_PAGE));
+            const getPaginatedItems =
+              members.slice(offset, (offset + PER_PAGE));
             res.status(200).json({
               confirmation: 'success',
               members,

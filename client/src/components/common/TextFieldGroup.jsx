@@ -2,11 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 /**
- * TextFieldGroup renders the input field
+ * @description TextFieldGroup renders the input field
  * @returns {*} div
  */
 const TextFieldGroup = (
-    { id, value, field, label, htmlFor, error, type, onChange, checkUserExists }
+    { id, value, field, label,
+     htmlFor, error, type, onChange, checkUserExists }
 ) => {
   return (
     <div className={classnames('input-field col s12', { 'has-error': error })}>

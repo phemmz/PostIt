@@ -31,7 +31,8 @@ describe('Message Reducer', () => {
     const newState = messageReducer(initialState, action);
 
     expect(newState.groupMessages).toEqual(messages);
-    expect(newState.groupMessages.messagecreator).toEqual(messages.messagecreator);
+    expect(newState.groupMessages.messagecreator).toEqual(
+      messages.messagecreator);
   });
   it('should handle SEND_MESSAGE', () => {
     const message =

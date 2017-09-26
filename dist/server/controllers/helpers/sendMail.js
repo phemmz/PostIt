@@ -11,7 +11,7 @@ var _nodemailer2 = _interopRequireDefault(_nodemailer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * Sends Mail
+ * @description helper function for sending mail
  * @param {*} email
  * @param {*} priority
  * @param {*} messagecreator
@@ -34,7 +34,7 @@ exports.default = function (email, priority, messagecreator, groupname, username
     from: process.env.NM_EMAIL,
     to: email,
     subject: 'New ' + priority + ' message from ' + messagecreator + ' in ' + groupname + ' group',
-    html: '<p>Hello, ' + username + '!</p>    <p>' + messagecreator + ' just posted a new ' + priority + ' message in ' + groupname + ' POSTIT group.</p>    <p>You can view the message here: <a href="' + appURL + '">POSTIT</a></p>'
+    html: '<p>Hello, ' + username + '!</p>    <p>' + messagecreator + ' just posted a new ' + priority + '\n    message in ' + groupname + ' POSTIT group.</p>    <p>You can view the message here: <a href="' + appURL + '">POSTIT</a></p>'
   };
   transporter.sendMail(mailOptions, function (err) {
     if (err) {

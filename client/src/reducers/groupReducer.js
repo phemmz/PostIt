@@ -10,45 +10,36 @@ const initialState = {
   groupCreated: []
 };
 /**
- * Group reducer takes the state and action and then returns the state
- * with groupList, selectedGroup, groupMessages and appStatus
+ * @description Group reducer takes the state and action and then
+ * returns the state with groupList, selectedGroup, groupMessages and appStatus
  * @param {*} state
  * @param {*} action
  * @returns {object} state
  */
 export default (state = initialState, action = {}) => {
-  const updated = Object.assign({}, state);
-  const updatedList = Object.assign([], updated.groupCreated);
+  const updated = { ...state };
   switch (action.type) {
     case GROUPS_RECEIVED:
-      updated.groupList = action.groups;
-      updated.appStatus = 'ready';
-      return updated;
+      return { ...state, groupList: action.groups, appStatus: 'ready' };
 
     case GROUPS_NOT_RECEIVED:
-      updated.appStatus = 'no groups';
-      return updated;
+      return { ...state, groupList: action.groups, appStatus: 'no groups' };
 
     case GROUP_CREATE:
-      updatedList.push(action.group);
-      updated.groupCreated = action.group;
+      updated.groupCreated = [...updated.groupCreated, action.group];
       return updated;
 
     case GROUP_SELECTED:
-      updated.selectedGroup = action.selectedGroup;
-      return updated;
+      return { ...state, selectedGroup: action.selectedGroup };
 
     case APPLICATION_STATE:
-      updated.appStatus = action.status;
-      return updated;
+      return { ...state, appStatus: action.status };
 
     case ADD_USER:
-      updated.addUser = action.addUser;
-      return updated;
+      return { ...state, addUser: action.addUser };
 
     case GROUP_MEMBERS:
-      updated.groupMembers = action.groupMembers;
-      return updated;
+      return { ...state, groupMembers: action.groupMembers };
 
     default:
       return state;

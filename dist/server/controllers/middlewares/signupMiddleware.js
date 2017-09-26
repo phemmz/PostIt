@@ -29,7 +29,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var User = _models2.default.User;
 
 /**
- * SignupValidations class
+ * @description SignupValidations class
  */
 
 var SignupValidations = function () {
@@ -41,7 +41,7 @@ var SignupValidations = function () {
     key: 'validateInput',
 
     /**
-     * validateInput() validates user inputs for signup
+     * @description validateInput() validates user inputs for signup
      * and also checks if the username and email already exist on the database
      * @param {*} data
      * @param {*} otherValidations
@@ -49,7 +49,7 @@ var SignupValidations = function () {
      */
     value: function validateInput(data, otherValidations) {
       /**
-       * Deconstruct all errors from otherValidations
+       * @description Deconstruct all errors from otherValidations
        */
       var _otherValidations = otherValidations(data),
           errors = _otherValidations.errors;
@@ -72,7 +72,7 @@ var SignupValidations = function () {
         }
       }),
       /**
-       * Checks if the email already exists
+       * @description Checks if the email already exists
        */
       User.findOne({
         where: {
@@ -90,7 +90,7 @@ var SignupValidations = function () {
       });
     }
     /**
-     * validateUserInput()
+     * @description validates User Input
      * @param {*} req
      * @param {*} res
      * @param {*} next
@@ -105,7 +105,9 @@ var SignupValidations = function () {
             isValid = _ref.isValid;
 
         if (!isValid) {
-          res.status(422).json(errors);
+          res.status(422).json({
+            errors: errors
+          });
         } else {
           next();
         }

@@ -4,13 +4,13 @@ import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 
 /**
- * LoggedIn function
+ * @description LoggedIn function
  * @param {*} ComposedComponent
  * @return {*} void
  */
 export default function (ComposedComponent) {
   /**
-   * Authenticate
+   * @description Authenticate
    */
   class LoggedIn extends Component {
     /**
@@ -37,7 +37,7 @@ export default function (ComposedComponent) {
     isAuthenticated: PropTypes.bool.isRequired,
   };
   /**
-   * mapStateToProps(state)
+   * @description mapStateToProps(state)
    * @param {*} state
    * @return {*} void
    */

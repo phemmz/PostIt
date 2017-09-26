@@ -2,15 +2,24 @@
 
 exports[`AddUserModal Component always renders a div 1`] = `
 <AddUserModal
-  appUsers={
+  addUserFail={false}
+  addUserSuccess={false}
+  existingUser={Array []}
+  onChange={[Function]}
+  onChipsChange={[Function]}
+  onClick={[Function]}
+  suggestions={
     Array [
       "phemmz",
       "nawtuaw",
     ]
   }
-  onChange={[Function]}
-  onClick={[Function]}
-  value="phemmz"
+  users={
+    Array [
+      "phemmz",
+    ]
+  }
+  usersAddedSuccessfully={Array []}
 >
   <div
     className="modal"
@@ -22,33 +31,394 @@ exports[`AddUserModal Component always renders a div 1`] = `
       <h4
         className="green-text text-darken-4"
       >
-        Add User to a Group
+        Add Users to a Group
       </h4>
+      <hr />
+      <div
+        className="row"
+      />
       <div
         className="row"
       >
         <div
           className="input-field col s12"
         >
-          <select
-            id="username"
+          <Chips
+            createChipKeys={
+              Array [
+                9,
+              ]
+            }
+            fetchSuggestions={null}
+            fetchSuggestionsThrushold={10}
+            fromSuggestionsOnly={false}
+            getChipValue={[Function]}
+            getSuggestionValue={[Function]}
+            id="users"
             onChange={[Function]}
-            style={
+            placeholder="Add users to a group"
+            renderChip={[Function]}
+            renderLoading={[Function]}
+            renderSuggestion={[Function]}
+            suggestions={
+              Array [
+                "phemmz",
+                "nawtuaw",
+              ]
+            }
+            suggestionsFilter={[Function]}
+            theme={
               Object {
-                "display": "block",
+                "chipsContainer": Object {
+                  ":focus": Object {
+                    "border": "1px solid #aaa",
+                  },
+                  "alignItems": "center",
+                  "backgroundColor": "#fff",
+                  "border": "1px solid #ccc",
+                  "borderRadius": 5,
+                  "display": "flex",
+                  "flexWrap": "wrap",
+                  "font": "13.33333px Arial",
+                  "minHeight": 24,
+                  "padding": "2.5px",
+                  "position": "relative",
+                },
+                "container": Object {
+                  "flex": 1,
+                },
+                "containerOpen": Object {},
+                "input": Object {
+                  "border": "none",
+                  "boxSizing": "border-box",
+                  "margin": 2.5,
+                  "outline": "none",
+                  "padding": 5,
+                  "width": "100%",
+                },
+                "sectionContainer": Object {},
+                "sectionTitle": Object {},
+                "suggestion": Object {
+                  "padding": "5px 15px",
+                },
+                "suggestionHighlighted": Object {
+                  "background": "#ddd",
+                },
+                "suggestionsContainer": Object {},
+                "suggestionsList": Object {
+                  "backgroundColor": "#fff",
+                  "border": "1px solid #ccc",
+                  "left": 0,
+                  "listStyle": "none",
+                  "margin": 0,
+                  "padding": 0,
+                  "position": "absolute",
+                  "top": "100%",
+                  "width": "100%",
+                  "zIndex": 10,
+                },
               }
             }
-            value="phemmz"
+            uniqueChips={true}
+            value={
+              Array [
+                "phemmz",
+              ]
+            }
           >
-            <option
-              disabled={true}
-              value=""
+            <div
+              data-radium={true}
+              onBlur={[Function]}
+              onFocus={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#fff",
+                  "border": "1px solid #ccc",
+                  "borderRadius": 5,
+                  "display": "flex",
+                  "flexWrap": "wrap",
+                  "font": "13.33333px Arial",
+                  "minHeight": 24,
+                  "padding": "2.5px",
+                  "position": "relative",
+                }
+              }
             >
-              Add User
-            </option>
-            phemmz
-            nawtuaw
-          </select>
+              <Chip
+                index={0}
+                onRemove={[Function]}
+                selected={false}
+                theme={
+                  Object {
+                    "chip": Object {
+                      "background": "#ccc",
+                      "borderRadius": 3,
+                      "cursor": "default",
+                      "margin": "2.5px",
+                      "padding": 5,
+                    },
+                    "chipRemove": Object {
+                      ":hover": Object {
+                        "color": "red",
+                      },
+                      "cursor": "pointer",
+                      "fontWeight": "bold",
+                    },
+                    "chipSelected": Object {
+                      "background": "#888",
+                    },
+                  }
+                }
+              >
+                <div
+                  data-radium={true}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "borderRadius": 3,
+                      "cursor": "default",
+                      "margin": "2.5px",
+                      "padding": 5,
+                    }
+                  }
+                >
+                  phemmz
+                  <span
+                    data-radium={true}
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "cursor": "pointer",
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                     ×
+                  </span>
+                </div>
+              </Chip>
+              <Autosuggest
+                alwaysRenderSuggestions={false}
+                createChipKeys={
+                  Array [
+                    9,
+                  ]
+                }
+                fetchSuggestions={null}
+                fetchSuggestionsThrushold={10}
+                focusInputOnSuggestionClick={true}
+                fromSuggestionsOnly={false}
+                getChipValue={[Function]}
+                getSuggestionValue={[Function]}
+                highlightFirstSuggestion={false}
+                id="users"
+                inputProps={
+                  Object {
+                    "onBlur": [Function],
+                    "onChange": [Function],
+                    "onFocus": [Function],
+                    "onKeyDown": [Function],
+                    "placeholder": "Add users to a group",
+                    "value": "",
+                  }
+                }
+                multiSection={false}
+                onChange={[Function]}
+                onSuggestionSelected={[Function]}
+                onSuggestionsClearRequested={[Function]}
+                onSuggestionsFetchRequested={[Function]}
+                placeholder="Add users to a group"
+                renderChip={[Function]}
+                renderLoading={[Function]}
+                renderSuggestion={[Function]}
+                renderSuggestionsContainer={[Function]}
+                shouldRenderSuggestions={[Function]}
+                suggestions={Array []}
+                suggestionsFilter={[Function]}
+                theme={
+                  Object {
+                    "chipsContainer": Object {
+                      ":focus": Object {
+                        "border": "1px solid #aaa",
+                      },
+                      "alignItems": "center",
+                      "backgroundColor": "#fff",
+                      "border": "1px solid #ccc",
+                      "borderRadius": 5,
+                      "display": "flex",
+                      "flexWrap": "wrap",
+                      "font": "13.33333px Arial",
+                      "minHeight": 24,
+                      "padding": "2.5px",
+                      "position": "relative",
+                    },
+                    "container": Object {
+                      "flex": 1,
+                    },
+                    "containerOpen": Object {},
+                    "input": Object {
+                      "border": "none",
+                      "boxSizing": "border-box",
+                      "margin": 2.5,
+                      "outline": "none",
+                      "padding": 5,
+                      "width": "100%",
+                    },
+                    "sectionContainer": Object {},
+                    "sectionTitle": Object {},
+                    "suggestion": Object {
+                      "padding": "5px 15px",
+                    },
+                    "suggestionHighlighted": Object {
+                      "background": "#ddd",
+                    },
+                    "suggestionsContainer": Object {},
+                    "suggestionsList": Object {
+                      "backgroundColor": "#fff",
+                      "border": "1px solid #ccc",
+                      "left": 0,
+                      "listStyle": "none",
+                      "margin": 0,
+                      "padding": 0,
+                      "position": "absolute",
+                      "top": "100%",
+                      "width": "100%",
+                      "zIndex": 10,
+                    },
+                  }
+                }
+                uniqueChips={true}
+                value={
+                  Array [
+                    "phemmz",
+                  ]
+                }
+              >
+                <Autowhatever
+                  getSectionItems={[Function]}
+                  highlightedItemIndex={null}
+                  highlightedSectionIndex={null}
+                  id="users"
+                  inputProps={
+                    Object {
+                      "onBlur": [Function],
+                      "onChange": [Function],
+                      "onFocus": [Function],
+                      "onKeyDown": [Function],
+                      "placeholder": "Add users to a group",
+                      "value": "",
+                    }
+                  }
+                  itemProps={[Function]}
+                  items={Array []}
+                  multiSection={false}
+                  renderInputComponent={[Function]}
+                  renderItem={[Function]}
+                  renderItemData={
+                    Object {
+                      "query": "",
+                    }
+                  }
+                  renderItemsContainer={[Function]}
+                  renderSectionTitle={[Function]}
+                  theme={
+                    Object {
+                      "chipsContainer": Object {
+                        ":focus": Object {
+                          "border": "1px solid #aaa",
+                        },
+                        "alignItems": "center",
+                        "backgroundColor": "#fff",
+                        "border": "1px solid #ccc",
+                        "borderRadius": 5,
+                        "display": "flex",
+                        "flexWrap": "wrap",
+                        "font": "13.33333px Arial",
+                        "minHeight": 24,
+                        "padding": "2.5px",
+                        "position": "relative",
+                      },
+                      "container": Object {
+                        "flex": 1,
+                      },
+                      "containerOpen": Object {},
+                      "input": Object {
+                        "border": "none",
+                        "boxSizing": "border-box",
+                        "margin": 2.5,
+                        "outline": "none",
+                        "padding": 5,
+                        "width": "100%",
+                      },
+                      "item": Object {
+                        "padding": "5px 15px",
+                      },
+                      "itemHighlighted": Object {
+                        "background": "#ddd",
+                      },
+                      "itemsContainer": Object {},
+                      "itemsList": Object {
+                        "backgroundColor": "#fff",
+                        "border": "1px solid #ccc",
+                        "left": 0,
+                        "listStyle": "none",
+                        "margin": 0,
+                        "padding": 0,
+                        "position": "absolute",
+                        "top": "100%",
+                        "width": "100%",
+                        "zIndex": 10,
+                      },
+                      "sectionContainer": Object {},
+                      "sectionTitle": Object {},
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <input
+                      aria-activedescendant={null}
+                      aria-autocomplete="list"
+                      aria-expanded={false}
+                      aria-haspopup={false}
+                      aria-owns="react-autowhatever-users"
+                      autoComplete="off"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="Add users to a group"
+                      role="combobox"
+                      style={
+                        Object {
+                          "border": "none",
+                          "boxSizing": "border-box",
+                          "margin": 2.5,
+                          "outline": "none",
+                          "padding": 5,
+                          "width": "100%",
+                        }
+                      }
+                      type="text"
+                      value=""
+                    />
+                    <div
+                      id="react-autowhatever-users"
+                      style={Object {}}
+                    />
+                  </div>
+                </Autowhatever>
+              </Autosuggest>
+            </div>
+          </Chips>
         </div>
       </div>
     </div>
@@ -61,7 +431,7 @@ exports[`AddUserModal Component always renders a div 1`] = `
         Cancel
       </a>
       <a
-        className="modal-action modal-close waves-effect waves-green btn-flat add-btn"
+        className="modal-action waves-effect waves-green btn-flat add-btn"
         onClick={[Function]}
         role="link"
         tabIndex={0}

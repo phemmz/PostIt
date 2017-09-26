@@ -8,7 +8,9 @@ const Welcome = () => {
           <h4 className="green-text text-darken-4">Welcome,</h4>
           <p
             className="green-text text-darken-2"
-          >POSTIT allows you,your friends and colleagues to create groups for notifications.</p>
+          >POSTIT allows you, your friends and
+          colleagues to create groups for notifications.
+          </p>
         </div>
       </div>
       <footer className="black footer">

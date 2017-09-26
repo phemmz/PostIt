@@ -4,13 +4,13 @@ import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 
 /**
- * requireAuth function
+ * @description requireAuth function
  * @param {*} ComposedComponent
  * @return {*} void
  */
 export default function (ComposedComponent) {
   /**
-   * Authenticate
+   * @description Authenticate
    */
   class Authenticate extends Component {
     /**
@@ -24,7 +24,7 @@ export default function (ComposedComponent) {
       }
     }
     /**
-     * componentWillUpdate
+     * @description componentWillUpdate
      * @param {*} nextProps
      * @return {*} void
      */
@@ -49,7 +49,7 @@ export default function (ComposedComponent) {
   };
 
   /**
-   * mapStateToProps(state)
+   * @description mapStateToProps(state)
    * @param {*} state
    * @return {*} void
    */

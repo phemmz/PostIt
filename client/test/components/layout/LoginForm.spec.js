@@ -34,4 +34,7 @@ describe('LoginForm Component', () => {
     expect(enzymeWrapper.find('h4').exists()).toBe(true);
     expect(enzymeWrapper.find('TextFieldGroup')).toHaveLength(2);
   });
+  it("should only take two props", () => {
+    expect(Object.keys(enzymeWrapper.props()).length).toBe(2);
+  });
 });

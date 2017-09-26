@@ -8,25 +8,25 @@ const Group = Model.Group;
 const View = Model.View;
 
 /**
- * MessageController class
+ * @description MessageController class
  */
 export default class MessageController {
   /**
-   * sendMessage() sends message to a particular group
+   * @description It sends message to a particular group
    * @param {object} req
    * @param {object} res
    * @return {object} json
    */
   static sendMessage(req, res) {
     /**
-     * Find the particular group by its id
+     * @description Find the particular group by its id
      */
     Group.findOne({
       where: { id: req.params.groupId }
     })
       .then((group) => {
         /**
-         * Checks if the group exist
+         * @description Checks if the group exist
          */
         if (group === null) {
           res.status(404).json({
@@ -56,19 +56,25 @@ export default class MessageController {
                       userId: user.id
                     })
                       .then((message) => {
-                        req.app.io.emit('newMsg', `New message from ${message.messagecreator} in ${group.groupname} group`);
+                        req.app.io.emit(
+                          'newMsg', `New message from
+                           ${message.messagecreator} in ${group.groupname}
+                            group`);
                         members.map((member) => {
                           if (message.priority === 'Urgent') {
                             if (member.username !== message.messagecreator) {
                               sendMail(member.email, message.priority,
-                                message.messagecreator, group.groupname, member.username, req, res);
+                                message.messagecreator, group.groupname,
+                                member.username, req, res);
                             }
                           } else if (message.priority === 'Critical') {
                             if (member.username !== message.messagecreator) {
-                              sendMail(member.email, message.priority, message.messagecreator,
-                                 group.groupname, member.username, req, res);
-                              sendSMS(member.phoneNumber, message.messagecreator,
-                                 message.priority, group.groupname);
+                              sendMail(member.email, message.priority,
+                                message.messagecreator, group.groupname,
+                                member.username, req, res);
+                              sendSMS(member.phoneNumber,
+                                message.messagecreator, message.priority,
+                                group.groupname);
                             }
                           }
                           return member;
@@ -92,7 +98,7 @@ export default class MessageController {
       });
   }
 /**
- * Get all messages in a group
+ * @description it gets all messages in a group
  * @param {object} req
  * @param {object} res
  * @return {object} json
@@ -122,7 +128,7 @@ export default class MessageController {
       });
   }
   /**
-   * readStatus
+   * @description updates the readStatus after viewing a message
    * @param {*} req
    * @param {*} res
    * @return {*} void
@@ -160,7 +166,7 @@ export default class MessageController {
       });
   }
   /**
-   * readList
+   * @description It gets all the people who have read a message
    * @param {*} req
    * @param {*} res
    * @return {*} void

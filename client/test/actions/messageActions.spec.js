@@ -4,8 +4,10 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import messageActions from '../../src/actions/messageActions';
 import { GROUP_MESSAGES, SEND_MESSAGE,
- READ_STATUS, READ_LIST, SEARCH_USER,
+ READ_STATUS, READ_LIST,
  ADD_NOTIFICATION, CLEAR_NOTIFICATION } from '../../src/actions/types';
+import { group, notification,
+  readList, messages } from '../__mockData__/dummyData';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -16,20 +18,8 @@ describe('Message actions', () => {
   });
 
   it('should get all messages in a group GROUP_MESSAGES', () => {
-    const groupId = 1;
-    const messages = {
-      content: 'hello man',
-      createdAt: '2017-08-03T12:33:32.666Z',
-      groupId: 1,
-      id: 1,
-      messagecreator: 'phemmz',
-      priority: 1,
-      readcheck: null,
-      updatedAt: '2017-08-03T12:33:32.666Z',
-      userId: 1,
-    };
     nock('http://localhost')
-      .get(`/api/v1/group/${groupId}/messages`)
+      .get(`/api/v1/group/${group.groupId}/messages`)
       .reply(200, {
         results: {
           messages
@@ -44,56 +34,47 @@ describe('Message actions', () => {
       }
     ];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(messageActions.groupMessages(groupId))
+    return store.dispatch(messageActions.groupMessages(group.groupId))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('should create an action that post a message', () => {
-    const message = {
-      content: 'Hello',
-      readcheck: 'false',
-      priority: '1',
-    };
-    const groupId = 1;
     nock('http://localhost')
-      .post(`/api/v1/group/${groupId}/message`, message)
+      .post(`/api/v1/group/${group.groupId}/message`, messages)
       .reply(201, {
         results: {
-          message
+          messages
         }
       });
     const expectedActions = [{
       type: SEND_MESSAGE,
       message: {
-        message
+        messages
       }
     }];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(messageActions.postMessage(groupId, message))
+    return store.dispatch(messageActions.postMessage(group.groupId, messages))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('should create an action that updates read status', () => {
-    const groupId = 1;
     nock('http://localhost')
-      .post(`/api/v1/group/${groupId}/readStatus`)
+      .post(`/api/v1/group/${group.groupId}/readStatus`)
       .reply(200);
     const expectedActions = [{
       type: READ_STATUS
     }];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(messageActions.updateReadStatus(groupId))
+    return store.dispatch(messageActions.updateReadStatus(group.groupId))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('should get all users that have read a message', () => {
-    const groupId = 1;
-    const readList = ['phemmz', 'tuna'];
     nock('http://localhost')
-      .get(`/api/v1/group/${groupId}/readStatus`)
+      .get(`/api/v1/group/${group.groupId}/readStatus`)
       .reply(200, {
         uniqueList: {
           readList
@@ -108,13 +89,12 @@ describe('Message actions', () => {
       }
     ];
     const store = mockStore({ groupReducer: {} });
-    return store.dispatch(messageActions.readList(groupId))
+    return store.dispatch(messageActions.readList(group.groupId))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
   it('creates an action for adding new message notification', () => {
-    const notification = 'new message from ksung group';
     const expectedActions = [{
       type: ADD_NOTIFICATION,
       notification

@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * SendMessageValidations class
+ * @description SendMessageValidations class
  */
 var SendMessageValidations = function () {
   function SendMessageValidations() {
@@ -26,9 +26,9 @@ var SendMessageValidations = function () {
     key: 'validateSendMessage',
 
     /**
-     * validateSendMessage validates user input fields
+     * @description validateSendMessage validates user input fields
      * @param {object} data
-     * @returns {object}
+     * @returns {object} errors, isValid
      */
     value: function validateSendMessage(data) {
       var errors = {};
@@ -44,10 +44,11 @@ var SendMessageValidations = function () {
       };
     }
     /**
-     * validateUserInput
+     * @description validates User Input
      * @param {*} req
      * @param {*} res
      * @param {*} next
+     * @return {*} void
      */
 
   }, {
@@ -58,7 +59,9 @@ var SendMessageValidations = function () {
           isValid = _SendMessageValidatio.isValid;
 
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors: errors
+        });
       } else {
         next();
       }

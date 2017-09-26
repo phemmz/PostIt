@@ -4,7 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 const webpackConfig = {
 
   entry: [
-    path.join(__dirname, '/client/src/app.jsx')
+    path.join(__dirname, '/client/src/App.jsx')
   ],
   output: {
     path: `${__dirname}/dist/client/public/`,

@@ -24,11 +24,9 @@ describe("PreLoader Component", () => {
     expect(divs.length).toBeGreaterThan(0);
   });
 
-  describe("the rendered div", () => {
-    it("should contain everything else that gets rendered", () => {
-      const divs = preLoader().find("div");
-      const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(preLoader().children());
-    });
+  it("should contain everything else that gets rendered in the div", () => {
+    const divs = preLoader().find("div");
+    const wrappingDiv = divs.first();
+    expect(wrappingDiv.children()).toEqual(preLoader().children());
   });
 });

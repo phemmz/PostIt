@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * AddUserValidations class
+ * @description AddUserValidations class
  */
 var AddUserValidations = function () {
   function AddUserValidations() {
@@ -30,7 +30,7 @@ var AddUserValidations = function () {
     key: 'validateAddUser',
 
     /**
-     * validateAddUser()
+     * @description validates AddUser input fields
      * @param {object} data
      * @returns {object} errors,isValid
      */
@@ -42,7 +42,7 @@ var AddUserValidations = function () {
         }
       }
       if (!data.username) {
-        errors.invalid = 'Please fill in your details oahhjqj';
+        errors.invalid = 'Please fill in your details';
       }
       return {
         errors: errors,
@@ -50,7 +50,7 @@ var AddUserValidations = function () {
       };
     }
     /**
-     * validateUserInput
+     * @description validateUserInput
      * @param {*} req
      * @param {*} res
      * @param {*} next
@@ -65,7 +65,9 @@ var AddUserValidations = function () {
           isValid = _AddUserValidations$v.isValid;
 
       if (!isValid) {
-        res.status(422).json(errors);
+        res.status(422).json({
+          errors: errors
+        });
       } else {
         next();
       }

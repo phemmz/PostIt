@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { GET_ALL_USERS, SEARCH_USER } from './types';
 /**
- * UserActions class
+ * @description UserActions class
  */
 export default class UserActions {
 
   /**
-   * This action gets all the registered users
+   * @description This action gets all the registered users
    * @returns {object} users
    */
   static getUsers() {
@@ -22,6 +22,7 @@ export default class UserActions {
     };
   }
   /**
+   * @description action for searching users
    * @param {*} searchKey
    * @param {*} offset
    * @param {*} perPage

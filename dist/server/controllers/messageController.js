@@ -28,7 +28,7 @@ var Group = _models2.default.Group;
 var View = _models2.default.View;
 
 /**
- * MessageController class
+ * @description MessageController class
  */
 
 var MessageController = function () {
@@ -40,20 +40,20 @@ var MessageController = function () {
     key: 'sendMessage',
 
     /**
-     * sendMessage() sends message to a particular group
+     * @description It sends message to a particular group
      * @param {object} req
      * @param {object} res
      * @return {object} json
      */
     value: function sendMessage(req, res) {
       /**
-       * Find the particular group by its id
+       * @description Find the particular group by its id
        */
       Group.findOne({
         where: { id: req.params.groupId }
       }).then(function (group) {
         /**
-         * Checks if the group exist
+         * @description Checks if the group exist
          */
         if (group === null) {
           res.status(404).json({
@@ -79,7 +79,7 @@ var MessageController = function () {
                 messagecreator: user.username,
                 userId: user.id
               }).then(function (message) {
-                req.app.io.emit('newMsg', 'New message from ' + message.messagecreator + ' in ' + group.groupname + ' group');
+                req.app.io.emit('newMsg', 'New message from\n                           ' + message.messagecreator + ' in ' + group.groupname + '\n                            group');
                 members.map(function (member) {
                   if (message.priority === 'Urgent') {
                     if (member.username !== message.messagecreator) {
@@ -111,7 +111,7 @@ var MessageController = function () {
       });
     }
     /**
-     * Get all messages in a group
+     * @description it gets all messages in a group
      * @param {object} req
      * @param {object} res
      * @return {object} json
@@ -142,7 +142,7 @@ var MessageController = function () {
       });
     }
     /**
-     * readStatus
+     * @description updates the readStatus after viewing a message
      * @param {*} req
      * @param {*} res
      * @return {*} void
@@ -180,7 +180,7 @@ var MessageController = function () {
       });
     }
     /**
-     * readList
+     * @description It gets all the people who have read a message
      * @param {*} req
      * @param {*} res
      * @return {*} void

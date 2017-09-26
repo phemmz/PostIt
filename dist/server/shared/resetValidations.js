@@ -30,7 +30,8 @@ var sharedResetValidations = function () {
     key: 'commonValidations',
 
     /**
-     * commonValidations() takes in the data from the body for resetting password and validates them
+     * commonValidations() takes in the data from the body for resetting
+     * password and validates them
      * @param {object} data
      * @return {object} errors
      * @returns {object} errors,isValid

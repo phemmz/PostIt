@@ -1,13 +1,13 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER, GET_ALL_USERS } from './types';
+import { SET_CURRENT_USER } from './types';
 /**
- * AuthenticationActions class
+ * @description AuthenticationActions class
  */
 export default class AuthenticationActions {
   /**
-   * The setCurrentUser action gets called from the
+   * @description The setCurrentUser action gets called from the
    * login action and it takes in the decoded token
    * @param {object} user
    * @returns {object} type, user
@@ -19,8 +19,8 @@ export default class AuthenticationActions {
     };
   }
   /**
-   * logout signs the user out and removes the token from localstorage
-   * @description logout action is a plain javascript object  describing how to change the state
+   * @description logout signs the user out and
+   * removes the token from localstorage
    * @returns {*} dispatch
    */
   static logout() {
@@ -34,7 +34,7 @@ export default class AuthenticationActions {
     };
   }
   /**
-   * The login action takes the form data and calls axios.
+   * @description The login action takes the form data and calls axios.
    * It Gets the token from the server and saves it in localstorage
    * It also sets the header with the token
    * @param {object} data
@@ -58,7 +58,7 @@ export default class AuthenticationActions {
     };
   }
   /**
-   * Makes a call to the api to send a reset email to
+   * @description Makes a call to the api to send a reset email to
    * the user with the username supplied
    * @param {*} username
    * @returns {string} message
@@ -73,7 +73,7 @@ export default class AuthenticationActions {
     };
   }
   /**
-   * sends the userDetails from the react google login to the api
+   * @description sends the userDetails from the react google login to the api
    * @param {*} userDetails
    * @returns {*} object
    */
