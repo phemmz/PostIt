@@ -19,6 +19,7 @@ const server = supertest.agent(app);
 
 chai.use(chaiHttp);
 let token = '';
+let newToken = '';
 
 // Test the POST: /api/user/signup route
 describe('POSTIT', () => {
@@ -31,6 +32,12 @@ describe('POSTIT', () => {
 
   // Test the /POST api/group/:id/user
   describe('Add User', () => {
+    beforeEach((done) => {
+      Group.sync({ force: true })
+        .then(() => {
+          done();
+        });
+    });
     it(
   'should not allow users that are not logged in to add new User to a group',
     (done) => {
@@ -160,6 +167,63 @@ describe('POSTIT', () => {
         });
     });
   });
+  describe('Signin', () => {
+    it('should not POST signin details without password', (done) => {
+      server
+        .post('/api/v1/user/signin')
+        .send({ ...userDetails[0], password: '' })
+        .expect(422)
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('errors');
+          res.body.errors.should.have.property('password')
+          .eql('Please fill in your password');
+          done();
+        });
+    });
+    it('should not POST signin details without username', (done) => {
+      server
+        .post('/api/v1/user/signin')
+        .send({ ...userDetails[0], username: '' })
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.a('object');
+          res.body.should.have.property('errors');
+          res.body.errors.should.have.property('username')
+          .eql('Please fill in your username');
+          done();
+        });
+    });
+    it('should not POST signin details with a null or empty string username',
+      (done) => {
+        server
+          .post('/api/v1/user/signin')
+          .send({ ...userDetails[0], username: ' ' })
+          .end((err, res) => {
+            res.should.have.status(422);
+            res.body.should.be.a('object');
+            res.body.should.have.property('errors');
+            res.body.errors.should.have.property('username')
+            .eql('Please fill in your username');
+            done();
+          });
+      });
+    it('should not signin user with username that does not exist',
+      (done) => {
+        server
+          .post('/api/v1/user/signin')
+          .send({ ...userDetails[0], username: 'coolboy' })
+          .end((err, res) => {
+            res.should.have.status(401);
+            res.body.should.be.a('object');
+            res.body.should.have.property('errors');
+            res.body.errors.should.have.property('message')
+            .eql('Invalid Username');
+            done();
+          });
+      });
+  });
 });
   // Test the POST: /api/group route
 describe('Group', () => {
@@ -220,6 +284,33 @@ describe('Group', () => {
           done();
         });
     });
+    it('it should POST signup details ', (done) => {
+      server
+        .post('/api/v1/user/signup')
+        .send(userDetails[4])
+        .end((err, res) => {
+          newToken = res.body.token;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message');
+          res.body.should.have.property('confirmation').eql('success');
+          done();
+        });
+    });
+    it('should not signin user with a wrong password',
+    (done) => {
+      server
+        .post('/api/v1/user/signin')
+        .send({ ...userDetails[1], password: '18282819' })
+        .end((err, res) => {
+          res.should.have.status(401);
+          res.body.should.be.a('object');
+          res.body.should.have.property('errors');
+          res.body.errors.should.have.property('message')
+          .eql('Check your login details');
+          done();
+        });
+    });
     it('it should signin a user', (done) => {
       server
         .post('/api/v1/user/signin')
@@ -269,6 +360,23 @@ describe('Group', () => {
           done();
         });
     });
+    it('it should not allow logged in users to create the same broadcast group twice', (done) => {  // eslint-disable-line
+      server
+        .post('/api/v1/group')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .type('form')
+        .send({ ...groupDetails[1] })
+        .end((err, res) => {
+          res.should.have.status(409);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message')
+          .eql('That group name already exist');
+          done();
+        });
+    });
     it(
   'it should allow logged in users to get all broadcast groups he belongs to',
     (done) => {
@@ -284,6 +392,22 @@ describe('Group', () => {
           done();
         });
     });
+    it('it should not get any group for a new user',
+        (done) => {
+          server
+            .get('/api/v1/group')
+            .set('Connection', 'keep alive')
+            .set('Content-Type', 'application/json')
+            .set('authorization', `Bearer ${newToken}`)
+            .end((err, res) => {
+              res.should.have.status(404);
+              res.body.should.be.a('object');
+              res.body.should.have.property('confirmation').eql('fail');
+              res.body.should.have.property('message')
+              .eql('You currently dont belong to any group');
+              done();
+            });
+        });
     it('it should not allow logged in users to add a user that already belongs to a group', (done) => {  // eslint-disable-line
       server
       .post('/api/v1/group/1/user')
@@ -328,9 +452,25 @@ describe('Group', () => {
           done();
         });
       });
+    it('it should not allow logged in users to add User to group that does not exist',  // eslint-disable-line
+      (done) => {
+        server
+        .post('/api/v1/group/8394/user')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .set('authorization', `Bearer ${token}`)
+        .send({ ...userDetails[0], username: 'phemz4' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.have.property('confirmation').eql('fail');
+          res.body.should.have.property('message').eql('Group does not exist');
+          done();
+        });
+      });
   });
   // Test the /POST api/group/:id/message
-  describe('/POST/:id Post Message', () => {
+  describe('Message', () => {
     before((done) => {
       Message.sync({ force: true })
         .then(() => {
@@ -348,6 +488,8 @@ describe('Group', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('invalid');
+        res.body.errors.should.have.property('invalid')
+        .eql('Please fill the required parameters');
         done();
       });
     });
@@ -369,7 +511,7 @@ describe('Group', () => {
     });
   });
   // Test the /GET: /api/group/:id/messages route
-  describe('/GET/:id Messages', () => {
+  describe('Messages', () => {
     it(
 'it should GET all messages that have been posted to the group they belong to',
     (done) => {
