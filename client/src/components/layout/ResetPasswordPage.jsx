@@ -68,6 +68,10 @@ class ResetPasswordPage extends Component {
       })
       .catch(() => {
         Materialize.toast('Failed to send reset password link to mail, Try again!', 4000, 'green'); // eslint-disable-line
+        this.setState({
+          isLoading: false,
+          invalid: true
+        });
       });
   }
   /**

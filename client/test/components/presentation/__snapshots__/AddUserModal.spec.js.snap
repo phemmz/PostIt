@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddUserModal Component always renders a div 1`] = `
+exports[`AddUserModal Component should always render a div 1`] = `
 <AddUserModal
   addUserFail={false}
   addUserSuccess={false}

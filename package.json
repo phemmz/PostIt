@@ -11,7 +11,7 @@
     "serve": "node dist/app.js",
     "server": "nodemon dist/app.js",
     "eslint": "./node_modules/.bin/eslint app.js",
-    "test": "NODE_ENV=test mocha dist/server/test --timeout 50000",
+    "test": "NODE_ENV=test mocha dist/server/test --timeout 60000",
     "front-test": "jest --coverage",
     "cover": "istanbul cover _mocha dist/server/test --timeout 10000",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",

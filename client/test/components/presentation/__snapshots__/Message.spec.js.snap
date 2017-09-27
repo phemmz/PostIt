@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Message Component always renders a div 1`] = `
+exports[`Message Component should always render a div 1`] = `
 <Message
   currentMessage={
     Object {
