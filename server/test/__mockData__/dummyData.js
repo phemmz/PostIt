@@ -29,6 +29,13 @@ export const userDetails = [
     email: 'phemmz8@gmail.com',
     password: '123456',
     phoneNumber: '107417116674271276210'
+  },
+  {
+    username: 'user09',
+    email: 'user09@gmail.com',
+    phoneNumber: '88812991',
+    password: '123456',
+    passwordConfirmation: '123456'
   }
 ];
 

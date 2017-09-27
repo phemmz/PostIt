@@ -37,12 +37,30 @@ var server = _supertest2.default.agent(_app2.default);
 
 _chai2.default.use(_chaiHttp2.default);
 var token = '';
+var newToken = '';
 
 // Test the POST: /api/user/signup route
 describe('POSTIT', function () {
   before(function (done) {
     User.sync({ force: true }).then(function () {
       done();
+    });
+  });
+
+  // Test the /POST api/group/:id/user
+  describe('Add User', function () {
+    beforeEach(function (done) {
+      Group.sync({ force: true }).then(function () {
+        done();
+      });
+    });
+    it('should not allow users that are not logged in to add new User to a group', function (done) {
+      _chai2.default.request(_app2.default).post('/api/v1/group/1/user').send(_dummyData.addDetails).end(function (err, res) {
+        res.should.have.status(403);
+        res.body.should.be.a('object');
+        res.body.should.have.property('error').eql('Please signin/signup');
+        done();
+      });
     });
   });
 
@@ -119,13 +137,40 @@ describe('POSTIT', function () {
       });
     });
   });
-  // Test the /POST api/group/:id/user
-  describe('Add User', function () {
-    it('should not allow users that are not logged in to add new User to a group', function (done) {
-      _chai2.default.request(_app2.default).post('/api/v1/group/1/user').send(_dummyData.addDetails).end(function (err, res) {
-        res.should.have.status(403);
+  describe('Signin', function () {
+    it('should not POST signin details without password', function (done) {
+      server.post('/api/v1/user/signin').send(_extends({}, _dummyData.userDetails[0], { password: '' })).expect(422).end(function (err, res) {
+        res.should.have.status(422);
         res.body.should.be.a('object');
-        res.body.should.have.property('error').eql('Please signin/signup');
+        res.body.should.have.property('errors');
+        res.body.errors.should.have.property('password').eql('Please fill in your password');
+        done();
+      });
+    });
+    it('should not POST signin details without username', function (done) {
+      server.post('/api/v1/user/signin').send(_extends({}, _dummyData.userDetails[0], { username: '' })).end(function (err, res) {
+        res.should.have.status(422);
+        res.body.should.be.a('object');
+        res.body.should.have.property('errors');
+        res.body.errors.should.have.property('username').eql('Please fill in your username');
+        done();
+      });
+    });
+    it('should not POST signin details with a null or empty string username', function (done) {
+      server.post('/api/v1/user/signin').send(_extends({}, _dummyData.userDetails[0], { username: ' ' })).end(function (err, res) {
+        res.should.have.status(422);
+        res.body.should.be.a('object');
+        res.body.should.have.property('errors');
+        res.body.errors.should.have.property('username').eql('Please fill in your username');
+        done();
+      });
+    });
+    it('should not signin user with username that does not exist', function (done) {
+      server.post('/api/v1/user/signin').send(_extends({}, _dummyData.userDetails[0], { username: 'coolboy' })).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('errors');
+        res.body.errors.should.have.property('message').eql('Invalid Username');
         done();
       });
     });
@@ -176,6 +221,25 @@ describe('Group', function () {
         done();
       });
     });
+    it('it should POST signup details ', function (done) {
+      server.post('/api/v1/user/signup').send(_dummyData.userDetails[4]).end(function (err, res) {
+        newToken = res.body.token;
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.should.have.property('confirmation').eql('success');
+        done();
+      });
+    });
+    it('should not signin user with a wrong password', function (done) {
+      server.post('/api/v1/user/signin').send(_extends({}, _dummyData.userDetails[1], { password: '18282819' })).end(function (err, res) {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('errors');
+        res.body.errors.should.have.property('message').eql('Check your login details');
+        done();
+      });
+    });
     it('it should signin a user', function (done) {
       server.post('/api/v1/user/signin').set('Connection', 'keep alive').set('Content-Type', 'application/json').type('form').send(_dummyData.userDetails[2]).end(function (err, res) {
         token = res.body.token;
@@ -205,11 +269,30 @@ describe('Group', function () {
         done();
       });
     });
+    it('it should not allow logged in users to create the same broadcast group twice', function (done) {
+      // eslint-disable-line
+      server.post('/api/v1/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).type('form').send(_extends({}, _dummyData.groupDetails[1])).end(function (err, res) {
+        res.should.have.status(409);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('That group name already exist');
+        done();
+      });
+    });
     it('it should allow logged in users to get all broadcast groups he belongs to', function (done) {
       server.get('/api/v1/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('results');
+        done();
+      });
+    });
+    it('it should not get any group for a new user', function (done) {
+      server.get('/api/v1/group').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + newToken).end(function (err, res) {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('You currently dont belong to any group');
         done();
       });
     });
@@ -239,9 +322,19 @@ describe('Group', function () {
         done();
       });
     });
+    it('it should not allow logged in users to add User to group that does not exist', // eslint-disable-line
+    function (done) {
+      server.post('/api/v1/group/8394/user').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(_extends({}, _dummyData.userDetails[0], { username: 'phemz4' })).end(function (err, res) {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('confirmation').eql('fail');
+        res.body.should.have.property('message').eql('Group does not exist');
+        done();
+      });
+    });
   });
   // Test the /POST api/group/:id/message
-  describe('/POST/:id Post Message', function () {
+  describe('Message', function () {
     before(function (done) {
       Message.sync({ force: true }).then(function () {
         done();
@@ -253,6 +346,7 @@ describe('Group', function () {
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('invalid');
+        res.body.errors.should.have.property('invalid').eql('Please fill the required parameters');
         done();
       });
     });
@@ -268,7 +362,7 @@ describe('Group', function () {
     });
   });
   // Test the /GET: /api/group/:id/messages route
-  describe('/GET/:id Messages', function () {
+  describe('Messages', function () {
     it('it should GET all messages that have been posted to the group they belong to', function (done) {
       server.get('/api/v1/group/1/messages').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).end(function (err, res) {
         res.should.have.status(200);
