@@ -28,10 +28,11 @@ describe('POSTIT', () => {
         done();
       });
   });
+
   // Test the /POST api/group/:id/user
-  describe('/POST/:id Add User', () => {
+  describe('Add User', () => {
     it(
-  'it should not allow users that are not logged in to add new User to a group',
+  'should not allow users that are not logged in to add new User to a group',
     (done) => {
       chai.request(app)
         .post('/api/v1/group/1/user')
@@ -44,15 +45,12 @@ describe('POSTIT', () => {
         });
     });
   });
+
   describe('Signup', () => {
-    it('it should not POST signup details without password', (done) => {
-      const signupDetails = {
-        username: userDetails[0].username,
-        email: userDetails[0].email
-      };
+    it('should not POST signup details without password', (done) => {
       server
         .post('/api/v1/user/signup')
-        .send(signupDetails)
+        .send({ ...userDetails[0], password: '' })
         .expect(422)
         .end((err, res) => {
           res.should.have.status(422);
@@ -63,7 +61,7 @@ describe('POSTIT', () => {
           done();
         });
     });
-    it('it should not POST signup details if passwords do not match',
+    it('should not POST signup details if passwords do not match',
     (done) => {
       server
         .post('/api/v1/user/signup')
@@ -79,7 +77,7 @@ describe('POSTIT', () => {
         });
     });
     it(
-      'it should not POST signup details if password is less than 6 characters',
+      'should not POST signup details if password is less than 6 characters',
       (done) => {
         server
           .post('/api/v1/user/signup')
@@ -94,7 +92,7 @@ describe('POSTIT', () => {
             done();
           });
       });
-    it('it should not POST signup details without username', (done) => {
+    it('should not POST signup details without username', (done) => {
       server
         .post('/api/v1/user/signup')
         .send({ ...userDetails[0], username: '' })
@@ -108,7 +106,7 @@ describe('POSTIT', () => {
         });
     });
     it(
-  'it should not allow users that are not logged in to create broadcast group',
+  'should not allow users that are not logged in to create broadcast group',
       (done) => {
         server
           .post('/api/v1/group')
@@ -120,8 +118,7 @@ describe('POSTIT', () => {
             done();
           });
       });
-    it(
-      'it should not POST signup details with a null or empty string username',
+    it('should not POST signup details with a null or empty string username',
       (done) => {
         server
           .post('/api/v1/user/signup')
@@ -135,8 +132,7 @@ describe('POSTIT', () => {
             done();
           });
       });
-    it(
-      'it should not POST signup details with an invalid email address',
+    it('should not POST signup details with an invalid email address',
       (done) => {
         server
           .post('/api/v1/user/signup')

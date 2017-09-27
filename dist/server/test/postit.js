@@ -45,24 +45,10 @@ describe('POSTIT', function () {
       done();
     });
   });
-  // Test the /POST api/group/:id/user
-  describe('/POST/:id Add User', function () {
-    it('it should not allow users that are not logged in to add new User to a group', function (done) {
-      _chai2.default.request(_app2.default).post('/api/v1/group/1/user').send(_dummyData.addDetails).end(function (err, res) {
-        res.should.have.status(403);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql('Please signin/signup');
-        done();
-      });
-    });
-  });
+
   describe('Signup', function () {
-    it('it should not POST signup details without password', function (done) {
-      var signupDetails = {
-        username: _dummyData.userDetails[0].username,
-        email: _dummyData.userDetails[0].email
-      };
-      server.post('/api/v1/user/signup').send(signupDetails).expect(422).end(function (err, res) {
+    it('should not POST signup details without password', function (done) {
+      server.post('/api/v1/user/signup').send(_extends({}, _dummyData.userDetails[0], { password: '' })).expect(422).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
@@ -70,7 +56,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not POST signup details if passwords do not match', function (done) {
+    it('should not POST signup details if passwords do not match', function (done) {
       server.post('/api/v1/user/signup').expect(422).send(_extends({}, _dummyData.userDetails[0], { passwordConfirmation: 'abcdesa' })).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
@@ -79,7 +65,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not POST signup details if password is less than 6 characters', function (done) {
+    it('should not POST signup details if password is less than 6 characters', function (done) {
       server.post('/api/v1/user/signup').send(_extends({}, _dummyData.userDetails[0], { password: '1234', passwordConfirmation: '1234' })).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
@@ -88,7 +74,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not POST signup details without username', function (done) {
+    it('should not POST signup details without username', function (done) {
       server.post('/api/v1/user/signup').send(_extends({}, _dummyData.userDetails[0], { username: '' })).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
@@ -97,7 +83,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not allow users that are not logged in to create broadcast group', function (done) {
+    it('should not allow users that are not logged in to create broadcast group', function (done) {
       server.post('/api/v1/group').send(_extends({}, _dummyData.groupDetails[0])).end(function (err, res) {
         res.should.have.status(403);
         res.body.should.be.a('object');
@@ -105,7 +91,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not POST signup details with a null or empty string username', function (done) {
+    it('should not POST signup details with a null or empty string username', function (done) {
       server.post('/api/v1/user/signup').send(_extends({}, _dummyData.userDetails[0], { username: ' ' })).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
@@ -114,7 +100,7 @@ describe('POSTIT', function () {
         done();
       });
     });
-    it('it should not POST signup details with an invalid email address', function (done) {
+    it('should not POST signup details with an invalid email address', function (done) {
       server.post('/api/v1/user/signup').send(_extends({}, _dummyData.userDetails[0], { email: 'phemzy@gmail' })).end(function (err, res) {
         res.should.have.status(422);
         res.body.should.be.a('object');
@@ -129,6 +115,17 @@ describe('POSTIT', function () {
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('phoneNumber').eql('Please fill in your phone number');
+        done();
+      });
+    });
+  });
+  // Test the /POST api/group/:id/user
+  describe('Add User', function () {
+    it('should not allow users that are not logged in to add new User to a group', function (done) {
+      _chai2.default.request(_app2.default).post('/api/v1/group/1/user').send(_dummyData.addDetails).end(function (err, res) {
+        res.should.have.status(403);
+        res.body.should.be.a('object');
+        res.body.should.have.property('error').eql('Please signin/signup');
         done();
       });
     });
