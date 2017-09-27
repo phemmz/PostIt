@@ -29,6 +29,23 @@ describe('POSTIT', () => {
       });
   });
 
+  // Test the /POST api/group/:id/user
+  describe('Add User', () => {
+    it(
+  'should not allow users that are not logged in to add new User to a group',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/group/1/user')
+        .send(addDetails)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.a('object');
+          res.body.should.have.property('error').eql('Please signin/signup');
+          done();
+        });
+    });
+  });
+
   describe('Signup', () => {
     it('should not POST signup details without password', (done) => {
       server
@@ -139,22 +156,6 @@ describe('POSTIT', () => {
           res.body.should.have.property('errors');
           res.body.errors.should.have.property('phoneNumber')
           .eql('Please fill in your phone number');
-          done();
-        });
-    });
-  });
-  // Test the /POST api/group/:id/user
-  describe('Add User', () => {
-    it(
-  'should not allow users that are not logged in to add new User to a group',
-    (done) => {
-      chai.request(app)
-        .post('/api/v1/group/1/user')
-        .send(addDetails)
-        .end((err, res) => {
-          res.should.have.status(403);
-          res.body.should.be.a('object');
-          res.body.should.have.property('error').eql('Please signin/signup');
           done();
         });
     });
