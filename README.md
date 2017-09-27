@@ -46,7 +46,7 @@ Based on project requirement, PostIt has the following features:
 2. Urgent: in-app notification and email notifications is sent to all users in the group
 3. Critical: in-app, email and sms notification is sent to all users in the group
 
-### API Documentation
+## API Documentation
 - The full API documentation can be found [here](https://app.swaggerhub.com/apis/phemmz/PostIt/1.0.0).
 
 ## Limitations
