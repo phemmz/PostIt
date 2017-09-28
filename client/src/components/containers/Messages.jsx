@@ -21,10 +21,8 @@ class Messages extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [],
       errors: {},
       selectedGroupId: this.props.selectedGroup,
-      groupName: 'Welcome',
       chips: [],
       addUserSuccess: false,
       addUserFail: false
@@ -75,19 +73,17 @@ class Messages extends Component {
        * and the groupId of the group selected is passed along
        */
       this.props.groupMessages(nxtProps.selectedGroup).then((results) => {
-        const groupName = this.groupName(nxtProps.selectedGroup);
-        this.setState({
-          selectedGroupId: nxtProps.selectedGroup,
-          groupName,
-          list: results
-        });
-      }).catch((err) => {
-        const groupName = this.groupName(nxtProps.selectedGroup);
-        this.setState({
-          groupName,
-          errors: err.response.data,
-          list: []
-        });
+        if (results === 'No message found') {
+          const groupName = this.groupName(nxtProps.selectedGroup);
+          this.props.setGroupName(groupName);
+          Materialize.toast('No Message Found', 3000, 'red');
+        } else {
+          const groupName = this.groupName(nxtProps.selectedGroup);
+          this.props.setGroupName(groupName);
+          this.setState({
+            selectedGroupId: nxtProps.selectedGroup,
+          });
+        }
       });
     }
   }
@@ -118,17 +114,7 @@ class Messages extends Component {
     });
     const groupId = this.props.selectedGroup;
     this.props.sendMessage(groupId, message)
-      .then((response) => {
-/**
- * Makes a copy of the list array in the state
- * and then push the message response to the copied array
- * It updates the state with this updated copy
- */
-        const updatedList = Object.assign([], this.state.list);
-        updatedList.push(response);
-        this.setState({
-          list: updatedList
-        });
+      .then(() => {
         Materialize.toast('Message Sent', 4000, 'green');
       })
       .catch(() => {
@@ -177,7 +163,7 @@ class Messages extends Component {
  * @return {*} li
  */
   messageList() {
-    return this.state.list.map((message) => {
+    return this.props.stateMessages.map((message) => {
       return (<li onMouseLeave={this.readCheck} key={message.id}>
         <Message
           currentMessage={message}
@@ -236,7 +222,7 @@ class Messages extends Component {
           <div className="msgscrbar">
             <h4
               className="green-text text-darken-4"
-            ><strong>{this.state.groupName}</strong></h4>
+            ><strong>{this.props.getGroupName}</strong></h4>
             { errors.message &&
               <div className="alert alert-danger">{errors.message}</div> }
           </div>
@@ -278,7 +264,7 @@ class Messages extends Component {
                     data-tooltip="Show Group Details"
                   />
                   </a>
-                    { this.state.groupName }
+                    { this.props.getGroupName }
                   </strong></h5>
                   </span>
                 </div>
@@ -286,7 +272,7 @@ class Messages extends Component {
             ) :
             (
               <MessageHeader
-                groupName={this.state.groupName}
+                groupName={this.props.getGroupName}
               />
             )
           }
@@ -332,7 +318,19 @@ Messages.propTypes = {
     email: PropTypes.string,
     iat: PropTypes.number,
     exp: PropTypes.number,
-  }).isRequired
+  }).isRequired,
+  stateMessages: PropTypes.arrayOf(PropTypes.shape({
+    content: PropTypes.string,
+    readCheck: PropTypes.bool,
+    priority: PropTypes.string,
+    messageCreator: PropTypes.string,
+    userId: PropTypes.number,
+    groupId: PropTypes.number,
+    createdAt: PropTypes.string,
+    updatedAt: PropTypes.string
+  })),
+  setGroupName: PropTypes.func.isRequired,
+  getGroupName: PropTypes.string.isRequired
 };
 
 Messages.defaultProps = {
@@ -340,19 +338,21 @@ Messages.defaultProps = {
   groupList: [],
   notifications: [],
   viewList: [],
-  appUsers: []
+  appUsers: [],
+  stateMessages: []
 };
 
 const stateToProps = (state) => {
   return {
     viewList: state.messageReducer.readList,
     groupList: state.groupReducer.groupList,
-    groupMessages: state.messageReducer.groupMessages,
+    stateMessages: state.messageReducer.groupMessages,
     addUser: state.groupReducer.addUser,
     selectedGroup: state.groupReducer.selectedGroup,
     appStatus: state.groupReducer.appStatus,
     appUsers: state.userReducer.users,
-    currentUser: state.auth.user
+    currentUser: state.auth.user,
+    getGroupName: state.messageReducer.groupName
   };
 };
 
@@ -378,6 +378,9 @@ const dispatchToProps = (dispatch) => {
     },
     readList: (groupId) => {
       return dispatch(MessageActions.readList(groupId));
+    },
+    setGroupName: (groupName) => {
+      return dispatch(MessageActions.setGroupName(groupName));
     }
   };
 };

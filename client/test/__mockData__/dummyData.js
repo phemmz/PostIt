@@ -62,3 +62,5 @@ export const messages = {
 export const readList = ['phemmz', 'tuna'];
 
 export const notification = 'new message from ksung group';
+
+export const groupName = 'New Group';
