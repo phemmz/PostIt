@@ -5,9 +5,10 @@ import nock from 'nock';
 import messageActions from '../../src/actions/messageActions';
 import { GROUP_MESSAGES, SEND_MESSAGE,
  READ_STATUS, READ_LIST,
- ADD_NOTIFICATION, CLEAR_NOTIFICATION } from '../../src/actions/types';
+ ADD_NOTIFICATION, CLEAR_NOTIFICATION,
+ NO_GROUP_MESSAGE, SET_GROUP_NAME } from '../../src/actions/types';
 import { group, notification,
-  readList, messages } from '../__mockData__/dummyData';
+  readList, messages, groupName } from '../__mockData__/dummyData';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -17,7 +18,7 @@ describe('Message actions', () => {
     nock.cleanAll();
   });
 
-  it('should get all messages in a group GROUP_MESSAGES', () => {
+  it('should get all messages in a group', () => {
     nock('http://localhost')
       .get(`/api/v1/group/${group.groupId}/messages`)
       .reply(200, {
@@ -31,6 +32,23 @@ describe('Message actions', () => {
         messages: {
           messages
         }
+      }
+    ];
+    const store = mockStore({ groupReducer: {} });
+    return store.dispatch(messageActions.groupMessages(group.groupId))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+  it('should return no group message', () => {
+    nock('http://localhost')
+      .get(`/api/v1/group/${group.groupId}/messages`)
+      .reply(404, {
+        message: {}
+      });
+    const expectedActions = [
+      {
+        type: NO_GROUP_MESSAGE
       }
     ];
     const store = mockStore({ groupReducer: {} });
@@ -94,7 +112,7 @@ describe('Message actions', () => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
-  it('creates an action for adding new message notification', () => {
+  it('should create an action for adding new message notification', () => {
     const expectedActions = [{
       type: ADD_NOTIFICATION,
       notification
@@ -103,12 +121,21 @@ describe('Message actions', () => {
     store.dispatch(messageActions.addNotification(notification));
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('creates an action for clearing new message notifications', () => {
+  it('should create an action for clearing new message notifications', () => {
     const expectedActions = [{
       type: CLEAR_NOTIFICATION,
     }];
     const store = mockStore({ auth: {} });
     store.dispatch(messageActions.clearNotification());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('should create an action for setting groupname to redux store', () => {
+    const expectedActions = [{
+      type: SET_GROUP_NAME,
+      groupName
+    }];
+    const store = mockStore({ auth: {} });
+    store.dispatch(messageActions.setGroupName(groupName));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

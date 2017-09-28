@@ -17,3 +17,5 @@ export const READ_LIST = 'READ_LIST';
 export const SEARCH_USER = 'SEARCH_USER';
 export const USER_EXIST = 'USER_EXIST';
 export const GROUP_MEMBERS = 'GROUP_MEMBERS';
+export const NO_GROUP_MESSAGE = 'NO_GROUP_MESSAGE';
+export const SET_GROUP_NAME = 'SET_GROUP_NAME';

@@ -2,7 +2,8 @@ import expect from 'expect';
 import messageReducer from '../../src/reducers/messageReducer';
 import { GROUP_MESSAGES, SEND_MESSAGE,
   ADD_NOTIFICATION, CLEAR_NOTIFICATION,
-  READ_STATUS, READ_LIST } from '../../src/actions/types';
+  READ_STATUS, READ_LIST, NO_GROUP_MESSAGES,
+  SET_GROUP_NAME } from '../../src/actions/types';
 
 describe('Message Reducer', () => {
   const initialState = {
@@ -11,7 +12,8 @@ describe('Message Reducer', () => {
     list: {},
     notifications: [],
     readStatus: false,
-    readList: []
+    readList: [],
+    groupName: 'Welcome'
   };
   it('should handle GROUP_MESSAGES', () => {
     const messages = [
@@ -34,6 +36,13 @@ describe('Message Reducer', () => {
     expect(newState.groupMessages.messagecreator).toEqual(
       messages.messagecreator);
   });
+  it('should handle NO_GROUP_MESSAGES', () => {
+    const messages = [];
+    const action = { type: NO_GROUP_MESSAGES, messages };
+    const newState = messageReducer(initialState, action);
+
+    expect(newState.groupMessages).toEqual(messages);
+  });
   it('should handle SEND_MESSAGE', () => {
     const message =
       {
@@ -50,8 +59,7 @@ describe('Message Reducer', () => {
     const action = { type: SEND_MESSAGE, message };
     const newState = messageReducer(initialState, action);
 
-    expect(newState.list).toEqual(message);
-    expect(newState.list.messagecreator).toEqual(message.messagecreator);
+    expect(newState.groupMessages).toEqual([message]);
   });
   it('should return default state', () => {
     const action = { type: 'NO_ACTION' };
@@ -87,6 +95,12 @@ describe('Message Reducer', () => {
     const newState = messageReducer(initialState, action);
 
     expect(newState.readList).toEqual(readList);
+  });
+  it('should handle SET_GROUP_NAME', () => {
+    const groupName = ['New Group'];
+    const action = { type: SET_GROUP_NAME, groupName };
+    const newState = messageReducer(initialState, action);
+    expect(newState.groupName).toEqual(groupName);
   });
 });
 

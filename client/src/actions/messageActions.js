@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GROUP_MESSAGES, SEND_MESSAGE,
- ADD_NOTIFICATION, CLEAR_NOTIFICATION, READ_STATUS, READ_LIST } from './types';
+ ADD_NOTIFICATION, CLEAR_NOTIFICATION,
+ READ_STATUS, READ_LIST, NO_GROUP_MESSAGE, SET_GROUP_NAME } from './types';
 /**
  * @description MessageActions class
  */
@@ -20,6 +21,13 @@ export default class MessageActions {
             messages
           });
           return messages;
+        })
+        .catch((err) => {
+          const messageError = err.response.data.message;
+          dispatch({
+            type: NO_GROUP_MESSAGE
+          });
+          return messageError;
         });
     };
   }
@@ -97,6 +105,17 @@ export default class MessageActions {
           });
           return response.data.uniqueList;
         });
+    };
+  }
+  /**
+   * @description sets the selected groupname to the redux store
+   * @param {*} groupName
+   * @return {*} void
+   */
+  static setGroupName(groupName) {
+    return {
+      type: SET_GROUP_NAME,
+      groupName
     };
   }
 }
