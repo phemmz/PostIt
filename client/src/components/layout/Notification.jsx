@@ -7,7 +7,7 @@ import MessageActions from '../../actions/messageActions';
 /**
  * @description NotificationPage
  */
-class NotificationPage extends Component {
+export class Notification extends Component {
   /**
    * constructor
    * @return {*} void
@@ -64,12 +64,12 @@ class NotificationPage extends Component {
   }
 }
 
-NotificationPage.propTypes = {
+Notification.propTypes = {
   clearNotification: PropTypes.func.isRequired,
   notifications: PropTypes.arrayOf(PropTypes.string)
 };
 
-NotificationPage.defaultProps = {
+Notification.defaultProps = {
   notifications: []
 };
 
@@ -87,4 +87,4 @@ const dispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(stateToProps, dispatchToProps)(NotificationPage);
+export default connect(stateToProps, dispatchToProps)(Notification);

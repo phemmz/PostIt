@@ -19,7 +19,8 @@
     "localStorage": true,
     "window": true,
     "io": true,
-    "jest": true
+    "jest": true,
+    "location": true
   },
   "settings": {
     "import/resolver": {

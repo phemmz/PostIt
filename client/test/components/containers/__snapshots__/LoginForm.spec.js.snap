@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm Component should always render a div 1`] = `
+<LoginForm
+  googleAuthentication={[Function]}
+  login={[Function]}
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col s12 m6 offset-s7 offset-m6 login"
+      >
+        <div
+          className="right"
+        >
+          <t
+            buttonText="Sign in with Google"
+            className="google-link"
+            clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
+            cookiePolicy="single_host_origin"
+            disabledStyle={
+              Object {
+                "opacity": 0.6,
+              }
+            }
+            fetchBasicProfile={true}
+            isSignedIn={false}
+            onFailure={[Function]}
+            onRequest={[Function]}
+            onSuccess={[Function]}
+            prompt=""
+            responseType="permission"
+            scope="profile email"
+            tag="button"
+            uxMode="popup"
+          />
+        </div>
+        <form
+          onSubmit={[Function]}
+        >
+          <h4
+            className="green-text text-darken-4 login-text"
+          >
+            Login
+          </h4>
+          <TextFieldGroup
+            checkUserExists={[Function]}
+            error=""
+            field="username"
+            htmlFor="username"
+            id="username"
+            label="Username"
+            onChange={[Function]}
+            type="text"
+            value=""
+          >
+            <div
+              className="input-field col s12"
+            >
+              <input
+                className="form-control"
+                id="username"
+                name="username"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+              <label
+                htmlFor="username"
+              >
+                Username
+              </label>
+            </div>
+          </TextFieldGroup>
+          <TextFieldGroup
+            checkUserExists={[Function]}
+            error=""
+            field="password"
+            htmlFor="password"
+            id="password"
+            label="Password"
+            onChange={[Function]}
+            type="password"
+            value=""
+          >
+            <div
+              className="input-field col s12"
+            >
+              <input
+                className="form-control"
+                id="password"
+                name="password"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="password"
+                value=""
+              />
+              <label
+                htmlFor="password"
+              >
+                Password
+              </label>
+            </div>
+          </TextFieldGroup>
+          <div
+            className="center"
+          >
+            <button
+              className="waves-effect waves-light btn"
+            >
+              Login
+            </button>
+          </div>
+          <div
+            className="center reset-link"
+          >
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="/reset"
+            >
+              <a
+                onClick={[Function]}
+                style={Object {}}
+              >
+                Forgot Password?
+              </a>
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</LoginForm>
+`;

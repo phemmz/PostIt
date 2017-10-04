@@ -10,7 +10,7 @@ import AuthenticationActions from '../../../actions/authActions';
 /**
  * @description LoginForm class
  */
-class LoginForm extends Component {
+export class LoginForm extends Component {
   /**
    * constructor
    * @param {*} props

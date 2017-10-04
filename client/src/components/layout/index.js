@@ -1,6 +1,6 @@
 import ResetPasswordPage from './ResetPasswordPage.jsx';
-import CheckVerificationPage from './CheckVerificationPage.jsx';
-import NotificationPage from './NotificationPage.jsx';
+import CheckVerificationPage from './CheckVerification.jsx';
+import NotificationPage from './Notification.jsx';
 import SearchPage from './SearchPage.jsx';
 import GroupMembersPage from './GroupMembersPage.jsx';
 

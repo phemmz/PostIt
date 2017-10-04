@@ -64,3 +64,37 @@ export const readList = ['phemmz', 'tuna'];
 export const notification = 'new message from ksung group';
 
 export const groupName = 'New Group';
+
+export const initialSignupState = {
+  username: '',
+  email: '',
+  phoneNumber: '',
+  password: '',
+  passwordConfirmation: '',
+  errors: {},
+  invalid: false
+};
+
+export const initialLoginState = {
+  username: '',
+  password: '',
+  errors: {},
+  isLoading: false
+};
+
+export const initialCreateGroupState = {
+  users: {},
+  groupname: {},
+  list: [],
+  userList: []
+};
+
+export const initialCheckVerificationState = {
+  errors: {},
+  invalid: false,
+  resetMessage: '',
+  verificationCode: '',
+  verificationStatus: false,
+  password: '',
+  passwordConfirmation: ''
+};

@@ -5,7 +5,7 @@ import { ResetPasswordPage,
   SearchPage, GroupMembersPage } from './components/layout';
 import { SignupPage, LoginPage,
  Home, Main, Welcome, NotFoundPage } from './components/presentation';
-import CreateGroup from './components/containers/CreateGroup.jsx';
+import CreateGroupPage from './components/containers/CreateGroup.jsx';
 import RequireAuth from './utils/RequireAuth.jsx';
 import LoggedIn from './utils/LoggedIn.jsx';
 
@@ -17,7 +17,7 @@ export default (
     <Route path="reset" component={LoggedIn(ResetPasswordPage)} />
     <Route path="verification" component={LoggedIn(CheckVerificationPage)} />
     <Route path="dashboard" component={RequireAuth(Home)} />
-    <Route path="group" component={RequireAuth(CreateGroup)} />
+    <Route path="group" component={RequireAuth(CreateGroupPage)} />
     <Route path="notification" component={RequireAuth(NotificationPage)} />
     <Route path="search" component={RequireAuth(SearchPage)} />
     <Route path="members" component={RequireAuth(GroupMembersPage)} />

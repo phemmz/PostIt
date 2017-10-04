@@ -91,6 +91,7 @@
     "sequelize": "^4.1.0",
     "serve-favicon": "^2.4.3",
     "shortid": "^2.2.8",
+    "sinon": "^4.0.0",
     "socket.io": "^2.0.3",
     "superagent": "^3.5.2",
     "supertest": "^3.0.0",
