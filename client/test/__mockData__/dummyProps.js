@@ -1,12 +1,5 @@
 export const suggestions = ['phemmz', 'nawtuaw'];
 
-let users = ['phemmz'];
-
-export const updateUser = () => {
-  users = ['new phemmz'];
-  return users;
-};
-
 export const notifications = ['New message from neene'];
 
 export const currentMessage = {

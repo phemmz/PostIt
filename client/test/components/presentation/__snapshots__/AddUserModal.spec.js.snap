@@ -5,7 +5,6 @@ exports[`AddUserModal Component should always render a div 1`] = `
   addUserFail={false}
   addUserSuccess={false}
   existingUser={Array []}
-  onChange={[Function]}
   onChipsChange={[Function]}
   onClick={[Function]}
   suggestions={
