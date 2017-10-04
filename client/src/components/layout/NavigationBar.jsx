@@ -7,7 +7,7 @@ import AuthenticationActions from '../../actions/authActions';
 /**
  * @description The Navigation Bar class
  */
-class NavigationBar extends Component {
+export class NavigationBar extends Component {
   /**
    * constructor
    * @return {*} void
@@ -39,7 +39,7 @@ class NavigationBar extends Component {
             <a
               href=""
               onClick={this.logout}
-              className="waves-effect waves-light btn"
+              className="waves-effect waves-light btn test-logout"
             >Logout</a>
           </li>
         </ul>

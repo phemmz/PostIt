@@ -4,6 +4,7 @@ import SignupForm from
   '../../../src/components/layout/signup/SignupForm';
 import AuthenticationActions from
   '../../../src/actions/authActions';
+import { initialSignupState } from '../../__mockData__/dummyData';
 
 jest.mock('react-google-login');
 
@@ -25,15 +26,6 @@ const setup = () => {
 
 describe('SignupForm Component', () => {
   const { props, enzymeWrapper } = setup();
-  const initialState = {
-    username: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    passwordConfirmation: '',
-    errors: {},
-    invalid: false
-  };
   it('should render a form for signin up', () => {
     expect(enzymeWrapper).toMatchSnapshot();
     expect(enzymeWrapper.exists()).toBe(true);
@@ -43,7 +35,7 @@ describe('SignupForm Component', () => {
     expect(enzymeWrapper.find('TextFieldGroup')).toHaveLength(5);
   });
   it('should have an initial state', () => {
-    expect(enzymeWrapper.state()).toEqual(initialState);
+    expect(enzymeWrapper.state()).toEqual(initialSignupState);
   });
   it('should set state on change of input fields', () => {
     enzymeWrapper.find('#username').simulate('change', {
@@ -72,7 +64,7 @@ describe('SignupForm Component', () => {
     enzymeWrapper.find('#username').simulate('blur', event);
     expect(enzymeWrapper.state('invalid')).toBe(false);
   });
-  it('should call onSubmit when signup button is clicked', () => {
+  it('should update the state when signup button is clicked', () => {
     const form = enzymeWrapper.find('form').first();
     form.simulate('submit', {
       preventDefault: () => {

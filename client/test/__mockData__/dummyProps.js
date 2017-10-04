@@ -17,3 +17,14 @@ export const currentMessage = {
 };
 
 export const readList = 'phemmz';
+
+export const auth = {
+  isAuthenticated: true,
+  user: {
+    userId: 1,
+    username: 'newUser',
+    email: 'newUser@gmail.com',
+    iat: 121231,
+    exp: 4342121,
+  }
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NavigationBar from '../layout/NavigationBar.jsx';
+import NavigationBarTop from '../layout/NavigationBar.jsx';
 
 /**
  * @description Main component
@@ -9,7 +9,7 @@ import NavigationBar from '../layout/NavigationBar.jsx';
 const Main = ({ children }) => {
   return (
     <div className="landing-background">
-      <NavigationBar />
+      <NavigationBarTop />
       <div className="container-fluid">
         {children}
       </div>

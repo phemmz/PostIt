@@ -7,9 +7,9 @@ import SignupActions from '../../actions/signupActions';
 import sharedResetValidations from '../../../../server/shared/resetValidations';
 
 /**
- * @description CheckVerificationPage
+ * @description CheckVerification
  */
-class CheckVerificationPage extends Component {
+export class CheckVerification extends Component {
   /**
    * constructor
    * @param {*} props
@@ -229,7 +229,7 @@ class CheckVerificationPage extends Component {
   }
 }
 
-CheckVerificationPage.propTypes = {
+CheckVerification.propTypes = {
   updatePassword: PropTypes.func.isRequired,
   isUserExists: PropTypes.func.isRequired
 };
@@ -245,4 +245,4 @@ const dispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, dispatchToProps)(CheckVerificationPage);
+export default connect(null, dispatchToProps)(CheckVerification);

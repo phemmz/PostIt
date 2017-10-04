@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GroupActions from '../../actions/groupActions';
 /**
  * @description CreateGroup container
  */
-class CreateGroup extends Component {
+export class CreateGroup extends Component {
   /**
    * constructor
    */
@@ -14,7 +14,7 @@ class CreateGroup extends Component {
     super();
     this.state = {
       users: {},
-      groups: {},
+      groupname: {},
       list: [],
       userList: []
     };
@@ -27,10 +27,8 @@ class CreateGroup extends Component {
  * @return {*} state
  */
   updateGroupHandler(event) {
-    const updatedGroup = Object.assign({}, this.state.groups);
-    updatedGroup[event.target.id] = event.target.value.trim();
     this.setState({
-      groups: updatedGroup
+      [event.target.name]: event.target.value.trim()
     });
   }
 /**
@@ -41,15 +39,21 @@ class CreateGroup extends Component {
  */
   submitHandler(event) {
     event.preventDefault();
-    this.props.groupCreate(this.state.groups)
-      .then(() => {
-        browserHistory.push('/dashboard');
-        Materialize.toast('Group Created!', 4000, 'green');
+    if (this.state.groupname) {
+      this.props.groupCreate({
+        groupname: this.state.groupname
       })
-      .catch(() => {
-        Materialize.toast('Group Already Exist!', 4000, 'red');
-        this.groupRef.value = '';
-      });
+        .then(() => {
+          location.href = '/dashboard';
+          Materialize.toast('Group Created!', 4000, 'green');
+        })
+        .catch(() => {
+          Materialize.toast('Group Already Exist!', 4000, 'red');
+          this.groupRef.value = '';
+        });
+    } else {
+      Materialize.toast('Please fill in your group name', 4000, 'red');
+    }
   }
   /**
    * render
@@ -71,6 +75,7 @@ class CreateGroup extends Component {
                     <input
                       ref={(el) => { this.groupRef = el; }}
                       onChange={this.updateGroupHandler}
+                      name="groupname"
                       id="groupname"
                       type="text"
                       className="validate"
