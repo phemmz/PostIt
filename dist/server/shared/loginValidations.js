@@ -31,24 +31,24 @@ var sharedSigninValidations = function () {
 
     /**
      * validateSignin() takes in the data from the body for login and validates them
-     * @param {object} data
+     * @param {object} userDetails
      * @returns {object} errors,isValid
      */
-    value: function validateSignin(data) {
+    value: function validateSignin(userDetails) {
       var errors = {};
-      if (!data.username) {
+      if (!userDetails.username) {
         errors.username = 'Please fill in your username';
       }
-      if (data.username) {
-        if (_validator2.default.isEmpty(data.username.trim())) {
+      if (userDetails.username) {
+        if (_validator2.default.isEmpty(userDetails.username.trim())) {
           errors.username = 'Please fill in your username';
         }
       }
-      if (!data.password) {
+      if (!userDetails.password) {
         errors.password = 'Please fill in your password';
       }
-      if (data.password) {
-        if (_validator2.default.isEmpty(data.password.trim())) {
+      if (userDetails.password) {
+        if (_validator2.default.isEmpty(userDetails.password.trim())) {
           errors.password = 'Please fill in your password';
         }
       }

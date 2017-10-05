@@ -1,6 +1,7 @@
 import Model from '../data/models';
 import sendMail from './helpers/sendMail';
 import sendSMS from './helpers/sendSMS';
+import MessageValidations from './middlewares/MessageValidations';
 
 const Message = Model.Message;
 const User = Model.User;
@@ -13,23 +14,30 @@ const View = Model.View;
 export default class MessageController {
   /**
    * @description It sends message to a particular group
-   * @param {object} req
-   * @param {object} res
+   * @param {object} request
+   * @param {object} response
    * @return {object} json
    */
-  static sendMessage(req, res) {
-    /**
-     * @description Find the particular group by its id
-     */
-    Group.findOne({
-      where: { id: req.params.groupId }
-    })
+  static sendMessage(request, response) {
+    const { errors, isValid } =
+      MessageValidations.validateSendMessage(request.body);
+    if (!isValid) {
+      response.status(422).json({
+        errors
+      });
+    } else {
+      /**
+       * @description Find the particular group by its id
+       */
+      Group.findOne({
+        where: { id: request.params.groupId }
+      })
       .then((group) => {
         /**
          * @description Checks if the group exist
          */
         if (group === null) {
-          res.status(404).json({
+          response.status(404).json({
             confirmation: 'fail',
             message: 'Group does not exist'
           });
@@ -39,7 +47,7 @@ export default class MessageController {
            * Find the User
            */
           User.findOne({
-            where: { username: req.currentUser.username }
+            where: { username: request.currentUser.username }
           })
             .then((user) => {
               group.getUsers({
@@ -48,15 +56,15 @@ export default class MessageController {
                 .then((members) => {
                   Message
                     .create({
-                      content: req.body.content,
-                      readcheck: req.body.readcheck,
-                      priority: req.body.priority,
-                      groupId: req.params.groupId,
+                      content: request.body.content,
+                      readcheck: request.body.readcheck,
+                      priority: request.body.priority,
+                      groupId: request.params.groupId,
                       messagecreator: user.username,
                       userId: user.id
                     })
                       .then((message) => {
-                        req.app.io.emit(
+                        request.app.io.emit(
                           'newMsg', `New message from
                            ${message.messagecreator} in ${group.groupname}
                             group`);
@@ -65,13 +73,13 @@ export default class MessageController {
                             if (member.username !== message.messagecreator) {
                               sendMail(member.email, message.priority,
                                 message.messagecreator, group.groupname,
-                                member.username, req, res);
+                                member.username, request, response);
                             }
                           } else if (message.priority === 'Critical') {
                             if (member.username !== message.messagecreator) {
                               sendMail(member.email, message.priority,
                                 message.messagecreator, group.groupname,
-                                member.username, req, res);
+                                member.username, request, response);
                               sendSMS(member.phoneNumber,
                                 message.messagecreator, message.priority,
                                 group.groupname);
@@ -79,7 +87,7 @@ export default class MessageController {
                           }
                           return member;
                         });
-                        res.status(201).json({
+                        response.status(201).json({
                           confirmation: 'success',
                           message: 'Message sent',
                           results: message,
@@ -87,7 +95,7 @@ export default class MessageController {
                         });
                       })
                       .catch((err) => {
-                        res.status(400).json({
+                        response.status(400).json({
                           confirmation: 'fail',
                           message: err
                         });
@@ -96,32 +104,33 @@ export default class MessageController {
             });
         }
       });
+    }
   }
 /**
  * @description it gets all messages in a group
- * @param {object} req
- * @param {object} res
+ * @param {object} request
+ * @param {object} response
  * @return {object} json
  */
-  static getMessages(req, res) {
+  static getMessages(request, response) {
     Message.findAll({
-      where: { groupId: req.params.groupId }
+      where: { groupId: request.params.groupId }
     })
       .then((messages) => {
         if (messages.length < 1) {
-          res.status(404).json({
+          response.status(404).json({
             confirmation: 'fail',
             message: 'No message found'
           });
         } else {
-          res.status(200).json({
+          response.status(200).json({
             confirmation: 'success',
             results: messages
           });
         }
       })
       .catch((error) => {
-        res.json({
+        response.json({
           confirmation: 'fail',
           message: error
         });
@@ -129,37 +138,37 @@ export default class MessageController {
   }
   /**
    * @description updates the readStatus after viewing a message
-   * @param {*} req
-   * @param {*} res
+   * @param {*} request
+   * @param {*} response
    * @return {*} void
    */
-  static readStatus(req, res) {
+  static readStatus(request, response) {
     View.findOne({
       where: {
-        groupId: req.params.groupId,
-        username: req.currentUser.username
+        groupId: request.params.groupId,
+        username: request.currentUser.username
       }
     })
-      .then((response) => {
-        if (response === null) {
+      .then((result) => {
+        if (result === null) {
           View.create({
-            groupId: req.params.groupId,
-            username: req.currentUser.username
+            groupId: request.params.groupId,
+            username: request.currentUser.username
           })
             .then((view) => {
-              res.status(201).json({
+              response.status(201).json({
                 confirmation: 'success',
                 results: view
               });
             })
             .catch((err) => {
-              res.json({
+              response.json({
                 confirmation: 'fail',
                 message: err
               });
             });
         } else {
-          res.json({
+          response.json({
             confirmation: 'success'
           });
         }
@@ -167,29 +176,29 @@ export default class MessageController {
   }
   /**
    * @description It gets all the people who have read a message
-   * @param {*} req
-   * @param {*} res
+   * @param {*} request
+   * @param {*} response
    * @return {*} void
    */
-  static readList(req, res) {
+  static readList(request, response) {
     View.findAll({
-      where: { groupId: req.params.groupId }
+      where: { groupId: request.params.groupId }
     })
-      .then((response) => {
+      .then((results) => {
         const list = [];
-        response.map((eachUser) => {
+        results.map((eachUser) => {
           return list.push(eachUser.username);
         });
         const uniqueList = list.filter((item, pos, self) => {
           return self.indexOf(item) === pos;
         });
-        res.status(200).json({
+        response.status(200).json({
           confirmation: 'success',
           uniqueList
         });
       })
       .catch(() => {
-        res.status(400).json({
+        response.status(400).json({
           confirmation: 'fail',
           message: 'Invalid group id'
         });

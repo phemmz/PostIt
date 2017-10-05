@@ -256,7 +256,7 @@ describe('Group', function () {
         res.should.have.status(422);
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
-        res.body.errors.should.have.property('username').eql('Please fill in your groupname');
+        res.body.errors.should.have.property('groupname').eql('Please fill in your groupname');
         done();
       });
     });
@@ -342,7 +342,7 @@ describe('Group', function () {
     });
     it('it should not allow a logged in user to POST messages to a group without content', function (done) {
       // eslint-disable-line
-      server.post('/api/v1/group/2/message').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(_extends({}, _dummyData.msgDetails, { content: '' })).end(function (err, res) {
+      server.post('/api/v1/group/1/message').set('Connection', 'keep alive').set('Content-Type', 'application/json').set('authorization', 'Bearer ' + token).send(_extends({}, _dummyData.msgDetails, { content: '' })).end(function (err, res) {
         res.body.should.be.a('object');
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('invalid');

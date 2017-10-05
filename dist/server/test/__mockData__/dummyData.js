@@ -29,7 +29,8 @@ var userDetails = exports.userDetails = [{
   username: 'phemmz8',
   email: 'phemmz8@gmail.com',
   password: '123456',
-  phoneNumber: '107417116674271276210'
+  phoneNumber: '107417116674271276210',
+  passwordConfirmation: '123456'
 }, {
   username: 'user09',
   email: 'user09@gmail.com',

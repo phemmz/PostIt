@@ -31,17 +31,17 @@ var CreateGroupValidations = function () {
 
     /**
      * @description validates users input fields
-     * @param {object} data
+     * @param {object} groupDetails
      * @returns {object} errors,isValid
      */
-    value: function validateCreateGroup(data) {
+    value: function validateCreateGroup(groupDetails) {
       var errors = {};
-      if (data.groupname) {
-        if (_validator2.default.isEmpty(data.groupname.trim())) {
-          errors.username = 'Please fill in your groupname';
+      if (groupDetails.groupname) {
+        if (_validator2.default.isEmpty(groupDetails.groupname.trim())) {
+          errors.groupname = 'Please fill in your groupname';
         }
       }
-      if (!data.groupname) {
+      if (!groupDetails.groupname) {
         errors.invalid = 'Please fill in your details';
       }
       return {
@@ -56,22 +56,18 @@ var CreateGroupValidations = function () {
      * @param {*} next
      * @returns {object} json
      */
+    // static validateUserInput(req, res, next) {
+    //   const { errors, isValid } =
+    //     CreateGroupValidations.validateCreateGroup(req.body);
+    //   if (!isValid) {
+    //     res.status(422).json({
+    //       errors
+    //     });
+    //   } else {
+    //     next();
+    //   }
+    // }
 
-  }, {
-    key: 'validateUserInput',
-    value: function validateUserInput(req, res, next) {
-      var _CreateGroupValidatio = CreateGroupValidations.validateCreateGroup(req.body),
-          errors = _CreateGroupValidatio.errors,
-          isValid = _CreateGroupValidatio.isValid;
-
-      if (!isValid) {
-        res.status(422).json({
-          errors: errors
-        });
-      } else {
-        next();
-      }
-    }
   }]);
 
   return CreateGroupValidations;

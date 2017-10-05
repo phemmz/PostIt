@@ -56,22 +56,18 @@ var ResetValidations = function () {
      * @param {*} next
      * @returns {object} json
      */
+    // static validateUserInput(req, res, next) {
+    //   const { errors, isValid } =
+    //     ResetValidations.validateResetPassword(req.body);
+    //   if (!isValid) {
+    //     res.status(422).json({
+    //       errors
+    //     });
+    //   } else {
+    //     next();
+    //   }
+    // }
 
-  }, {
-    key: 'validateUserInput',
-    value: function validateUserInput(req, res, next) {
-      var _ResetValidations$val = ResetValidations.validateResetPassword(req.body),
-          errors = _ResetValidations$val.errors,
-          isValid = _ResetValidations$val.isValid;
-
-      if (!isValid) {
-        res.status(422).json({
-          errors: errors
-        });
-      } else {
-        next();
-      }
-    }
   }]);
 
   return ResetValidations;

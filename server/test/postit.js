@@ -339,7 +339,7 @@ describe('Group', () => {
           res.should.have.status(422);
           res.body.should.be.a('object');
           res.body.should.have.property('errors');
-          res.body.errors.should.have.property('username')
+          res.body.errors.should.have.property('groupname')
           .eql('Please fill in your groupname');
           done();
         });
@@ -479,7 +479,7 @@ describe('Group', () => {
     });
     it('it should not allow a logged in user to POST messages to a group without content', (done) => {  // eslint-disable-line
       server
-      .post('/api/v1/group/2/message')
+      .post('/api/v1/group/1/message')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${token}`)

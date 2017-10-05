@@ -17,11 +17,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param {*} messagecreator
  * @param {*} groupname
  * @param {*} username
- * @param {*} req
- * @param {*} res
+ * @param {*} request
+ * @param {*} response
  * @returns {*} void
  */
-exports.default = function (email, priority, messagecreator, groupname, username, req, res) {
+exports.default = function (email, priority, messagecreator, groupname, username, request, response) {
   var appURL = 'https://phemmz-post-it.herokuapp.com/dashboard';
   var transporter = _nodemailer2.default.createTransport({
     service: 'Gmail',
@@ -38,12 +38,12 @@ exports.default = function (email, priority, messagecreator, groupname, username
   };
   transporter.sendMail(mailOptions, function (err) {
     if (err) {
-      res.json({
+      response.json({
         confirmation: 'fail',
         message: 'Error sending email to ' + email
       });
     } else {
-      res.status(200).json({
+      response.status(200).json({
         confirmation: 'success',
         message: 'Notification Sent!!'
       });
