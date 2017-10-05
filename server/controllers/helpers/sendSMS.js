@@ -6,11 +6,12 @@ import Jusibe from 'node-jusibe';
  * @param {*} messagecreator
  * @param {*} priority
  * @param {*} groupname
- * @param {*} req
- * @param {*} res
+ * @param {*} request
+ * @param {*} response
  * @returns {*} void
  */
-export default (phoneNumber, messagecreator, priority, groupname, req, res) => {
+export default (phoneNumber, messagecreator,
+  priority, groupname, request, response) => {
   const jusibeSDK = new Jusibe(
     process.env.PUBLIC_KEY, process.env.ACCESS_TOKEN
   );
@@ -22,13 +23,13 @@ export default (phoneNumber, messagecreator, priority, groupname, req, res) => {
   };
   jusibeSDK.sendMessage(params)
     .then(() => {
-      res.status(200).json({
+      response.status(200).json({
         confirmation: 'success',
         message: 'Notification Sent!!'
       });
     })
     .catch(() => {
-      res.status(400).json({
+      response.status(400).json({
         confirmation: 'fail',
         message: 'Notification Failed!!'
       });

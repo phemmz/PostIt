@@ -15,14 +15,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * @description SendMessageValidations class
+ * @class MessageValidations
  */
-var SendMessageValidations = function () {
-  function SendMessageValidations() {
-    _classCallCheck(this, SendMessageValidations);
+var MessageValidations = function () {
+  function MessageValidations() {
+    _classCallCheck(this, MessageValidations);
   }
 
-  _createClass(SendMessageValidations, null, [{
+  _createClass(MessageValidations, null, [{
     key: 'validateSendMessage',
 
     /**
@@ -43,28 +43,9 @@ var SendMessageValidations = function () {
         isValid: (0, _isEmpty2.default)(errors)
       };
     }
-    /**
-     * @description validates User Input
-     * @param {*} req
-     * @param {*} res
-     * @param {*} next
-     * @return {*} void
-     */
-    // static validateUserInput(req, res, next) {
-    //   const { errors, isValid } =
-    //     SendMessageValidations.validateSendMessage(req.body);
-    //   if (!isValid) {
-    //     res.status(422).json({
-    //       errors
-    //     });
-    //   } else {
-    //     next();
-    //   }
-    // }
-
   }]);
 
-  return SendMessageValidations;
+  return MessageValidations;
 }();
 
-exports.default = SendMessageValidations;
+exports.default = MessageValidations;

@@ -18,6 +18,10 @@ var _sendSMS = require('./helpers/sendSMS');
 
 var _sendSMS2 = _interopRequireDefault(_sendSMS);
 
+var _MessageValidations = require('./middlewares/MessageValidations');
+
+var _MessageValidations2 = _interopRequireDefault(_MessageValidations);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,101 +45,111 @@ var MessageController = function () {
 
     /**
      * @description It sends message to a particular group
-     * @param {object} req
-     * @param {object} res
+     * @param {object} request
+     * @param {object} response
      * @return {object} json
      */
-    value: function sendMessage(req, res) {
-      /**
-       * @description Find the particular group by its id
-       */
-      Group.findOne({
-        where: { id: req.params.groupId }
-      }).then(function (group) {
+    value: function sendMessage(request, response) {
+      var _MessageValidations$v = _MessageValidations2.default.validateSendMessage(request.body),
+          errors = _MessageValidations$v.errors,
+          isValid = _MessageValidations$v.isValid;
+
+      if (!isValid) {
+        response.status(422).json({
+          errors: errors
+        });
+      } else {
         /**
-         * @description Checks if the group exist
+         * @description Find the particular group by its id
          */
-        if (group === null) {
-          res.status(404).json({
-            confirmation: 'fail',
-            message: 'Group does not exist'
-          });
-        } else {
+        Group.findOne({
+          where: { id: request.params.groupId }
+        }).then(function (group) {
           /**
-           * If the group exist,
-           * Find the User
+           * @description Checks if the group exist
            */
-          User.findOne({
-            where: { username: req.currentUser.username }
-          }).then(function (user) {
-            group.getUsers({
-              where: {}
-            }).then(function (members) {
-              Message.create({
-                content: req.body.content,
-                readcheck: req.body.readcheck,
-                priority: req.body.priority,
-                groupId: req.params.groupId,
-                messagecreator: user.username,
-                userId: user.id
-              }).then(function (message) {
-                req.app.io.emit('newMsg', 'New message from\n                           ' + message.messagecreator + ' in ' + group.groupname + '\n                            group');
-                members.map(function (member) {
-                  if (message.priority === 'Urgent') {
-                    if (member.username !== message.messagecreator) {
-                      (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, req, res);
+          if (group === null) {
+            response.status(404).json({
+              confirmation: 'fail',
+              message: 'Group does not exist'
+            });
+          } else {
+            /**
+             * If the group exist,
+             * Find the User
+             */
+            User.findOne({
+              where: { username: request.currentUser.username }
+            }).then(function (user) {
+              group.getUsers({
+                where: {}
+              }).then(function (members) {
+                Message.create({
+                  content: request.body.content,
+                  readcheck: request.body.readcheck,
+                  priority: request.body.priority,
+                  groupId: request.params.groupId,
+                  messagecreator: user.username,
+                  userId: user.id
+                }).then(function (message) {
+                  request.app.io.emit('newMsg', 'New message from\n                           ' + message.messagecreator + ' in ' + group.groupname + '\n                            group');
+                  members.map(function (member) {
+                    if (message.priority === 'Urgent') {
+                      if (member.username !== message.messagecreator) {
+                        (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, request, response);
+                      }
+                    } else if (message.priority === 'Critical') {
+                      if (member.username !== message.messagecreator) {
+                        (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, request, response);
+                        (0, _sendSMS2.default)(member.phoneNumber, message.messagecreator, message.priority, group.groupname);
+                      }
                     }
-                  } else if (message.priority === 'Critical') {
-                    if (member.username !== message.messagecreator) {
-                      (0, _sendMail2.default)(member.email, message.priority, message.messagecreator, group.groupname, member.username, req, res);
-                      (0, _sendSMS2.default)(member.phoneNumber, message.messagecreator, message.priority, group.groupname);
-                    }
-                  }
-                  return member;
-                });
-                res.status(201).json({
-                  confirmation: 'success',
-                  message: 'Message sent',
-                  results: message,
-                  groupMembers: members
-                });
-              }).catch(function (err) {
-                res.status(400).json({
-                  confirmation: 'fail',
-                  message: err
+                    return member;
+                  });
+                  response.status(201).json({
+                    confirmation: 'success',
+                    message: 'Message sent',
+                    results: message,
+                    groupMembers: members
+                  });
+                }).catch(function (err) {
+                  response.status(400).json({
+                    confirmation: 'fail',
+                    message: err
+                  });
                 });
               });
             });
-          });
-        }
-      });
+          }
+        });
+      }
     }
     /**
      * @description it gets all messages in a group
-     * @param {object} req
-     * @param {object} res
+     * @param {object} request
+     * @param {object} response
      * @return {object} json
      */
 
   }, {
     key: 'getMessages',
-    value: function getMessages(req, res) {
+    value: function getMessages(request, response) {
       Message.findAll({
-        where: { groupId: req.params.groupId }
+        where: { groupId: request.params.groupId }
       }).then(function (messages) {
         if (messages.length < 1) {
-          res.status(404).json({
+          response.status(404).json({
             confirmation: 'fail',
             message: 'No message found'
           });
         } else {
-          res.status(200).json({
+          response.status(200).json({
             confirmation: 'success',
             results: messages
           });
         }
       }).catch(function (error) {
-        res.json({
+        response.json({
           confirmation: 'fail',
           message: error
         });
@@ -143,37 +157,37 @@ var MessageController = function () {
     }
     /**
      * @description updates the readStatus after viewing a message
-     * @param {*} req
-     * @param {*} res
+     * @param {*} request
+     * @param {*} response
      * @return {*} void
      */
 
   }, {
     key: 'readStatus',
-    value: function readStatus(req, res) {
+    value: function readStatus(request, response) {
       View.findOne({
         where: {
-          groupId: req.params.groupId,
-          username: req.currentUser.username
+          groupId: request.params.groupId,
+          username: request.currentUser.username
         }
-      }).then(function (response) {
-        if (response === null) {
+      }).then(function (result) {
+        if (result === null) {
           View.create({
-            groupId: req.params.groupId,
-            username: req.currentUser.username
+            groupId: request.params.groupId,
+            username: request.currentUser.username
           }).then(function (view) {
-            res.status(201).json({
+            response.status(201).json({
               confirmation: 'success',
               results: view
             });
           }).catch(function (err) {
-            res.json({
+            response.json({
               confirmation: 'fail',
               message: err
             });
           });
         } else {
-          res.json({
+          response.json({
             confirmation: 'success'
           });
         }
@@ -181,30 +195,30 @@ var MessageController = function () {
     }
     /**
      * @description It gets all the people who have read a message
-     * @param {*} req
-     * @param {*} res
+     * @param {*} request
+     * @param {*} response
      * @return {*} void
      */
 
   }, {
     key: 'readList',
-    value: function readList(req, res) {
+    value: function readList(request, response) {
       View.findAll({
-        where: { groupId: req.params.groupId }
-      }).then(function (response) {
+        where: { groupId: request.params.groupId }
+      }).then(function (results) {
         var list = [];
-        response.map(function (eachUser) {
+        results.map(function (eachUser) {
           return list.push(eachUser.username);
         });
         var uniqueList = list.filter(function (item, pos, self) {
           return self.indexOf(item) === pos;
         });
-        res.status(200).json({
+        response.status(200).json({
           confirmation: 'success',
           uniqueList: uniqueList
         });
       }).catch(function () {
-        res.status(400).json({
+        response.status(400).json({
           confirmation: 'fail',
           message: 'Invalid group id'
         });

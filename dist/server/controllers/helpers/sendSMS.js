@@ -16,11 +16,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param {*} messagecreator
  * @param {*} priority
  * @param {*} groupname
- * @param {*} req
- * @param {*} res
+ * @param {*} request
+ * @param {*} response
  * @returns {*} void
  */
-exports.default = function (phoneNumber, messagecreator, priority, groupname, req, res) {
+exports.default = function (phoneNumber, messagecreator, priority, groupname, request, response) {
   var jusibeSDK = new _nodeJusibe2.default(process.env.PUBLIC_KEY, process.env.ACCESS_TOKEN);
   var params = {
     to: phoneNumber,
@@ -28,12 +28,12 @@ exports.default = function (phoneNumber, messagecreator, priority, groupname, re
     message: messagecreator + ' just posted a new ' + priority + ' message\n     in ' + groupname + ' POSTIT group.'
   };
   jusibeSDK.sendMessage(params).then(function () {
-    res.status(200).json({
+    response.status(200).json({
       confirmation: 'success',
       message: 'Notification Sent!!'
     });
   }).catch(function () {
-    res.status(400).json({
+    response.status(400).json({
       confirmation: 'fail',
       message: 'Notification Failed!!'
     });

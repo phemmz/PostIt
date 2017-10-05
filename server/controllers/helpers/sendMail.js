@@ -7,12 +7,12 @@ import nodemailer from 'nodemailer';
  * @param {*} messagecreator
  * @param {*} groupname
  * @param {*} username
- * @param {*} req
- * @param {*} res
+ * @param {*} request
+ * @param {*} response
  * @returns {*} void
  */
 export default (email, priority, messagecreator,
-  groupname, username, req, res) => {
+  groupname, username, request, response) => {
   const appURL = 'https://phemmz-post-it.herokuapp.com/dashboard';
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -33,12 +33,12 @@ export default (email, priority, messagecreator,
   };
   transporter.sendMail(mailOptions, (err) => {
     if (err) {
-      res.json({
+      response.json({
         confirmation: 'fail',
         message: `Error sending email to ${email}`
       });
     } else {
-      res.status(200).json({
+      response.status(200).json({
         confirmation: 'success',
         message: 'Notification Sent!!'
       });

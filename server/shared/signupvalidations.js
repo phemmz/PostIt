@@ -8,59 +8,60 @@ export default class sharedSignupValidations {
 /**
  * commonValidations() takes in the data from the body for signup and
  * validates them
- * @param {object} data
+ * @param {object} userDetails
  * @return {object} errors
  * @returns {object} errors,isValid
  */
-  static commonValidations(data) {
+  static commonValidations(userDetails) {
     const errors = {};
-    if (!data.username) {
+    if (!userDetails.username) {
       errors.username = 'Please fill in your username';
     }
-    if (data.username) {
-      if (Validator.isEmpty(data.username.trim())) {
+    if (userDetails.username) {
+      if (Validator.isEmpty(userDetails.username.trim())) {
         errors.username = 'Please fill in your username';
       }
     }
-    if (!data.phoneNumber) {
+    if (!userDetails.phoneNumber) {
       errors.phoneNumber = 'Please fill in your phone number';
     }
-    if (data.phoneNumber) {
-      if (Validator.isEmpty(data.phoneNumber.trim())) {
+    if (userDetails.phoneNumber) {
+      if (Validator.isEmpty(userDetails.phoneNumber.trim())) {
         errors.phoneNumber = 'Please fill in your phone number';
       }
     }
-    if (!data.email) {
+    if (!userDetails.email) {
       errors.email = 'Please fill in your email';
     }
-    if (data.email && !Validator.isEmail(data.email)) {
+    if (userDetails.email && !Validator.isEmail(userDetails.email)) {
       errors.email = 'Email is invalid';
     }
-    if (!data.password) {
+    if (!userDetails.password) {
       errors.password = 'Please fill in your password';
     }
-    if (data.password) {
-      if (Validator.isEmpty(data.password.trim())) {
+    if (userDetails.password) {
+      if (Validator.isEmpty(userDetails.password.trim())) {
         errors.password = 'Please fill in your password';
       }
     }
-    if (data.passwordConfirmation) {
-      if (Validator.isEmpty(data.passwordConfirmation.trim())) {
+    if (userDetails.passwordConfirmation) {
+      if (Validator.isEmpty(userDetails.passwordConfirmation.trim())) {
         errors.password = 'This field is required';
       }
     }
-    if (data.password && data.password.length <= 5) {
+    if (userDetails.password && userDetails.password.length <= 5) {
       errors.password = 'Password length must not be less than 6 characters';
     }
-    if (!data.passwordConfirmation) {
+    if (!userDetails.passwordConfirmation) {
       errors.passwordConfirmation = 'Please fill in your password';
     }
-    if (data.password && data.passwordConfirmation) {
-      if (data.password.trim() !== data.passwordConfirmation.trim()) {
+    if (userDetails.password && userDetails.passwordConfirmation) {
+      if (userDetails.password.trim() !==
+        userDetails.passwordConfirmation.trim()) {
         errors.passwordConfirmation = 'Passwords must match!!';
       }
     }
-    if (!data.passwordConfirmation) {
+    if (!userDetails.passwordConfirmation) {
       errors.invalid = 'Please fill in your details';
     }
     return {

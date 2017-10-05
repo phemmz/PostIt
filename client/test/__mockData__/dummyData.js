@@ -23,7 +23,8 @@ export const user = [
     phoneNumber: '1234443454',
     password: '123456',
     token: '1212112'
-  }
+  },
+  {}
 ];
 
 export const group = {
@@ -97,4 +98,35 @@ export const initialCheckVerificationState = {
   verificationStatus: false,
   password: '',
   passwordConfirmation: ''
+};
+
+export const initialAuthState = {
+  isAuthenticated: false,
+  user: {}
+};
+
+export const initialGroupState = {
+  groupList: [],
+  selectedGroup: null,
+  groupMessages: [],
+  appStatus: 'ready',
+  list: {},
+  groupMembers: [],
+  groupCreated: []
+};
+
+export const initialMessageState = {
+  groupList: [],
+  groupMessages: [],
+  list: {},
+  notifications: [],
+  readStatus: false,
+  readList: [],
+  groupName: 'Welcome'
+};
+
+export const initialUserState = {
+  users: [],
+  searchedUsers: [],
+  meta: {}
 };

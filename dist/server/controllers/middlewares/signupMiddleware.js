@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+// import sharedSignupValidations from '../../shared/signupvalidations';
+
 
 var _bluebird = require('bluebird');
 
@@ -13,10 +15,6 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 var _isEmpty = require('lodash/isEmpty');
 
 var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-var _signupvalidations = require('../../shared/signupvalidations');
-
-var _signupvalidations2 = _interopRequireDefault(_signupvalidations);
 
 var _models = require('../../data/models');
 
@@ -43,15 +41,15 @@ var SignupValidations = function () {
     /**
      * @description validateInput() validates user inputs for signup
      * and also checks if the username and email already exist on the database
-     * @param {*} data
+     * @param {*} userData
      * @param {*} otherValidations
      * @returns {object} json
      */
-    value: function validateInput(data, otherValidations) {
+    value: function validateInput(userData, otherValidations) {
       /**
        * @description Deconstruct all errors from otherValidations
        */
-      var _otherValidations = otherValidations(data),
+      var _otherValidations = otherValidations(userData),
           errors = _otherValidations.errors;
       /**
        * Promise.all returns a single promise for the 2 database calls
@@ -64,7 +62,7 @@ var SignupValidations = function () {
        */
       User.findOne({
         where: {
-          username: data.username
+          username: userData.username
         }
       }).then(function (user) {
         if (user) {
@@ -76,7 +74,7 @@ var SignupValidations = function () {
        */
       User.findOne({
         where: {
-          email: data.email
+          email: userData.email
         }
       }).then(function (user) {
         if (user) {
@@ -87,30 +85,6 @@ var SignupValidations = function () {
           errors: errors,
           isValid: (0, _isEmpty2.default)(errors)
         };
-      });
-    }
-    /**
-     * @description validates User Input
-     * @param {*} req
-     * @param {*} res
-     * @param {*} next
-     * @returns {object} json
-     */
-
-  }, {
-    key: 'validateUserInput',
-    value: function validateUserInput(req, res, next) {
-      SignupValidations.validateInput(req.body, _signupvalidations2.default.commonValidations).then(function (_ref) {
-        var errors = _ref.errors,
-            isValid = _ref.isValid;
-
-        if (!isValid) {
-          res.status(422).json({
-            errors: errors
-          });
-        } else {
-          next();
-        }
       });
     }
   }]);

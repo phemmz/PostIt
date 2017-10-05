@@ -56,22 +56,17 @@ var AddUserValidations = function () {
      * @param {*} next
      * @returns {object} json
      */
+    // static validateUserInput(req, res, next) {
+    //   const { errors, isValid } = AddUserValidations.validateAddUser(req.body);
+    //   if (!isValid) {
+    //     res.status(422).json({
+    //       errors
+    //     });
+    //   } else {
+    //     next();
+    //   }
+    // }
 
-  }, {
-    key: 'validateUserInput',
-    value: function validateUserInput(req, res, next) {
-      var _AddUserValidations$v = AddUserValidations.validateAddUser(req.body),
-          errors = _AddUserValidations$v.errors,
-          isValid = _AddUserValidations$v.isValid;
-
-      if (!isValid) {
-        res.status(422).json({
-          errors: errors
-        });
-      } else {
-        next();
-      }
-    }
   }]);
 
   return AddUserValidations;
