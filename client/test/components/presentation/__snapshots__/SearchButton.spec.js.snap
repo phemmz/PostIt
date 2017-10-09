@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchButton Component should always render a div 1`] = `
+<SearchButton>
+  <div
+    className="center"
+  >
+    <ReactTooltip
+      insecure={true}
+      resizeHide={true}
+      wrapper="div"
+    >
+      <div
+        className="__react_component_tooltip place-top type-dark "
+        data-id="tooltip"
+      />
+    </ReactTooltip>
+    <Link
+      className="searchbtn waves-effect waves-light btn center search-users"
+      data-tip="Search Users"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to="/search"
+    >
+      <a
+        className="searchbtn waves-effect waves-light btn center search-users"
+        data-tip="Search Users"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        Search Users
+      </a>
+    </Link>
+  </div>
+</SearchButton>
+`;

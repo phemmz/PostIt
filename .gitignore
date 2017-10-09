@@ -1,2 +1,11 @@
 # Dependency directories
 node_modules
+.env
+npm-debug.log
+.DS_Store
+server/.DS_Store
+server/data/config/.DS_Store
+dist/.DS_Store
+coverage
+dist/server
+dist/app.js

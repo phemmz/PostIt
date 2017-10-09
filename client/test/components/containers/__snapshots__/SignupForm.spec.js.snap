@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignupForm Component should render a form for signin up 1`] = `
+<SignupForm
+  googleAuthentication={[Function]}
+  isUserExists={[Function]}
+  onSubmit={[Function]}
+  userSignupRequest={[Function]}
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col s12 m6 offset-m3 signup"
+    >
+      <div
+        className="right"
+      >
+        <t
+          buttonText="Signup with Google"
+          className="google-link"
+          clientId="484298663558-arrp0kt4u2j2aro9k2bbb2bcffth9fke.apps.googleusercontent.com"
+          cookiePolicy="single_host_origin"
+          disabledStyle={
+            Object {
+              "opacity": 0.6,
+            }
+          }
+          fetchBasicProfile={true}
+          isSignedIn={false}
+          onFailure={[Function]}
+          onRequest={[Function]}
+          onSuccess={[Function]}
+          prompt=""
+          responseType="permission"
+          scope="profile email"
+          tag="button"
+          uxMode="popup"
+        />
+      </div>
+      <form
+        onSubmit={[Function]}
+      >
+        <h4
+          className="green-text text-darken-4 valign"
+        >
+          Create An Account
+        </h4>
+        <TextFieldGroup
+          checkUserExists={[Function]}
+          error=""
+          field="username"
+          htmlFor="username"
+          id="username"
+          label="Username"
+          onChange={[Function]}
+          type="text"
+          value=""
+        >
+          <div
+            className="input-field col s12"
+          >
+            <input
+              className="form-control"
+              id="username"
+              name="username"
+              onBlur={[Function]}
+              onChange={[Function]}
+              required={true}
+              type="text"
+              value=""
+            />
+            <label
+              htmlFor="username"
+            >
+              Username
+            </label>
+          </div>
+        </TextFieldGroup>
+        <TextFieldGroup
+          checkUserExists={[Function]}
+          error=""
+          field="email"
+          htmlFor="email"
+          id="email"
+          label="Email"
+          onChange={[Function]}
+          type="email"
+          value=""
+        >
+          <div
+            className="input-field col s12"
+          >
+            <input
+              className="form-control"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              required={true}
+              type="email"
+              value=""
+            />
+            <label
+              htmlFor="email"
+            >
+              Email
+            </label>
+          </div>
+        </TextFieldGroup>
+        <TextFieldGroup
+          checkUserExists={[Function]}
+          error=""
+          field="phoneNumber"
+          htmlFor="phoneNumber"
+          id="phoneNumber"
+          label="Phone Number"
+          onChange={[Function]}
+          type="text"
+          value=""
+        >
+          <div
+            className="input-field col s12"
+          >
+            <input
+              className="form-control"
+              id="phoneNumber"
+              name="phoneNumber"
+              onBlur={[Function]}
+              onChange={[Function]}
+              required={true}
+              type="text"
+              value=""
+            />
+            <label
+              htmlFor="phoneNumber"
+            >
+              Phone Number
+            </label>
+          </div>
+        </TextFieldGroup>
+        <TextFieldGroup
+          checkUserExists={[Function]}
+          error=""
+          field="password"
+          htmlFor="password"
+          id="password"
+          label="Password"
+          onChange={[Function]}
+          type="password"
+          value=""
+        >
+          <div
+            className="input-field col s12"
+          >
+            <input
+              className="form-control"
+              id="password"
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              required={true}
+              type="password"
+              value=""
+            />
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+          </div>
+        </TextFieldGroup>
+        <TextFieldGroup
+          checkUserExists={[Function]}
+          error=""
+          field="passwordConfirmation"
+          htmlFor="passwordConfirmation"
+          id="passwordConfirmation"
+          label="Confirm Password"
+          onChange={[Function]}
+          type="password"
+          value=""
+        >
+          <div
+            className="input-field col s12"
+          >
+            <input
+              className="form-control"
+              id="passwordConfirmation"
+              name="passwordConfirmation"
+              onBlur={[Function]}
+              onChange={[Function]}
+              required={true}
+              type="password"
+              value=""
+            />
+            <label
+              htmlFor="passwordConfirmation"
+            >
+              Confirm Password
+            </label>
+          </div>
+        </TextFieldGroup>
+        <div
+          className="center"
+        >
+          <button
+            className="waves-effect waves-light btn"
+            disabled={false}
+          >
+            Sign Up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</SignupForm>
+`;

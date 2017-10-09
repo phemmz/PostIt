@@ -1,10 +1,16 @@
 language: node_js
+
+env:
+  - NODE_ENV="development"    
+
 node_js:
-  - '6'
-install:
-  -npm install
-script:
-  -npm test
-cache:
-  directories:
-    - node_modules
+  - "stable"
+
+services:
+  -postgresql
+
+before_script:
+  - "psql -c 'create database travis;' -U postgres"
+
+after_success:
+ - npm run coveralls

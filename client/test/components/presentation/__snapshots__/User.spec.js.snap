@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Component should always render div 1`] = `
+<User
+  user={
+    Object {
+      "email": "boy1@gmail.com",
+      "id": 2,
+      "password": "123456",
+      "passwordConfirmation": "123456",
+      "phoneNumber": "99999999",
+      "token": "1212112",
+      "username": "boy1",
+    }
+  }
+>
+  <div
+    className="card search-user center green-text text-darken-4"
+  >
+    <span
+      className="username"
+    >
+      Username: 
+      boy1
+    </span>
+    <br />
+    <span
+      className="email"
+    >
+      Email: 
+      boy1@gmail.com
+    </span>
+    <br />
+    <span
+      className="phoneNumber"
+    >
+      Phone Number: 
+      99999999
+    </span>
+  </div>
+</User>
+`;
