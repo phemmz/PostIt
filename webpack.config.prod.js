@@ -1,8 +1,8 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
+import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import webpack from 'webpack';
 
-module.exports = {
+const webpackConfig = {
 
   entry: [
     path.join(__dirname, '/client/src/App.jsx')
@@ -53,3 +53,5 @@ module.exports = {
     })
   ]
 };
+
+export default webpackConfig;
