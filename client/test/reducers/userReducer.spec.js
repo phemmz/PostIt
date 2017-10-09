@@ -5,7 +5,7 @@ import { initialUserState, user } from
 '../__mockData__/dummyData';
 
 describe('User Reducer', () => {
-  it('should return default state', () => {
+  it('should return default state for invalid action type', () => {
     const users = user;
     const action = { type: 'NOT_GET_ALL_USERS', users };
     const newState = userReducer(initialUserState, action);
@@ -21,7 +21,7 @@ describe('User Reducer', () => {
     expect(newState.users[0].username).toEqual(users[0].username);
     expect(newState.users[0].email).toEqual(users[0].email);
   });
-  it('should handle SEARCH_USER', () => {
+  it('should handle SEARCH_USER for searching users', () => {
     const searchedUsers = user;
     const action = { type: SEARCH_USER, searchedUsers };
     const newState = userReducer(initialUserState, action);

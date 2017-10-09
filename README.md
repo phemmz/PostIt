@@ -17,7 +17,7 @@ This application was developed using [ExpressJS](http://expressjs.com). [Postgre
 6. Create a `.env` file in your root directory as described in `.env.sample` file.
 7. Variable such as DATABASE_URL (which must be a postgresql URL) is defined in the .env file and it is essential to create this file before running the application.
 ```
-DATABASE_URL='postgres://jean:buck@localhost:5432/databaseName'
+DATABASE_URL='postgres://username:password@hostname/databasename'
 ```
 8. After this, you can start the server with the command: `npm start`.
 

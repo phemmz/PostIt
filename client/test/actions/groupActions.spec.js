@@ -26,26 +26,32 @@ describe('Group actions', () => {
           message: 'lagos fellows successfully created'
         }
       });
+
     const expectedActions = [
       {
         type: GROUP_CREATE,
         group: { groupname: group.groupname }
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
+
     return store.dispatch(groupActions.groupCreate(
       { groupname: group.groupname }))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
+
   it('should create an action that saves the id of the GROUP_SELECTED', () => {
     const expectedAction = {
       type: GROUP_SELECTED,
       selectedGroup: group.groupId
     };
+
     expect(groupActions.groupSelected(group.groupId)).toEqual(expectedAction);
   });
+
   it('should create an action that fetch all groups a user belongs to', () => {
     nock('http://localhost')
       .get('/api/v1/group')
@@ -54,6 +60,7 @@ describe('Group actions', () => {
           groups
         }
       });
+
     const expectedActions = [
       {
         type: APPLICATION_STATE,
@@ -64,16 +71,20 @@ describe('Group actions', () => {
         groups: { groups }
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
+
     return store.dispatch(groupActions.fetchGroups())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
+
   it('should dispatch an action if no group is received', () => {
     nock('http://localhost')
       .get('/api/v1/group')
       .reply(400);
+
     const expectedActions = [
       {
         type: APPLICATION_STATE,
@@ -83,12 +94,15 @@ describe('Group actions', () => {
         type: GROUPS_NOT_RECEIVED,
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
+
     return store.dispatch(groupActions.fetchGroups())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
+
   it('should create an action that adds a user to a group', () => {
     nock('http://localhost')
       .post(`/api/v1/group/${group.groupId}/user`, user.username)
@@ -97,6 +111,7 @@ describe('Group actions', () => {
           message: 'User added Successfully'
         }
       });
+
     const expectedActions = [
       {
         type: ADD_USER,
@@ -105,12 +120,15 @@ describe('Group actions', () => {
         }
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
+
     return store.dispatch(groupActions.addUser(group.groupId, user.username))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
+
   it('should create an action that gets all users in a group', () => {
     nock('http://localhost').get(
       `/api/v1/members/${group.groupId}/${metaData.offset}/${metaData.perPage}`)
@@ -119,6 +137,7 @@ describe('Group actions', () => {
           members: user
         }
       });
+
     const expectedActions = [
       {
         type: GROUP_MEMBERS,
@@ -127,7 +146,9 @@ describe('Group actions', () => {
         }
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
+
     return store.dispatch(
       groupActions.getGroupMembers(
         group.groupId, metaData.offset, metaData.perPage))
