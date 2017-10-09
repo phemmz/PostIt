@@ -27,10 +27,11 @@ describe('Signup actions', () => {
     nock.cleanAll();
   });
 
-  it('creates an action that creates an account for new users', () => {
+  it('creates an action that creates a new account', () => {
     nock('http://localhost')
       .post('/api/v1/user/signup')
       .reply(200);
+
     const expectedActions = [{
       type: SET_CURRENT_USER,
       user: {
@@ -38,18 +39,22 @@ describe('Signup actions', () => {
         password: user[0].password
       }
     }];
+
     const store = mockStore({ auth: {} });
     mockStorage.setItem('jwtToken', user[0].token);
+
     return store.dispatch(signupActions.userSignupRequest(user))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
+
   it('creates an action that checks if a user exist', () => {
     const identifier = 'man';
     nock('http://localhost.com')
       .get(`/api/v1/user/${identifier}`)
       .reply(200);
+
     const expectedActions = [];
     const store = mockStore({ users: [] });
     store.dispatch(signupActions.isUserExists(identifier))
@@ -65,8 +70,10 @@ describe('Signup actions', () => {
         passwordConfirmation: user[1].passwordConfirmation
       })
       .reply(201);
+
     const expectedActions = [];
     const store = mockStore({ users: [] });
+
     store.dispatch(signupActions.updatePassword(user[1]))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);

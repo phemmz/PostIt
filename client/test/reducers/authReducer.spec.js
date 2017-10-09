@@ -7,6 +7,7 @@ describe('Auth Reducer', () => {
   it('should return the initial state', () => {
     expect(auth(undefined, {})).toEqual(initialAuthState);
   });
+
   it('should handle SET_CURRENT_USER', () => {
     const action = { type: SET_CURRENT_USER, user: user[0] };
     const newState = auth(initialAuthState, action);
@@ -14,7 +15,9 @@ describe('Auth Reducer', () => {
     expect(newState.isAuthenticated).toEqual(true);
     expect(newState.user).toEqual(user[0]);
   });
-  it('should return false for isAuthenticated when auth is passed with empty action', () => {  // eslint-disable-line
+
+  it(`should return false for isAuthenticated
+   when user details is not valid`, () => {
     const action = { type: SET_CURRENT_USER, user: user[3] };
     const newState = auth(initialAuthState, action);
 

@@ -21,12 +21,14 @@ describe('User action', () => {
   afterEach(() => {
     nock.cleanAll();
   });
-  it('gets all users', () => {
+
+  it('should get all users', () => {
     nock('http://localhost')
       .get('/api/v1/user')
       .reply(200, {
         result: user
       });
+
     const expectedActions = [
       { type: GET_ALL_USERS,
         users: user
@@ -47,6 +49,7 @@ describe('User action', () => {
           results: user
         }
       });
+
     const expectedActions = [
       {
         type: SEARCH_USER,
@@ -55,6 +58,7 @@ describe('User action', () => {
         }
       }
     ];
+
     const store = mockStore({ groupReducer: {} });
     return store.dispatch(
       UserActions.searchUser('u', metaData.offset, metaData.perPage))

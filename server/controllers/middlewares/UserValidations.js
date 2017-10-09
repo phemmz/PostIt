@@ -115,26 +115,6 @@ export default class UserValidations {
     });
   }
   /**
-   * @description validates users input fields
-   * @param {object} groupDetails
-   * @returns {object} errors,isValid
-   */
-  static validateCreateGroup(groupDetails) {
-    const errors = {};
-    if (groupDetails.groupname) {
-      if (Validator.isEmpty(groupDetails.groupname.trim())) {
-        errors.groupname = 'Please fill in your groupname';
-      }
-    }
-    if (!groupDetails.groupname) {
-      errors.invalid = 'Please fill in your details';
-    }
-    return {
-      errors,
-      isValid: isEmpty(errors)
-    };
-  }
-  /**
    * @description validates user input fields
    * @param {object} userDetails
    * @returns {object} errors,isValid
